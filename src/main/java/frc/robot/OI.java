@@ -54,7 +54,6 @@ public class OI {
 
     public OI() {
         // CONSTRUCTORS
-
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
         
@@ -72,10 +71,10 @@ public class OI {
         return driverJoystick;
     }
 
-        // FUNCTIONS
-        public Joystick getOperatorJoystick() {
-            return operatorJoystick;
-        }
+    // FUNCTIONS
+    public Joystick getOperatorJoystick() {
+        return operatorJoystick;
+    }
 
 }
 
