@@ -49,6 +49,7 @@ public class OI {
     // DECLARATIONS
     public JoystickButton joystickButtonred;
     public Joystick driverJoystick;
+    public Joystick operatorJoystick;
 
 
     public OI() {
