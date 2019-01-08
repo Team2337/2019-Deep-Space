@@ -26,4 +26,5 @@ hs_err_pid*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
+!.vscode/options.json
 !.vscode/extensions.json
