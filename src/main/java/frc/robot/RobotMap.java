@@ -25,4 +25,7 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   //new test in master
+
+  //comment-delete
+  //testing git
 }
