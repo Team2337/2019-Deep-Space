@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shifter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,44 +13,38 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class AutonomousCommand extends Command {
+public class shifter_Do_Nothing extends Command {
 
-  // DECLERATIONS
-  private double speed, timeout;
+
 
   // CONSTRUCTOR
-  public AutonomousCommand(double speed, double timeout) {
+  public shifter_Do_Nothing() {
 
-    // VARIABLE_SETTING
-    this.speed = speed;
-    this.timeout = timeout;
-
-    // REQUIRED SUBSYETM
-    requires(Robot.m_chassis);
+    requires(Robot.Example);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(timeout);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_chassis.driveArcade(speed, 0, false);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_chassis.driveArcade(0, 0, false);
+    
   }
 
   // Called when another command which requires one or more of the same

@@ -50,19 +50,16 @@ public class OI {
     public JoystickButton joystickButtonred;
     public Joystick driverJoystick;
     public Joystick operatorJoystick;
+    public Joystick Driverstation;
 
 
     public OI() {
         // CONSTRUCTORS
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
+    
+
         
-        joystickButtonred = new JoystickButton(driverJoystick, 1);
-        joystickButtonred.whileHeld(new AutonomousCommand(0.5,5));
-
-
-        // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand(0.5,5));
 
     }
 

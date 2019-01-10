@@ -13,7 +13,19 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Cargo_Intake;
+import frc.robot.subsystems.Cargo_Score;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Compressor;
+import frc.robot.subsystems.Example_Subsystem;
+import frc.robot.subsystems.Hatch_Intake;
+import frc.robot.subsystems.Hatch_Score;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Shifter;
+import frc.robot.subsystems.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,11 +37,26 @@ import frc.robot.subsystems.Chassis;
 public class Robot extends TimedRobot {
 
   // DECLARATIONS
-  public static OI m_oi;
-  public static Chassis m_chassis;
+  public static OI  oi;
 
-  Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public static Arm  Arm;
+  public static Cargo_Score  CargoScore;
+  public static Cargo_Intake  CargoIntake;
+  public static Chassis Chassis;
+  public static Climber  Climber;
+  public static Compressor  Compressor;
+  public static Hatch_Score  HatchScore;
+  public static Hatch_Intake  HatchIntake;
+  public static LED  LED;
+  public static Lift  Lift;
+  public static Shifter  Shifter;
+  public static Vision  Vision;
+
+  public static Example_Subsystem Example;
+
+
+  Command  autonomousCommand;
+  SendableChooser<Command>  chooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -39,14 +66,26 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // CONSTRUCTORS
-    m_oi = new OI();
-    m_chassis = new Chassis();
+     oi = new OI();
+
+     Arm = new Arm();
+     CargoIntake = new Cargo_Intake();
+     CargoScore = new Cargo_Score();
+     Chassis = new Chassis();
+     Climber = new Climber();
+     Compressor = new Compressor();
+     HatchIntake = new Hatch_Intake();
+     HatchScore = new Hatch_Score();
+     LED = new LED();
+     Lift = new Lift();
+     Shifter = new Shifter();
+     Vision = new Vision();
+
+     Example = new Example_Subsystem();
+
     
-    // AUTON CHOOSER OPTIONS
-    m_chooser.setDefaultOption("Do Nothing", new AutonomousCommand(0,0));
-    m_chooser.addOption("Drive Straight 30% speed for 2 seconds", new AutonomousCommand(.3,2));
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    SmartDashboard.putData("Auto mode",  chooser);
   }
 
   /**
@@ -88,7 +127,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+     autonomousCommand =  chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -98,8 +137,8 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+    if ( autonomousCommand != null) {
+       autonomousCommand.start();
     }
   }
 
@@ -117,8 +156,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if ( autonomousCommand != null) {
+       autonomousCommand.cancel();
     }
   }
 

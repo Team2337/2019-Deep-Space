@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Chassis extends Subsystem {
+public class Vision extends Subsystem {
 
 
 
-  public Chassis() {
+  public Vision() {
 
   }
 
