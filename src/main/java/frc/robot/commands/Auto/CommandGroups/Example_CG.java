@@ -5,28 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.commands.Auto.CommandGroups;
 
-import frc.robot.commands.*;
-
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
 
 /**
- * 
+ * This is an example command group, put commands in here to run them in auton
  */
-public class Chassis extends Subsystem {
+public class Example_CG extends CommandGroup {
+  public Example_CG() {
 
-
-
-  public Chassis() {
-
+    
   }
-
-  // Set the default command for a subsystem here.
-
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
-  }
-
 }
