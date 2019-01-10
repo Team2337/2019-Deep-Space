@@ -26,7 +26,7 @@ public class Lift extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Example_Command());
+    setDefaultCommand(new Do_Nothing());
   }
 
 }
