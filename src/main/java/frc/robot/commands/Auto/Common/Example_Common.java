@@ -8,7 +8,7 @@
 package frc.robot.commands.Auto.Common;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
+//import frc.robot.Robot;
 
 /**
  * This is an example common command group that are used in multiple commands
