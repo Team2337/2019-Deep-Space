@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Hatch_Score extends Subsystem {
+public class HatchScore extends Subsystem {
 
 
 
-  public Hatch_Score() {
+  public HatchScore() {
 
   }
 
