@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Cargo_Intake;
+package frc.robot.commands.HatchIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,12 +13,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class cargoIntakeDoNothing extends Command {
+public class hatchIntakeDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public cargoIntakeDoNothing() {
+  public hatchIntakeDoNothing() {
 
     requires(Robot.Example);
   }

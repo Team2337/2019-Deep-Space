@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Cargo_Score;
+package frc.robot.commands.CargoScore;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
