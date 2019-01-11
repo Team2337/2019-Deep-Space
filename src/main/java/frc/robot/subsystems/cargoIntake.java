@@ -28,5 +28,4 @@ public class cargoIntake extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new Do_Nothing());
   }
-
 }

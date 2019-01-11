@@ -30,7 +30,7 @@ private int Port = 0;
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Example_Command());
+    setDefaultCommand(new Do_Nothing());
 
   }
 
