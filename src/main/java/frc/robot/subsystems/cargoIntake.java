@@ -26,7 +26,7 @@ public class cargoIntake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Example_Command());
+    setDefaultCommand(new Do_Nothing());
   }
 
 }
