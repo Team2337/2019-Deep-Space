@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Example_Subsystem extends Subsystem {
+public class CargoScore extends Subsystem {
 
 
 
-  public Example_Subsystem() {
+  public CargoScore() {
 
   }
 
