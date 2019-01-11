@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Chassis;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,12 +13,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class chassis_Do_Nothing extends Command {
+public class doNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public chassis_Do_Nothing() {
+  public doNothing() {
 
     requires(Robot.Example);
   }

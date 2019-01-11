@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hatch_Score;
+package frc.robot.commands.Cargo_Score;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,12 +13,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class hatchScore_Do_Nothing extends Command {
+public class cargoScoreDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public hatchScore_Do_Nothing() {
+  public cargoScoreDoNothing() {
 
     requires(Robot.Example);
   }

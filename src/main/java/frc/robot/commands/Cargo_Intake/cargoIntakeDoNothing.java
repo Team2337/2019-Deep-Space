@@ -13,12 +13,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class cargoIntake_Do_Nothing extends Command {
+public class cargoIntakeDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public cargoIntake_Do_Nothing() {
+  public cargoIntakeDoNothing() {
 
     requires(Robot.Example);
   }

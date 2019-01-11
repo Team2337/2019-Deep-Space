@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Auto.CommandGroups;
+package frc.robot.commands.Auto.Common;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 
 /**
- * This is an example command group, put commands in here to run them in auton
+ * This is an example common command group that are used in multiple commands
+ * 
+ * Such as drive forward, then turn, then shoot that would be used in multiple commands
  */
-public class Example_CG extends CommandGroup {
-  public Example_CG() {
-
+public class ExampleCommon extends CommandGroup {
+  public ExampleCommon() {
     
   }
 }

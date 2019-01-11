@@ -13,12 +13,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class compressor_Do_Nothing extends Command {
+public class compressorDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public compressor_Do_Nothing() {
+  public compressorDoNothing() {
 
     requires(Robot.Example);
   }
