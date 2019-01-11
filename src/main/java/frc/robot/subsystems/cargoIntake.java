@@ -9,17 +9,30 @@ package frc.robot.subsystems;
 
 import frc.robot.commands.*;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * 
  */
 public class cargoIntake extends Subsystem {
-
-
+private TalonSRX rightMotor;
+private TalonSRX leftMotor;
+//Subject to change.
+private int rightPort = 1;
+private int leftPort = 2;
 
   public cargoIntake() {
+this.leftMotor = new TalonSRX(leftPort);
+leftMotor.setInverted(true);
+leftMotor.setNeutralMode(NeutralMode.Brake);
 
+this.rightMotor = new TalonSRX(rightPort);
+rightMotor.setInverted(false);
+rightMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   // Set the default command for a subsystem here.
@@ -28,4 +41,18 @@ public class cargoIntake extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new Do_Nothing());
   }
+  public void rollIn(double speed) {
+rightMotor.set(ControlMode.PercentOutput, speed);
+leftMotor.set(ControlMode.PercentOutput, speed);
+  }
+public void rollOut(double speed) {
+rightMotor.set(ControlMode.PercentOutput, -speed);
+leftMotor.set(ControlMode.PercentOutput, -speed);
+}
+public void rollStop() {
+rightMotor.set(ControlMode.PercentOutput, 0);
+leftMotor.set(ControlMode.PercentOutput, 0);
+}
+
+
 }
