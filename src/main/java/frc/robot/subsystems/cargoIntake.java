@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Cargo_Intake extends Subsystem {
+public class cargoIntake extends Subsystem {
 
 
 
-  public Cargo_Intake() {
+  public cargoIntake() {
 
   }
 
