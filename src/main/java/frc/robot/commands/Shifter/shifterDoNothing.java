@@ -6,12 +6,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class shifter_Do_Nothing extends Command {
+public class shifterDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public shifter_Do_Nothing() {
+  public shifterDoNothing() {
 
     requires(Robot.Example);
   }
