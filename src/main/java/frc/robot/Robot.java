@@ -1,12 +1,6 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,7 +12,7 @@ import frc.robot.subsystems.cargoIntake;
 import frc.robot.subsystems.cargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Compressor;
+import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.Example_Subsystem;
 import frc.robot.subsystems.Hatch_Intake;
 import frc.robot.subsystems.Hatch_Score;
@@ -26,6 +20,8 @@ import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Shifter;
 import frc.robot.subsystems.Vision;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,7 +40,7 @@ public class Robot extends TimedRobot {
   public static cargoIntake  CargoIntake;
   public static Chassis Chassis;
   public static Climber  Climber;
-  public static Compressor  Compressor;
+  public static AirCompressor  AirCompressor;
   public static Hatch_Score  HatchScore;
   public static Hatch_Intake  HatchIntake;
   public static LED  LED;
@@ -73,7 +69,7 @@ public class Robot extends TimedRobot {
      CargoScore = new cargoScore();
      Chassis = new Chassis();
      Climber = new Climber();
-     Compressor = new Compressor();
+     AirCompressor = new AirCompressor();
      HatchIntake = new Hatch_Intake();
      HatchScore = new Hatch_Score();
      LED = new LED();
