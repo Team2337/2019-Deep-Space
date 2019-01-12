@@ -33,20 +33,20 @@ import frc.robot.subsystems.Vision;
 public class Robot extends TimedRobot {
 
   // DECLARATIONS
-  public static OI  oi;
+  public static OI oi;
 
-  public static Arm  Arm;
-  public static CargoScore  CargoScore;
-  public static CargoIntake  CargoIntake;
+  public static Arm Arm;
+  public static CargoScore CargoScore;
+  public static CargoIntake CargoIntake;
   public static Chassis Chassis;
-  public static Climber  Climber;
-  public static AirCompressor  AirCompressor;
-  // public static HatchScore  HatchScore;
-  public static HatchIntake  HatchIntake;
-  public static LED  LED;
-  public static Lift  Lift;
-  public static Shifter  Shifter;
-  public static Vision  Vision;
+  public static Climber Climber;
+  public static AirCompressor AirCompressor;
+  // public static HatchScore HatchScore;
+  public static HatchIntake HatchIntake;
+  public static LED LED;
+  public static Lift Lift;
+  public static Shifter Shifter;
+  public static Vision Vision;
 
   public static ExampleSubsystem Example;
 
