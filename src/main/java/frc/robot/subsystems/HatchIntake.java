@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
+
 import frc.robot.commands.HatchIntake.hatchIntakeDoNothing;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;

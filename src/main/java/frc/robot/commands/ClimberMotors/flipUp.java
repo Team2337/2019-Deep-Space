@@ -6,14 +6,14 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class climber_Do_Nothing extends Command {
+public class flipUp extends Command {
 
 
 
   // CONSTRUCTOR
-  public climber_Do_Nothing() {
+  public flipUp() {
 
-    requires(Robot.Example);
+    requires(Robot.ClimberMotors);
   }
 
   // Called just before this Command runs the first time

@@ -6,12 +6,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class climber_Do_Nothing extends Command {
+public class platformGrab extends Command {
 
 
 
   // CONSTRUCTOR
-  public climber_Do_Nothing() {
+  public platformGrab() {
 
     requires(Robot.Example);
   }

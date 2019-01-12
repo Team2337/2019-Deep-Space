@@ -36,7 +36,7 @@ leftMotor.setNeutralMode(NeutralMode.Brake);
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    //setDefaultCommand(new Do_Nothing());
   }
   public void flipUp(double speed){
   rightMotor.set(ControlMode.PercentOutput, speed);
