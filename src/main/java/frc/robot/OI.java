@@ -8,6 +8,8 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.Chassis.DriveByJoystickAndVision;
+import frc.robot.commands.Chassis.chassis_Do_Nothing;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
@@ -47,20 +49,18 @@ public class OI {
 
 
     // DECLARATIONS
-    public JoystickButton joystickButtonred;
-    public Joystick driverJoystick;
-    public Joystick operatorJoystick;
-    public Joystick Driverstation;
+
+    public Joystick driverJoystick = new Joystick(0);
+    public Joystick operatorJoystick = new Joystick(1);
+    public Joystick Driverstation = new Joystick(2);
+
+    JoystickButton driver_GreenA			= new JoystickButton(driverJoystick, 1);
+
 
 
     public OI() {
         // CONSTRUCTORS
-        driverJoystick = new Joystick(0);
-        operatorJoystick = new Joystick(1);
-    
-
-        
-
+        driver_GreenA			.whileHeld(new DriveByJoystickAndVision());
     }
 
     // FUNCTIONS
@@ -72,6 +72,7 @@ public class OI {
     public Joystick getOperatorJoystick() {
         return operatorJoystick;
     }
+
 
 }
 
