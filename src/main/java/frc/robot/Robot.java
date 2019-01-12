@@ -17,7 +17,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Cargo_Intake;
 import frc.robot.subsystems.Cargo_Score;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.Compressor;
 import frc.robot.subsystems.Example_Subsystem;
 import frc.robot.subsystems.Hatch_Intake;
@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   public static Cargo_Score  CargoScore;
   public static Cargo_Intake  CargoIntake;
   public static Chassis Chassis;
-  public static Climber  Climber;
+  public static ClimberMotors  ClimberMotors;
   public static Compressor  Compressor;
   public static Hatch_Score  HatchScore;
   public static Hatch_Intake  HatchIntake;
@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
      CargoIntake = new Cargo_Intake();
      CargoScore = new Cargo_Score();
      Chassis = new Chassis();
-     Climber = new Climber();
+     ClimberMotors = new ClimberMotors();
      Compressor = new Compressor();
      HatchIntake = new Hatch_Intake();
      HatchScore = new Hatch_Score();

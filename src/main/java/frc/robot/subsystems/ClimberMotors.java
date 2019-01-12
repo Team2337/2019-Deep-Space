@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Climber extends Subsystem {
+public class ClimberMotors extends Subsystem {
 
 
 
-  public Climber() {
+  public ClimberMotors() {
 
   }
 
@@ -26,7 +26,7 @@ public class Climber extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    //setDefaultCommand(new Do_Nothing());
   }
 
 }
