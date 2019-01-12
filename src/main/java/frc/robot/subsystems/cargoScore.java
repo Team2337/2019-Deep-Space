@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Cargo_Score extends Subsystem {
+public class CargoScore extends Subsystem {
 
-  public Cargo_Score() {
+
+
+  public CargoScore() {
 
   }
 
@@ -17,7 +19,7 @@ public class Cargo_Score extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
-
+    setDefaultCommand(new doNothing());
   }
+
 }
