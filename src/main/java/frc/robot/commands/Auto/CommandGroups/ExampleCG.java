@@ -6,8 +6,8 @@ import frc.robot.Robot;
 /**
  * This is an example command group, put commands in here to run them in auton
  */
-public class Example_CG extends CommandGroup {
-  public Example_CG() {
+public class ExampleCG extends CommandGroup {
+  public ExampleCG() {
 
     
   }

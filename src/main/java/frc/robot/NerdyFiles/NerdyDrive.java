@@ -4,7 +4,7 @@
  * @author Team2337 - Enginerds
  */
 
-package frc.robot.NerdyFiles;
+package frc.robot.nerdyfiles;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -22,10 +22,8 @@ public class NerdyDrive {
 	/**
 	 * NerdyDrive - A customized RobotDrive
 	 * 
-	 * @param left
-	 *            Left TalonSRX Motor Controller
-	 * @param right
-	 *            Right TaonSRX Motor Controller
+	 * @param left  Left TalonSRX Motor Controller
+	 * @param right Right TaonSRX Motor Controller
 	 */
 	public NerdyDrive(TalonSRX left, TalonSRX right) {
 		this.left = left;
@@ -35,10 +33,8 @@ public class NerdyDrive {
 	/**
 	 * Arcade Drive - Allows for speed and turn inputs
 	 * 
-	 * @param speed
-	 *            - Power for moving forward
-	 * @param turn
-	 *            - Power for turning
+	 * @param speed - Power for moving forward
+	 * @param turn  - Power for turning
 	 */
 	public void arcadeDrive(double xSpeed, double zRotation, boolean squaredInputs) {
 		xSpeed = limit(xSpeed);
@@ -83,6 +79,7 @@ public class NerdyDrive {
 		this.right.set(ControlMode.PercentOutput, limit(rightMotorOutput) * m_maxOutput);
 
 	}
+
 	public void curvatureDrive(double speed, double zRotation, boolean isQuickTurn) {
 
 		double angularPower;
@@ -132,29 +129,28 @@ public class NerdyDrive {
 	}
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
-	    tankDrive(leftSpeed, rightSpeed, false);
-	  }
-	
+		tankDrive(leftSpeed, rightSpeed, false);
+	}
+
 	public void tankDrive(double leftSpeed, double rightSpeed, boolean squaredInputs) {
 
-	    leftSpeed = limit(leftSpeed);
-	  //  leftSpeed = applyDeadband(leftSpeed, m_deadband);
+		leftSpeed = limit(leftSpeed);
+		// leftSpeed = applyDeadband(leftSpeed, m_deadband);
 
-	    rightSpeed = limit(rightSpeed);
-	  //  rightSpeed = applyDeadband(rightSpeed, m_deadband);
+		rightSpeed = limit(rightSpeed);
+		// rightSpeed = applyDeadband(rightSpeed, m_deadband);
 
-	    // Square the inputs (while preserving the sign) to increase fine control
-	    // while permitting full power.
-	    if (squaredInputs) {
-	      leftSpeed = Math.copySign(leftSpeed * leftSpeed, leftSpeed);
-	      rightSpeed = Math.copySign(rightSpeed * rightSpeed, rightSpeed);
-	    }
-	    
-	    this.left.set(ControlMode.PercentOutput, leftSpeed);
+		// Square the inputs (while preserving the sign) to increase fine control
+		// while permitting full power.
+		if (squaredInputs) {
+			leftSpeed = Math.copySign(leftSpeed * leftSpeed, leftSpeed);
+			rightSpeed = Math.copySign(rightSpeed * rightSpeed, rightSpeed);
+		}
+
+		this.left.set(ControlMode.PercentOutput, leftSpeed);
 		this.right.set(ControlMode.PercentOutput, rightSpeed);
-	  }
+	}
 
-	
 	protected double limit(double value) {
 		if (value > 1.0) {
 			return 1.0;
