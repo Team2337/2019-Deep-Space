@@ -1,17 +1,16 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ClimberMotors;
+import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchIntake;
@@ -38,13 +37,16 @@ public class Robot extends TimedRobot {
   public static CargoScore CargoScore;
   public static CargoIntake CargoIntake;
   public static Chassis Chassis;
-  public static Climber Climber;
+
+  public static ClimberPneumatics ClimberPneumatics;
+  public static ClimberMotors ClimberMotors;
   public static AirCompressor AirCompressor;
   public static HatchIntake HatchIntake;
   public static LED LED;
   public static Lift Lift;
   public static Shifter Shifter;
   public static Vision Vision;
+
 
   public static ExampleSubsystem Example;
 
@@ -66,7 +68,9 @@ public class Robot extends TimedRobot {
      CargoIntake = new CargoIntake();
      CargoScore = new CargoScore();
      Chassis = new Chassis();
-     Climber = new Climber();
+     ClimberMotors = new ClimberMotors();
+     ClimberPneumatics = new ClimberPneumatics();
+     
      AirCompressor = new AirCompressor();
      HatchIntake = new HatchIntake();
      LED = new LED();
