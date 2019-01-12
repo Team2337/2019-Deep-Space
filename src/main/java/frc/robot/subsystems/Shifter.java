@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.Solenoid;
  * Shifts the chassis gear ratio from speed to torque 
  * Speed = High Gear 
  * Torque = Low Gear
+ * 
+ * @author Emily H.
  */
 public class Shifter extends Subsystem {
 
@@ -19,8 +21,7 @@ public class Shifter extends Subsystem {
   private Solenoid leftSide = new Solenoid(PCM, portLeft);
   private Solenoid rightSide = new Solenoid(PCM, portRight);
 
-  public Shifter()
-  {
+  public Shifter() {
 
   }
 
@@ -30,16 +31,19 @@ public class Shifter extends Subsystem {
     setDefaultCommand(new shifterHighGear());
   }
 
-  // Shift the robot into high gear (Speed)
+  /**
+   * Shift the robot into high gear (Speed)
+   */
   public void shiftHighGear() {
     leftSide.set(true);
     rightSide.set(true);
   }
 
-  // Shift the robot into low gear (Torque)
+  /**
+   * Shift the robot into low gear (Torque)
+   */
   public void shiftLowGear() {
     leftSide.set(false);
     rightSide.set(false);
   }
-
 }

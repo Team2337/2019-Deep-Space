@@ -6,10 +6,10 @@ import frc.robot.Robot;
 
 /**
  * This command shifts the chassis to low gear (torque)
+ * 
+ * @author Emily H.
  */
 public class shifterLowGear extends Command {
-
-
 
   // CONSTRUCTOR
   public shifterLowGear() {
@@ -29,7 +29,7 @@ public class shifterLowGear extends Command {
     
   }
 
-  // Make this return true when this Command no longer needs to run execute()
+  // Make this return true when this Command no longer needs to run (execute)
   @Override
   protected boolean isFinished() {
     return true;

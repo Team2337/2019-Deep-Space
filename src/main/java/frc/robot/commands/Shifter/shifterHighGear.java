@@ -6,10 +6,10 @@ import frc.robot.Robot;
 
 /**
  * This command shifts the chassis to high gear (speed)
+ * 
+ * @author Emily H.
  */
 public class shifterHighGear extends Command {
-
-
 
   // CONSTRUCTOR
   public shifterHighGear() {
