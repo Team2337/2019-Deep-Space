@@ -8,14 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.cargoIntake;
-import frc.robot.subsystems.cargoScore;
+import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchIntake;
-import frc.robot.subsystems.HatchScore;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Shifter;
@@ -33,20 +32,19 @@ import frc.robot.subsystems.Vision;
 public class Robot extends TimedRobot {
 
   // DECLARATIONS
-  public static OI  oi;
+  public static OI oi;
 
-  public static Arm  Arm;
-  public static cargoScore  CargoScore;
-  public static cargoIntake  CargoIntake;
+  public static Arm Arm;
+  public static CargoScore CargoScore;
+  public static CargoIntake CargoIntake;
   public static Chassis Chassis;
-  public static Climber  Climber;
-  public static AirCompressor  AirCompressor;
-  public static HatchScore  HatchScore;
-  public static HatchIntake  HatchIntake;
-  public static LED  LED;
-  public static Lift  Lift;
-  public static Shifter  Shifter;
-  public static Vision  Vision;
+  public static Climber Climber;
+  public static AirCompressor AirCompressor;
+  public static HatchIntake HatchIntake;
+  public static LED LED;
+  public static Lift Lift;
+  public static Shifter Shifter;
+  public static Vision Vision;
 
   public static ExampleSubsystem Example;
 
@@ -71,7 +69,6 @@ public class Robot extends TimedRobot {
      Climber = new Climber();
      AirCompressor = new AirCompressor();
      HatchIntake = new HatchIntake();
-     HatchScore = new HatchScore();
      LED = new LED();
      Lift = new Lift();
      Shifter = new Shifter();

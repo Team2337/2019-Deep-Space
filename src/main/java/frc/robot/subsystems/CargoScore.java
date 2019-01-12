@@ -5,11 +5,9 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ *
  */
 public class CargoScore extends Subsystem {
-
-
 
   public CargoScore() {
 

@@ -22,7 +22,7 @@ public class HatchIntake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new doNothing());
   }
 
   // Extend the Hatch Grabber to obtain the hatch panel
