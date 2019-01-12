@@ -1,4 +1,4 @@
-package frc.robot.commands.Climber;
+package frc.robot.commands.LED;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,12 +6,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class climber_Do_Nothing extends Command {
+public class LEDRuntime extends Command {
 
 
 
   // CONSTRUCTOR
-  public climber_Do_Nothing() {
+  public LEDRuntime() {
 
     requires(Robot.Example);
   }

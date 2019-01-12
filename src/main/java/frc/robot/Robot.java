@@ -13,9 +13,9 @@ import frc.robot.subsystems.cargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.AirCompressor;
-import frc.robot.subsystems.Example_Subsystem;
-import frc.robot.subsystems.Hatch_Intake;
-import frc.robot.subsystems.Hatch_Score;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.HatchIntake;
+import frc.robot.subsystems.HatchScore;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Shifter;
@@ -41,14 +41,14 @@ public class Robot extends TimedRobot {
   public static Chassis Chassis;
   public static Climber  Climber;
   public static AirCompressor  AirCompressor;
-  public static Hatch_Score  HatchScore;
-  public static Hatch_Intake  HatchIntake;
+  public static HatchScore  HatchScore;
+  public static HatchIntake  HatchIntake;
   public static LED  LED;
   public static Lift  Lift;
   public static Shifter  Shifter;
   public static Vision  Vision;
 
-  public static Example_Subsystem Example;
+  public static ExampleSubsystem Example;
 
 
   Command  autonomousCommand;
@@ -65,21 +65,21 @@ public class Robot extends TimedRobot {
      oi = new OI();
 
      Arm = new Arm();
-     CargoIntake = new cargoIntake();
-     CargoScore = new cargoScore();
+     CargoIntake = new CargoIntake();
+     CargoScore = new CargoScore();
      Chassis = new Chassis();
      Climber = new Climber();
      AirCompressor = new AirCompressor();
-     HatchIntake = new Hatch_Intake();
-     HatchScore = new Hatch_Score();
+     HatchIntake = new HatchIntake();
+     HatchScore = new HatchScore();
      LED = new LED();
      Lift = new Lift();
      Shifter = new Shifter();
      Vision = new Vision();
 
-     Example = new Example_Subsystem();
+     Example = new ExampleSubsystem();
 
-    
+
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode",  chooser);
   }

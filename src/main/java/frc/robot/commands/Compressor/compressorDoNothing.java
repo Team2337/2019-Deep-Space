@@ -1,4 +1,4 @@
-package frc.robot.commands.Vision;
+package frc.robot.commands.Compressor;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,12 +6,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class vision_Do_Nothing extends Command {
+public class compressorDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public vision_Do_Nothing() {
+  public compressorDoNothing() {
 
     requires(Robot.Example);
   }

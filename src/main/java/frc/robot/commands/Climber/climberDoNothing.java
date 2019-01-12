@@ -1,4 +1,4 @@
-package frc.robot.commands.Lift;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,12 +6,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class lift_Do_Nothing extends Command {
+public class climberDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public lift_Do_Nothing() {
+  public climberDoNothing() {
 
     requires(Robot.Example);
   }

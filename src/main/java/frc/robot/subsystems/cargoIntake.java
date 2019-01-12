@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -53,6 +54,32 @@ public void rollStop() {
 rightMotor.set(ControlMode.PercentOutput, 0);
 leftMotor.set(ControlMode.PercentOutput, 0);
 }
+
+
+=======
+package frc.robot.subsystems;
+
+import frc.robot.commands.*;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+/**
+ * 
+ */
+public class CargoIntake extends Subsystem {
+
+
+
+  public CargoIntake() {
+
+  }
+
+  // Set the default command for a subsystem here.
+
+  @Override
+  public void initDefaultCommand() {
+    setDefaultCommand(new doNothing());
+  }
 
 
 }
