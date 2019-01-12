@@ -1,4 +1,4 @@
-package frc.robot.commands.Shifter;
+package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,12 +6,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class shifter_Do_Nothing extends Command {
+public class visionDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public shifter_Do_Nothing() {
+  public visionDoNothing() {
 
     requires(Robot.Example);
   }

@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Hatch_Intake extends Subsystem {
+public class CargoScore extends Subsystem {
 
 
 
-  public Hatch_Intake() {
+  public CargoScore() {
 
   }
 
@@ -19,7 +19,7 @@ public class Hatch_Intake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new doNothing());
   }
 
 }

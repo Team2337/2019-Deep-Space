@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Example_Subsystem extends Subsystem {
+public class CargoIntake extends Subsystem {
 
 
 
-  public Example_Subsystem() {
+  public CargoIntake() {
 
   }
 
@@ -19,7 +19,7 @@ public class Example_Subsystem extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new doNothing());
   }
 
 }

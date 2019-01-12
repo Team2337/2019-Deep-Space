@@ -8,8 +8,8 @@ import frc.robot.Robot;
  * 
  * Such as drive forward, then turn, then shoot that would be used in multiple commands
  */
-public class Example_Common extends CommandGroup {
-  public Example_Common() {
+public class ExampleCommon extends CommandGroup {
+  public ExampleCommon() {
     
   }
 }

@@ -1,16 +1,17 @@
-package frc.robot.commands;
+package frc.robot.commands.Arm;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * An example command. You can replace me with your own command.
  */
-public class Do_Nothing extends Command {
+public class armDoNothing extends Command {
+
+
 
   // CONSTRUCTOR
-  public Do_Nothing() {
+  public armDoNothing() {
 
     requires(Robot.Example);
   }
@@ -18,13 +19,13 @@ public class Do_Nothing extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +37,7 @@ public class Do_Nothing extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    
   }
 
   // Called when another command which requires one or more of the same
