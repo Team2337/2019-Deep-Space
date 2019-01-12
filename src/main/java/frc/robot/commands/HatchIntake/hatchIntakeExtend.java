@@ -6,20 +6,20 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class hatchIntakeDoNothing extends Command {
-
-
+public class hatchIntakeExtend extends Command {
 
   // CONSTRUCTOR
-  public hatchIntakeDoNothing() {
-
-    requires(Robot.Example);
+  public hatchIntakeExtend() {
+    requires(Robot.HatchIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     
+    // Extend the hatch grabber to prepare to grab the piece
+    Robot.HatchIntake.extendHatchGrabber();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,7 +31,7 @@ public class hatchIntakeDoNothing extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
