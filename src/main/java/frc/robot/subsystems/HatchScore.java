@@ -5,13 +5,13 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ *
  */
-public class Hatch_Intake extends Subsystem {
+public class HatchScore extends Subsystem {
 
 
 
-  public Hatch_Intake() {
+  public HatchScore() {
 
   }
 
@@ -19,7 +19,7 @@ public class Hatch_Intake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new doNothing());
   }
 
 }

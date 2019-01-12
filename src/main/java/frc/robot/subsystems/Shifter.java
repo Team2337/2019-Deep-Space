@@ -19,7 +19,7 @@ public class Shifter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new doNothing());
   }
 
 }
