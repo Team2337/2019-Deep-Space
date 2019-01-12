@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.CargoScore;
+import frc.robot.subsystems.cargoIntake;
+import frc.robot.subsystems.cargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.AirCompressor;
@@ -36,8 +36,8 @@ public class Robot extends TimedRobot {
   public static OI  oi;
 
   public static Arm  Arm;
-  public static CargoScore  CargoScore;
-  public static CargoIntake  CargoIntake;
+  public static cargoScore  CargoScore;
+  public static cargoIntake  CargoIntake;
   public static Chassis Chassis;
   public static Climber  Climber;
   public static AirCompressor  AirCompressor;
