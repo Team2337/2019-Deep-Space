@@ -50,9 +50,6 @@ public class OI {
         // CONSTRUCTORS
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
-    
-
-        
 
     }
 
