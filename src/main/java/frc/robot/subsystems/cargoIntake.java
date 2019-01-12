@@ -14,9 +14,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 /**
- * 
+ * @author Zayd A.
+ * Allows you to roll in and out the cargo
  */
 public class cargoIntake extends Subsystem {
 private TalonSRX rightMotor;
