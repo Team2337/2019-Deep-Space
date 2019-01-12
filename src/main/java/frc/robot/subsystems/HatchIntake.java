@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.commands.*;
-
+import frc.robot.commands.HatchIntake.hatchIntakeDoNothing;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -22,7 +22,7 @@ public class HatchIntake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new doNothing());
+    setDefaultCommand(new hatchIntakeDoNothing());
   }
 
   // Extend the Hatch Grabber to obtain the hatch panel
