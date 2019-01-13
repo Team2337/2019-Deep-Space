@@ -85,7 +85,7 @@ public Chassis() {
 @Override
 public void initDefaultCommand() {
   // setDefaultCommand(new MySpecialCommand());
-  setDefaultCommand(new DriveByJoystick());
+  setDefaultCommand(new driveByJoystick());
 }
 
   // Put methods for controlling this subsystem here. Call these from Commands.

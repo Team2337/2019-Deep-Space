@@ -23,7 +23,7 @@ public class driveByJoystick extends Command {
     double moveSpeed = -driverJoystick.getRawAxis(1); // Left joystick's front/back movement as a number from -1 to 1
     double turnSpeed = driverJoystick.getRawAxis(4); // Right joysticks left/right movement as a number from -1 to 1
 
-    Chassis.drive.arcadeDrive(moveSpeed, turnSpeed, true);
+    Robot.Chassis.driveArcade(moveSpeed, turnSpeed, true);
   }
 
   // This command is not meant to exit, so we don't ever allow it to
