@@ -13,24 +13,31 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
- * 
+ * PIDDriveByJoystickAndVision
+ * Driving to the vision target using the limelight, and joystick control, with PID integration to
+ * reduce jostling. 
  */
-public class DriveByJoystickAndVision extends Command {
+public class PIDDriveByJoystickAndVision extends PIDCommand {
 
   private double turnConstant, turn, speed;
   private double tx, ta, ty, tv;
   private double target;
 
+  private double p, i, d, setPoint;
+
   // CONSTRUCTOR
-  public DriveByJoystickAndVision() {
+  public PIDDriveByJoystickAndVision(double p, double i, double d, double setPoint) {
+    super(p, i, d);
+    this.p = p;
+    this.i = i;
+    this.d = d;
+    this.setPoint = setPoint;
 
-    // VARIABLE_SETTING
-
-    // REQUIRES
     requires(Robot.Chassis);
   }
 
@@ -39,6 +46,7 @@ public class DriveByJoystickAndVision extends Command {
   protected void initialize() {
     turnConstant = 0.075;
     target = 0.03;
+    this.getPIDController().enable();
     Robot.Chassis.setBrakeMode(NeutralMode.Brake);
   }
 
@@ -59,8 +67,18 @@ public class DriveByJoystickAndVision extends Command {
     } else {
       turn = Robot.oi.driverJoystick.getRawAxis(4);  // Right x
     }
+    //1 rotation = 1.570795ft (4096 ticks)
+    //pixels to ft = 
+    //resolution = 320 x 240
 
     boolean squaredInputs = true;
+
+    // this.setSetpointRelative(1);
+    this.usePIDOutput(tx);
+    this.setSetpoint(setPoint);
+    this.getPIDController().setSetpoint(setPoint);
+
+    turn = this.returnPIDInput();
 
     Robot.Chassis.driveArcade(0, turn, squaredInputs);
 
@@ -84,4 +102,18 @@ public class DriveByJoystickAndVision extends Command {
   protected void interrupted() {
     this.end();
   }
+
+  @Override
+  protected double returnPIDInput() {
+    return 0;
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    Robot.Chassis.driveArcade(speed, turnSpeed, squaredInputs);
+  }
+  @Override
+  public double getPosition(){
+		return this.tx;
+	}
 }

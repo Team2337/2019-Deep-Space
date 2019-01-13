@@ -36,6 +36,8 @@ public class DriveByJoystick extends Command {
     boolean squaredInputs = true;
 
     Robot.Chassis.driveArcade(speed, turn, squaredInputs);
+
+    System.out.println("Speed: " + speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()

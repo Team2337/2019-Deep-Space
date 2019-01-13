@@ -26,7 +26,7 @@ public class Hatch_Score extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Do_Nothing());
+    // setDefaultCommand(new Do_Nothing());
   }
 
 }

@@ -9,6 +9,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.Chassis.DriveByJoystickAndVision;
+import frc.robot.commands.Chassis.PIDDriveByJoystickAndVision;
 import frc.robot.commands.Chassis.chassis_Do_Nothing;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -55,12 +56,16 @@ public class OI {
     public Joystick Driverstation = new Joystick(2);
 
     JoystickButton driver_GreenA			= new JoystickButton(driverJoystick, 1);
+    JoystickButton driver_RedB              = new JoystickButton(driverJoystick, 2);
+    JoystickButton driver_BlueX             = new JoystickButton(driverJoystick, 3);
 
 
 
     public OI() {
         // CONSTRUCTORS
         driver_GreenA			.whileHeld(new DriveByJoystickAndVision());
+        driver_RedB             .whileHeld(new chassis_Do_Nothing());
+        driver_BlueX            .whileHeld(new PIDDriveByJoystickAndVision(0.1, 0, 0, 0));
     }
 
     // FUNCTIONS

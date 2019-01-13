@@ -23,12 +23,12 @@ private VictorSPX leftMiddle, leftRear, rightMiddle, rightRear;
 private NerdyDrive nerdyDrive;
 
   //Motor Controller Ports
-private Integer leftFrontMotorPort   = 0;
-private Integer leftMiddleMotorPort  = 2;
-private Integer leftReadMotorPort    = 4;
-private Integer rightFrontMotorPort  = 1;
-private Integer rightMiddleMotorPort = 3;
-private Integer rightRearMotorPort   = 5;
+private Integer leftFrontMotorPort   = 15;
+private Integer leftMiddleMotorPort  = 14;
+private Integer leftReadMotorPort    = 13;
+private Integer rightFrontMotorPort  = 0;
+private Integer rightMiddleMotorPort = 1;
+private Integer rightRearMotorPort   = 2;
 
 // CONSTRUCTOR
 
@@ -38,15 +38,15 @@ public Chassis() {
 
   /* --- Drive Left --- */
   leftFront = new TalonSRX(leftFrontMotorPort);  //chassisLeftFront
+  leftMiddle = new VictorSPX(leftMiddleMotorPort);
+  leftRear = new VictorSPX(leftReadMotorPort);
+
   leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
   leftFront.setSensorPhase(false);
 
   leftFront.setInverted(false);
   leftMiddle.setInverted(false);
   leftRear.setInverted(false);
-  
-  leftMiddle = new VictorSPX(leftMiddleMotorPort);
-  leftRear = new VictorSPX(leftReadMotorPort);
 
   leftMiddle.follow(leftFront);
   leftRear.follow(leftFront);
@@ -75,7 +75,6 @@ public Chassis() {
 		leftFront.enableVoltageCompensation(true);
   
   nerdyDrive = new NerdyDrive(leftFront,rightFront);
-
 }
 
   // Set the default command for a subsystem here, if desired.

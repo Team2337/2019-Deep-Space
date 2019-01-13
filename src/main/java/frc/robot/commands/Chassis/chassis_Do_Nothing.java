@@ -20,7 +20,7 @@ public class chassis_Do_Nothing extends Command {
   // CONSTRUCTOR
   public chassis_Do_Nothing() {
 
-    requires(Robot.Example);
+    requires(Robot.Chassis);
   }
 
   // Called just before this Command runs the first time
@@ -32,7 +32,7 @@ public class chassis_Do_Nothing extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    Robot.Chassis.driveArcade(1, 0, false);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,7 +44,7 @@ public class chassis_Do_Nothing extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+    Robot.Chassis.driveArcade(0, 0, false);
   }
 
   // Called when another command which requires one or more of the same
