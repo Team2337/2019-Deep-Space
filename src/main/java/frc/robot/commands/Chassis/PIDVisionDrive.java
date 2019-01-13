@@ -28,7 +28,7 @@ public class PIDVisionDrive extends PIDCommand {
 
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 0.08;        // not used yet but will be used to drive forward to target based on ta
+    targetDistance = 3;        // not used yet but will be used to drive forward to target based on ta
     m_timeout = 5.0;              // time before command will end, even if target not found
 
     // LiveWindow.addActuator("TargetPID", "PIDSubsystem Controller",
@@ -46,14 +46,22 @@ public class PIDVisionDrive extends PIDCommand {
   /**
    *  The PID object outputs a value here and we then use it in our drive command below
    * (after gathering some other info first)
+   * Takes the target distance from networktables 
    * @param output - the output given by the PID Objects
    */
   protected void usePIDOutput(double output) {
       ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
-      m_speed = Robot.oi.driverJoystick.getRawAxis(5);
-      m_speed = m_speed * ((targetDistance - ta)/ta);
+      m_speed = 0.025;//Robot.oi.driverJoystick.getRawAxis(1);
+      if(ta >= targetDistance) {
+        m_speed = ((m_speed * ((targetDistance - ta)/ta)) * 10);
+      } else {
+        m_speed = (m_speed * ((targetDistance - ta)/ta));
+      }
+     
 
-      Robot.Chassis.driveArcade(m_speed, output, false);  // <== here we use the output to do something
+      System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed);
+
+      Robot.Chassis.driveArcade(m_speed, -output, false);  // <== here we use the output to do something
   }
 
   protected void initialize() {
