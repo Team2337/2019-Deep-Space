@@ -13,7 +13,7 @@ import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.HatchIntake;
+import frc.robot.subsystems.HatchBeak;
 // import frc.robot.subsystems.HatchScore;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Lift;
@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   public static ClimberMotors ClimberMotors;
   public static AirCompressor AirCompressor;
   // public static HatchScore HatchScore;
-  public static HatchIntake HatchIntake;
+  public static HatchBeak HatchBeak;
   public static LED LED;
   public static Lift Lift;
   public static Shifter Shifter;
@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
      ClimberPneumatics = new ClimberPneumatics();
      
      AirCompressor = new AirCompressor();
-     HatchIntake = new HatchIntake();
+     HatchBeak = new HatchBeak();
      // HatchScore = new HatchScore();
      LED = new LED();
      Lift = new Lift();
