@@ -1,33 +1,61 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.commands.Chassis;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-
 import frc.robot.Robot;
-import frc.robot.subsystems.Chassis;
-
 /**
- * Uses controller joysticks to drive the robot using ArcadeDrive
+ * 
  */
-public class driveByJoystick extends Command {
+public class DriveByJoystick extends Command {
 
-  // Gets the joystick to be used from OI.java
-  private Joystick driverJoystick = Robot.oi.driverJoystick;
+    // CONSTRUCTOR
+    public DriveByJoystick() {
 
-  public driveByJoystick() {
-    requires(Robot.Chassis);
+    // VARIABLE_SETTING
+          
+    // REQUIRES
+      requires(Robot.Chassis);
+      }
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
   }
 
-  // Supplys the correct values to the arcadeDrive command to drive the robot
+  // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
-    double moveSpeed = -driverJoystick.getRawAxis(1); // Left joystick's front/back movement as a number from -1 to 1
-    double turnSpeed = driverJoystick.getRawAxis(4); // Right joysticks left/right movement as a number from -1 to 1
+    double speed = Robot.oi.driverJoystick.getRawAxis(1); // Left Y
+    double turn = Robot.oi.driverJoystick.getRawAxis(4);  // Right X
+    boolean squaredInputs = true;
 
-    Robot.Chassis.driveArcade(moveSpeed, turnSpeed, true);
+    Robot.Chassis.driveArcade(speed, turn, squaredInputs);
+
+    System.out.println("Speed: " + speed);
   }
 
-  // This command is not meant to exit, so we don't ever allow it to
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
     return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+    Robot.Chassis.driveArcade(0,0,false);
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+    this.end();
   }
 }
