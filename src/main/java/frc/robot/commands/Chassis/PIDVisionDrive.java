@@ -12,10 +12,16 @@ public class PIDVisionDrive extends PIDCommand {
   double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta;
   double p, i, d;
 
+  /**
+   * 
+   * @param p - P value (Ex: 0.05 (percent of the stop distance))
+   * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
+   * @param d - D value (Ex: 0.05 (dampens the ocilation))
+   */
   public PIDVisionDrive(double p, double i, double d) {
     // chassis_TargetWithGyroPID(String name, double p, double i, double d)
-
-    super("PIDLimelightTurn", .03, 0, 0.02);        // set name, P, I, D.
+    // p,i,d -> .03, 0, 0.02
+    super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-1, 1);       // output range for 'turn' input to drive command
@@ -30,14 +36,19 @@ public class PIDVisionDrive extends PIDCommand {
     requires(Robot.Chassis);
   }
 
+  /**
+   * Reads the tx value from the limelight and uses it as our input to the PID Object
+   */
   protected double returnPIDInput() {
-    //  this reads the tx value from the LImelight and uses it as our input to the PID object.
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
   }
 
+  /**
+   *  The PID object outputs a value here and we then use it in our drive command below
+   * (after gathering some other info first)
+   * @param output - the output given by the PID Objects
+   */
   protected void usePIDOutput(double output) {
-      // The PID object outputs a value here and we then use it in our drive comand below
-      // (after gathering some other info first)
       ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
       m_speed = Robot.oi.driverJoystick.getRawAxis(5);
       m_speed = m_speed * ((targetDistance - ta)/ta);

@@ -12,10 +12,10 @@ import frc.robot.Robot;
 /**
  * 
  */
-public class DriveByJoystick extends Command {
+public class driveByJoystick extends Command {
 
     // CONSTRUCTOR
-    public DriveByJoystick() {
+    public driveByJoystick() {
 
     // VARIABLE_SETTING
           

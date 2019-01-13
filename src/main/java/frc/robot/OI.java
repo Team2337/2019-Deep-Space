@@ -58,7 +58,7 @@ public class OI {
         driver_GreenA			.whileHeld(new DriveByJoystickAndVision());
         driver_RedB             .whileHeld(new doNothing());
         driver_BlueX            .whileHeld(new PIDDriveByJoystickAndVision(0.1, 0, 0, 0));
-        driver_YellowY          .whileHeld(new PIDVisionDrive(1,1,1));
+        driver_YellowY          .whileHeld(new PIDVisionDrive(.03, 0, 0.02));
 
     }
 
