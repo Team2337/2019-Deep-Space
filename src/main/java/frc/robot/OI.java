@@ -1,20 +1,11 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.Chassis.DriveByJoystickAndVision;
 import frc.robot.commands.Chassis.PIDDriveByJoystickAndVision;
-import frc.robot.commands.Chassis.chassis_Do_Nothing;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
-
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,10 +35,9 @@ public class OI {
     // the button is released.
     // button.whileHeld(new ExampleCommand());
 
-    // Start the command when the button is released  and let it run the command
+    // Start the command when the button is released and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
-
 
     // DECLARATIONS
 
@@ -64,7 +54,7 @@ public class OI {
     public OI() {
         // CONSTRUCTORS
         driver_GreenA			.whileHeld(new DriveByJoystickAndVision());
-        driver_RedB             .whileHeld(new chassis_Do_Nothing());
+        driver_RedB             .whileHeld(new doNothing());
         driver_BlueX            .whileHeld(new PIDDriveByJoystickAndVision(0.1, 0, 0, 0));
     }
 
@@ -80,4 +70,3 @@ public class OI {
 
 
 }
-

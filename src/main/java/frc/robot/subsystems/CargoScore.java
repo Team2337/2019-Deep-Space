@@ -5,13 +5,11 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ *
  */
-public class Arm extends Subsystem {
+public class CargoScore extends Subsystem {
 
-
-
-  public Arm() {
+  public CargoScore() {
 
   }
 
@@ -19,7 +17,7 @@ public class Arm extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new doNothing());
   }
 
 }

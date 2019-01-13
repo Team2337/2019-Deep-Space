@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Compressor;
+package frc.robot.commands.Cargo_Score;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,12 +13,12 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class compressor_Do_Nothing extends Command {
+public class cargoScoreClawClose extends Command {
 
 
 
   // CONSTRUCTOR
-  public compressor_Do_Nothing() {
+  public cargoScoreClawClose() {
 
     requires(Robot.Example);
   }
@@ -26,13 +26,13 @@ public class compressor_Do_Nothing extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    // Robot.CargoScore.clawClose();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,7 +44,7 @@ public class compressor_Do_Nothing extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+
   }
 
   // Called when another command which requires one or more of the same
@@ -53,4 +53,5 @@ public class compressor_Do_Nothing extends Command {
   protected void interrupted() {
     this.end();
   }
+
 }

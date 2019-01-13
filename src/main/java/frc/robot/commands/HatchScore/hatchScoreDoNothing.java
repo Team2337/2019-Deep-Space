@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Chassis;
+package frc.robot.commands.HatchScore;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,14 +13,14 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class chassis_Do_Nothing extends Command {
+public class hatchScoreDoNothing extends Command {
 
 
 
   // CONSTRUCTOR
-  public chassis_Do_Nothing() {
+  public hatchScoreDoNothing() {
 
-    requires(Robot.Chassis);
+    requires(Robot.Example);
   }
 
   // Called just before this Command runs the first time
@@ -32,7 +32,7 @@ public class chassis_Do_Nothing extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Chassis.driveArcade(1, 0, false);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,7 +44,7 @@ public class chassis_Do_Nothing extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.Chassis.driveArcade(0, 0, false);
+    
   }
 
   // Called when another command which requires one or more of the same

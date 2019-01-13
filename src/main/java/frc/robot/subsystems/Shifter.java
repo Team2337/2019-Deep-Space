@@ -1,32 +1,45 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
 
+import frc.robot.commands.Shifter.shifterHighGear;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
- * 
+ * Shifts the chassis gear ratio from speed to torque 
+ * Speed = High Gear 
+ * Torque = Low Gear
  */
 public class Shifter extends Subsystem {
 
+  private int PCM = 0;
+  private int portRight = 5;
+  private int portLeft = 6;
 
+  private Solenoid leftSide = new Solenoid(PCM, portLeft);
+  private Solenoid rightSide = new Solenoid(PCM, portRight);
 
-  public Shifter() {
+  public Shifter()
+  {
 
   }
 
   // Set the default command for a subsystem here.
-
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new Do_Nothing());
+    setDefaultCommand(new shifterHighGear());
+  }
+
+  // Shift the robot into high gear (Speed)
+  public void shiftHighGear() {
+    leftSide.set(true);
+    rightSide.set(true);
+  }
+
+  // Shift the robot into low gear (Torque)
+  public void shiftLowGear() {
+    leftSide.set(false);
+    rightSide.set(false);
   }
 
 }

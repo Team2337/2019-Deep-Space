@@ -1,25 +1,26 @@
-package frc.robot.commands.ClimberMotors;
+package frc.robot.commands.Shifter;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * This command shifts the chassis to low gear (torque)
  */
-public class flipUp extends Command {
+public class shifterLowGear extends Command {
 
 
 
   // CONSTRUCTOR
-  public flipUp() {
+  public shifterLowGear() {
 
-    requires(Robot.ClimberMotors);
+    requires(Robot.Shifter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+    Robot.Shifter.shiftLowGear();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,7 +32,7 @@ public class flipUp extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

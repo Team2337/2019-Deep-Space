@@ -1,4 +1,4 @@
-package frc.robot.commands.ClimberMotors;
+package frc.robot.commands.LED;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,14 +6,14 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class flipUp extends Command {
+public class LEDRuntime extends Command {
 
 
 
   // CONSTRUCTOR
-  public flipUp() {
+  public LEDRuntime() {
 
-    requires(Robot.ClimberMotors);
+    requires(Robot.Example);
   }
 
   // Called just before this Command runs the first time

@@ -12,7 +12,10 @@ import frc.robot.nerdyfiles.NerdyDrive;
 
 
 /**
+ * The main chassis runtime
  * 
+ * @category CHASSIS
+ * @author Team2337 - EngiNERDs
  */
 public class Chassis extends Subsystem {
 

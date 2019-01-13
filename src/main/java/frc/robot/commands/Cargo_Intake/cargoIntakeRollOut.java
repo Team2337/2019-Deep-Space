@@ -5,20 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hatch_Intake;
+package frc.robot.commands.Cargo_Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * @author Zayd A.
+ * Rolls out the cargo - COMMAND
  */
-public class hatchIntake_Do_Nothing extends Command {
-
+public class cargoIntakeRollOut extends Command {
+private double power = 1;
 
 
   // CONSTRUCTOR
-  public hatchIntake_Do_Nothing() {
+  public cargoIntakeRollOut(double power) {
+this.power = power;
 
     requires(Robot.Example);
   }
@@ -32,7 +34,7 @@ public class hatchIntake_Do_Nothing extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    Robot.CargoIntake.rollOut(this.power);  
   }
 
   // Make this return true when this Command no longer needs to run execute()
