@@ -1,24 +1,26 @@
-package frc.robot.commands.HatchIntake;
+package frc.robot.commands.Shifter;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Robot;
 
 /**
- * This command retracts the hatch intake (loaded)
+ * This command shifts the chassis to high gear (speed)
  * 
  * @author Emily H.
  */
-public class hatchIntakeRetract extends Command {
+public class shifterHighGear extends Command {
 
   // CONSTRUCTOR
-  public hatchIntakeRetract() {
-    requires(Robot.HatchIntake);
+  public shifterHighGear() {
+
+    requires(Robot.Shifter);
   }
 
-  // Retract the hatch grabber to score the hatch panel game piece
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.HatchIntake.retractHatchGrabber();
+    Robot.Shifter.shiftHighGear();
   }
 
   // Called repeatedly when this Command is scheduled to run

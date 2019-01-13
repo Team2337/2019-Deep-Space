@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * This command extends the hatch intake (ready to load)
+ * 
+ * @author Emily H.
  */
 public class hatchIntakeExtend extends Command {
 
@@ -16,7 +18,7 @@ public class hatchIntakeExtend extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+
     // Extend the hatch grabber to prepare to grab the piece
     Robot.HatchIntake.extendHatchGrabber();
 
@@ -25,7 +27,7 @@ public class hatchIntakeExtend extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +39,7 @@ public class hatchIntakeExtend extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+
   }
 
   // Called when another command which requires one or more of the same
