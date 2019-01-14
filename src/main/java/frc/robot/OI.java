@@ -119,7 +119,7 @@ public class OI {
 		/* ====== DRIVER JOYSTICK ===== */
 		
 		driver_GreenA			.whenPressed(new DriveByJoystickAndVision());
-		driver_RedB				.whenPressed(new doNothing());
+		driver_RedB				.whileHeld(new PIDVisionDrive(.04, 0, 0.02, "turnInPlace"));
 		driver_BlueX			.whenPressed(new doNothing()); 
 		driver_YellowY			.whileHeld(new PIDVisionDrive(.04, 0, 0.02));
 		

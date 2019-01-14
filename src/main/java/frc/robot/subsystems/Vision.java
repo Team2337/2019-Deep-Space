@@ -5,7 +5,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ * @author Bryce G.
  */
 public class Vision extends Subsystem {
 
