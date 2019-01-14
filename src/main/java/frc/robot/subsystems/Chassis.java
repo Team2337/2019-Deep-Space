@@ -157,7 +157,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Run continuously during runtime. Currently used to display SmartDashboard
+   * Runs continuously during runtime. Currently used to display SmartDashboard
    * values
    */
   public void periodic() {
