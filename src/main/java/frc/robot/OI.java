@@ -5,7 +5,7 @@ import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
 
 import frc.robot.commands.*;
 import frc.robot.commands.Chassis.DriveByJoystickAndVision;
-import frc.robot.commands.Chassis.PIDDriveByJoystickAndVision;
+import frc.robot.commands.Chassis.DriveWithDistanceSensor;
 import frc.robot.commands.Chassis.PIDVisionDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
@@ -72,30 +72,45 @@ public class OI {
 	JoystickPOVButton		driver_POVLeft			= new JoystickPOVButton(driverJoystick, 270);
 	JoystickPOVButton		driver_POVUpLeft		= new JoystickPOVButton(driverJoystick, 315);
 	
+	
+	/* --- OPERATOR JOYSTICK - FLIGHT STICK --- */
+
 	/*
-	 * OperatorJoystick
+		AXIS:
+		#	Description		Direction   			Positive
+		--	---------------	---------------------	--------
+		0	Joystick tilt	Right/Left				Right
+		1	Joystick tilt	Forward/back			Back
+		2	Throttle tilt	Forward/Back			Back
+		3	Joystick rotate	Right/Left (Rotation)	Right
+		4	Throttle rocker	Right/Left (Rocker)		Right
 	 */
+
 	public static Joystick				operatorJoystick		= new Joystick(1);
-	JoystickButton			operator_GreenA			= new JoystickButton(operatorJoystick, 1);
-	JoystickButton			operator_RedB			= new JoystickButton(operatorJoystick, 2);
-	JoystickButton			operator_BlueX			= new JoystickButton(operatorJoystick, 3);
-	JoystickButton			operator_YellowY		= new JoystickButton(operatorJoystick, 4);
-	JoystickButton			operator_BumperLeft		= new JoystickButton(operatorJoystick, 5);
-	JoystickButton			operator_BumperRight 	= new JoystickButton(operatorJoystick, 6);
-	JoystickButton			operator_Back			= new JoystickButton(operatorJoystick, 7);
-	JoystickButton			operator_Start			= new JoystickButton(operatorJoystick, 8);
-	JoystickButton			operator_LeftStick		= new JoystickButton(operatorJoystick, 9);
-	JoystickButton			operator_RightStick		= new JoystickButton(operatorJoystick, 10);
-	JoystickAnalogButton	operator_TriggerLeft	= new JoystickAnalogButton(operatorJoystick, 2);
-	JoystickAnalogButton	operator_TriggerRight	= new JoystickAnalogButton(operatorJoystick, 3);
-	JoystickPOVButton		operator_POVUp			= new JoystickPOVButton(operatorJoystick, 0);
-	JoystickPOVButton		operator_POVUpRight		= new JoystickPOVButton(operatorJoystick, 45);
-	JoystickPOVButton		operator_POVRight		= new JoystickPOVButton(operatorJoystick, 90);
-	JoystickPOVButton		operator_POVDownRight	= new JoystickPOVButton(operatorJoystick, 135);
-	JoystickPOVButton		operator_POVDown		= new JoystickPOVButton(operatorJoystick, 180);
-	JoystickPOVButton		operator_POVDownLeft	= new JoystickPOVButton(operatorJoystick, 225);
-	JoystickPOVButton		operator_POVLeft		= new JoystickPOVButton(operatorJoystick, 270);
-	JoystickPOVButton		operator_POVUpLeft		= new JoystickPOVButton(operatorJoystick, 315);
+	JoystickButton			operator_RightTrigger				= new JoystickButton(operatorJoystick, 1);	//Digital trigger on the back of the joystick
+	JoystickButton			operator_StripedButton				= new JoystickButton(operatorJoystick, 2);	//The orange and black striped button on joystick
+	JoystickButton			operator_RightKnucleButton			= new JoystickButton(operatorJoystick, 3);	//The button on the top-right of the joytstick
+	JoystickButton			operator_L3							= new JoystickButton(operatorJoystick, 4);	//Button on the front right of the joystick
+	
+	JoystickButton			operator_ThrottleTopThumbButton		= new JoystickButton(operatorJoystick, 5);	//The highest button of the throttle's thumb buttons
+	JoystickButton			operator_ThrottleMidThumbButton		= new JoystickButton(operatorJoystick, 6);	//The middle button of the throttle's thumb buttons
+	JoystickButton			operator_ThrottleBottomThumbButton	= new JoystickButton(operatorJoystick, 7);	//The lowest button of the throttle's thumb buttons
+	
+	JoystickButton			operator_PalmButton					= new JoystickButton(operatorJoystick, 8);	//The button on the palmrest of the throttle
+	JoystickButton			operator_TopIndexButton 			= new JoystickButton(operatorJoystick, 9);	//The higher button on the back right of the throttle
+	JoystickButton			operator_BottomIndexButton			= new JoystickButton(operatorJoystick, 10);	//The lower button on the back right of the throttle
+	
+	JoystickButton			operator_SE							= new JoystickButton(operatorJoystick, 11); //The "SE" button on the throttle
+	JoystickButton			operator_ST							= new JoystickButton(operatorJoystick, 12); //The "ST" button on the throttle
+	
+	JoystickPOVButton		operator_JoystickPOVUp				= new JoystickPOVButton(operatorJoystick, 0);
+	JoystickPOVButton		operator_JoystickPOVUpRight			= new JoystickPOVButton(operatorJoystick, 45);
+	JoystickPOVButton		operator_JoystickPOVRight			= new JoystickPOVButton(operatorJoystick, 90);
+	JoystickPOVButton		operator_JoystickPOVDownRight		= new JoystickPOVButton(operatorJoystick, 135);
+	JoystickPOVButton		operator_JoystickPOVDown			= new JoystickPOVButton(operatorJoystick, 180);
+	JoystickPOVButton		operator_JoystickPOVDownLeft		= new JoystickPOVButton(operatorJoystick, 225);
+	JoystickPOVButton		operator_JoystickPOVLeft			= new JoystickPOVButton(operatorJoystick, 270);
+	JoystickPOVButton		operator_JoystickPOVUpLeft			= new JoystickPOVButton(operatorJoystick, 315);
 	
 
 	/*
@@ -147,35 +162,43 @@ public class OI {
 	    //////////////////////////////////
 	    
 	    
-		/* ====== OPERATOR JOYSTICK ===== */
+		/* --- OPERATOR JOYSTICK - FLIGHT STICK --- */
+   
+	    operator_RightTrigger			       .whileHeld(new DriveWithDistanceSensor());
+	    operator_StripedButton			       .whenPressed(new doNothing());
+	    operator_StripedButton				   .whenReleased(new doNothing());
+	    operator_RightKnucleButton		       .whileHeld(new doNothing());
+	    operator_RightKnucleButton		       .whenReleased(new doNothing());
+	    operator_L3						       .whileHeld(new doNothing());
+	    operator_L3						       .whenReleased(new doNothing());
+	                                           
+	    operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
+	    operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
+	    operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
+	                                           
+	    operator_PalmButton				       .whenPressed(new doNothing());
+	    operator_TopIndexButton				   .whenPressed(new doNothing());
+	    operator_BottomIndexButton		       .whenPressed(new doNothing());
+
+//	    operator_SE						 	   .whileHeld(new climbWinch_driveVertical(1));     
+//	    operator_ST						  	   .whenPressed(new climber_ejector());
 	    
-		operator_GreenA			.whenPressed(new doNothing());
-		operator_RedB			.whenPressed(new doNothing());
-		operator_BlueX			.whenPressed(new doNothing());
-		operator_YellowY		.whenPressed(new doNothing());
-		
-		operator_BumperLeft		.whenPressed(new doNothing());
-		operator_BumperRight	.whenPressed(new doNothing());
-		
-		operator_Back			.whenPressed(new doNothing());
-		operator_Start			.whenPressed(new doNothing());
-		
-		operator_LeftStick		.whenPressed(new doNothing());
-		operator_RightStick		.whenPressed(new doNothing());
-		
-		operator_TriggerLeft	.whileHeld(new doNothing());
-		operator_TriggerRight	.whileHeld(new doNothing());
-		
-		operator_POVUp			.whenPressed(new doNothing());
-		//operator_POVUpRight	.whenPressed(new _doNothing());
-		operator_POVRight		.whenPressed(new doNothing());
-		//operator_POVDownRight	.whenPressed(new _doNothing());
-	    operator_POVDown	    .whenPressed(new doNothing());
-		//operator_POVDownLeft  .whenPressed(new _doNothing());
-		operator_POVLeft	    .whenPressed(new doNothing());
-		//operator_POVUpLeft	.whenPressed(new _doNothing());
-		
-		////////////////////////////////////
+	    operator_SE						 	   .whileHeld(new doNothing()); 
+	    operator_ST						  	   .whenPressed(new doNothing());  
+	    
+	    operator_JoystickPOVUp			       .whenPressed(new doNothing());	//previously: claw give 60 
+	    operator_JoystickPOVUp				   .whenReleased(new doNothing());
+	    operator_JoystickPOVUpRight		       .whenPressed(new doNothing());
+	    operator_JoystickPOVUpRight			   .whenReleased(new doNothing());
+	    operator_JoystickPOVUpLeft		       .whenPressed(new doNothing());
+	    operator_JoystickPOVUpLeft			   .whenReleased(new doNothing());
+	    
+	    operator_JoystickPOVDownRight	       .whenPressed(new doNothing());
+	    operator_JoystickPOVDown		       .whenPressed(new doNothing());
+	    operator_JoystickPOVDownLeft	       .whenPressed(new doNothing());
+	    
+	    operator_JoystickPOVRight		       .whenPressed(new doNothing());
+	    operator_JoystickPOVLeft		       .whenPressed(new doNothing());
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */

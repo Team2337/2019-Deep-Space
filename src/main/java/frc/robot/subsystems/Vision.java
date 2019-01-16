@@ -2,17 +2,25 @@ package frc.robot.subsystems;
 
 import frc.robot.commands.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Bryce G.
  */
 public class Vision extends Subsystem {
 
+  public AnalogInput ultrasonic;
+  public double voltsToInch = 0.4;
 
+  private int analogPort = 1;
+  private boolean visionDebug = true;
 
   public Vision() {
 
+    ultrasonic = new AnalogInput(analogPort);
   }
 
   // Set the default command for a subsystem here.
@@ -21,6 +29,14 @@ public class Vision extends Subsystem {
   public void initDefaultCommand() {
     // setDefaultCommand(new Do_Nothing());
   }
+
+
+  /*****************************/
+  /* ------------------------- */
+  /* --- LIMELIGHT METHODS --- */
+  /* ------------------------- */
+  /*****************************/
+
 
   /**
    * Sets the LED mode to on, off, or blink
@@ -44,6 +60,32 @@ public class Vision extends Subsystem {
    */
   public void snapShotMode(int mode) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("snapshot").setNumber(mode);
+  }
+
+
+  /**
+   * 
+   * @return - returns the raw distance output in the form of voltage, from the ultrasonic sensor
+   */
+  public double getVoltage() {
+    return ultrasonic.getVoltage();
+  }
+
+  /**
+   * 
+   * @return - returns the voltage value multiplied by the voltsToInch conversion constant
+   * @see getVoltage()
+   */
+  public double getDistance() {
+   return (getVoltage() * voltsToInch); 
+  }
+
+  @Override
+  public void periodic() {
+    if(visionDebug) {
+    SmartDashboard.putNumber("UltraSonic - Distance", getDistance());
+    SmartDashboard.putNumber("UltraSonic - Voltage", getVoltage());
+    }
   }
 
 }
