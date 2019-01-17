@@ -65,7 +65,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // CONSTRUCTORS
-    oi = new OI();
 
     Arm = new Arm();
     CargoIntake = new CargoIntake();
@@ -83,6 +82,8 @@ public class Robot extends TimedRobot {
     Vision = new Vision();
 
     Example = new ExampleSubsystem();
+
+    oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);

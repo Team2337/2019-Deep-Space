@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Robot;
-
+import frc.robot.commands.Lift.liftWithJoystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,12 +28,13 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private final static int liftRightID = 8;
   private final static int liftLeftID = 9;
+  private int level;
 
   /*
    * The left motor is a victor, since its only going to follow the right This
@@ -65,7 +66,7 @@ public class Lift extends Subsystem {
   public static int reverseLiftSoftLimit = 40;
 
   protected void initDefaultCommand() {
-     setDefaultCommand(new liftWithJoystick());
+     //setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
@@ -181,6 +182,28 @@ public class Lift extends Subsystem {
     // leftFront.configReverseSoftLimitThreshold(reverseLIFTSoftLimit, 0);
   }
 
+  public void setLevel(int level) {
+    this.level = level;
+    switch(level) {
+      case 0:
+      Robot.Lift.setSetpoint(70);
+      break;
+      case 1:
+      Robot.Lift.setSetpoint(375);
+      break;
+      case 2:
+      Robot.Lift.setSetpoint(500);
+      break;
+      default:
+      Robot.Lift.stop();
+      break;
+    }
+  }
+
+  public double getLevel() {
+    return level;
+  }
+
   /**
    * Runs continuously during runtime. Currently used to display SmartDashboard
    * values
@@ -189,6 +212,9 @@ public class Lift extends Subsystem {
     if (liftDebug) {
       SmartDashboard.putNumber("forwardLIFTSoftLimit", forwardLiftSoftLimit);
       SmartDashboard.putNumber("reverseLIFTSoftLimit", reverseLiftSoftLimit);
+      SmartDashboard.putNumber("StringPot", getPosition());
+      SmartDashboard.putNumber("SetPoint", getSetpoint());
+      SmartDashboard.putNumber("Level", getLevel());
     }
   }
 }

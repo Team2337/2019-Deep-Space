@@ -6,6 +6,7 @@ import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
 import frc.robot.commands.*;
 import frc.robot.commands.HatchIntake.hatchIntakeExtend;
 import frc.robot.commands.HatchIntake.hatchIntakeRetract;
+import frc.robot.commands.Lift.liftWithJoystick;
 import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
 import frc.robot.nerdyfiles.controller.JoystickPOVButton;
 import edu.wpi.first.wpilibj.Joystick;
@@ -121,7 +122,7 @@ public class OI {
 	public OI() {
 		
 		/* ====== DRIVER JOYSTICK ===== */
-		
+
 		driver_GreenA			.whenPressed(new doNothing());
 		driver_RedB				.whenPressed(new doNothing());
 		driver_BlueX			.whenPressed(new doNothing()); 
@@ -157,29 +158,29 @@ public class OI {
 	
 	operator_RightTrigger			       .whileHeld(new hatchIntakeExtend());
 	operator_StripedButton			       .whenPressed(new hatchIntakeRetract());
-	operator_StripedButton				   .whenReleased(new doNothing());
-	operator_RightKnucleButton		       .whileHeld(new doNothing());
-	operator_RightKnucleButton		       .whenReleased(new doNothing());
-	operator_L3						       .whileHeld(new doNothing());
-	operator_L3						       .whenReleased(new doNothing());
+	operator_StripedButton				   .whenPressed(new doNothing());
+	operator_RightKnucleButton		       .whenPressed(new doNothing());
+	operator_RightKnucleButton		       .whenPressed(new doNothing());
+	operator_L3						       .whenPressed(new doNothing());
+	operator_L3						       .whenPressed(new doNothing());
 										
-	operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
-	operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
-	operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
+	operator_ThrottleTopThumbButton		   .whenPressed(new liftWithJoystick(2));
+	operator_ThrottleMidThumbButton		   .whenPressed(new liftWithJoystick(1));
+	operator_ThrottleBottomThumbButton	   .whenPressed(new liftWithJoystick(0));
 										
 	operator_PalmButton				       .whenPressed(new doNothing());
 	operator_TopIndexButton				   .whenPressed(new doNothing());
 	operator_BottomIndexButton		       .whenPressed(new doNothing());
 
-	operator_SE						 	   .whileHeld(new doNothing()); 
+	operator_SE						 	   .whenPressed(new doNothing()); 
 	operator_ST						  	   .whenPressed(new doNothing());  
 
 	operator_JoystickPOVUp			       .whenPressed(new doNothing());	//previously: claw give 60 
-	operator_JoystickPOVUp				   .whenReleased(new doNothing());
+	operator_JoystickPOVUp				   .whenPressed(new doNothing());
 	operator_JoystickPOVUpRight		       .whenPressed(new doNothing());
-	operator_JoystickPOVUpRight			   .whenReleased(new doNothing());
+	operator_JoystickPOVUpRight			   .whenPressed(new doNothing());
 	operator_JoystickPOVUpLeft		       .whenPressed(new doNothing());
-	operator_JoystickPOVUpLeft			   .whenReleased(new doNothing());
+	operator_JoystickPOVUpLeft			   .whenPressed(new doNothing());
 
 	operator_JoystickPOVDownRight	       .whenPressed(new doNothing());
 	operator_JoystickPOVDown		       .whenPressed(new doNothing());
@@ -191,26 +192,26 @@ public class OI {
 
 /* ===== DRIVER STATION CONTROLS ===== */
 
-//operatorInt_GreenButton	.whenPressed(new _doNothing());
-//operatorInt_RedButton	.whenPressed(new _doNothing());
+	operatorInt_GreenButton	.whenPressed(new doNothing());
+	operatorInt_RedButton	.whenPressed(new doNothing());
 
-operatorInt_ClearSwitch	.whenPressed(new doNothing());
-operatorInt_BlueSwitch	.whenPressed(new doNothing());
-operatorInt_BlackSwitch	.whenPressed(new doNothing());
-operatorInt_YellowSwitch.whenPressed(new doNothing());
+	operatorInt_ClearSwitch	.whenPressed(new doNothing());
+	operatorInt_BlueSwitch	.whenPressed(new doNothing());
+	operatorInt_BlackSwitch	.whenPressed(new doNothing());
+	operatorInt_YellowSwitch.whenPressed(new doNothing());
 
-operatorInt_BlackButton	.whenPressed(new doNothing());
-operatorInt_BlueButton	.whenPressed(new doNothing());
-operatorInt_YellowButton.whenPressed(new doNothing());
-operatorInt_WhiteButton	.whenPressed(new doNothing());
+	operatorInt_BlackButton	.whenPressed(new doNothing());
+	operatorInt_BlueButton	.whenPressed(new doNothing());
+	operatorInt_YellowButton.whenPressed(new doNothing());
+	operatorInt_WhiteButton	.whenPressed(new doNothing());
 
 ///////////////////////////////////////// 
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
-		//operatorInt_GreenButton	.whenPressed(new _doNothing());
-		//operatorInt_RedButton	.whenPressed(new _doNothing());
+		operatorInt_GreenButton	.whenPressed(new doNothing());
+		operatorInt_RedButton	.whenPressed(new doNothing());
 		
 		operatorInt_ClearSwitch	.whenPressed(new doNothing());
 		operatorInt_BlueSwitch	.whenPressed(new doNothing());
