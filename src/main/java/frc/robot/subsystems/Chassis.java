@@ -43,9 +43,9 @@ public class Chassis extends Subsystem {
   private final static int rightFrontID = 0;
   private final static int rightMidID = 1;
   private final static int rightRearID = 2;
-  private final static int leftFrontID = 3;
-  private final static int leftMidID = 4;
-  private final static int leftRearID = 5;
+  private final static int leftFrontID = 15;
+  private final static int leftMidID = 14;
+  private final static int leftRearID = 13;
 
   public Chassis() {
 

@@ -65,7 +65,7 @@ public class Lift extends Subsystem {
   public static int reverseLiftSoftLimit = 40;
 
   protected void initDefaultCommand() {
-    // setDefaultCommand(new lift_startPID());
+     setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
