@@ -1,5 +1,10 @@
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,7 +37,6 @@ import frc.robot.subsystems.Vision;
 public class Robot extends TimedRobot {
 
   // DECLARATIONS
-  public static OI oi;
 
   public static Arm Arm;
   public static CargoScore CargoScore;
@@ -49,9 +53,9 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static Vision Vision;
 
-
   public static ExampleSubsystem Example;
 
+  public static OI oi;
 
   Command  autonomousCommand;
   SendableChooser<Command>  chooser = new SendableChooser<>();
@@ -64,8 +68,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // CONSTRUCTORS
-     oi = new OI();
-
      Arm = new Arm();
      CargoIntake = new CargoIntake();
      CargoScore = new CargoScore();
@@ -82,6 +84,8 @@ public class Robot extends TimedRobot {
      Vision = new Vision();
 
      Example = new ExampleSubsystem();
+
+     oi = new OI();
 
 
     // chooser.addOption("My Auto", new MyAutoCommand());
