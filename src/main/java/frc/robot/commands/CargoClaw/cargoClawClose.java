@@ -3,13 +3,15 @@ package frc.robot.commands.CargoClaw;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
+/**
+ * This command will close the claw
+ * @author Zayd A
+ */
 public class cargoClawClose extends Command {
 
   // CONSTRUCTOR
   public cargoClawClose() {
-
-    requires(Robot.Example);
+    requires(Robot.CargoClaw);
   }
 
   // Called just before this Command runs the first time
