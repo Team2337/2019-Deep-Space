@@ -1,10 +1,10 @@
 package frc.robot;
 
-import frc.robot.nerdyfiles.controller.*;
+import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
+
 
 import frc.robot.commands.*;
-import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
-import frc.robot.nerdyfiles.controller.JoystickPOVButton;
+import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
