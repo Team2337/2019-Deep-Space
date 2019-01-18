@@ -1,4 +1,4 @@
-package frc.robot.commands.HatchIntake;
+package frc.robot.commands.HatchBeak;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -8,17 +8,17 @@ import frc.robot.Robot;
  * 
  * @author Emily H.
  */
-public class hatchIntakeRetract extends Command {
+public class hatchBeakRetract extends Command {
 
   // CONSTRUCTOR
-  public hatchIntakeRetract() {
-    requires(Robot.HatchIntake);
+  public hatchBeakRetract() {
+    requires(Robot.HatchBeak);
   }
 
   // Retract the hatch grabber to score the hatch panel game piece
   @Override
   protected void initialize() {
-    Robot.HatchIntake.retractHatchGrabber();
+    Robot.HatchBeak.retractHatchGrabber();
   }
 
   // Called repeatedly when this Command is scheduled to run
