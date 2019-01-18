@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.NerdyDrive;
 import frc.robot.Robot;
 import frc.robot.commands.Chassis.*;
@@ -7,6 +8,9 @@ import frc.robot.commands.Chassis.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -27,7 +31,7 @@ public class Chassis extends Subsystem {
    */
   boolean chassisDebug = false;
 
-  /* --- Drive Motor Declaration --- */
+  /* --- Talon Drive Motor Declaration --- */
   private static TalonSRX leftFrontMotor;
   private static VictorSPX leftMidMotor;
   private static VictorSPX leftRearMotor;
@@ -36,7 +40,19 @@ public class Chassis extends Subsystem {
   private static VictorSPX rightMidMotor;
   private static VictorSPX rightRearMotor;
 
+  /* --- Talon Drive Motor Declaration --- */
+  private static CANSparkMax neoLeftFrontMotor;
+  private static CANSparkMax neoLeftMidMotor;
+  private static CANSparkMax neoLeftRearMotor;
+
+  private static CANSparkMax neoRightFrontMotor;
+  private static CANSparkMax neoRightMidMotor;
+  private static CANSparkMax neoRightRearMotor;
+  private static CANEncoder leftEncoder;
+  private static CANEncoder rightEncoder;
+
   public static NerdyDrive drive;
+  public static NeoNerdyDrive neoDrive;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -55,7 +71,7 @@ public class Chassis extends Subsystem {
     /* ------------------------------------- */
     /*****************************************/
 
-    /* --- Drive Left --- */
+    /* --- Talon Drive Left --- */
 
     // Sets up the left front motor as a Talon with a mag encoder that isn't
     // reversed
@@ -82,7 +98,7 @@ public class Chassis extends Subsystem {
 
     ////////////////////////
 
-    /* --- Drive Right --- */
+    /* --- Talon Drive Right --- */
 
     // Sets up the right front motor as a Talon with a mag encoder that isn't
     // reversed
@@ -109,8 +125,49 @@ public class Chassis extends Subsystem {
 
     /////////////////////////
 
-    /* --- Nerdy Drive --- */
+    /* --- Neo Drive Left --- */
+
+    // Sets up the left side motors as CAN Spark Brushless Motors
+    neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
+    neoLeftMidMotor = new CANSparkMax(leftMidID, MotorType.kBrushless);
+    neoLeftMidMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
+    leftEncoder = new CANEncoder(neoLeftFrontMotor);
+
+    // Left side motors aren't currently inverted
+    neoLeftFrontMotor.setInverted(false);
+    neoLeftMidMotor.setInverted(false);
+    neoLeftRearMotor.setInverted(false);
+
+    // All left neo motors currently follow the front left motor
+    neoLeftMidMotor.follow(neoLeftFrontMotor);
+    neoLeftRearMotor.follow(neoLeftFrontMotor);
+
+    ////////////////////////
+
+    /* --- Neo Drive Right --- */
+
+    // Sets up the right side motors as CAN Spark Brushless Motors
+    neoRightFrontMotor = new CANSparkMax(rightFrontID, MotorType.kBrushless);
+    neoRightMidMotor = new CANSparkMax(rightMidID, MotorType.kBrushless);
+    neoRightMidMotor = new CANSparkMax(rightRearID, MotorType.kBrushless);
+    rightEncoder = new CANEncoder(neoRightFrontMotor);
+
+    // Right side motors aren't currently inverted
+    neoRightFrontMotor.setInverted(true);
+    neoRightMidMotor.setInverted(true);
+    neoRightRearMotor.setInverted(true);
+
+    // All right neo motors currently follow the front right motor
+    neoRightMidMotor.follow(neoRightFrontMotor);
+    neoRightRearMotor.follow(neoRightFrontMotor);
+
+    ////////////////////////
+
+    /* --- Talon Nerdy Drive --- */
     drive = new NerdyDrive(leftFrontMotor, rightFrontMotor);
+
+    /* --- Neo Nerdy Drive --- */
+    neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
   }
 
   // Sets the default drive command to drive using the joysticks on an XBox 360
