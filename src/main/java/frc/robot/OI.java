@@ -4,11 +4,7 @@ import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
 
 
 import frc.robot.commands.*;
-import frc.robot.commands.HatchIntake.hatchIntakeExtend;
-import frc.robot.commands.HatchIntake.hatchIntakeRetract;
-import frc.robot.commands.Lift.liftWithJoystick;
-import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
-import frc.robot.nerdyfiles.controller.JoystickPOVButton;
+import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
@@ -156,17 +152,17 @@ public class OI {
 	    
 	/* --- OPERATOR JOYSTICK - FLIGHT STICK --- */
 	
-	operator_RightTrigger			       .whileHeld(new hatchIntakeExtend());
-	operator_StripedButton			       .whenPressed(new hatchIntakeRetract());
+	operator_RightTrigger			       .whenPressed(new doNothing());
+	operator_StripedButton			       .whenPressed(new doNothing());
 	operator_StripedButton				   .whenPressed(new doNothing());
 	operator_RightKnucleButton		       .whenPressed(new doNothing());
 	operator_RightKnucleButton		       .whenPressed(new doNothing());
 	operator_L3						       .whenPressed(new doNothing());
 	operator_L3						       .whenPressed(new doNothing());
 										
-	operator_ThrottleTopThumbButton		   .whenPressed(new liftWithJoystick(2));
-	operator_ThrottleMidThumbButton		   .whenPressed(new liftWithJoystick(1));
-	operator_ThrottleBottomThumbButton	   .whenPressed(new liftWithJoystick(0));
+	operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
+	operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
+	operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
 										
 	operator_PalmButton				       .whenPressed(new doNothing());
 	operator_TopIndexButton				   .whenPressed(new doNothing());

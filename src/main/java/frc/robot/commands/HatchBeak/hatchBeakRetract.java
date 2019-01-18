@@ -1,33 +1,30 @@
-package frc.robot.commands.HatchIntake;
+package frc.robot.commands.HatchBeak;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command extends the hatch intake (ready to load)
+ * This command retracts the hatch intake (loaded)
  * 
  * @author Emily H.
  */
-public class hatchIntakeExtend extends Command {
+public class hatchBeakRetract extends Command {
 
   // CONSTRUCTOR
-  public hatchIntakeExtend() {
-    requires(Robot.HatchIntake);
+  public hatchBeakRetract() {
+    requires(Robot.HatchBeak);
   }
 
-  // Called just before this Command runs the first time
+  // Retract the hatch grabber to score the hatch panel game piece
   @Override
   protected void initialize() {
-
-    // Extend the hatch grabber to prepare to grab the piece
-    Robot.HatchIntake.extendHatchGrabber();
-
+    Robot.HatchBeak.retractHatchGrabber();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +36,7 @@ public class hatchIntakeExtend extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    
   }
 
   // Called when another command which requires one or more of the same

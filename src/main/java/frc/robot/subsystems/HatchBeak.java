@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -10,11 +9,11 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  * 
  * @author Emily H.
  */
-public class HatchIntake extends Subsystem {
+public class HatchBeak extends Subsystem {
 
   private DoubleSolenoid hatchSolenoid = new DoubleSolenoid(0, 1, 2);
 
-  public HatchIntake() {
+  public HatchBeak() {
 
   }
 
@@ -22,7 +21,7 @@ public class HatchIntake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    
+     // setDefaultCommand(new hatchIntakeDoNothing());
   }
 
   /**
