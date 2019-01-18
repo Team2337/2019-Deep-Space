@@ -1,7 +1,6 @@
 package frc.robot;
 
-import frc.robot.nerdyfiles.controller.*;
-
+import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
 import frc.robot.commands.*;
 import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
 import frc.robot.nerdyfiles.controller.JoystickPOVButton;
