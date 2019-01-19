@@ -49,11 +49,12 @@ public class Arm extends Subsystem {
   private int allowableError = 0;
 
   /**
-   * Sets the imits set in the code where the mechanism cannot go outside of (in analog sensor values) 
+   * Sets the imits set in the code where the mechanism cannot go outside of 
+   *(in current analog sensor values) 
    * @see #setSoftLimits()
    */
   public static int forwardLiftSoftLimit = 590;
-  public static int reverseLiftSoftLimit = 40;
+  public static int reverseLiftSoftLimit = 50;
 
   protected void initDefaultCommand() {
      setDefaultCommand(new armWithJoystick());
@@ -69,9 +70,9 @@ public class Arm extends Subsystem {
     armMotor.setNeutralMode(NeutralMode.Brake);
     
     // Enable/disable soft limits for when the motor is going forwards
-    armMotor.configForwardSoftLimitEnable(false, 0);
+    armMotor.configForwardSoftLimitEnable(true, 0);
     // Enable/disable soft limits for when the motor is going backwards
-    armMotor.configReverseSoftLimitEnable(false, 0);
+    armMotor.configReverseSoftLimitEnable(true, 0);
 
     // Sets the soft limits for the lift that were decided above
     setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
@@ -80,8 +81,8 @@ public class Arm extends Subsystem {
      * Set the peak (maximum) and nominal (minimum) output voltages for the motors
      * according to whether they are moving forwards or in reverse
      * 
-     * If the motor is given below the nominal voltage, it will be bumped up and
-     * vice versa for the peak voltage
+     * If the motor is given a voltage value below the nominal voltage, or above the peak voltage,
+     * it will be bumped up/down to return it to the set nominal voltage.
      */
     armMotor.configPeakOutputForward(maxSpeed, 0); // Forwards
     armMotor.configNominalOutputForward(nominalSpeed, 0);
@@ -149,11 +150,8 @@ public class Arm extends Subsystem {
    * @param reverse The soft limit for when the motor is going backwards
    */
   public static void setSoftLimits(int forward, int reverse) {
-    forwardLiftSoftLimit = forward;
-    reverseLiftSoftLimit = reverse;
-
-    armMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
-    armMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
+    armMotor.configForwardSoftLimitThreshold(forward, 0);
+    armMotor.configReverseSoftLimitThreshold(reverse, 0);
   }
 
   /**

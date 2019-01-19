@@ -2,19 +2,20 @@ package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Drives the lift using the joystick
+ * Current joystick is set to the forward/backward motion on the joystick
+ * @category LIFT
+ * @author Bryce G.
  */
 public class liftWithJoystick extends Command {
-    int level = 0;
 
     // CONSTRUCTOR
-    public liftWithJoystick(int level) {
+    public liftWithJoystick() {
         requires(Robot.Lift);
-        this.level = level;
     }
 
     // Called just before this Command runs the first time
@@ -26,8 +27,18 @@ public class liftWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if(level < 0) level = 0;
-        Robot.Lift.setLevel(level);
+        double joy = OI.operatorJoystick.getRawAxis(1);
+        switch((int)Math.round(joy)) {
+            case 1:
+            Robot.Arm.setSetpoint(50);
+            break;
+            case 0:
+            Robot.Arm.setSetpoint(250);
+            break;
+            case -1:
+            Robot.Arm.setSetpoint(400);
+            break;
+        }            
     }
 
     // Make this return true when this Command no longer needs to run execute()

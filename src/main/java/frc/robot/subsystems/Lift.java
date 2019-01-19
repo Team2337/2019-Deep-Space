@@ -14,10 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Controls lift movement using PID setpoints
  * 
- * NOTE: Setpoints set using analog sensor values
- * 
- * For reference, there are 4096 ticks per 360 degree revolution
- * 
  * @category LIFT
  * @author Bryce G. Jack E.
  */
@@ -58,12 +54,12 @@ public class Lift extends Subsystem {
   private int allowableError = 0;
 
   /**
-   * Gives the values for the lifts softlimits - purley referance right now
-   * 
+   * * Sets the imits set in the code where the mechanism cannot go outside of 
+   *(in current analog sensor values) 
    * @see #setSoftLimits()
    */
   public static int forwardLiftSoftLimit = 590;
-  public static int reverseLiftSoftLimit = 40;
+  public static int reverseLiftSoftLimit = 50;
 
   protected void initDefaultCommand() {
      //setDefaultCommand(new liftWithJoystick());
@@ -88,12 +84,12 @@ public class Lift extends Subsystem {
     liftLeftMotor.setNeutralMode(NeutralMode.Brake);
 
     // Enable/disable soft limits for when the motor is going forwards
-    liftRightMotor.configForwardSoftLimitEnable(false, 0);
-    liftLeftMotor.configForwardSoftLimitEnable(false, 0);
+    liftRightMotor.configForwardSoftLimitEnable(true, 0);
+    liftLeftMotor.configForwardSoftLimitEnable(true, 0);
 
     // Enable/disable soft limits for when the motor is going backwards
-    liftRightMotor.configReverseSoftLimitEnable(false, 0);
-    liftLeftMotor.configReverseSoftLimitEnable(false, 0);
+    liftRightMotor.configReverseSoftLimitEnable(true, 0);
+    liftLeftMotor.configReverseSoftLimitEnable(true, 0);
 
     // Sets the soft limits for the lift that were decided above
     setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
@@ -102,8 +98,8 @@ public class Lift extends Subsystem {
      * Set the peak (maximum) and nominal (minimum) output voltages for the motors
      * according to whether they are moving forwards or in reverse
      * 
-     * If the motor is given below the nominal voltage, it will be bumped up and
-     * vice versa for the peak voltage
+     * If the motor is given a voltage value below the nominal voltage, or above the peak voltage,
+     * it will be bumped up/down to return it to the set nominal voltage.
      */
     liftRightMotor.configPeakOutputForward(maxSpeedUp, 0); // Forwards
     liftRightMotor.configNominalOutputForward(nominalSpeed, 0);

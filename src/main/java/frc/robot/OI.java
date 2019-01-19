@@ -65,6 +65,17 @@ public class OI {
 	JoystickPOVButton		driver_POVUpLeft		= new JoystickPOVButton(driverJoystick, 315);
 	
 	/*
+		AXIS:
+		#	Description		Direction   			Positive
+		--	---------------	---------------------	--------
+		0	Joystick tilt	Right/Left				Right
+		1	Joystick tilt	Forward/back			Back
+		2	Throttle tilt	Forward/Back			Back
+		3	Joystick rotate	Right/Left (Rotation)	Right
+		4	Throttle rocker	Right/Left (Rocker)		Right
+	 */
+	
+	/*
 	 * OperatorJoystick
 	 */
 	public static Joystick				operatorJoystick		= new Joystick(1);
