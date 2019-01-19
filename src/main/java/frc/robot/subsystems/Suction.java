@@ -4,10 +4,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- * 
+/** This program controls pneumatics to press down suction cups on platform
+ * @author Hunter B
  */
-public class ClimberPneumatics extends Subsystem {
+public class Suction extends Subsystem {
 
   private Solenoid pistonRight;
   private Solenoid pistonLeft;
@@ -15,11 +15,10 @@ public class ClimberPneumatics extends Subsystem {
   private int leftPort;
   private int PCM;
 
-
-  
-
-
-  public ClimberPneumatics() {
+  /**
+   * presses down pnuematics with suction cups on the end of them to the platform.
+   */
+  public Suction() {
     PCM = 0;
     rightPort  = 3;
     leftPort = 4;
@@ -33,12 +32,13 @@ public class ClimberPneumatics extends Subsystem {
   public void initDefaultCommand() {
     //setDefaultCommand(new Do_Nothing());
   }
-   public void platformGrab(){
+
+  /**
+   * Presses suction down
+   */
+   public void suctionDown(){
     pistonRight.set(true);
     pistonLeft.set(true);
    }
-   public void platformRetract(){
-    pistonLeft.set(false);
-    pistonRight.set(false);
-   }
+  
 }

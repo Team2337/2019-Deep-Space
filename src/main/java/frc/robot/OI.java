@@ -1,7 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.*;
-import frc.robot.NerdyFiles.controller.*;
+import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
