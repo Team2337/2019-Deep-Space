@@ -27,7 +27,7 @@ public class armWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double joy = OI.operatorJoystick.getRawAxis(2);
+        double joy = Robot.oi.operatorJoystick.getRawAxis(2);
         switch((int)Math.round(joy)) {
             case 1:
             Robot.Arm.setSetpoint(50);

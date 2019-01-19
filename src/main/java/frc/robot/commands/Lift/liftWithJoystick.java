@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.nerdyfiles.controller.*;
 
 /**
  * Drives the lift using the joystick
@@ -27,7 +28,7 @@ public class liftWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double joy = OI.operatorJoystick.getRawAxis(1);
+        double joy = Robot.oi.operatorJoystick.getRawAxis(1);
         switch((int)Math.round(joy)) {
             case 1:
             Robot.Arm.setSetpoint(50);

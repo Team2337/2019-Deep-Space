@@ -163,7 +163,6 @@ public class Arm extends Subsystem {
       SmartDashboard.putNumber("reverseARMSoftLimit", reverseLiftSoftLimit);
       SmartDashboard.putNumber("Arm setpoint", getSetpoint());
       SmartDashboard.putNumber("Arm position", getPosition());
-      SmartDashboard.putNumber("Arm Joy", OI.operatorJoystick.getRawAxis(2));
     }
   }
 }
