@@ -4,7 +4,7 @@
  * @author Team2337 - Enginerds
  */
 
-package frc.robot.nerdyfiles;
+package frc.robot.NerdyFiles;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
