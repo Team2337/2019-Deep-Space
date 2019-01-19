@@ -1,145 +1,170 @@
 package frc.robot.subsystems;
 
+import frc.robot.NerdyFiles.NerdyDrive;
+import frc.robot.Robot;
+import frc.robot.commands.Chassis.*;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-//import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.Chassis.*;
-import frc.robot.nerdyfiles.NerdyDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
  * The main chassis runtime
  * 
  * @category CHASSIS
- * @author Team2337 - EngiNERDs
+ * @author Jack E.
  */
 public class Chassis extends Subsystem {
 
-  //DECLERATIONS
+  /**
+   * Specifies whether or not the Chassis will be in debug mode.
+   * 
+   * @see #periodic()
+   */
+  boolean chassisDebug = false;
 
-private TalonSRX leftFront, rightFront;  
-private VictorSPX leftMiddle, leftRear, rightMiddle, rightRear;
-private NerdyDrive nerdyDrive;
+  /* --- Drive Motor Declaration --- */
+  private static TalonSRX leftFrontMotor;
+  private static VictorSPX leftMidMotor;
+  private static VictorSPX leftRearMotor;
 
-  //Motor Controller Ports
-private Integer leftFrontMotorPort   = 15;
-private Integer leftMiddleMotorPort  = 14;
-private Integer leftReadMotorPort    = 13;
-private Integer rightFrontMotorPort  = 0;
-private Integer rightMiddleMotorPort = 1;
-private Integer rightRearMotorPort   = 2;
+  private static TalonSRX rightFrontMotor;
+  private static VictorSPX rightMidMotor;
+  private static VictorSPX rightRearMotor;
 
-// CONSTRUCTOR
+  public static NerdyDrive drive;
 
-public Chassis() {
+  /* --- CAN ID SETUP --- */
+  // Do not update without updating the wiki, too!
+  private final static int rightFrontID = 0;
+  private final static int rightMidID = 1;
+  private final static int rightRearID = 2;
+  private final static int leftFrontID = 15;
+  private final static int leftMidID = 14;
+  private final static int leftRearID = 13;
 
-    // VARIABLE SETTING(s)
+  public Chassis() {
 
-  /* --- Drive Left --- */
-  leftFront = new TalonSRX(leftFrontMotorPort);  //chassisLeftFront
-  leftMiddle = new VictorSPX(leftMiddleMotorPort);
-  leftRear = new VictorSPX(leftReadMotorPort);
+    /*****************************************/
+    /* ------------------------------------- */
+    /* --- Motor & Sensor Initialization --- */
+    /* ------------------------------------- */
+    /*****************************************/
 
-  leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-  leftFront.setSensorPhase(false);
+    /* --- Drive Left --- */
 
-  leftFront.setInverted(false);
-  leftMiddle.setInverted(false);
-  leftRear.setInverted(false);
+    // Sets up the left front motor as a Talon with a mag encoder that isn't
+    // reversed
+    leftFrontMotor = new TalonSRX(leftFrontID);
+    leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    leftFrontMotor.setSensorPhase(false);
 
-  leftMiddle.follow(leftFront);
-  leftRear.follow(leftFront);
+    // Sets up the other left side motors as Victors
+    leftMidMotor = new VictorSPX(leftMidID);
+    leftRearMotor = new VictorSPX(leftRearID);
 
-		/* --- Drive Right --- */
-		rightFront = new TalonSRX(rightFrontMotorPort);
-		rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		rightFront.setSensorPhase(false);
+    // None of the left motors are currently reversed
+    leftFrontMotor.setInverted(false);
+    leftMidMotor.setInverted(false);
+    leftRearMotor.setInverted(false);
 
-		rightMiddle = new VictorSPX(rightMiddleMotorPort); 
-		rightRear = new VictorSPX(rightRearMotorPort); 
+    // Sets the rear and mid left motors to do the same thing as the front motor
+    leftRearMotor.follow(leftFrontMotor);
+    leftMidMotor.follow(leftFrontMotor);
 
-		rightFront.setInverted(true);
-		rightMiddle.setInverted(true);
-		rightRear.setInverted(true);
+    // Sets the maximum voltage to send to the motor to 12 Volts
+    leftFrontMotor.configVoltageCompSaturation(12, 0);
+    leftFrontMotor.enableVoltageCompensation(true);
 
-		rightMiddle.follow(rightFront);
-    rightRear.follow(rightFront);
-    
-    // Set Voltage Compensation on front motors.  Middle and rear are followers so they don't need it.
+    ////////////////////////
 
-    rightFront.configVoltageCompSaturation(12, 0);
-		rightFront.enableVoltageCompensation(true);
-		
-		leftFront.configVoltageCompSaturation(12, 0);
-		leftFront.enableVoltageCompensation(true);
-  
-  nerdyDrive = new NerdyDrive(leftFront,rightFront);
-}
+    /* --- Drive Right --- */
 
-  // Set the default command for a subsystem here, if desired.
+    // Sets up the right front motor as a Talon with a mag encoder that isn't
+    // reversed
+    rightFrontMotor = new TalonSRX(rightFrontID);
+    rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    rightFrontMotor.setSensorPhase(false);
 
-@Override
-public void initDefaultCommand() {
-  // setDefaultCommand(new MySpecialCommand());
-  setDefaultCommand(new DriveByJoystick());
-}
+    // Sets up the other right side motors as Victors
+    rightMidMotor = new VictorSPX(rightMidID);
+    rightRearMotor = new VictorSPX(rightRearID);
 
-  // Put methods for controlling this subsystem here. Call these from Commands.
+    // All of the right motors are currently reversed
+    rightFrontMotor.setInverted(true);
+    rightMidMotor.setInverted(true);
+    rightRearMotor.setInverted(true);
 
-public void driveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
-  this.nerdyDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
-}
-public void driveCurvature(double moveSpeed, double turnSpeed, boolean isQuickTurn) {
-  this.nerdyDrive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
-}
-public void driveTank(double leftSpeed, double rightSpeed, boolean squareInputs) {
-  this.nerdyDrive.tankDrive(leftSpeed, rightSpeed, squareInputs);
-}
-public void stopDrive() {
-  this.nerdyDrive.arcadeDrive(0, 0, true);
-}
-public void setEncoders(int pos){     
-  rightFront.setSelectedSensorPosition(pos, 0, 0);
-  leftFront.setSelectedSensorPosition(-pos, 0, 0);
-}
-public void resetEncoders(){
-  rightFront.setSelectedSensorPosition(0, 0, 0);
-  leftFront.setSelectedSensorPosition(0, 0, 0);
-}
+    // Sets the rear and mid right motors to do the same thing as the front motor
+    rightMidMotor.follow(rightFrontMotor);
+    rightRearMotor.follow(rightFrontMotor);
 
-public void setBrakeMode(NeutralMode mode) {
-  leftFront.setNeutralMode(mode);
-  rightFront.setNeutralMode(mode);
-  leftMiddle.setNeutralMode(mode);
-  rightMiddle.setNeutralMode(mode);
-  leftRear.setNeutralMode(mode);
-  rightRear.setNeutralMode(mode);
-}
+    // Sets the maximum voltage to send to the motor to 12 Volts
+    rightFrontMotor.configVoltageCompSaturation(12, 0);
+    rightFrontMotor.enableVoltageCompensation(true);
 
-/*
-public void periodic() {
-  if (RobotMap.chassisDebug) {
-  SmartDashboard.putNumber("leftFront", RobotMap.chassis_leftFront.getMotorOutputPercent());
-  SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
-  SmartDashboard.putNumber("right Chassis POWER", RobotMap.chassis_rightFront.getMotorOutputPercent());
-  SmartDashboard.putNumber("left Chassis POWER", RobotMap.chassis_leftFront.getMotorOutputPercent());
+    /////////////////////////
+
+    /* --- Nerdy Drive --- */
+    drive = new NerdyDrive(leftFrontMotor, rightFrontMotor);
   }
 
+  /**
+   * Determines what the drive motors will do when no signal is given to them
+   * 
+   * @param mode The breaking mode to use
+   *             <p>
+   *             {@code NeutralMode.Coast} - Allow the robot to roll to a stop
+   *             {@code NeutralMode.Break} - The motors run backwards and attempt
+   *             stop the robot sooner
+   *             </p>
+   */
+  public void setBrakeMode(NeutralMode mode) {
+    leftFrontMotor.setNeutralMode(mode);
+    rightFrontMotor.setNeutralMode(mode);
+    leftMidMotor.setNeutralMode(mode);
+    rightMidMotor.setNeutralMode(mode);
+    leftRearMotor.setNeutralMode(mode);
+    rightRearMotor.setNeutralMode(mode);
+  }
 
-*/
+  public void driveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+    drive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
+  }
+  public void driveCurvature(double moveSpeed, double turnSpeed, boolean isQuickTurn) {
+    drive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
+  }
+  public void driveTank(double leftSpeed, double rightSpeed, boolean squareInputs) {
+    drive.tankDrive(leftSpeed, rightSpeed, squareInputs);
+  }
+  public void stopDrive() {
+    drive.arcadeDrive(0, 0, true);
+  }
+  public void setEncoders(int pos){     
+    rightFrontMotor.setSelectedSensorPosition(pos, 0, 0);
+    leftFrontMotor.setSelectedSensorPosition(-pos, 0, 0);
+  }
 
+  /**
+   * Runs continuously during runtime. Currently used to display SmartDashboard
+   * values
+   */
+  public void periodic() {
+    if (chassisDebug) {
+      SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
+      SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+    }
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+
+  }
 }
-
-  //  Other possible speedcontrollers:
-  // Victor             import edu.wpi.first.wpilibj.  (use wpi differential drive)
-  // VictorSP
-  // Spark
-  // SparkMax           import ????
-  // WPI_VictorSPX      import com.ctre.phoenix.motorcontrol.can.
-  // WPI_TalonSRX
-  // VictorSPX
-  // TalonSRX

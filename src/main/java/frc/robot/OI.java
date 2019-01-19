@@ -1,15 +1,12 @@
 package frc.robot;
 
-import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
-
-
 import frc.robot.commands.*;
 import frc.robot.commands.Chassis.DriveByJoystickAndVision;
-import frc.robot.commands.Chassis.DriveWithDistanceSensor;
 import frc.robot.commands.Chassis.PIDVisionDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
-import frc.robot.nerdyfiles.controller.JoystickPOVButton;
+import frc.robot.commands.HatchBeak.hatchBeakExtend;
+import frc.robot.commands.HatchBeak.hatchBeakLaunchersRetract;
+import frc.robot.commands.HatchBeak.hatchBeakRetract;
+import frc.robot.NerdyFiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
@@ -85,6 +82,10 @@ public class OI {
 		3	Joystick rotate	Right/Left (Rotation)	Right
 		4	Throttle rocker	Right/Left (Rocker)		Right
 	 */
+	
+	/*
+	 * OperatorJoystick
+	 */
 
 	public static Joystick				operatorJoystick		= new Joystick(1);
 	JoystickButton			operator_RightTrigger				= new JoystickButton(operatorJoystick, 1);	//Digital trigger on the back of the joystick
@@ -111,7 +112,6 @@ public class OI {
 	JoystickPOVButton		operator_JoystickPOVDownLeft		= new JoystickPOVButton(operatorJoystick, 225);
 	JoystickPOVButton		operator_JoystickPOVLeft			= new JoystickPOVButton(operatorJoystick, 270);
 	JoystickPOVButton		operator_JoystickPOVUpLeft			= new JoystickPOVButton(operatorJoystick, 315);
-	
 
 	/*
 	 * OperatorControl
@@ -138,11 +138,11 @@ public class OI {
 		driver_BlueX			.whenPressed(new doNothing()); 
 		driver_YellowY			.whileHeld(new PIDVisionDrive(.04, 0, 0.02));
 		
-		driver_BumperLeft		.whenPressed(new doNothing());
-		driver_BumperRight		.whenPressed(new doNothing());
+		driver_BumperLeft		.whenPressed(new hatchBeakExtend());
+		driver_BumperRight		.whenPressed(new hatchBeakRetract());
 		
 		driver_Back				.whileHeld(new doNothing()); 
-		driver_Start			.whileHeld(new doNothing());
+		driver_Start			.whenPressed(new hatchBeakLaunchersRetract());
 		
 		driver_LeftStick		.whenPressed(new doNothing()); 
 		driver_RightStick		.whenPressed(new doNothing()); 
@@ -158,53 +158,62 @@ public class OI {
 	   	//driver_POVDownLeft	.whenPressed(new _doNothing()); 
 	    driver_POVLeft			.whenPressed(new doNothing()); 
 	   	//driver_POVUpLeft		.whenPressed(new _doNothing()); 
-	    
-	    //////////////////////////////////
-	    
-	    
+		
+		   
 		/* --- OPERATOR JOYSTICK - FLIGHT STICK --- */
-   
-	    operator_RightTrigger			       .whileHeld(new DriveWithDistanceSensor());
-	    operator_StripedButton			       .whenPressed(new doNothing());
-	    operator_StripedButton				   .whenReleased(new doNothing());
-	    operator_RightKnucleButton		       .whileHeld(new doNothing());
-	    operator_RightKnucleButton		       .whenReleased(new doNothing());
-	    operator_L3						       .whileHeld(new doNothing());
-	    operator_L3						       .whenReleased(new doNothing());
-	                                           
-	    operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
-	    operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
-	    operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
-	                                           
-	    operator_PalmButton				       .whenPressed(new doNothing());
-	    operator_TopIndexButton				   .whenPressed(new doNothing());
-	    operator_BottomIndexButton		       .whenPressed(new doNothing());
+		
+		operator_RightTrigger			       .whenPressed(new doNothing());
+		operator_StripedButton			       .whenPressed(new doNothing());
+		operator_RightKnucleButton		       .whenPressed(new doNothing());
+		operator_RightKnucleButton		       .whenPressed(new doNothing());
+		operator_L3						       .whenPressed(new doNothing());
+		operator_L3						       .whenPressed(new doNothing());
+											
+		operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
+		operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
+		operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
+											
+		operator_PalmButton				       .whenPressed(new doNothing());
+		operator_TopIndexButton				   .whenPressed(new doNothing());
+		operator_BottomIndexButton		       .whenPressed(new doNothing());
 
-//	    operator_SE						 	   .whileHeld(new climbWinch_driveVertical(1));     
-//	    operator_ST						  	   .whenPressed(new climber_ejector());
-	    
-	    operator_SE						 	   .whileHeld(new doNothing()); 
-	    operator_ST						  	   .whenPressed(new doNothing());  
-	    
-	    operator_JoystickPOVUp			       .whenPressed(new doNothing());	//previously: claw give 60 
-	    operator_JoystickPOVUp				   .whenReleased(new doNothing());
-	    operator_JoystickPOVUpRight		       .whenPressed(new doNothing());
-	    operator_JoystickPOVUpRight			   .whenReleased(new doNothing());
-	    operator_JoystickPOVUpLeft		       .whenPressed(new doNothing());
-	    operator_JoystickPOVUpLeft			   .whenReleased(new doNothing());
-	    
-	    operator_JoystickPOVDownRight	       .whenPressed(new doNothing());
-	    operator_JoystickPOVDown		       .whenPressed(new doNothing());
-	    operator_JoystickPOVDownLeft	       .whenPressed(new doNothing());
-	    
-	    operator_JoystickPOVRight		       .whenPressed(new doNothing());
-	    operator_JoystickPOVLeft		       .whenPressed(new doNothing());
+		operator_SE						 	   .whenPressed(new doNothing()); 
+		operator_ST						  	   .whenPressed(new doNothing());  
+
+		operator_JoystickPOVUp			       .whenPressed(new doNothing());
+		operator_JoystickPOVUpRight		       .whenPressed(new doNothing());
+		operator_JoystickPOVUpRight			   .whenPressed(new doNothing());
+		operator_JoystickPOVUpLeft		       .whenPressed(new doNothing());
+		operator_JoystickPOVUpLeft			   .whenPressed(new doNothing());
+
+		operator_JoystickPOVDownRight	       .whenPressed(new doNothing());
+		operator_JoystickPOVDown		       .whenPressed(new doNothing());
+		operator_JoystickPOVDownLeft	       .whenPressed(new doNothing());
+
+		operator_JoystickPOVRight		       .whenPressed(new doNothing());
+		operator_JoystickPOVLeft		       .whenPressed(new doNothing());
+
+
+		/* ===== DRIVER STATION CONTROLS ===== */
+
+		operatorInt_GreenButton	.whenPressed(new doNothing());
+		operatorInt_RedButton	.whenPressed(new doNothing());
+
+		operatorInt_ClearSwitch	.whenPressed(new doNothing());
+		operatorInt_BlueSwitch	.whenPressed(new doNothing());
+		operatorInt_BlackSwitch	.whenPressed(new doNothing());
+		operatorInt_YellowSwitch.whenPressed(new doNothing());
+
+		operatorInt_BlackButton	.whenPressed(new doNothing());
+		operatorInt_BlueButton	.whenPressed(new doNothing());
+		operatorInt_YellowButton.whenPressed(new doNothing());
+		operatorInt_WhiteButton	.whenPressed(new doNothing());
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
-		//operatorInt_GreenButton	.whenPressed(new _doNothing());
-		//operatorInt_RedButton	.whenPressed(new _doNothing());
+		operatorInt_GreenButton	.whenPressed(new doNothing());
+		operatorInt_RedButton	.whenPressed(new doNothing());
 		
 		operatorInt_ClearSwitch	.whenPressed(new doNothing());
 		operatorInt_BlueSwitch	.whenPressed(new doNothing());
@@ -215,8 +224,6 @@ public class OI {
 		operatorInt_BlueButton	.whenPressed(new doNothing());
 		operatorInt_YellowButton.whenPressed(new doNothing());
 		operatorInt_WhiteButton	.whenPressed(new doNothing());
-		
-		///////////////////////////////////////// 
 	}
 
 	

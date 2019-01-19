@@ -1,25 +1,25 @@
-package frc.robot.commands.Arm;
+package frc.robot.commands.HatchBeak;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * This command retracts the hatch intake (loaded)
+ * 
+ * @author Emily H.
  */
-public class armDoNothing extends Command {
-
-
+public class hatchBeakRetract extends Command {
 
   // CONSTRUCTOR
-  public armDoNothing() {
-
-    requires(Robot.Example);
+  public hatchBeakRetract() {
+    requires(Robot.HatchBeak);
   }
 
-  // Called just before this Command runs the first time
+  // Retract the hatch grabber to score the hatch panel game piece
   @Override
   protected void initialize() {
-    
+    Robot.HatchBeak.retractHatchGrabber();
+    Robot.HatchBeak.launchersExtend();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -37,7 +37,7 @@ public class armDoNothing extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+    Robot.HatchBeak.launchersRetract();
   }
 
   // Called when another command which requires one or more of the same

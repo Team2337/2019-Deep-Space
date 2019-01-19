@@ -26,7 +26,7 @@ public class ExampleSubsystem extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new Do_Nothing());
+    //setDefaultCommand(new doNothing());
   }
 
 }

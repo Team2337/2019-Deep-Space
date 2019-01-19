@@ -9,15 +9,15 @@ package frc.robot.commands.Chassis;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-
 /**
- * Chassis drive using the joysitck
+ * 
  */
 public class DriveByJoystick extends Command {
 
     // CONSTRUCTOR
     public DriveByJoystick() {
 
+    // VARIABLE_SETTING
           
     // REQUIRES
       requires(Robot.Chassis);
