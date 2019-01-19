@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import frc.robot.NerdyFiles.NerdyDrive;
+import frc.robot.nerdyfiles.NerdyDrive;
 import frc.robot.Robot;
 import frc.robot.commands.Chassis.*;
 
