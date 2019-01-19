@@ -30,7 +30,7 @@ public class Lift extends Subsystem {
   // Do not update without updating the wiki, too!
   private final static int liftRightID = 8;
   private final static int liftLeftID = 9;
-  private int level;
+  private String button;
 
   /*
    * The left motor is a victor, since its only going to follow the right This
@@ -184,16 +184,16 @@ public class Lift extends Subsystem {
    * @param level - int value for the level the lift should go to
    * (0 = bottom; 1 = middle; 2 = top)
    */
-  public void setLevel(int level) {
-    this.level = level;
-    switch(level) {
-      case 0:
+  public void setLevel(String button) {
+    this.button = button;
+    switch(button) {
+      case "BottomThrottleButton":
       Robot.Lift.setSetpoint(70);
       break;
-      case 1:
+      case "MiddleThrottleButton":
       Robot.Lift.setSetpoint(375);
       break;
-      case 2:
+      case "TopThrottleButton":
       Robot.Lift.setSetpoint(500);
       break;
       // Sets the current position of the lift as the setpoint as to not break the robot
@@ -201,14 +201,6 @@ public class Lift extends Subsystem {
       Robot.Lift.setSetpoint(this.getPosition());
       break;
     }
-  }
-
-  /**
-   * Returns the level the lift is at
-   * @return - returns the level value the lift is at, specified in the constructor
-   */
-  public double getLevel() {
-    return level;
   }
 
   /**
@@ -221,7 +213,6 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("reverseLIFTSoftLimit", reverseLiftSoftLimit);
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
-      SmartDashboard.putNumber("Level", getLevel());
     }
   }
 }
