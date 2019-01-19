@@ -11,51 +11,45 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Controls lift movement using PID setpoints
+ * Controls Four Bar Arm movement using PID setpoints
  * 
- * NOTE: Setpoints are all in encoder ticks
+ * NOTE: Setpoints set using analog sensor values
  * 
  * For reference, there are 4096 ticks per 360 degree revolution
  * 
- * @category LIFT
+ * @category ARM
  * @author Bryce G. Jack E.
  */
 public class Arm extends Subsystem {
 
   /**
-   * Specifies whether or not the Chassis will be in debug mode.
+   * Specifies whether or not the Arm will be in debug mode.
    * 
    * @see #periodic()
    */
-  boolean liftDebug = true;
+  boolean armDebug = true;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private final static int liftRightID = 4;
 
-  /*
-   * The left motor is a victor, since its only going to follow the right This
-   * means that we only need to send commands to the right motor
-   */
   public static TalonSRX armMotor;
 
   // Configures the maximum/minumum speeds the lift can travel at
-  private double maxSpeedUp = 0.8;
-  private double maxSpeedDown = 0.5;
+  private double maxSpeed = 1;
   private double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
-  private double kP = 14;
+  private double kP = 1;
   private double kI = 0;
   private double kD = 0;
   private double kF = 0;
 
-  // How much the actual position vary from the target (in encoder ticks)
+  // How much the actual position vary from the target 
   private int allowableError = 0;
 
   /**
-   * Gives the values for the lifts softlimits - purley referance right now
-   * 
+   * Sets the imits set in the code where the mechanism cannot go outside of (in analog sensor values) 
    * @see #setSoftLimits()
    */
   public static int forwardLiftSoftLimit = 590;
@@ -66,9 +60,9 @@ public class Arm extends Subsystem {
   }
 
   public Arm() {
-    // Refer to Chassis.java for information on what this block does
+    
     armMotor = new TalonSRX(liftRightID);
-    armMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // String Potentiometer
+    armMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // Analog sensor
     armMotor.setSensorPhase(false);
     armMotor.setInverted(false);
     armMotor.setStatusFramePeriod(0, 0, 0);
@@ -89,9 +83,9 @@ public class Arm extends Subsystem {
      * If the motor is given below the nominal voltage, it will be bumped up and
      * vice versa for the peak voltage
      */
-    armMotor.configPeakOutputForward(maxSpeedUp, 0); // Forwards
+    armMotor.configPeakOutputForward(maxSpeed, 0); // Forwards
     armMotor.configNominalOutputForward(nominalSpeed, 0);
-    armMotor.configPeakOutputReverse(-maxSpeedDown, 0); // Reverse
+    armMotor.configPeakOutputReverse(-maxSpeed, 0); // Reverse
     armMotor.configNominalOutputReverse(nominalSpeed, 0);
 
     /*
@@ -104,58 +98,53 @@ public class Arm extends Subsystem {
     armMotor.config_kP(0, kP, 0);
     armMotor.config_kI(0, kI, 0);
     armMotor.config_kD(0, kD, 0);
-    armMotor.config_kF(0, kF, 0); // Shifter
+    armMotor.config_kF(0, kF, 0); 
 
   }
 
   /**
-   * Sets the setpoint that the lift will move to
-   * 
-   * @param pos Number of encoder ticks (Stringpot) that the lift will move to
+   * Sets the setpoint that the arm will move to
+   * @param pos Analog position that the arm will move to
    */
   public void setSetpoint(double pos) {
     armMotor.set(ControlMode.Position, pos);
   }
 
   /**
-   * Gets the current setpoint that the lift is currently moving to
-   * 
-   * @return Number of encoder ticks (Stringpot) that the lift is moving to
+   * Gets the current setpoint that the arm is currently moving to
+   * @return Analog position that the arm is moving to
    */
   public double getSetpoint() {
     return armMotor.getClosedLoopTarget(0);
   }
 
   /**
-   * Gets the current position of the lift
-   * 
-   * @return Number of encoder ticks (Stringpot) that the lift is at
+   * Gets the current position of the arm
+   * @return Analog position that the arm is at
    */
   public double getPosition() {
     return armMotor.getSelectedSensorPosition(0);
   }
 
   /**
-   * Runs the lift by using a given power
-   * 
-   * @param power A decimal value from 1 to -1 to supply to the lift
+   * Runs the arm by using a given power
+   * @param power A decimal value from 1 to -1 to supply power to the arm
    */
   public void move(double power) {
     armMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
-   * Stops the lift
+   * Stops the arm motors
    */
   public void stop() {
     armMotor.set(ControlMode.PercentOutput, 0);
   }
 
   /**
-   * Sets the SOFTware limits for the motors. After they surpass these limits, the
-   * motors will default to their NormalModes, which could be either be to coast
-   * to a stop, or (more likely) to brake as quickly as possible
-   * 
+   * Sets soft limits within the code, defining a range of motion for the motors. 
+   * If the sensor value surpasses this range, the code will run the motors in 
+   * the opposite direction to get the sensor value to be back within the given range.
    * @param forward The soft limit for when the motor is going forwards
    * @param reverse The soft limit for when the motor is going backwards
    */
@@ -164,18 +153,14 @@ public class Arm extends Subsystem {
     reverseLiftSoftLimit = reverse;
 
     armMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
-    // leftFront.configForwardSoftLimitThreshold(forwardLIFTSoftLimit, 0);
-
     armMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
-    // leftFront.configReverseSoftLimitThreshold(reverseLIFTSoftLimit, 0);
   }
 
   /**
-   * Runs continuously during runtime. Currently used to display SmartDashboard
-   * values
+   * Runs continuously during runtime. Currently used to display SmartDashboard values
    */
   public void periodic() {
-    if (liftDebug) {
+    if (armDebug) {
       SmartDashboard.putNumber("forwardARMSoftLimit", forwardLiftSoftLimit);
       SmartDashboard.putNumber("reverseARMSoftLimit", reverseLiftSoftLimit);
       SmartDashboard.putNumber("Arm setpoint", getSetpoint());

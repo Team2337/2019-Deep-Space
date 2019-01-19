@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Controls lift movement using PID setpoints
  * 
- * NOTE: Setpoints are all in encoder ticks
+ * NOTE: Setpoints set using analog sensor values
  * 
  * For reference, there are 4096 ticks per 360 degree revolution
  * 
@@ -70,7 +70,7 @@ public class Lift extends Subsystem {
   }
 
   public Lift() {
-    // Refer to Chassis.java for information on what this block does
+    // Configurations for the right lift motor
     liftRightMotor = new TalonSRX(liftRightID);
     liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // String Potentiometer
     liftRightMotor.setSensorPhase(false);
@@ -78,6 +78,10 @@ public class Lift extends Subsystem {
     liftRightMotor.setStatusFramePeriod(0, 0, 0);
     liftRightMotor.setNeutralMode(NeutralMode.Brake);
 
+    /*
+    * Configurations for the right lift motor
+    * The left motor is set up to follow the motions of the right motor
+    */
     liftLeftMotor = new VictorSPX(liftLeftID);
     liftLeftMotor.follow(liftRightMotor);
     liftLeftMotor.setInverted(true);
@@ -116,14 +120,14 @@ public class Lift extends Subsystem {
     liftRightMotor.config_kP(0, kP, 0);
     liftRightMotor.config_kI(0, kI, 0);
     liftRightMotor.config_kD(0, kD, 0);
-    liftRightMotor.config_kF(0, kF, 0); // Shifter
+    liftRightMotor.config_kF(0, kF, 0); 
 
   }
 
   /**
    * Sets the setpoint that the lift will move to
    * 
-   * @param pos Number of encoder ticks (Stringpot) that the lift will move to
+   * @param pos Analog position that the arm will move to
    */
   public void setSetpoint(double pos) {
     liftRightMotor.set(ControlMode.Position, pos);
@@ -132,7 +136,7 @@ public class Lift extends Subsystem {
   /**
    * Gets the current setpoint that the lift is currently moving to
    * 
-   * @return Number of encoder ticks (Stringpot) that the lift is moving to
+   * @return Analog position that the arm is moving to
    */
   public double getSetpoint() {
     return liftRightMotor.getClosedLoopTarget(0);
@@ -141,7 +145,7 @@ public class Lift extends Subsystem {
   /**
    * Gets the current position of the lift
    * 
-   * @return Number of encoder ticks (Stringpot) that the lift is at
+   * @return Analog position that the arm is at
    */
   public double getPosition() {
     return liftRightMotor.getSelectedSensorPosition(0);
@@ -150,24 +154,23 @@ public class Lift extends Subsystem {
   /**
    * Runs the lift by using a given power
    * 
-   * @param power A decimal value from 1 to -1 to supply to the lift
+   * @param power A decimal value from 1 to -1 to supply power to the lift
    */
   public void move(double power) {
     liftRightMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
-   * Stops the lift
+   * Stops the lift motors
    */
   public void stop() {
     liftRightMotor.set(ControlMode.PercentOutput, 0);
   }
 
   /**
-   * Sets the SOFTware limits for the motors. After they surpass these limits, the
-   * motors will default to their NormalModes, which could be either be to coast
-   * to a stop, or (more likely) to brake as quickly as possible
-   * 
+   * Sets soft limits within the code, defining a range of motion for the motors. 
+   * If the sensor value surpasses this range, the code will run the motors in 
+   * the opposite direction to get the sensor value to be back within the given range.
    * @param forward The soft limit for when the motor is going forwards
    * @param reverse The soft limit for when the motor is going backwards
    */
@@ -176,12 +179,15 @@ public class Lift extends Subsystem {
     reverseLiftSoftLimit = reverse;
 
     liftRightMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
-    // leftFront.configForwardSoftLimitThreshold(forwardLIFTSoftLimit, 0);
-
     liftRightMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
-    // leftFront.configReverseSoftLimitThreshold(reverseLIFTSoftLimit, 0);
   }
 
+  /**
+   * Sets the level of the lift
+   * Each level has a setpoint to send the arm to 
+   * @param level - int value for the level the lift should go to
+   * (0 = bottom; 1 = middle; 2 = top)
+   */
   public void setLevel(int level) {
     this.level = level;
     switch(level) {
@@ -194,12 +200,17 @@ public class Lift extends Subsystem {
       case 2:
       Robot.Lift.setSetpoint(500);
       break;
+      // Sets the current position of the lift as the setpoint as to not break the robot
       default:
-      Robot.Lift.stop();
+      Robot.Lift.setSetpoint(this.getPosition());
       break;
     }
   }
 
+  /**
+   * Returns the level the lift is at
+   * @return - returns the level value the lift is at, specified in the constructor
+   */
   public double getLevel() {
     return level;
   }

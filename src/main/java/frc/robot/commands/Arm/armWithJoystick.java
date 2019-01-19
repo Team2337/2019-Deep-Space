@@ -8,6 +8,9 @@ import frc.robot.Robot;
 /**
  * This command is mainly a placeholder command, but it can be used
  * functionally. It does just as it says: nothing.
+ * 
+ * @category ARM
+ * @author Bryce G.
  */
 public class armWithJoystick extends Command {
     // CONSTRUCTOR
@@ -25,12 +28,17 @@ public class armWithJoystick extends Command {
     @Override
     protected void execute() {
         double joy = OI.operatorJoystick.getRawAxis(2);
-            if(joy > 0.9)
-            Robot.Arm.setSetpoint(40);
-            else if(joy < 0.05 && joy > -0.05)
+        switch((int)Math.round(joy)) {
+            case 1:
+            Robot.Arm.setSetpoint(50);
+            break;
+            case 0:
             Robot.Arm.setSetpoint(250);
-            else if(joy < -0.9)
+            break;
+            case -1:
             Robot.Arm.setSetpoint(400);
+            break;
+        }            
     }
 
     // Make this return true when this Command no longer needs to run execute()

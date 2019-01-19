@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import frc.robot.nerdyfiles.NerdyDrive;
+import frc.robot.NerdyFiles.NerdyDrive;
 import frc.robot.Robot;
 import frc.robot.commands.Chassis.*;
 
@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * The main chassis runtime
  * 
  * @category CHASSIS
- * @author Team2337 - EngiNERDs
+ * @author Jack E.
  */
 public class Chassis extends Subsystem {
 

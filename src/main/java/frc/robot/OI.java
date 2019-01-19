@@ -1,10 +1,7 @@
 package frc.robot;
 
-import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
-
-
 import frc.robot.commands.*;
-import frc.robot.nerdyfiles.controller.*;
+import frc.robot.NerdyFiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
@@ -95,9 +92,6 @@ public class OI {
 	JoystickPOVButton		operator_JoystickPOVDownLeft		= new JoystickPOVButton(operatorJoystick, 225);
 	JoystickPOVButton		operator_JoystickPOVLeft			= new JoystickPOVButton(operatorJoystick, 270);
 	JoystickPOVButton		operator_JoystickPOVUpLeft			= new JoystickPOVButton(operatorJoystick, 315);
-	
-
-	
 
 	/*
 	 * OperatorControl
@@ -144,64 +138,57 @@ public class OI {
 	   	//driver_POVDownLeft	.whenPressed(new _doNothing()); 
 	    driver_POVLeft			.whenPressed(new doNothing()); 
 	   	//driver_POVUpLeft		.whenPressed(new _doNothing()); 
-	    
-	    //////////////////////////////////
-	    
-	    
-		/* ====== OPERATOR JOYSTICK ===== */
-	    
-	/* --- OPERATOR JOYSTICK - FLIGHT STICK --- */
-	
-	operator_RightTrigger			       .whenPressed(new doNothing());
-	operator_StripedButton			       .whenPressed(new doNothing());
-	operator_StripedButton				   .whenPressed(new doNothing());
-	operator_RightKnucleButton		       .whenPressed(new doNothing());
-	operator_RightKnucleButton		       .whenPressed(new doNothing());
-	operator_L3						       .whenPressed(new doNothing());
-	operator_L3						       .whenPressed(new doNothing());
-										
-	operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
-	operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
-	operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
-										
-	operator_PalmButton				       .whenPressed(new doNothing());
-	operator_TopIndexButton				   .whenPressed(new doNothing());
-	operator_BottomIndexButton		       .whenPressed(new doNothing());
+		
+		   
+		/* --- OPERATOR JOYSTICK - FLIGHT STICK --- */
+		
+		operator_RightTrigger			       .whenPressed(new doNothing());
+		operator_StripedButton			       .whenPressed(new doNothing());
+		operator_StripedButton				   .whenPressed(new doNothing());
+		operator_RightKnucleButton		       .whenPressed(new doNothing());
+		operator_RightKnucleButton		       .whenPressed(new doNothing());
+		operator_L3						       .whenPressed(new doNothing());
+		operator_L3						       .whenPressed(new doNothing());
+											
+		operator_ThrottleTopThumbButton		   .whenPressed(new doNothing());
+		operator_ThrottleMidThumbButton		   .whenPressed(new doNothing());
+		operator_ThrottleBottomThumbButton	   .whenPressed(new doNothing());
+											
+		operator_PalmButton				       .whenPressed(new doNothing());
+		operator_TopIndexButton				   .whenPressed(new doNothing());
+		operator_BottomIndexButton		       .whenPressed(new doNothing());
 
-	operator_SE						 	   .whenPressed(new doNothing()); 
-	operator_ST						  	   .whenPressed(new doNothing());  
+		operator_SE						 	   .whenPressed(new doNothing()); 
+		operator_ST						  	   .whenPressed(new doNothing());  
 
-	operator_JoystickPOVUp			       .whenPressed(new doNothing());	//previously: claw give 60 
-	operator_JoystickPOVUp				   .whenPressed(new doNothing());
-	operator_JoystickPOVUpRight		       .whenPressed(new doNothing());
-	operator_JoystickPOVUpRight			   .whenPressed(new doNothing());
-	operator_JoystickPOVUpLeft		       .whenPressed(new doNothing());
-	operator_JoystickPOVUpLeft			   .whenPressed(new doNothing());
+		operator_JoystickPOVUp			       .whenPressed(new doNothing());
+		operator_JoystickPOVUpRight		       .whenPressed(new doNothing());
+		operator_JoystickPOVUpRight			   .whenPressed(new doNothing());
+		operator_JoystickPOVUpLeft		       .whenPressed(new doNothing());
+		operator_JoystickPOVUpLeft			   .whenPressed(new doNothing());
 
-	operator_JoystickPOVDownRight	       .whenPressed(new doNothing());
-	operator_JoystickPOVDown		       .whenPressed(new doNothing());
-	operator_JoystickPOVDownLeft	       .whenPressed(new doNothing());
+		operator_JoystickPOVDownRight	       .whenPressed(new doNothing());
+		operator_JoystickPOVDown		       .whenPressed(new doNothing());
+		operator_JoystickPOVDownLeft	       .whenPressed(new doNothing());
 
-	operator_JoystickPOVRight		       .whenPressed(new doNothing());
-	operator_JoystickPOVLeft		       .whenPressed(new doNothing());
+		operator_JoystickPOVRight		       .whenPressed(new doNothing());
+		operator_JoystickPOVLeft		       .whenPressed(new doNothing());
 
 
-/* ===== DRIVER STATION CONTROLS ===== */
+		/* ===== DRIVER STATION CONTROLS ===== */
 
-	operatorInt_GreenButton	.whenPressed(new doNothing());
-	operatorInt_RedButton	.whenPressed(new doNothing());
+		operatorInt_GreenButton	.whenPressed(new doNothing());
+		operatorInt_RedButton	.whenPressed(new doNothing());
 
-	operatorInt_ClearSwitch	.whenPressed(new doNothing());
-	operatorInt_BlueSwitch	.whenPressed(new doNothing());
-	operatorInt_BlackSwitch	.whenPressed(new doNothing());
-	operatorInt_YellowSwitch.whenPressed(new doNothing());
+		operatorInt_ClearSwitch	.whenPressed(new doNothing());
+		operatorInt_BlueSwitch	.whenPressed(new doNothing());
+		operatorInt_BlackSwitch	.whenPressed(new doNothing());
+		operatorInt_YellowSwitch.whenPressed(new doNothing());
 
-	operatorInt_BlackButton	.whenPressed(new doNothing());
-	operatorInt_BlueButton	.whenPressed(new doNothing());
-	operatorInt_YellowButton.whenPressed(new doNothing());
-	operatorInt_WhiteButton	.whenPressed(new doNothing());
-
-///////////////////////////////////////// 
+		operatorInt_BlackButton	.whenPressed(new doNothing());
+		operatorInt_BlueButton	.whenPressed(new doNothing());
+		operatorInt_YellowButton.whenPressed(new doNothing());
+		operatorInt_WhiteButton	.whenPressed(new doNothing());
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */
@@ -218,8 +205,6 @@ public class OI {
 		operatorInt_BlueButton	.whenPressed(new doNothing());
 		operatorInt_YellowButton.whenPressed(new doNothing());
 		operatorInt_WhiteButton	.whenPressed(new doNothing());
-		
-		///////////////////////////////////////// 
 	}
 
 	
