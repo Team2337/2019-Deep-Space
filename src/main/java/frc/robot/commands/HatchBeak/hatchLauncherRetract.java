@@ -8,10 +8,10 @@ import frc.robot.Robot;
  * 
  * @author Emily H.
  */
-public class hatchBeakExtend extends Command {
+public class hatchLauncherRetract extends Command {
 
   // CONSTRUCTOR
-  public hatchBeakExtend() {
+  public hatchLauncherRetract() {
     requires(Robot.HatchBeak);
   }
 
@@ -20,8 +20,7 @@ public class hatchBeakExtend extends Command {
   protected void initialize() {
 
     // Extend the hatch grabber to prepare to grab the piece
-    Robot.HatchBeak.extendHatchGrabber();
-    Robot.HatchBeak.extendLaunchers();
+    Robot.HatchBeak.retractLaunchers();
 
   }
 

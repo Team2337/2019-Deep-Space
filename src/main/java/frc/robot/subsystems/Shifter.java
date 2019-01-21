@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class Shifter extends Subsystem {
 
-  private int PCM = 0;
+  private int PCM = 1;
   private int portRight = 5;
   private int portLeft = 6;
 

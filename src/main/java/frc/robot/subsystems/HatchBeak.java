@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 /**
@@ -11,7 +12,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public class HatchBeak extends Subsystem {
 
-  private DoubleSolenoid hatchSolenoid = new DoubleSolenoid(0, 1, 2);
+  private Solenoid hatchSolenoid = new Solenoid(0, 5);
+  private Solenoid hatchLauncher = new Solenoid(0, 6);
 
   public HatchBeak() {
 
@@ -28,21 +30,22 @@ public class HatchBeak extends Subsystem {
    * Extend the Hatch Grabber to obtain the hatch panel
    */
   public void extendHatchGrabber() {
-    hatchSolenoid.set(Value.kForward);
+    hatchSolenoid.set(true);
   }
 
   /**
    * Retracted the Hatch Grabber to score the hatch panel
    */
   public void retractHatchGrabber() {
-    hatchSolenoid.set(Value.kReverse);
+    hatchSolenoid.set(false);
   }
 
-  /**
-   * Turn off the double solenoid
-   */
-  public void hatchGrabberOff() {
-    hatchSolenoid.set(Value.kOff);
+  public void extendLaunchers() {
+    hatchLauncher.set(true);
+  }
+
+  public void retractLaunchers() {
+    hatchLauncher.set(false);
   }
 
   /**

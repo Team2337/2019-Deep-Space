@@ -19,7 +19,7 @@ public class Climber extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new doNothing());
+    
   }
 
 }

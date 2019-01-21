@@ -1,8 +1,13 @@
 package frc.robot;
 
-import frc.robot.nerdyfiles.controller.JoystickAnalogButton;
+import frc.robot.NerdyFiles.controller.JoystickAnalogButton;
 import frc.robot.commands.*;
-import frc.robot.nerdyfiles.controller.*;
+import frc.robot.commands.Auto.Pathway;
+import frc.robot.commands.Auto.autoSetPath;
+import frc.robot.commands.HatchBeak.hatchBeakExtend;
+import frc.robot.commands.HatchBeak.hatchBeakRetract;
+import frc.robot.commands.HatchBeak.hatchLauncherRetract;
+import frc.robot.NerdyFiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
@@ -111,16 +116,16 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driver_GreenA			.whenPressed(new doNothing());
-		driver_RedB				.whenPressed(new doNothing());
+		driver_GreenA			.whenPressed(new autoSetPath(Robot.initTrajectory));
+		driver_RedB				.whenPressed(new autoSetPath(Robot.initTrajectory2));
 		driver_BlueX			.whenPressed(new doNothing()); 
 		driver_YellowY			.whenPressed(new doNothing());
 		
-		driver_BumperLeft		.whenPressed(new doNothing());
-		driver_BumperRight		.whenPressed(new doNothing());
+		driver_BumperLeft		.whenPressed(new hatchBeakRetract());
+		driver_BumperRight		.whenPressed(new hatchBeakExtend());
 		
 		driver_Back				.whileHeld(new doNothing()); 
-		driver_Start			.whileHeld(new doNothing());
+		driver_Start			.whileHeld(new hatchLauncherRetract());
 		
 		driver_LeftStick		.whenPressed(new doNothing()); 
 		driver_RightStick		.whenPressed(new doNothing()); 
