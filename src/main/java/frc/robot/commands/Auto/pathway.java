@@ -26,8 +26,6 @@ public class Pathway {
 
     public static Waypoint[] pointsPoints = new Waypoint[] {
         new Waypoint(0, 0, 0),
-        new Waypoint(5, 0, 0),
-        new Waypoint(10, 2, 0),
-        new Waypoint(12, 2, 0)
+        new Waypoint(4, 0, 0)
     };
 }

@@ -4,6 +4,7 @@ import frc.robot.NerdyFiles.controller.JoystickAnalogButton;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.autoSetPath;
+import frc.robot.commands.Auto.autoSetPathReverse;
 import frc.robot.commands.HatchBeak.hatchBeakExtend;
 import frc.robot.commands.HatchBeak.hatchBeakRetract;
 import frc.robot.commands.HatchBeak.hatchLauncherRetract;
@@ -117,7 +118,7 @@ public class OI {
 		/* ====== DRIVER JOYSTICK ===== */
 		
 		driver_GreenA			.whenPressed(new autoSetPath(Robot.initTrajectory));
-		driver_RedB				.whenPressed(new autoSetPath(Robot.initTrajectory2));
+		driver_RedB				.whenPressed(new autoSetPathReverse(Robot.initTrajectory2));
 		driver_BlueX			.whenPressed(new doNothing()); 
 		driver_YellowY			.whenPressed(new doNothing());
 		

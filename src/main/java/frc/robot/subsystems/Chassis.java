@@ -57,9 +57,9 @@ public class Chassis extends Subsystem {
   /* --- Path Weaver Variables --- */ 
   private int ticksPerRev =  4096*3; // Gear ratio 
   private double wheelDiameter = 6.0 * 0.0254;
-  private double kP = 2;
+  private double kP = 1.3; //2 - working P
   private double kI = 0;
-  private double kD = 0;
+  private double kD = 0.15;
   private double kAccelerationGain = 0;
   private double wheelBase = 21.5 * 0.0254;
   private double timeStep = 0.02;
@@ -164,7 +164,7 @@ public class Chassis extends Subsystem {
    * Use this in execute 
    * These variables are constantly being updated
    */
-  public void makePath() {
+  public void makePathForawrd() {
     leftOutput = leftSideFollower.calculate((int)getLeftPosition());
     rightOutput = rightSideFollower.calculate((int)getRightPosition());
     
@@ -175,6 +175,23 @@ public class Chassis extends Subsystem {
     turn = 0.8 * (-1.0/80.0) * angleDifference;
     
     drive.tankDrive(leftOutput + turn, rightOutput - turn, false);
+  }
+
+  /**
+   * Use this in execute 
+   * These variables are constantly being updated
+   */
+  public void makePathReverse() {
+    leftOutput = leftSideFollower.calculate(-(int)getLeftPosition());
+    rightOutput = rightSideFollower.calculate(-(int)getRightPosition());
+    
+    gyro_heading = Robot.Pigeon.getYaw();    
+    desired_heading = Pathfinder.r2d(leftSideFollower.getHeading()); 
+
+    angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+    turn = 0.8 * (-1.0/80.0) * angleDifference;
+    
+    drive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
   }
 
   public void setWaypoints(Waypoint[] points) {
@@ -188,6 +205,8 @@ public class Chassis extends Subsystem {
     //old = 1.7, 2.0, 60.0
     //new = 4.267, 5.0, 150.6
     //2,1.75,10
+    // FIRST S CURVE -- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
+    // 1.7
     config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
     
     trajectory = Pathfinder.generate(points, config);
@@ -267,6 +286,8 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
 
+      SmartDashboard.putNumber("Right Encoder Velocity", rightFrontMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("Left Encoder Velocity", leftFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("Turn Value", this.turn);
       SmartDashboard.putNumber("Angle Differance", this.angleDifference);
       SmartDashboard.putNumber("leftOutput", this.leftOutput);

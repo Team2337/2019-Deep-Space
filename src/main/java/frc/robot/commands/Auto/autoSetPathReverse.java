@@ -13,7 +13,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  * This command is mainly a placeholder command, but it can be used
  * functionally. It does just as it says: nothing.
  */
-public class autoSetPath extends Command {
+public class autoSetPathReverse extends Command {
 
   /* --- Path Weaver Variables --- */
 
@@ -26,7 +26,7 @@ public class autoSetPath extends Command {
   private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold;
 
   // CONSTRUCTOR
-  public autoSetPath(Trajectory trajectoryIn) {
+  public autoSetPathReverse(Trajectory trajectoryIn) {
     this.trajectory = trajectoryIn;
     requires(Robot.Chassis);
   }
@@ -52,7 +52,7 @@ public class autoSetPath extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Chassis.makePathForawrd();
+    Robot.Chassis.makePathReverse();
     if(Robot.Chassis.leftSideFollower.isFinished() && Robot.Chassis.rightSideFollower.isFinished()) {
       Robot.Chassis.setBrakeMode(NeutralMode.Brake);
     }

@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -90,7 +91,7 @@ public class Robot extends TimedRobot {
 
     System.out.println("Start");
     initTrajectory = Chassis.wayPoints(Pathway.points);
-    // initTrajectory2 = Chassis.wayPoints(Pathway.pointsPoints);
+    initTrajectory2 = Chassis.wayPoints(Pathway.pointsPoints);
     System.out.println("Fin (fish)");
 
     oi = new OI();
@@ -122,6 +123,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    // Robot.Chassis.setBrakeMode(NeutralMode.Coast);
   }
 
   @Override
