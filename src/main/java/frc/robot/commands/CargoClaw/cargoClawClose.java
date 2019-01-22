@@ -17,7 +17,7 @@ public class cargoClawClose extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // Robot.CargoScore.clawClose();
+     Robot.CargoClaw.Outake();
 
   }
 

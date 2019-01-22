@@ -11,39 +11,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Runs the claw pressure and open and close of it as well
  * 
- * @author Zayd A. 
+ * @author Zayd A.
  */
 public class CargoClaw extends Subsystem {
-
-
   private TalonSRX CargoClawMotor;
-  //Subject to change.
+  // Subject to change.
   private int CargoClawPort = 7;
-
   @Override
   public void initDefaultCommand() {
 
   }
-
   public CargoClaw() {
     this.CargoClawMotor = new TalonSRX(CargoClawPort);
     CargoClawMotor.setInverted(true);
     CargoClawMotor.setNeutralMode(NeutralMode.Brake);
-
-  
   }
-/**
- * Opens claw at full speed, negtive speed, or doesn't move
- */
-  public void rollIn(double speed) {
+  /**
+   * Opens claw at full speed, negtive speed, or doesn't move
+   */
+  public void Intake(double speed) {
     CargoClawMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void rollOut(double speed) {
+  public void Outake(double speed) {
     CargoClawMotor.set(ControlMode.PercentOutput, -speed);
   }
 
-  public void rollStop() {
+  public void Stop() {
     CargoClawMotor.set(ControlMode.PercentOutput, 0);
   }
 
