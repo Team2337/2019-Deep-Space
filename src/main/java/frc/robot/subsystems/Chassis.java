@@ -57,20 +57,12 @@ public class Chassis extends Subsystem {
   /* --- Path Weaver Variables --- */ 
   private int ticksPerRev =  4096*3; // Gear ratio 
   private double wheelDiameter = 6.0 * 0.0254;
-  private double kP = 1.3; //2 - working P
-  private double kI = 0;
-  private double kD = 0.15;
-  private double kAccelerationGain = 0;
   private double wheelBase = 21.5 * 0.0254;
-  private double timeStep = 0.02;
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
 
   public TankModifier modifier;
-  public Trajectory.Config config;
-  public Trajectory trajectory;
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
-  public Waypoint[] points;
 
 
   /* --- CAN ID SETUP --- */
@@ -147,11 +139,6 @@ public class Chassis extends Subsystem {
 
     /* --- Nerdy Drive --- */
     drive = new NerdyDrive(leftFrontMotor, rightFrontMotor);
-
-    /* --- Pathfinder code --- */
-
-   
-
   }
    
   // Sets the default drive command to drive using the joysticks on an XBox 360
@@ -194,34 +181,16 @@ public class Chassis extends Subsystem {
     drive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
   }
 
-  public void setWaypoints(Waypoint[] points) {
-    this.points = points;
-  }
-  /**
-   * Converts the waypoints to generate the path into values readable by the code
-   * @param points - array of waypoints
-   */
-  public Trajectory wayPoints(Waypoint[] points) {
-    //old = 1.7, 2.0, 60.0
-    //new = 4.267, 5.0, 150.6
-    //2,1.75,10
-    // FIRST S CURVE -- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
-    // 1.7
-    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
-    
-    trajectory = Pathfinder.generate(points, config);
+ 
 
-    return trajectory;
-  }
-
-  public void setTrajectory(Trajectory trajectory) {
+  public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA) {
     modifier = new TankModifier(trajectory).modify(wheelBase);
 
     leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
     rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
 
-    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / config.max_velocity, kAccelerationGain);
-    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / config.max_velocity, kAccelerationGain);
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
 
     leftSideFollower.configureEncoder((int)getLeftPosition(), ticksPerRev, wheelDiameter);
     rightSideFollower.configureEncoder((int)getRightPosition(), ticksPerRev, wheelDiameter);

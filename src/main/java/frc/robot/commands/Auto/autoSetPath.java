@@ -23,11 +23,20 @@ public class autoSetPath extends Command {
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
 
-  private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold;
+  private double kP;
+  private double kI;
+  private double kD;
+  private double kA;
+
+  private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold, timeout;
 
   // CONSTRUCTOR
-  public autoSetPath(Trajectory trajectoryIn) {
+  public autoSetPath(Trajectory trajectoryIn, double kP, double kI, double kD, double kA) {
     this.trajectory = trajectoryIn;
+    this.kP = kP;
+    this.kI = kI;
+    this.kD = kD;
+    this.kA = kA;
     requires(Robot.Chassis);
   }
 
@@ -35,7 +44,6 @@ public class autoSetPath extends Command {
   @Override
   protected void initialize() {
     Robot.Pigeon.resetPidgey();
-
     
     Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
     Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
@@ -46,12 +54,15 @@ public class autoSetPath extends Command {
     Robot.Chassis.setBrakeMode(NeutralMode.Brake);
     Robot.Chassis.resetEncoders();
 
-    Robot.Chassis.setTrajectory(trajectory);
+    timeout = (trajectory.length() / 50)+0.2;
+    setTimeout(timeout);
+    Robot.Chassis.setTrajectory(trajectory, kP, kI, kD, kA);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
     Robot.Chassis.makePathForawrd();
     if(Robot.Chassis.leftSideFollower.isFinished() && Robot.Chassis.rightSideFollower.isFinished()) {
       Robot.Chassis.setBrakeMode(NeutralMode.Brake);
@@ -61,12 +72,13 @@ public class autoSetPath extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;//(Robot.Chassis.leftSideFollower.isFinished() && Robot.Chassis.rightSideFollower.isFinished());
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    System.out.println("**** COMMAND ENDED ****");
     Robot.Chassis.setBrakeMode(NeutralMode.Brake);
   }
 
@@ -76,5 +88,4 @@ public class autoSetPath extends Command {
   protected void interrupted() {
     this.end();
   }
-
 }

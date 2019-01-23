@@ -64,6 +64,9 @@ public class Robot extends TimedRobot {
 
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
+  public static Trajectory curveFromToHatchRightT;
+
+  private boolean logger;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -90,8 +93,9 @@ public class Robot extends TimedRobot {
     Example = new ExampleSubsystem();
 
     System.out.println("Start");
-    initTrajectory = Chassis.wayPoints(Pathway.points);
-    initTrajectory2 = Chassis.wayPoints(Pathway.pointsPoints);
+    initTrajectory = Pathway.autoReverseToShipFromLvl1();
+    initTrajectory2 = Pathway.testSCurve();
+    curveFromToHatchRightT = Pathway.curveFromToHatchRight();
     System.out.println("Fin (fish)");
 
     oi = new OI();
@@ -124,11 +128,13 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // Robot.Chassis.setBrakeMode(NeutralMode.Coast);
+    logger = false;
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    allPeriodic();
   }
 
   /**
@@ -177,6 +183,8 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+
+    logger = true;
   }
 
   /**
@@ -185,6 +193,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    allPeriodic();
   }
 
   /**
@@ -192,5 +201,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public void allPeriodic() {
+    SmartDashboard.putBoolean("Logger", logger);
   }
 }
