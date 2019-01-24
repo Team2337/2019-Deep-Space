@@ -12,7 +12,7 @@ import frc.robot.commands.Auto.autoWait;
 public class CGTwoHatchAutoRight extends CommandGroup {
   public CGTwoHatchAutoRight() {
       addSequential(new autoSetPathReverse(Robot.initTrajectory, 1.3, 0, 0.15, 0));
-      addSequential(new autoWait(1));
+      addSequential(new autoWait(0.3));
       addSequential(new autoSetPath(Robot.curveFromToHatchRightT, 1.5, 0, 0, 0));
   }
 }

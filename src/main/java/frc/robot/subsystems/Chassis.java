@@ -172,7 +172,7 @@ public class Chassis extends Subsystem {
     leftOutput = leftSideFollower.calculate(-(int)getLeftPosition());
     rightOutput = rightSideFollower.calculate(-(int)getRightPosition());
     
-    gyro_heading = Robot.Pigeon.getYaw();    
+    gyro_heading = -Robot.Pigeon.getYaw();    
     desired_heading = Pathfinder.r2d(leftSideFollower.getHeading()); 
 
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
