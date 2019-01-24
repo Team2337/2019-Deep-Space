@@ -6,16 +6,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoClaw;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ClimberMotors;
+import frc.robot.subsystems.Cargo;
 import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.HatchIntake;
-// import frc.robot.subsystems.HatchScore;
+import frc.robot.subsystems.HatchBeak;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Shifter;
@@ -36,17 +33,12 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   public static Arm Arm;
-  public static CargoScore CargoScore;
-  public static CargoClaw CargoClaw;
-
-  public static CargoIntake CargoIntake;
   public static Chassis Chassis;
-
+  public static Cargo Cargo;
   public static ClimberPneumatics ClimberPneumatics;
   public static ClimberMotors ClimberMotors;
   public static AirCompressor AirCompressor;
-  // public static HatchScore HatchScore;
-  public static HatchIntake HatchIntake;
+  public static HatchBeak HatchBeak;
   public static LED LED;
   public static Lift Lift;
   public static Shifter Shifter;
@@ -70,16 +62,12 @@ public class Robot extends TimedRobot {
      oi = new OI();
 
      Arm = new Arm();
-     CargoIntake = new CargoIntake();
-     CargoClaw = new CargoClaw();
-     CargoScore = new CargoScore();
      Chassis = new Chassis();
      ClimberMotors = new ClimberMotors();
      ClimberPneumatics = new ClimberPneumatics();
-     
+     Cargo = new Cargo();
      AirCompressor = new AirCompressor();
-     HatchIntake = new HatchIntake();
-     // HatchScore = new HatchScore();
+     HatchBeak = new HatchBeak();
      LED = new LED();
      Lift = new Lift();
      Shifter = new Shifter();
