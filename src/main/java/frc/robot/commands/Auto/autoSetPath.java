@@ -79,7 +79,10 @@ public class autoSetPath extends Command {
   @Override
   protected void end() {
     System.out.println("**** COMMAND ENDED ****");
+    // Robot.Pigeon.resetPidgey();
     Robot.Chassis.setBrakeMode(NeutralMode.Brake);
+    // Robot.Chassis.leftFrontMotor.set(ControlMode.PercentOutput, 0);
+    // Robot.Chassis.rightFrontMotor.set(ControlMode.PercentOutput, 0);
   }
 
   // Called when another command which requires one or more of the same

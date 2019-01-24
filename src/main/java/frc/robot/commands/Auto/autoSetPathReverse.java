@@ -44,8 +44,7 @@ public class autoSetPathReverse extends Command {
   @Override
   protected void initialize() {
     Robot.Pigeon.resetPidgey();
-     
-    
+
     Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
     Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
 
@@ -82,6 +81,9 @@ public class autoSetPathReverse extends Command {
   @Override
   protected void end() {
     System.out.println("**** COMMAND ENDED ****");
+    // Robot.Pigeon.resetPidgey();
+    // Robot.Chassis.leftFrontMotor.set(ControlMode.PercentOutput, 0);
+    // Robot.Chassis.rightFrontMotor.set(ControlMode.PercentOutput, 0);
     Robot.Chassis.setBrakeMode(NeutralMode.Brake);
   }
 

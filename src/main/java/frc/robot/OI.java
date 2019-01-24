@@ -5,6 +5,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.autoSetPath;
 import frc.robot.commands.Auto.autoSetPathReverse;
+import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
 import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
 import frc.robot.commands.HatchBeak.hatchBeakExtend;
 import frc.robot.commands.HatchBeak.hatchBeakRetract;
@@ -126,7 +127,7 @@ public class OI {
 		driver_BumperLeft		.whenPressed(new hatchBeakRetract());
 		driver_BumperRight		.whenPressed(new hatchBeakExtend());
 		
-		driver_Back				.whileHeld(new doNothing()); 
+		driver_Back				.whenPressed(new autoSetPathReverse(Robot.fromRightLoadJTurnToCargoShipT, 2, 0, 0 ,0)); 
 		driver_Start			.whileHeld(new hatchLauncherRetract());
 		
 		driver_LeftStick		.whenPressed(new doNothing()); 
@@ -135,7 +136,7 @@ public class OI {
 		driver_TriggerLeft		.whileHeld(new doNothing());
 		driver_TriggerRight		.whileHeld(new doNothing());
 		
-		driver_POVUp			.whenPressed(new doNothing());  
+		driver_POVUp			.whenPressed(new CGJTurnFromLoadToCargoShipRight());  
 		//driver_POVUpRight		.whenPressed(new _doNothing()); 
 	    driver_POVRight			.whenPressed(new doNothing()); 
 	   	//driver_POVDownRight	.whenPressed(new _doNothing()); 

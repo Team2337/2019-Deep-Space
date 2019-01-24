@@ -65,6 +65,8 @@ public class Robot extends TimedRobot {
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
   public static Trajectory curveFromToHatchRightT;
+  public static Trajectory fromRightLoadJTurnToCargoShipT;
+  public static Trajectory jTurnToCargoShipRightT;
 
   private boolean logger;
 
@@ -95,6 +97,8 @@ public class Robot extends TimedRobot {
     System.out.println("Start");
     initTrajectory = Pathway.autoReverseToShipFromLvl1();
     initTrajectory2 = Pathway.testSCurve();
+    fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
+    jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
     curveFromToHatchRightT = Pathway.curveFromToHatchRight();
     System.out.println("Fin (fish)");
 

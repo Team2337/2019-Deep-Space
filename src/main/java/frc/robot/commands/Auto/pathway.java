@@ -50,6 +50,38 @@ public static Trajectory curveFromToHatchRight() {
 }
 
 
+    private static Waypoint[] fromRightLoadJTurnToCargoShip = new Waypoint[] {
+        new Waypoint(0, 0, 0),
+        new Waypoint(2, -.8, -0.58), //33 degrees
+        new Waypoint(4, -1.2, 0),
+        new Waypoint(5.8, -0.6, 1)
+    };
+/**
+* Converts the waypoints to generate the path into values readable by the code
+* @param points - array of waypoints
+*/
+public static Trajectory fromRightLoadJTurnToCargoShip() {
+config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2.5, 1.9, 10.0);  //2, 1.7
+trajectory = Pathfinder.generate(fromRightLoadJTurnToCargoShip, config);
+return trajectory;
+}
+
+
+    private static Waypoint[] JTurnToCargoShipRight = new Waypoint[] {
+        new Waypoint(0, 0, 0), 
+        new Waypoint(1.5, 0, -1)
+    };
+    /**
+    * Converts the waypoints to generate the path into values readable by the code
+    * @param points - array of waypoints
+    */
+    public static Trajectory jTurnToCargoShipRight() {
+    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2.5, 1.9, 10.0);  //2, 1.7
+    trajectory = Pathfinder.generate(JTurnToCargoShipRight, config);
+    return trajectory;
+    }
+
+
     private static Waypoint[] testSCurve = new Waypoint[] {
         new Waypoint(0, 0, 0),            
         new Waypoint(3, -1, 0)
