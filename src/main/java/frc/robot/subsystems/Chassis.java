@@ -63,6 +63,7 @@ public class Chassis extends Subsystem {
   public TankModifier modifier;
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
+  public double commandNum = 0;
 
 
   /* --- CAN ID SETUP --- */
@@ -176,7 +177,8 @@ public class Chassis extends Subsystem {
     desired_heading = Pathfinder.r2d(leftSideFollower.getHeading()); 
 
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-    turn = 0.8 * (-1.0/80.0) * angleDifference;
+    //0.8 * (-1.0/80.0) * angleDifference
+    turn = 1.6 * (-1.0/80.0) * angleDifference;
     
     drive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
   }
@@ -255,12 +257,14 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
 
-      SmartDashboard.putNumber("Right Encoder Velocity", rightFrontMotor.getSelectedSensorVelocity());
-      SmartDashboard.putNumber("Left Encoder Velocity", leftFrontMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("RightVelocity", rightFrontMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("LeftVelocity", leftFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("Turn Value", this.turn);
-      SmartDashboard.putNumber("Angle Differance", this.angleDifference);
+      SmartDashboard.putNumber("AngleDifferance", this.angleDifference);
       SmartDashboard.putNumber("leftOutput", this.leftOutput);
       SmartDashboard.putNumber("rightOutput", this.rightOutput);
+
+      SmartDashboard.putNumber("Command Number", commandNum);
     }
   }
 }

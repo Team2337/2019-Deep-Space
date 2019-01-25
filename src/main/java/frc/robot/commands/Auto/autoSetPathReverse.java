@@ -65,9 +65,6 @@ public class autoSetPathReverse extends Command {
   protected void execute() {
     
     Robot.Chassis.makePathReverse();
-    if(Robot.Chassis.leftSideFollower.isFinished() && Robot.Chassis.rightSideFollower.isFinished()) {
-      Robot.Chassis.setBrakeMode(NeutralMode.Brake);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

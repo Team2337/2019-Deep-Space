@@ -29,7 +29,7 @@ public class Pathway {
     //2,1.75,10
     // FIRST S CURVE -- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
     // 1.7
-    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
+    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.5, 10.0);
     trajectory = Pathfinder.generate(autoReverseToShipFromLvl1, config);
     return trajectory;
   }
@@ -53,8 +53,8 @@ public static Trajectory curveFromToHatchRight() {
     private static Waypoint[] fromRightLoadJTurnToCargoShip = new Waypoint[] {
         new Waypoint(0, 0, 0),
         new Waypoint(2, -.8, -0.58), //33 degrees
-        new Waypoint(4, -1.2, 0),
-        new Waypoint(5.8, -0.6, 1)
+        // new Waypoint(4, -1.2, 0.1),
+        new Waypoint(5.8, -0.6, 1.2)
     };
 /**
 * Converts the waypoints to generate the path into values readable by the code
@@ -69,7 +69,7 @@ return trajectory;
 
     private static Waypoint[] JTurnToCargoShipRight = new Waypoint[] {
         new Waypoint(0, 0, 0), 
-        new Waypoint(1.5, 0, -1)
+        new Waypoint(2, 0, -0.58)
     };
     /**
     * Converts the waypoints to generate the path into values readable by the code

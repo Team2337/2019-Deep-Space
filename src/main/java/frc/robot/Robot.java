@@ -96,9 +96,9 @@ public class Robot extends TimedRobot {
 
     System.out.println("Start");
     initTrajectory = Pathway.autoReverseToShipFromLvl1();
-    initTrajectory2 = Pathway.testSCurve();
-    fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
-    jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
+    // initTrajectory2 = Pathway.testSCurve();
+    // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
+    // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
     curveFromToHatchRightT = Pathway.curveFromToHatchRight();
     System.out.println("Fin (fish)");
 
@@ -131,7 +131,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    // Robot.Chassis.setBrakeMode(NeutralMode.Coast);
+    Robot.Chassis.setBrakeMode(NeutralMode.Coast);
     logger = false;
   }
 
