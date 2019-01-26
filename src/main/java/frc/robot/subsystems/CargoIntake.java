@@ -13,32 +13,32 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * 
  * @author Zayd A.
  */
-public class Cargo extends Subsystem {
-  private TalonSRX CargoMotor;
+public class CargoIntake extends Subsystem {
+  private TalonSRX CargoIntakeMotor;
   // Subject to change.
-  private int CargoID = 7;
+  private int CargoIntakeMotorID = 6;
   @Override
   public void initDefaultCommand() {
 
   }
-  public Cargo() {
-    this.CargoMotor = new TalonSRX(CargoID);
-    CargoMotor.setInverted(true);
-    CargoMotor.setNeutralMode(NeutralMode.Brake);
+  public CargoIntake() {
+    this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
+    CargoIntakeMotor.setInverted(true);
+    CargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
   }
   /**
    * runs motor at full speed, negtive speed, or doesn't move
    */
   public void intake(double speed) {
-    CargoMotor.set(ControlMode.PercentOutput, speed);
+    CargoIntakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void outake(double speed) {
-    CargoMotor.set(ControlMode.PercentOutput, -speed);
+    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed);
   }
 
   public void stop() {
-    CargoMotor.set(ControlMode.PercentOutput, 0);
+    CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
 }

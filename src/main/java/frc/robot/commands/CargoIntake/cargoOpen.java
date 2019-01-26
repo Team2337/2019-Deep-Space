@@ -1,42 +1,42 @@
-package frc.robot.commands.Cargo;
+package frc.robot.commands.CargoIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-
 /**
- * This command will run the outake
+ * This command will run the intake
  * @author Zayd A
  */
-public class cargoClose extends Command {
+public class cargoOpen extends Command {
 public double speed = 1;
   // CONSTRUCTOR
-  public cargoClose(double speed) {
-    requires(Robot.Cargo);
+  public cargoOpen(double speed) {
+
+    requires(Robot.CargoIntake);
     this.speed = speed;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-     Robot.Cargo.outake(this.speed);
-
+    Robot.CargoIntake.intake(this.speed);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+  
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.CargoIntake.intake(0);
 
   }
 
@@ -46,5 +46,4 @@ public double speed = 1;
   protected void interrupted() {
     this.end();
   }
-
 }
