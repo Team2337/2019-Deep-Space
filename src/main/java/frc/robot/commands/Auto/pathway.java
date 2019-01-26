@@ -11,6 +11,19 @@ public class Pathway {
 
    private static double timeStep = 0.02;
 
+   /**
+     * Double 2D array
+     * The PID values for the drive commands. Call each value by using an int value, to grab the row or column 
+     * First dimension: row
+     * Second dimension: column
+     */
+    public static double valuesPID[][] = new double[][] {
+        {1.5, 0, 0.15, 0}, //autoReverseToShipFromLvl1
+        {1.5, 0, 0, 0}, //curveFromToHatchRightT
+        {2, 0, 0, 0}, //fromRightLoadJTurnToCargoShipT
+        {2, 0, 0, 0}, //jTurnToCargoShipRightT
+    };
+
    private static Waypoint[] autoReverseToShipFromLvl1 = new Waypoint[] {
        // Waypoint @ x=0, y=0,   exit angle=0 radians
        new Waypoint(0, 0, 0),

@@ -3,6 +3,7 @@ package frc.robot.commands.Auto;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 import jaci.pathfinder.Trajectory;
@@ -31,12 +32,16 @@ public class autoSetPath extends Command {
   private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold, timeout;
 
   // CONSTRUCTOR
-  public autoSetPath(Trajectory trajectoryIn, double kP, double kI, double kD, double kA) {
+  public autoSetPath(Trajectory trajectoryIn, double[] pidValues) {
     this.trajectory = trajectoryIn;
-    this.kP = kP;
-    this.kI = kI;
-    this.kD = kD;
-    this.kA = kA;
+    this.kP = pidValues[0];
+    this.kI = pidValues[1];
+    this.kD = pidValues[2];
+    this.kA = pidValues[3];
+    // this.kP = kP;
+    // this.kI = kI;
+    // this.kD = kD;
+    // this.kA = kA;
     requires(Robot.Chassis);
   }
 
@@ -64,6 +69,11 @@ public class autoSetPath extends Command {
   protected void execute() {
     
     Robot.Chassis.makePathForawrd();
+    SmartDashboard.putNumber("Auto P Input", kP);
+    SmartDashboard.putNumber("Auto I Input", kI);
+    SmartDashboard.putNumber("Auto D Input", kD);
+    SmartDashboard.putNumber("Auto A Input", kA);
+    SmartDashboard.putString("Command Running", "autoSetPath");
   }
 
   // Make this return true when this Command no longer needs to run execute()

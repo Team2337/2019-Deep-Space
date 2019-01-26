@@ -116,18 +116,18 @@ public class OI {
 	JoystickButton 			operatorInt_BlueButton				= new JoystickButton(operatorJoystick, 12);
     
 	public OI() {
-		
+		double[][] values = Pathway.valuesPID;
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driver_GreenA			.whenPressed(new autoSetPath(Robot.initTrajectory2, 2, 0, 0, 0));
-		driver_RedB				.whenPressed(new autoSetPathReverse(Robot.initTrajectory, 1.3, 0, 0.15, 0));
-		driver_BlueX			.whenPressed(new autoSetPath(Robot.curveFromToHatchRightT, 1.5, 0, 0, 0)); 
+		driver_GreenA			.whenPressed(new autoSetPath(Robot.initTrajectory2, values[0]));
+		driver_RedB				.whenPressed(new autoSetPathReverse(Robot.initTrajectory, values[0]));
+		driver_BlueX			.whenPressed(new autoSetPath(Robot.curveFromToHatchRightT, values[1])); 
 		driver_YellowY			.whenPressed(new CGTwoHatchAutoRight());
 		
 		driver_BumperLeft		.whenPressed(new hatchBeakRetract());
 		driver_BumperRight		.whenPressed(new hatchBeakExtend());
 		
-		driver_Back				.whenPressed(new autoSetPathReverse(Robot.fromRightLoadJTurnToCargoShipT, 2, 0, 0 ,0)); 
+		driver_Back				.whenPressed(new autoSetPathReverse(Robot.fromRightLoadJTurnToCargoShipT, values[2])); 
 		driver_Start			.whileHeld(new hatchLauncherRetract());
 		
 		driver_LeftStick		.whenPressed(new doNothing()); 

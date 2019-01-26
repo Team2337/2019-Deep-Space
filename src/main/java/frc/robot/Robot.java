@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
   public static Trajectory jTurnToCargoShipRightT;
 
   private boolean logger;
+  private String selectedAuto;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -95,11 +96,18 @@ public class Robot extends TimedRobot {
     Example = new ExampleSubsystem();
 
     System.out.println("Start");
-    initTrajectory = Pathway.autoReverseToShipFromLvl1();
-    // initTrajectory2 = Pathway.testSCurve();
-    // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
-    // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
-    curveFromToHatchRightT = Pathway.curveFromToHatchRight();
+
+    //Used to load the points for the auton. These points take a long time to load, so to reduce time, 
+    //we only load the ones we need for the current auton we're going to run
+    switch(selectedAuto) {
+      default :
+      initTrajectory = Pathway.autoReverseToShipFromLvl1();
+      // initTrajectory2 = Pathway.testSCurve();
+      // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
+      // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
+      curveFromToHatchRightT = Pathway.curveFromToHatchRight();
+      break;
+    }
     System.out.println("Fin (fish)");
 
     oi = new OI();

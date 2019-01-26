@@ -52,7 +52,7 @@ public class Chassis extends Subsystem {
   public VictorSPX rightMidMotor;
   public VictorSPX rightRearMotor;
 
-  public static NerdyDrive drive;
+  public NerdyDrive nerdyDrive;
 
   /* --- Path Weaver Variables --- */ 
   private int ticksPerRev =  4096*3; // Gear ratio 
@@ -139,7 +139,7 @@ public class Chassis extends Subsystem {
     /////////////////////////
 
     /* --- Nerdy Drive --- */
-    drive = new NerdyDrive(leftFrontMotor, rightFrontMotor);
+    nerdyDrive = new NerdyDrive(leftFrontMotor, rightFrontMotor);
   }
    
   // Sets the default drive command to drive using the joysticks on an XBox 360
@@ -162,7 +162,7 @@ public class Chassis extends Subsystem {
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
     turn = 0.8 * (-1.0/80.0) * angleDifference;
     
-    drive.tankDrive(leftOutput + turn, rightOutput - turn, false);
+    nerdyDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
   }
 
   /**
@@ -180,7 +180,7 @@ public class Chassis extends Subsystem {
     //0.8 * (-1.0/80.0) * angleDifference
     turn = 1.6 * (-1.0/80.0) * angleDifference;
     
-    drive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
+    nerdyDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
   }
 
  
@@ -208,12 +208,54 @@ public class Chassis extends Subsystem {
     leftFrontMotor.setSelectedSensorPosition(-pos, 0, 0);
   }
 
+  /**
+   * @return - returns the encoder position on the right encoder
+   */
   public double getRightPosition() {
     return rightFrontMotor.getSelectedSensorPosition();
   }
 
+  /**
+   * @return - returns the encoders position on the left encoder
+   */
   public double getLeftPosition() {
     return leftFrontMotor.getSelectedSensorPosition();
+  }
+
+  /**
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void driveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+    this.nerdyDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
+  }
+  
+  /**
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void driveCurvature(double moveSpeed, double turnSpeed, boolean isQuickTurn) {
+    this.nerdyDrive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
+  }
+  
+  /**
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void driveTank(double leftSpeed, double rightSpeed, boolean squareInputs) {
+    this.nerdyDrive.tankDrive(leftSpeed, rightSpeed, squareInputs);
+  }
+  
+  /**
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void stopDrive() {
+    this.nerdyDrive.arcadeDrive(0, 0, true);
   }
 
   /**
