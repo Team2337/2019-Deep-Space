@@ -25,6 +25,12 @@ import frc.robot.subsystems.Vision;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  /**
+   * Specifies whether or not the Robot is the competition robot
+   */
+  public static boolean isComp = false;
+
   // DECLARATIONS
 
   public static Arm Arm;
@@ -38,9 +44,9 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static Vision Vision;
 
-  public static OI oi;
-
   public static ExampleSubsystem Example;
+
+  public static OI oi;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -51,14 +57,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
-    // CONSTRUCTORS
 
+    AirCompressor = new AirCompressor();
     Arm = new Arm();
     Chassis = new Chassis();
     ClimberMotors = new ClimberMotors();
     ClimberPneumatics = new ClimberPneumatics();
-    AirCompressor = new AirCompressor();
     HatchBeak = new HatchBeak();
     LED = new LED();
     Lift = new Lift();

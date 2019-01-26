@@ -8,6 +8,8 @@ package frc.robot.nerdyfiles;
 
 import com.revrobotics.CANSparkMax;
 
+import frc.robot.Robot;
+
 public class NeoNerdyDrive {
 	private CANSparkMax left;
 	private CANSparkMax right;
@@ -76,7 +78,6 @@ public class NeoNerdyDrive {
 
 		this.left.set(limit(leftMotorOutput) * m_maxOutput);
 		this.right.set(limit(rightMotorOutput) * m_maxOutput);
-
 	}
 
 	public void curvatureDrive(double speed, double zRotation, boolean isQuickTurn) {

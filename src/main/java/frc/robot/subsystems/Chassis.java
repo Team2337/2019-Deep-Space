@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * The main chassis runtime
  * 
  * @category CHASSIS
- * @author Team2337 - EngiNERDs
+ * @author Jack E.
  */
 public class Chassis extends Subsystem {
 
@@ -48,8 +49,8 @@ public class Chassis extends Subsystem {
   private static CANSparkMax neoRightFrontMotor;
   private static CANSparkMax neoRightMidMotor;
   private static CANSparkMax neoRightRearMotor;
-  private static CANEncoder leftEncoder;
-  private static CANEncoder rightEncoder;
+  private static CANEncoder neoLeftEncoder;
+  private static CANEncoder neoRightEncoder;
 
   public static NerdyDrive drive;
   public static NeoNerdyDrive neoDrive;
@@ -59,9 +60,16 @@ public class Chassis extends Subsystem {
   private final static int rightFrontID = 0;
   private final static int rightMidID = 1;
   private final static int rightRearID = 2;
-  private final static int leftFrontID = 3;
-  private final static int leftMidID = 4;
-  private final static int leftRearID = 5;
+  private final static int leftFrontID = 15;
+  private final static int leftMidID = 14;
+  private final static int leftRearID = 13;
+
+  private final static int neoRightFrontID = 30;
+  private final static int neoRightMidID = 31;
+  private final static int neoRightRearID = 32;
+  private final static int neoLeftFrontID = 45;
+  private final static int neoLeftMidID = 46;
+  private final static int neoLeftRearID = 47;
 
   public Chassis() {
 
@@ -127,18 +135,20 @@ public class Chassis extends Subsystem {
 
     /* --- Neo Drive Left --- */
 
-    // Sets up the left side motors as CAN Spark Brushless Motors
-    neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
-    neoLeftMidMotor = new CANSparkMax(leftMidID, MotorType.kBrushless);
-    neoLeftMidMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
-    leftEncoder = new CANEncoder(neoLeftFrontMotor);
+    // Sets up the left side motors as CAN SparkMax Brushless Motors
+    neoLeftFrontMotor = new CANSparkMax(neoLeftFrontID, MotorType.kBrushless);
+    neoLeftMidMotor = new CANSparkMax(neoLeftMidID, MotorType.kBrushless);
+    neoLeftRearMotor = new CANSparkMax(neoLeftRearID, MotorType.kBrushless);
 
-    // Left side motors aren't currently inverted
+    // Left side Neo encoder
+    neoLeftEncoder = new CANEncoder(neoLeftFrontMotor);
+
+    // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
     neoLeftMidMotor.setInverted(false);
     neoLeftRearMotor.setInverted(false);
 
-    // All left neo motors currently follow the front left motor
+    // All left Neo motors currently follow the front left motor
     neoLeftMidMotor.follow(neoLeftFrontMotor);
     neoLeftRearMotor.follow(neoLeftFrontMotor);
 
@@ -146,18 +156,20 @@ public class Chassis extends Subsystem {
 
     /* --- Neo Drive Right --- */
 
-    // Sets up the right side motors as CAN Spark Brushless Motors
-    neoRightFrontMotor = new CANSparkMax(rightFrontID, MotorType.kBrushless);
-    neoRightMidMotor = new CANSparkMax(rightMidID, MotorType.kBrushless);
-    neoRightMidMotor = new CANSparkMax(rightRearID, MotorType.kBrushless);
-    rightEncoder = new CANEncoder(neoRightFrontMotor);
+    // Sets up the right side motors as CAN SparkMax Brushless Motors
+    neoRightFrontMotor = new CANSparkMax(neoRightFrontID, MotorType.kBrushless);
+    neoRightMidMotor = new CANSparkMax(neoRightMidID, MotorType.kBrushless);
+    neoRightRearMotor = new CANSparkMax(neoRightRearID, MotorType.kBrushless);
 
-    // Right side motors aren't currently inverted
+    // Right side encoder
+    neoRightEncoder = new CANEncoder(neoRightFrontMotor);
+
+    // Right side motors aren't currently reversed
     neoRightFrontMotor.setInverted(true);
     neoRightMidMotor.setInverted(true);
     neoRightRearMotor.setInverted(true);
 
-    // All right neo motors currently follow the front right motor
+    // All right Neo motors currently follow the front right motor
     neoRightMidMotor.follow(neoRightFrontMotor);
     neoRightRearMotor.follow(neoRightFrontMotor);
 
@@ -173,11 +185,19 @@ public class Chassis extends Subsystem {
   // Sets the default drive command to drive using the joysticks on an XBox 360
   // controller
   public void initDefaultCommand() {
-    setDefaultCommand(new driveByJoystick());
+    // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
+    // to use Talon drive
+    setDefaultCommand(new driveByJoystick(false));
   }
 
+  /*****************************************/
+  /* ------------------------------------- */
+  /* ----------- Talon Methods ----------- */
+  /* ------------------------------------- */
+  /*****************************************/
+
   /**
-   * Manually set the rotational position of the drive encoders - UNTESTED
+   * Manually set the rotational position of the drive encoders
    * 
    * @param pos Position to set encoders to - in encoder ticks
    */
@@ -213,8 +233,74 @@ public class Chassis extends Subsystem {
     rightRearMotor.setNeutralMode(mode);
   }
 
+  /*****************************************/
+  /* ------------------------------------- */
+  /* ------------ Neo Methods ------------ */
+  /* ------------------------------------- */
+  /*****************************************/
+
   /**
-   * Run continuously during runtime. Currently used to display SmartDashboard
+   * Get the average value of the two drive encoders
+   * 
+   * @return The average of the two drive encoder values
+   */
+  public double getAverageNeoEncoder() {
+    return (neoRightEncoder.getPosition() + neoLeftEncoder.getPosition()) / 2;
+  }
+
+  /**
+   * Manually set the rotational position of the drive encoders
+   * 
+   * @param pos Position to set encoders to - in encoder ticks
+   */
+  public void setNeoEncoders(int pos) {
+    // As of 1/24/19, no way to set Neo encoder values
+  }
+
+  /**
+   * Manually reset the rotational position of the drive encoders to 0 ticks
+   */
+  public void resetNeoEncoders() {
+    // As of 1/24/19, no way to set Neo encoder values
+  }
+
+  /**
+   * Determines what the drive motors will do when no signal is given to them
+   * 
+   * @param mode The breaking mode to use
+   *             <p>
+   *             {@code IdleMode.kCoast} - Allow the robot to roll to a stop
+   *             {@code IdleMode.kBreak} - The motors run backwards and attempt
+   *             stop the robot sooner
+   *             </p>
+   */
+  public void setAllNeoBrakeMode(IdleMode mode) {
+    neoLeftFrontMotor.setIdleMode(mode);
+    neoLeftMidMotor.setIdleMode(mode);
+    neoLeftRearMotor.setIdleMode(mode);
+
+    neoRightFrontMotor.setIdleMode(mode);
+    neoRightMidMotor.setIdleMode(mode);
+    neoRightRearMotor.setIdleMode(mode);
+  }
+
+  /**
+   * Determines what the drive motors will do when no signal is given to them
+   * 
+   * @param motor A CANSparkMax motor to assign a breakmode to
+   * @param mode  The breaking mode to use
+   *              <p>
+   *              {@code IdleMode.kCoast} - Allow the robot to roll to a stop
+   *              {@code IdleMode.kBreak} - The motors run backwards and attempt
+   *              stop the robot sooner
+   *              </p>
+   */
+  public void setSingleNeoBreakMode(CANSparkMax motor, IdleMode mode) {
+    motor.setIdleMode(mode);
+  }
+
+  /**
+   * Runs continuously during runtime. Currently used to display SmartDashboard
    * values
    */
   public void periodic() {
