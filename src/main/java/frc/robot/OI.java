@@ -1,6 +1,8 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.HatchBeak.CGgrabHatch;
+import frc.robot.commands.HatchBeak.CGlaunchHatch;
 import frc.robot.nerdyfiles.controller.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,7 +25,8 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whenPressed(new doNothing());
+		driverJoystick.greenA			.whenPressed(new CGgrabHatch());
+		driverJoystick.redB             .whenPressed(new CGlaunchHatch());
 		driverJoystick.povUp			.whenPressed(new doNothing());
 	    
 	    ////////////////////////////////// 
