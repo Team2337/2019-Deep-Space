@@ -17,7 +17,7 @@ public class CGlaunchHatch extends CommandGroup {
   public CGlaunchHatch() {
     addSequential(new hatchBeakRetract());
     addSequential(new hatchPunchExtend());
-    addSequential(new autoWait(1000));
+    addSequential(new autoWait(1));
     addSequential(new hatchPunchRetract());
   }
 
