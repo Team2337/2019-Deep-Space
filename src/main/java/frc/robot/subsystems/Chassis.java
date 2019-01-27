@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
-import frc.robot.NerdyFiles.NerdyDrive;
+import frc.robot.nerdyfiles.*;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
+import frc.robot.commands.Auto.autoSetPath;
+import frc.robot.commands.Auto.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -307,6 +309,17 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("rightOutput", this.rightOutput);
 
       SmartDashboard.putNumber("Command Number", commandNum);
+
+      SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
+      SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
+      SmartDashboard.putNumber("Auto A Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Reverse Auto P Input", autoSetPathReverse.kP);
+      SmartDashboard.putNumber("Reverse Auto I Input", autoSetPathReverse.kI);
+      SmartDashboard.putNumber("Reverse Auto D Input", autoSetPathReverse.kD);
+      SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
+
+      SmartDashboard.putNumber("printX", autoSetPath.printX);
     }
   }
 }

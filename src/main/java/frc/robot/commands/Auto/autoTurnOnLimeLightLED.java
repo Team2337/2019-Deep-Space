@@ -1,43 +1,40 @@
-package frc.robot.commands.Vision;
+package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import jaci.pathfinder.Trajectory;
 
-/**
- * An example command. You can replace me with your own command.
- */
-public class visionDoNothing extends Command {
+public class autoTurnOnLimeLightLED extends Command{
 
-
-
-  // CONSTRUCTOR
-  public visionDoNothing() {
-
-    requires(Robot.Example);
+    private Trajectory trajectory = Robot.curveFromToHatchRightT;
+  public autoTurnOnLimeLightLED() {
+    requires(Robot.Vision);
   }
 
-  // Called just before this Command runs the first time
+   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    if(timeSinceInitialized() >= (trajectory.length()-70) / 50) {
+        Robot.Vision.setLEDMode(3);
+      }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return (Robot.Vision.getLEDMode() == 3);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+
   }
 
   // Called when another command which requires one or more of the same
@@ -46,4 +43,5 @@ public class visionDoNothing extends Command {
   protected void interrupted() {
     this.end();
   }
+
 }

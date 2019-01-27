@@ -14,7 +14,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  * This command is mainly a placeholder command, but it can be used
  * functionally. It does just as it says: nothing.
  */
-public class autoSetPathReverse extends Command {
+public class autoSetPathWithHold extends Command {
 
   /* --- Path Weaver Variables --- */
 
@@ -27,10 +27,10 @@ public class autoSetPathReverse extends Command {
   public static double kP, kI, kD, kA;
   private double[] pidValues;
 
-  private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold, timeout;
+  private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold, timeout, visionTimeout;
 
   // CONSTRUCTOR
-  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues) {
+  public autoSetPathWithHold(Trajectory trajectoryIn, double[] pidValues) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     requires(Robot.Chassis);
@@ -44,7 +44,7 @@ public class autoSetPathReverse extends Command {
     kD = pidValues[2];
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
-
+    
     Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
     Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
 
@@ -54,33 +54,32 @@ public class autoSetPathReverse extends Command {
     Robot.Chassis.setBrakeMode(NeutralMode.Brake);
     Robot.Chassis.resetEncoders();
 
-    timeout = (trajectory.length() / 50)+0.7;
+    // visionTimeout = ((trajectory.length()-70) / 50);
+    timeout = ((trajectory.length()-67) / 50);
     setTimeout(timeout);
-
     Robot.Chassis.setTrajectory(trajectory, kP, kI, kD, kA);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Chassis.makePathReverse();
+    Robot.Chassis.makePathForawrd();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return isTimedOut();
-    //(Robot.Chassis.leftSideFollower.isFinished() && Robot.Chassis.rightSideFollower.isFinished());
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    System.out.println("Right Motor Percent Output: " + Robot.Chassis.rightFrontMotor.getMotorOutputPercent());
+    System.out.println("Left Motor Percent Output: " + Robot.Chassis.leftFrontMotor.getMotorOutputPercent());
+    Robot.Chassis.setBrakeMode(NeutralMode.Coast);
+    Robot.Vision.setLEDMode(3);
     System.out.println("**** COMMAND ENDED ****");
-    // Robot.Pigeon.resetPidgey();
-    // Robot.Chassis.leftFrontMotor.set(ControlMode.PercentOutput, 0);
-    // Robot.Chassis.rightFrontMotor.set(ControlMode.PercentOutput, 0);
-    Robot.Chassis.setBrakeMode(NeutralMode.Brake);
   }
 
   // Called when another command which requires one or more of the same
@@ -89,5 +88,4 @@ public class autoSetPathReverse extends Command {
   protected void interrupted() {
     this.end();
   }
-
 }

@@ -1,4 +1,4 @@
-package frc.robot.NerdyFiles.controller;
+package frc.robot.nerdyfiles.controller;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.buttons.Button;

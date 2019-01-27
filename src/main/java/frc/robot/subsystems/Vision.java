@@ -16,6 +16,7 @@ public class Vision extends Subsystem {
 
   private int analogPort = 1;
   private boolean visionDebug = true;
+  private boolean distSensorDebug = false;
 
   public Vision() {
 
@@ -26,7 +27,7 @@ public class Vision extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new Do_Nothing());
+    
   }
 
 
@@ -48,6 +49,10 @@ public class Vision extends Subsystem {
    */
   public void setLEDMode(int mode) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+  }
+
+  public int getLEDMode() {
+    return (int)NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getValue().getDouble();
   }
 
   /**
@@ -93,7 +98,7 @@ public class Vision extends Subsystem {
 
   @Override
   public void periodic() {
-    if(visionDebug) {
+    if(distSensorDebug) {
     SmartDashboard.putNumber("UltraSonic - Distance", getDistance());
     SmartDashboard.putNumber("UltraSonic - Voltage", getVoltage());
     }

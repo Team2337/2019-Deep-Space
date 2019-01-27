@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
+   
     // CONSTRUCTORS
     Arm = new Arm();
     Chassis = new Chassis();
@@ -96,12 +96,14 @@ public class Robot extends TimedRobot {
     Example = new ExampleSubsystem();
 
     System.out.println("Start");
-
+    Robot.Vision.setLEDMode(1);
     //Used to load the points for the auton. These points take a long time to load, so to reduce time, 
     //we only load the ones we need for the current auton we're going to run
+    selectedAuto = "";
+
     switch(selectedAuto) {
       default :
-      initTrajectory = Pathway.autoReverseToShipFromLvl1();
+      // initTrajectory = Pathway.autoReverseToShipFromLvl1();
       // initTrajectory2 = Pathway.testSCurve();
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
@@ -113,7 +115,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
-
+    
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", chooser);
@@ -140,6 +142,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.Chassis.setBrakeMode(NeutralMode.Coast);
+    Robot.Vision.setLEDMode(1);
     logger = false;
   }
 
@@ -195,7 +198,6 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-
     logger = true;
   }
 

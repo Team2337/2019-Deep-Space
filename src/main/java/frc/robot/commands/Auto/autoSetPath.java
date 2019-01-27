@@ -24,30 +24,26 @@ public class autoSetPath extends Command {
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
 
-  private double kP;
-  private double kI;
-  private double kD;
-  private double kA;
+  public static double kP, kI, kD, kA, printX;
+  private double[] pidValues;
+
 
   private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold, timeout;
 
   // CONSTRUCTOR
   public autoSetPath(Trajectory trajectoryIn, double[] pidValues) {
     this.trajectory = trajectoryIn;
-    this.kP = pidValues[0];
-    this.kI = pidValues[1];
-    this.kD = pidValues[2];
-    this.kA = pidValues[3];
-    // this.kP = kP;
-    // this.kI = kI;
-    // this.kD = kD;
-    // this.kA = kA;
+    this.pidValues = pidValues;
     requires(Robot.Chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    kP = pidValues[0];
+    kI = pidValues[1];
+    kD = pidValues[2];
+    kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
     
     Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
@@ -60,6 +56,7 @@ public class autoSetPath extends Command {
     Robot.Chassis.resetEncoders();
 
     timeout = (trajectory.length() / 50)+0.2;
+    printX = ((trajectory.length()-40) / 50)+0.2;
     setTimeout(timeout);
     Robot.Chassis.setTrajectory(trajectory, kP, kI, kD, kA);
   }
@@ -67,13 +64,7 @@ public class autoSetPath extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
     Robot.Chassis.makePathForawrd();
-    SmartDashboard.putNumber("Auto P Input", kP);
-    SmartDashboard.putNumber("Auto I Input", kI);
-    SmartDashboard.putNumber("Auto D Input", kD);
-    SmartDashboard.putNumber("Auto A Input", kA);
-    SmartDashboard.putString("Command Running", "autoSetPath");
   }
 
   // Make this return true when this Command no longer needs to run execute()

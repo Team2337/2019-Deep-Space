@@ -1,16 +1,19 @@
 package frc.robot;
 
-import frc.robot.NerdyFiles.controller.JoystickAnalogButton;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.autoSetPath;
 import frc.robot.commands.Auto.autoSetPathReverse;
+import frc.robot.commands.Auto.autoSetPathWithHold;
 import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
+import frc.robot.commands.Auto.CommandGroups.CGPostProfileVision;
 import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
 import frc.robot.commands.HatchBeak.hatchBeakExtend;
 import frc.robot.commands.HatchBeak.hatchBeakRetract;
 import frc.robot.commands.HatchBeak.hatchLauncherRetract;
-import frc.robot.NerdyFiles.controller.*;
+import frc.robot.commands.Vision.limeLightLEDOff;
+import frc.robot.commands.Vision.limeLightLEDOn;
+import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType; 
@@ -119,10 +122,10 @@ public class OI {
 		double[][] values = Pathway.valuesPID;
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driver_GreenA			.whenPressed(new autoSetPath(Robot.initTrajectory2, values[0]));
-		driver_RedB				.whenPressed(new autoSetPathReverse(Robot.initTrajectory, values[0]));
-		driver_BlueX			.whenPressed(new autoSetPath(Robot.curveFromToHatchRightT, values[1])); 
-		driver_YellowY			.whenPressed(new CGTwoHatchAutoRight());
+		driver_GreenA			.whenPressed(new autoSetPathWithHold(Robot.initTrajectory, values[0])); 
+		driver_RedB				.whenPressed(new autoSetPathReverse(Robot.initTrajectory, values[0])); 
+		driver_BlueX			.whenPressed(new autoSetPathWithHold(Robot.curveFromToHatchRightT, values[1])); 
+		driver_YellowY			.whenPressed(new CGPostProfileVision());
 		
 		driver_BumperLeft		.whenPressed(new hatchBeakRetract());
 		driver_BumperRight		.whenPressed(new hatchBeakExtend());
@@ -140,7 +143,7 @@ public class OI {
 		//driver_POVUpRight		.whenPressed(new _doNothing()); 
 	    driver_POVRight			.whenPressed(new doNothing()); 
 	   	//driver_POVDownRight	.whenPressed(new _doNothing()); 
-	    driver_POVDown			.whenPressed(new doNothing()); 
+	    driver_POVDown			.whenPressed(new limeLightLEDOn()); 
 	   	//driver_POVDownLeft	.whenPressed(new _doNothing()); 
 	    driver_POVLeft			.whenPressed(new doNothing()); 
 	   	//driver_POVUpLeft		.whenPressed(new _doNothing()); 

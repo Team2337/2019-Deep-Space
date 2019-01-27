@@ -2,6 +2,8 @@ package frc.robot.commands.Chassis;
 
 import frc.robot.Robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 //import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -23,30 +25,6 @@ public class PIDVisionDrive extends PIDCommand {
    * @param p - P value (Ex: 0.05 (percent of the stop distance))
    * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
-   */
-  public PIDVisionDrive(double p, double i, double d) {
-    // chassis_TargetWithGyroPID(String name, double p, double i, double d)
-    // p,i,d -> .03, 0, 0.02
-    super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
-    getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
-    getPIDController().setContinuous(false);        // not continuous like a compass
-    getPIDController().setOutputRange(-1, 1);       // output range for 'turn' input to drive command
-
-
-    targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 2;        // not used yet but will be used to drive forward to target based on ta
-    m_timeout = 5.0;              // time before command will end, even if target not found
-
-    // LiveWindow.addActuator("TargetPID", "PIDSubsystem Controller",
-
-    requires(Robot.Chassis);
-  }
-
-  /**
-   * 
-   * @param p - P value (Ex: 0.05 (percent of the stop distance))
-   * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
-   * @param d - D value (Ex: 0.05 (dampens the ocilation))
    * @param mode - String value that tells what mode the Vision drive is in
    * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
    */
@@ -58,12 +36,15 @@ public class PIDVisionDrive extends PIDCommand {
 
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 2;        // not used yet but will be used to drive forward to target based on ta
-    m_timeout = 5.0;              // time before command will end, even if target not found
+    targetDistance = 6.8;        // not used yet but will be used to drive forward to target based on ta
+    m_timeout = 5;              // time before command will end, even if target not found
 
     switch(mode) {
       case "turnInPlace":
       turnInPlace = true;
+      break;
+      default :
+      turnInPlace = false;
       break;
     }
     requires(Robot.Chassis);
@@ -108,7 +89,9 @@ public class PIDVisionDrive extends PIDCommand {
   }
 
   protected void initialize() {
+    Robot.Vision.setLEDMode(3);
     setTimeout(m_timeout);
+    System.out.println("***********************************************************");
     this.setSetpoint(targetAngle);
 
     // Robot.m_chassis.setBrakeMode(NeutralMode brake);  //probably want to turn on brakemode to lessen overshoot??
@@ -119,12 +102,13 @@ public class PIDVisionDrive extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return (isTimedOut() || getPIDController().onTarget());
+    return (isTimedOut()); //|| getPIDController().onTarget());
   }
 
   protected void end() {
+    Robot.Vision.setLEDMode(1);
     Robot.Chassis.stopDrive();
-    //Robot.m_chassis.setBrakeMode(); // set brakemode back to coast??
+    Robot.Chassis.setBrakeMode(NeutralMode.Brake); // set brakemode back to coast??
   }
 
   protected void interrupted() {
