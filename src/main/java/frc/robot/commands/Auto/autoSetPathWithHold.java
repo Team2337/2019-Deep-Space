@@ -55,7 +55,7 @@ public class autoSetPathWithHold extends Command {
     Robot.Chassis.resetEncoders();
 
     // visionTimeout = ((trajectory.length()-70) / 50);
-    timeout = ((trajectory.length()-67) / 50);
+    timeout = ((trajectory.length()-65) / 50);
     setTimeout(timeout);
     Robot.Chassis.setTrajectory(trajectory, kP, kI, kD, kA);
   }
