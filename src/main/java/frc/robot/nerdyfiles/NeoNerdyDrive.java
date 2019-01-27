@@ -8,8 +8,6 @@ package frc.robot.nerdyfiles;
 
 import com.revrobotics.CANSparkMax;
 
-import frc.robot.Robot;
-
 public class NeoNerdyDrive {
 	private CANSparkMax left;
 	private CANSparkMax right;

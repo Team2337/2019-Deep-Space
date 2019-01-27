@@ -4,7 +4,6 @@ import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
 import frc.robot.commands.Chassis.*;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -13,7 +12,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,7 +39,7 @@ public class Chassis extends Subsystem {
   private static VictorSPX rightMidMotor;
   private static VictorSPX rightRearMotor;
 
-  /* --- Talon Drive Motor Declaration --- */
+  /* --- Neo Drive Motor Declaration --- */
   private static CANSparkMax neoLeftFrontMotor;
   private static CANSparkMax neoLeftRearMotor;
   private static CANEncoder neoLeftFrontEncoder;
@@ -52,6 +50,7 @@ public class Chassis extends Subsystem {
   private static CANEncoder neoRightFrontEncoder;
   private static CANEncoder neoRightRearEncoder;
 
+  /* --- Drive Declarations --- */
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
@@ -219,10 +218,10 @@ public class Chassis extends Subsystem {
   /**
    * Determines what the drive motors will do when no signal is given to them
    * 
-   * @param mode The breaking mode to use
+   * @param mode The braking mode to use
    *             <p>
    *             {@code NeutralMode.Coast} - Allow the robot to roll to a stop
-   *             {@code NeutralMode.Break} - The motors run backwards and attempt
+   *             {@code NeutralMode.Brake} - The motors run backwards and attempt
    *             stop the robot sooner
    *             </p>
    */
@@ -306,10 +305,10 @@ public class Chassis extends Subsystem {
    * Determines what the drive motors will do when no signal is given to them
    * 
    * @param motor A CANSparkMax motor to assign a breakmode to
-   * @param mode  The breaking mode to use
+   * @param mode  The braking mode to use
    *              <p>
    *              {@code IdleMode.kCoast} - Allow the robot to roll to a stop
-   *              {@code IdleMode.kBreak} - The motors run backwards and attempt
+   *              {@code IdleMode.kBrake} - The motors run backwards and attempt
    *              stop the robot sooner
    *              </p>
    */
