@@ -1,17 +1,16 @@
 /**
  * Fusion.Drive.NerdyDrive
- *  Modified WPI Library to allow use of Talons in RobotDrive
+ *  Modified WPI Library to allow use of CAN Spark Brushless Motors in RobotDrive
  * @author Team2337 - Enginerds
  */
 
 package frc.robot.nerdyfiles;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
 
-public class NerdyDrive {
-	private TalonSRX left;
-	private TalonSRX right;
+public class NeoNerdyDrive {
+	private CANSparkMax left;
+	private CANSparkMax right;
 
 	public double m_quickStopAccumulator = 0.0;
 	public double m_quickStopThreshold = 0.2;
@@ -22,10 +21,10 @@ public class NerdyDrive {
 	/**
 	 * NerdyDrive - A customized RobotDrive
 	 * 
-	 * @param left  Left TalonSRX Motor Controller
-	 * @param right Right TaonSRX Motor Controller
+	 * @param left  Left CANSparkMax Motor Controller
+	 * @param right Right CANSparkMax Motor Controller
 	 */
-	public NerdyDrive(TalonSRX left, TalonSRX right) {
+	public NeoNerdyDrive(CANSparkMax left, CANSparkMax right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -75,9 +74,8 @@ public class NerdyDrive {
 			}
 		}
 
-		this.left.set(ControlMode.PercentOutput, limit(leftMotorOutput) * m_maxOutput);
-		this.right.set(ControlMode.PercentOutput, limit(rightMotorOutput) * m_maxOutput);
-
+		this.left.set(limit(leftMotorOutput) * m_maxOutput);
+		this.right.set(limit(rightMotorOutput) * m_maxOutput);
 	}
 
 	public void curvatureDrive(double speed, double zRotation, boolean isQuickTurn) {
@@ -124,8 +122,8 @@ public class NerdyDrive {
 				rightMotorOutput = -1.0;
 			}
 		}
-		this.left.set(ControlMode.PercentOutput, leftMotorOutput);
-		this.right.set(ControlMode.PercentOutput, rightMotorOutput);
+		this.left.set(leftMotorOutput);
+		this.right.set(rightMotorOutput);
 	}
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
@@ -147,8 +145,8 @@ public class NerdyDrive {
 			rightSpeed = Math.copySign(rightSpeed * rightSpeed, rightSpeed);
 		}
 
-		this.left.set(ControlMode.PercentOutput, leftSpeed);
-		this.right.set(ControlMode.PercentOutput, rightSpeed);
+		this.left.set(leftSpeed);
+		this.right.set(rightSpeed);
 	}
 
 	protected double limit(double value) {
