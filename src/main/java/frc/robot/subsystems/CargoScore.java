@@ -17,7 +17,6 @@ public class CargoScore extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-
   }
 
 }

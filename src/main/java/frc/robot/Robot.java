@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -12,8 +13,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.ClimberPneumatics;
@@ -39,12 +40,17 @@ import jaci.pathfinder.Waypoint;
  */
 public class Robot extends TimedRobot {
 
+  /**
+   * Specifies whether or not the Robot is the competition robot
+   */
+  public static boolean isComp = false;
+
   // DECLARATIONS
 
   public static Arm Arm;
-  public static Chassis Chassis;
-  public static CargoIntake CargoIntake;
   public static CargoScore CargoScore;
+  public static CargoIntake CargoIntake;
+  public static Chassis Chassis;
   public static ClimberPneumatics ClimberPneumatics;
   public static ClimberMotors ClimberMotors;
   public static AirCompressor AirCompressor;
@@ -67,6 +73,7 @@ public class Robot extends TimedRobot {
   public static Trajectory curveFromToHatchRightT;
   public static Trajectory fromRightLoadJTurnToCargoShipT;
   public static Trajectory jTurnToCargoShipRightT;
+  public static Trajectory driveForwardT;
 
   private boolean logger;
   private String selectedAuto;
@@ -79,13 +86,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
    
     // CONSTRUCTORS
+    AirCompressor = new AirCompressor();
     Arm = new Arm();
     Chassis = new Chassis();
+    CargoIntake = new CargoIntake();
+    CargoScore = new CargoScore();
     ClimberMotors = new ClimberMotors();
     ClimberPneumatics = new ClimberPneumatics();
-    CargoScore = new CargoScore();
-    CargoIntake = new CargoIntake();
-    AirCompressor = new AirCompressor();
     HatchBeak = new HatchBeak();
     LED = new LED();
     Lift = new Lift();
@@ -104,9 +111,10 @@ public class Robot extends TimedRobot {
     switch(selectedAuto) {
       default :
       // initTrajectory = Pathway.autoReverseToShipFromLvl1();
-      // initTrajectory2 = Pathway.testSCurve();
+     // initTrajectory2 = Pathway.testSCurve();
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
+     // driveForwardT = Pathway.driveForward();
       curveFromToHatchRightT = Pathway.curveFromToHatchRight();
       break;
     }
@@ -141,7 +149,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    Robot.Chassis.setBrakeMode(NeutralMode.Coast);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    // Robot.Chassis.setBrakeMode(NeutralMode.Coast);
     Robot.Vision.setLEDMode(1);
     logger = false;
   }

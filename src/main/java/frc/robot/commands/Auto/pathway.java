@@ -9,7 +9,7 @@ public class Pathway {
    public static Trajectory.Config config;
    public static Trajectory trajectory;
 
-   private static double timeStep = 0.02;
+   private static double timeStep = 0.1;
 
    /**
      * Double 2D array
@@ -19,9 +19,10 @@ public class Pathway {
      */
     public static double valuesPID[][] = new double[][] {
         {1.5, 0, 0.15, 0}, //autoReverseToShipFromLvl1
-        {1.5, 0, 0, 0}, //curveFromToHatchRightT
+        {1.7, 0, 0, 0}, //curveFromToHatchRightT
         {2, 0, 0, 0}, //fromRightLoadJTurnToCargoShipT
         {2, 0, 0, 0}, //jTurnToCargoShipRightT
+        {1.5, 0, 0, 0}, //TEST
     };
 
    private static Waypoint[] autoReverseToShipFromLvl1 = new Waypoint[] {
@@ -50,15 +51,15 @@ public class Pathway {
 
   private static Waypoint[] curveFromToHatchRight = new Waypoint[] {
     new Waypoint(0, 0, 0),
-    new Waypoint(3.5, 2.35, 0),
-    new Waypoint(5.95, 2.35, 0)
+    new Waypoint(3.5, 2.35, 0), //3.5, 2.35
+    new Waypoint(5.7, 2.35, 0) //5.95
  };
 /**
 * Converts the waypoints to generate the path into values readable by the code
 * @param points - array of waypoints
 */
 public static Trajectory curveFromToHatchRight() {
- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2.5, 1.9, 10.0);  //2, 1.7
+ config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1, 0.35, 10.0);  //2, 1.7
  trajectory = Pathfinder.generate(curveFromToHatchRight, config);
  return trajectory;
 }
@@ -113,4 +114,22 @@ public static Trajectory curveFromToHatchRight() {
     trajectory = Pathfinder.generate(testSCurve, config);
     return trajectory;
   }
+
+
+  private static Waypoint[] driveForward = new Waypoint[] {
+    // Waypoint @ x=0, y=0,   exit angle=0 radians
+    new Waypoint(0, 0, 0),
+    new Waypoint(3, 1, 0)
+    //NEGATIVE is RIGHT
+ };
+
+/**
+* Converts the waypoints to generate the path into values readable by the code
+* @param points - array of waypoints
+*/
+public static Trajectory driveForward() {
+ config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1, 0.5, 10.0);
+ trajectory = Pathfinder.generate(driveForward, config);
+ return trajectory;
+}
 }

@@ -13,8 +13,15 @@ public class driveByJoystick extends Command {
 
   // Gets the joystick to be used from OI.java
   private Joystick driverJoystick = Robot.oi.driverJoystick;
+  private boolean neoDrive;
 
   public driveByJoystick() {
+    this.neoDrive = false;
+    requires(Robot.Chassis);
+  }
+
+  public driveByJoystick(boolean neoDrive) {
+    this.neoDrive = neoDrive;
     requires(Robot.Chassis);
   }
 
@@ -23,7 +30,11 @@ public class driveByJoystick extends Command {
     double moveSpeed = -driverJoystick.getRawAxis(1); // Left joystick's front/back movement as a number from -1 to 1
     double turnSpeed = driverJoystick.getRawAxis(4); // Right joysticks left/right movement as a number from -1 to 1
 
-    Robot.Chassis.nerdyDrive.arcadeDrive(moveSpeed, turnSpeed, true);
+    if (this.neoDrive) {
+      Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
+    } else {
+      Chassis.drive.arcadeDrive(moveSpeed, turnSpeed, true);
+    }
   }
 
   // This command is not meant to exit, so we don't ever allow it to

@@ -2,6 +2,8 @@ package frc.robot.commands.Auto;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -45,13 +47,13 @@ public class autoSetPathReverse extends Command {
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
 
-    Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
-    Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
+    // Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
+    // Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
 
-    Robot.Chassis.leftFrontMotor.configPeakOutputForward(1.0);
-    Robot.Chassis.leftFrontMotor.configPeakOutputReverse(-1.0);
+    // Robot.Chassis.leftFrontMotor.configPeakOutputForward(1.0);
+    // Robot.Chassis.leftFrontMotor.configPeakOutputReverse(-1.0);
 
-    Robot.Chassis.setBrakeMode(NeutralMode.Brake);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
 
     timeout = (trajectory.length() / 50)+0.7;
@@ -80,7 +82,7 @@ public class autoSetPathReverse extends Command {
     // Robot.Pigeon.resetPidgey();
     // Robot.Chassis.leftFrontMotor.set(ControlMode.PercentOutput, 0);
     // Robot.Chassis.rightFrontMotor.set(ControlMode.PercentOutput, 0);
-    Robot.Chassis.setBrakeMode(NeutralMode.Brake);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 
   // Called when another command which requires one or more of the same
