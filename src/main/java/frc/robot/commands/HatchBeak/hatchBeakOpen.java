@@ -8,20 +8,17 @@ import frc.robot.Robot;
  * 
  * @author Emily H.
  */
-public class hatchBeakExtend extends Command {
+public class hatchBeakOpen extends Command {
 
   // CONSTRUCTOR
-  public hatchBeakExtend() {
+  public hatchBeakOpen() {
     requires(Robot.HatchBeak);
   }
 
-  // Called just before this Command runs the first time
+  // Opens the beak to acquire the hatch panel
   @Override
   protected void initialize() {
-
-    // Extend the hatch grabber to prepare to grab the piece
-    Robot.HatchBeak.extendHatchGrabber();
-
+    Robot.HatchBeak.openHatchBeak();
   }
 
   // Called repeatedly when this Command is scheduled to run

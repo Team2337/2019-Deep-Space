@@ -1,18 +1,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 import edu.wpi.first.wpilibj.Solenoid;
 
-
 /**
- * This subsystem controls the intake to obtain the hatch panel game piece.
+ * This subsystem controls the hatch beak, which acquires the hatch panel
  * 
  * @author Emily H.
  */
 public class HatchBeak extends Subsystem {
 
-  private Solenoid hatchSolenoid = new Solenoid(0, 0);
+  private Solenoid hatchBeakSolenoid = new Solenoid(0, 0);
 
   public HatchBeak() {
 
@@ -22,21 +20,21 @@ public class HatchBeak extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-     // setDefaultCommand(new hatchIntakeDoNothing());
+
   }
 
   /**
-   * Extend the Hatch Grabber to obtain the hatch panel
+   * Opens the hatch beak to obtain the hatch panel
    */
-  public void extendHatchGrabber() {
-    hatchSolenoid.set(true);
+  public void openHatchBeak() {
+    hatchBeakSolenoid.set(true);
   }
 
   /**
-   * Retracted the Hatch Grabber to score the hatch panel
+   * Close the hatch beak to launch the hatch panel
    */
-  public void retractHatchGrabber() {
-    hatchSolenoid.set(false);
+  public void closeHatchBeak() {
+    hatchBeakSolenoid.set(false);
   }
 
   /**

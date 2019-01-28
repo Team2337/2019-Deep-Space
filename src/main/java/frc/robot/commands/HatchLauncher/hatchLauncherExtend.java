@@ -1,27 +1,24 @@
-package frc.robot.commands.HatchPuncher;
+package frc.robot.commands.HatchLauncher;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This extends the pnuematics to launch the hatch
+ * Extends the hatch launching mechanism
  * 
- * @author Hunter B
+ * @author Hunter B.
  */
-public class hatchPunchExtend extends Command {
+public class hatchLauncherExtend extends Command {
 
   // CONSTRUCTOR
-  public hatchPunchExtend() {
-    requires(Robot.HatchPuncher);
+  public hatchLauncherExtend() {
+    requires(Robot.HatchLauncher);
   }
 
-  // Called just before this Command runs the first time
+  // Propels the hatch panel away from the robot
   @Override
   protected void initialize() {
-
-    // Extend the hatch grabber to prepare to grab the piece
-    Robot.HatchPuncher.extend();
-
+    Robot.HatchLauncher.extend();
   }
 
   // Called repeatedly when this Command is scheduled to run
