@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * Runs the Limelight vision code to align towards to the vision targets
+ * 
+ * @category VISION
  * @author Bryce G.
  */
 public class Vision extends Subsystem {
@@ -64,7 +65,6 @@ public class Vision extends Subsystem {
 
 
   /**
-   * 
    * @return - returns the raw distance output in the form of voltage, from the ultrasonic sensor
    */
   public double getVoltage() {
@@ -72,7 +72,6 @@ public class Vision extends Subsystem {
   }
 
   /**
-   * 
    * @return - returns the voltage value multiplied by the voltsToInch conversion constant
    * @see getVoltage()
    */
