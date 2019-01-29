@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.ClimberPneumatics;
@@ -35,8 +33,8 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   public static Arm Arm;
-  public static CargoScore CargoScore;
-  public static CargoIntake CargoIntake;
+  // public static CargoScore CargoScore;
+  // public static CargoIntake CargoIntake;
   public static Chassis Chassis;
 
   public static ClimberPneumatics ClimberPneumatics;
@@ -65,8 +63,8 @@ public class Robot extends TimedRobot {
 
     // CONSTRUCTORS
      Arm = new Arm();
-     CargoIntake = new CargoIntake();
-     CargoScore = new CargoScore();
+    //  CargoIntake = new CargoIntake();
+    //  CargoScore = new CargoScore();
      Chassis = new Chassis();
      ClimberMotors = new ClimberMotors();
      ClimberPneumatics = new ClimberPneumatics();
