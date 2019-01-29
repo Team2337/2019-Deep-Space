@@ -30,7 +30,7 @@ public class DriveWithDistanceSensor extends Command {
 
     speed = Robot.Vision.getDistance();
 
-    Robot.Chassis.driveArcade(speed, 0, false);
+    Robot.Chassis.talonDrive.arcadeDrive(speed, 0, false);
 
     System.out.println(Robot.Vision.getDistance());
   }

@@ -62,7 +62,7 @@ public class DriveByJoystickAndVision extends Command {
 
     boolean squaredInputs = true;
 
-    Robot.Chassis.driveArcade(0, turn, squaredInputs);
+    Robot.Chassis.talonDrive.arcadeDrive(0, turn, squaredInputs);
 
   }
 
@@ -75,7 +75,7 @@ public class DriveByJoystickAndVision extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.Chassis.driveArcade(0, 0, false);
+    Robot.Chassis.talonDrive.arcadeDrive(0, 0, false);
   }
 
   // Called when another command which requires one or more of the same

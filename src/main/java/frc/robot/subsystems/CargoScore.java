@@ -5,13 +5,11 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ *
  */
-public class LED extends Subsystem {
+public class CargoScore extends Subsystem {
 
-
-
-  public LED() {
+  public CargoScore() {
 
   }
 
@@ -19,7 +17,7 @@ public class LED extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-   // setDefaultCommand(new doNothing());
+    //setDefaultCommand(new doNothing());
   }
 
 }

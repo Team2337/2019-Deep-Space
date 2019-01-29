@@ -104,7 +104,7 @@ public class PIDVisionDrive extends PIDCommand {
         System.out.println("turnInPlace: " + turnInPlace);
       }
 
-      Robot.Chassis.driveArcade(m_speed, -output, false);  // <== here we use the output to do something
+      Robot.Chassis.talonDrive.arcadeDrive(m_speed, -output, false);  // <== here we use the output to do something
   }
 
   protected void initialize() {
@@ -123,7 +123,7 @@ public class PIDVisionDrive extends PIDCommand {
   }
 
   protected void end() {
-    Robot.Chassis.stopDrive();
+    Robot.Chassis.talonDrive.tankDrive(0, 0);
     //Robot.m_chassis.setBrakeMode(); // set brakemode back to coast??
   }
 

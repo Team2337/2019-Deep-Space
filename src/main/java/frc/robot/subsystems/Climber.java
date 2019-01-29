@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class Arm extends Subsystem {
+public class Climber extends Subsystem {
 
 
 
-  public Arm() {
+  public Climber() {
 
   }
 
@@ -19,7 +19,7 @@ public class Arm extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new Do_Nothing());
+    //setDefaultCommand(new doNothing());
   }
 
 }
