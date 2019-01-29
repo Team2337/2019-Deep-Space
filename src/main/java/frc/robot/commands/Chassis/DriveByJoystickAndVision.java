@@ -53,7 +53,7 @@ public class DriveByJoystickAndVision extends Command {
 
     speed = Robot.oi.driverJoystick.getRawAxis(1); // Left y
 
-    if (true) {   //tv == 1.0
+    if (tv == 1.0) {   
       turn = tx * turnConstant;
       speed = speed * ((target - ta)/target);
     } else {
