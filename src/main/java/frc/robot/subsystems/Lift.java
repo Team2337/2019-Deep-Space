@@ -29,9 +29,9 @@ public class Lift extends Subsystem {
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private final static int liftRightFrontID = 8;
-  private final static int liftRightBackID = 9;
-  private final static int liftLeftFrontID = 10;
-  private final static int liftLeftBackID = 11;
+  private final static int liftRightBackID = 59;
+  private final static int liftLeftFrontID = 9;
+  private final static int liftLeftBackID = 61;
 
   /*
    * The front right motor is the master for the other three as they will all
@@ -70,7 +70,11 @@ public class Lift extends Subsystem {
   }
 
   public Lift() {
-    // Configurations for the right front (master) lift motor
+
+    /*
+     * Configurations for the right motors, set up to follow
+     * the motions of the right front motor
+     */
     liftRightFrontMotor = new TalonSRX(liftRightFrontID);
     liftRightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // Typically a stringpot
     liftRightFrontMotor.setSensorPhase(false);
@@ -78,15 +82,15 @@ public class Lift extends Subsystem {
     liftRightFrontMotor.setStatusFramePeriod(0, 0, 0);
     liftRightFrontMotor.setNeutralMode(NeutralMode.Brake);
 
-    /*
-     * Configurations for the right lift motor The left motor is set up to follow
-     * the motions of the right motor
-     */
     liftRightBackMotor = new VictorSPX(liftRightBackID);
     liftRightBackMotor.follow(liftRightFrontMotor);
     liftRightBackMotor.setInverted(false);
     liftRightBackMotor.setNeutralMode(NeutralMode.Brake);
 
+    /*
+     * Configurations for the left motors, set up to follow
+     * the motions of the right front motor
+     */
     liftLeftFrontMotor = new VictorSPX(liftLeftFrontID);
     liftLeftFrontMotor.follow(liftRightFrontMotor);
     liftLeftFrontMotor.setInverted(true);
@@ -212,6 +216,7 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("reverseLIFTSoftLimit", reverseLiftSoftLimit);
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
+      SmartDashboard.putNumber("percentoutput", liftRightFrontMotor.getMotorOutputPercent());
     }
   }
 }

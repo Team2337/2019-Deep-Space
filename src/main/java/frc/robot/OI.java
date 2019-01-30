@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.Lift.goToPosition;
 import frc.robot.nerdyfiles.controller.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,7 +24,8 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whenPressed(new doNothing());
+		driverJoystick.greenA			.whenPressed(new goToPosition(550));
+		driverJoystick.redB				.whenPressed(new goToPosition(65));
 		driverJoystick.povUp			.whenPressed(new doNothing());
 	    
 	    ////////////////////////////////// 
