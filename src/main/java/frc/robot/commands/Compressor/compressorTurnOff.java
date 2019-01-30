@@ -6,7 +6,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.AirCompressor;
 
 /**
- * Enables the compressor
+ * Disables the compressor
  */
 public class compressorTurnOff extends Command {
 
