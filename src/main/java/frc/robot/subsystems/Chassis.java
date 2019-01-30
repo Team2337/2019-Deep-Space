@@ -91,17 +91,17 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int rightFrontID = 0;
-  private final static int rightMidID = 1;
-  private final static int rightRearID = 2;
-  private final static int leftFrontID = 15;
-  private final static int leftMidID = 14;
-  private final static int leftRearID = 13;
+  private final static int rightFrontID = 30;
+  private final static int rightMidID = 31;
+  private final static int rightRearID = 32;
+  private final static int leftFrontID = 45;
+  private final static int leftMidID = 44;
+  private final static int leftRearID = 43;
 
-  private final static int neoRightFrontID = 30;
-  private final static int neoRightRearID = 32;
-  private final static int neoLeftFrontID = 45;
-  private final static int neoLeftRearID = 47;
+  private final static int neoRightFrontID = 0;
+  private final static int neoRightRearID = 1;
+  private final static int neoLeftFrontID = 15;
+  private final static int neoLeftRearID = 14;
 
   public Chassis() {
 
