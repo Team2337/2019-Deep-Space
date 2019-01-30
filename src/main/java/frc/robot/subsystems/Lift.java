@@ -29,9 +29,9 @@ public class Lift extends Subsystem {
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private final static int liftRightFrontID = 8;
-  private final static int liftRightBackID = 59;
-  private final static int liftLeftFrontID = 9;
-  private final static int liftLeftBackID = 61;
+  private final static int liftRightBackID = 9;
+  private final static int liftLeftFrontID = 10;
+  private final static int liftLeftBackID = 11;
 
   /*
    * The front right motor is the master for the other three as they will all
