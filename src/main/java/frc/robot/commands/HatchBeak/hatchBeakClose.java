@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Closes the hatch beak
+ * Closes the hatch beak to allow the robot to launch the hatch panel
  * 
  * @author Emily H.
  */

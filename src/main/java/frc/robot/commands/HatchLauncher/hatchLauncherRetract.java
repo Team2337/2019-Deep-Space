@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command retracts The hatch punchers
+ * This command retracts the hatch launchers
  * 
  * @author Hunter B
  */
