@@ -13,35 +13,39 @@ public class cargoScoreOut extends Command {
 
   private double speed;
 
-  // CONSTRUCTOR
+  /**
+   * Sets the speed of the cargo scoring mechanism motors (going backwards)
+   * 
+   * @param speed A double value from -1 to 1 to set the speed of the cargo
+   *              scoring mechanism motors to
+   */
   public cargoScoreOut(double speed) {
     requires(Robot.CargoScore);
     this.speed = speed;
   }
 
-  // Called just before this Command runs the first time
+  // Set the speed of the cargo scoring mechanism motors
   @Override
   protected void initialize() {
     Robot.CargoScore.rollOut(this.speed);
   }
 
-  // Called repeatedly when this Command is scheduled to run
+  // The speed only needs to be set once, so nothing happens in execute()
   @Override
   protected void execute() {
 
   }
 
-  // Make this return true when this Command no longer needs to run execute()
+  // This command is not meant to end until the button is released
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
+  // When the command ends, stop the scoring mechanism motors
   @Override
   protected void end() {
     Robot.CargoScore.stop();
-
   }
 
   // Called when another command which requires one or more of the same
