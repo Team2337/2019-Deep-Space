@@ -111,10 +111,10 @@ public class Robot extends TimedRobot {
     switch(selectedAuto) {
       default :
       // initTrajectory = Pathway.autoReverseToShipFromLvl1();
-     // initTrajectory2 = Pathway.testSCurve();
+      //  initTrajectory2 = Pathway.testSCurve();
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
-     // driveForwardT = Pathway.driveForward();
+      // driveForwardT = Pathway.driveForward();
       curveFromToHatchRightT = Pathway.curveFromToHatchRight();
       break;
     }

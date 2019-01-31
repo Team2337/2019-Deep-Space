@@ -4,6 +4,9 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 
+/**
+ * @author Bryce G.
+ */
 public class Pathway {
    public static double pathweaverConversion;  //17.5 //35.166666666 - Our conversion from our trials, 33.33333 
    public static Trajectory.Config config;
@@ -19,7 +22,7 @@ public class Pathway {
      */
     public static double valuesPID[][] = new double[][] {
         {1.5, 0, 0.15, 0}, //autoReverseToShipFromLvl1
-        {1.7, 0, 0, 0}, //curveFromToHatchRightT
+        {1.2, 0, 0, 0}, //curveFromToHatchRightT
         {2, 0, 0, 0}, //fromRightLoadJTurnToCargoShipT
         {2, 0, 0, 0}, //jTurnToCargoShipRightT
         {1.5, 0, 0, 0}, //TEST
@@ -51,15 +54,15 @@ public class Pathway {
 
   private static Waypoint[] curveFromToHatchRight = new Waypoint[] {
     new Waypoint(0, 0, 0),
-    new Waypoint(3.5, 2.35, 0), //3.5, 2.35
-    new Waypoint(5.7, 2.35, 0) //5.95
+    new Waypoint(3.5, 2, 0.42), //3.5, 2.35
+    new Waypoint(5.5, 2.35, 0) //5.95
  };
 /**
 * Converts the waypoints to generate the path into values readable by the code
 * @param points - array of waypoints
 */
 public static Trajectory curveFromToHatchRight() {
- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1, 0.35, 10.0);  //2, 1.7
+ config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.1, 0.25, 2.0);  //2, 1.7, 10
  trajectory = Pathfinder.generate(curveFromToHatchRight, config);
  return trajectory;
 }
@@ -99,7 +102,7 @@ public static Trajectory curveFromToHatchRight() {
 
     private static Waypoint[] testSCurve = new Waypoint[] {
         new Waypoint(0, 0, 0),            
-        new Waypoint(3, -1, 0)
+        new Waypoint(3, 1, 0) //POSITIVE IS LEFT
     };
 
     /**
@@ -110,7 +113,7 @@ public static Trajectory curveFromToHatchRight() {
     //old = 1.7, 2.0, 60.0
     //new = 4.267, 5.0, 150.6
     //2,1.75,10
-    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2, 1.9, 10.0);
+    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.75, 0.35, 10.0);
     trajectory = Pathfinder.generate(testSCurve, config);
     return trajectory;
   }
@@ -119,7 +122,7 @@ public static Trajectory curveFromToHatchRight() {
   private static Waypoint[] driveForward = new Waypoint[] {
     // Waypoint @ x=0, y=0,   exit angle=0 radians
     new Waypoint(0, 0, 0),
-    new Waypoint(3, 1, 0)
+    new Waypoint(2, 0, 0)
     //NEGATIVE is RIGHT
  };
 

@@ -24,7 +24,7 @@ public class Pigeon extends Subsystem {
 		// Assign to the Talon the Pigeon is connected into.
 
 		//pidgey = new PigeonIMU(RobotMap.intake_left);
-		pidgey = new PigeonIMU(0);
+		pidgey = new PigeonIMU(20);
 		//pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
 		gyrofusionStatus = new PigeonIMU.FusionStatus();
 		gyroGenStatus = new PigeonIMU.GeneralStatus();

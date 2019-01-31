@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.nerdyfiles.*;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.NerdyDrive;
+import frc.robot.nerdyfiles.pathway.EncoderFollower;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.autoSetPath;
@@ -33,7 +34,6 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
@@ -52,6 +52,7 @@ public class Chassis extends Subsystem {
   boolean chassisDebug = true;
   boolean neoDebug = true;
   boolean pathFinderDebug = true;
+  boolean pathfinderDebug = true;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -91,12 +92,14 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int rightFrontID = 30;
   private final static int rightMidID = 31;
   private final static int rightRearID = 32;
-  private final static int leftFrontID = 45;
   private final static int leftMidID = 44;
   private final static int leftRearID = 43;
+  
+  // Encoder Talons / Talon Drive Motors
+  private final static int rightFrontID = 2; //30 before
+  private final static int leftFrontID = 13; //45 
 
   private final static int neoRightFrontID = 0;
   private final static int neoRightRearID = 1;
@@ -242,8 +245,7 @@ public class Chassis extends Subsystem {
 
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
     turn = 0.8 * (-1.0/80.0) * angleDifference;
-    turn = 0; //*********************** FIX THIS ************************************************************************
-    
+
     neoDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
   }
 
@@ -295,7 +297,7 @@ public class Chassis extends Subsystem {
    * @return - returns the encoder position on the right encoder
    */
   public double getRightPosition() {
-    return rightFrontMotor.getSelectedSensorPosition();
+    return -rightFrontMotor.getSelectedSensorPosition();
   }
 
   /**
@@ -352,7 +354,7 @@ public class Chassis extends Subsystem {
   
 
   /**
-   * Determines what the drive motors will do when no signal is given to them
+   * Determines what the Talon drive motors will do when no signal is given to them
    * 
    * @param mode The breaking mode to use
    *             <p>
@@ -442,8 +444,10 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      SmartDashboard.putNumber("Right Encoder Value", rightFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("Left Encoder Value", leftFrontMotor.getSelectedSensorPosition());
+      // ***** FIX FOR COMP BOT ********
+      // ***** SENSOR PHASE NOT INVERTING ******
+      SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); //rightFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); //leftFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
@@ -478,5 +482,15 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
       SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
     }
+
+    if(pathfinderDebug) {
+      SmartDashboard.putNumber("Encoder Follower: last_error", EncoderFollower.last_error);
+      SmartDashboard.putNumber("Encoder Follower: key", EncoderFollower.segment);
+      SmartDashboard.putNumber("Encoder Follower: Start position", EncoderFollower.encoder_offset);
+      SmartDashboard.putNumber("Encoder Follower: kp", EncoderFollower.kp);
+      SmartDashboard.putNumber("Encoder Follower: calculated_value", EncoderFollower.calculated_value);
+      SmartDashboard.putNumber("Encoder Follower: error", EncoderFollower.error);
+      SmartDashboard.putNumber("Encoder Follower: distance_covered", EncoderFollower.distance_covered);
+      }
   }
 }
