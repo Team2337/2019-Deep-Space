@@ -1,6 +1,12 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.CargoEscalator.cargoEscalatorDown;
+import frc.robot.commands.CargoEscalator.cargoEscalatorUp;
+import frc.robot.commands.CargoIntake.cargoIntakeIn;
+import frc.robot.commands.CargoIntake.cargoIntakeOut;
+import frc.robot.commands.CargoScore.cargoScoreIn;
+import frc.robot.commands.CargoScore.cargoScoreOut;
 import frc.robot.nerdyfiles.controller.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,7 +29,8 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whenPressed(new doNothing());
+		driverJoystick.greenA			.whileHeld(new cargoIntakeIn(0.5));
+		driverJoystick.redB				.whileHeld(new cargoIntakeOut(0.5));
 		driverJoystick.povUp			.whenPressed(new doNothing());
 	    
 	    ////////////////////////////////// 
