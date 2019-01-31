@@ -48,17 +48,18 @@ public class Lift extends Subsystem {
   private double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
-  private double kP = 14;
+  private double kP = 1;
   private double kI = 0;
   private double kD = 0;
   private double kF = 0;
 
-  // How much the actual position vary from the target position (in encoder ticks)
+  // How much the actual position may vary from the set target position (in encoder
+  // ticks)
   private int allowableError = 0;
 
   /**
-   * Sets the imits set in the code where the mechanism cannot go outside of (in
-   * current analog sensor (in this case a stringpot) values)
+   * Sets the boundary of where the mechanism cannot go outside of (in current
+   * analog sensor (in this case a stringpot) values)
    * 
    * @see #setSoftLimits()
    */
@@ -72,8 +73,8 @@ public class Lift extends Subsystem {
   public Lift() {
 
     /*
-     * Configurations for the right motors, set up to follow
-     * the motions of the right front motor
+     * Configurations for the right motors, set up to follow the motions of the
+     * right front motor
      */
     liftRightFrontMotor = new TalonSRX(liftRightFrontID);
     liftRightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // Typically a stringpot
@@ -88,8 +89,8 @@ public class Lift extends Subsystem {
     liftRightBackMotor.setNeutralMode(NeutralMode.Brake);
 
     /*
-     * Configurations for the left motors, set up to follow
-     * the motions of the right front motor
+     * Configurations for the left motors, set up to follow the motions of the right
+     * front motor
      */
     liftLeftFrontMotor = new VictorSPX(liftLeftFrontID);
     liftLeftFrontMotor.follow(liftRightFrontMotor);
@@ -126,8 +127,8 @@ public class Lift extends Subsystem {
     liftRightFrontMotor.configNominalOutputReverse(nominalSpeed, 0);
 
     /*
-     * Sets the allowable closed-loop error, the motor output will be neutral
-     * within this range (causing it to break or coast)
+     * Sets the allowable closed-loop error, the motor output will be neutral within
+     * this range (causing it to break or coast)
      */
     liftRightFrontMotor.configAllowableClosedloopError(0, allowableError, 0);
 
@@ -196,14 +197,6 @@ public class Lift extends Subsystem {
 
     liftRightFrontMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
     liftRightFrontMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
-  }
-
-  /**
-   * Sets the level of the lift should move to by setting the analog sensor
-   * (typically a stringpot) postion
-   */
-  public void setLevel(int pos) {
-    Robot.Lift.setSetpoint(pos);
   }
 
   /**

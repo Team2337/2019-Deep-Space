@@ -1,7 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.*;
-import frc.robot.commands.Lift.goToPosition;
+import frc.robot.commands.Lift.*;
 import frc.robot.nerdyfiles.controller.*;
 
 import edu.wpi.first.wpilibj.Joystick;
