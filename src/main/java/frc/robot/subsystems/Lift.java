@@ -15,12 +15,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Controls lift movement using PID setpoints
  * 
  * @category LIFT
- * @author Bryce G. Jack E.
+ * @author Bryce G. Tyler G.
  */
 public class Lift extends Subsystem {
 
   /**
-   * Specifies whether or not the Chassis will be in debug mode.
+   * Specifies whether or not the Lift will be in debug mode.
    * 
    * @see #periodic()
    */
@@ -28,16 +28,19 @@ public class Lift extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int liftRightID = 8;
-  private final static int liftLeftID = 9;
-  private String button;
+  private final static int liftRightFrontID = 8;
+  private final static int liftRightBackID = 9;
+  private final static int liftLeftFrontID = 10;
+  private final static int liftLeftBackID = 11;
 
   /*
-   * The left motor is a victor, since its only going to follow the right This
-   * means that we only need to send commands to the right motor
+   * The front right motor is the master for the other three as they will all
+   * receive the same commands
    */
-  public static TalonSRX liftRightMotor;
-  public static VictorSPX liftLeftMotor;
+  public static TalonSRX liftRightFrontMotor;
+  public static VictorSPX liftRightBackMotor;
+  public static VictorSPX liftLeftFrontMotor;
+  public static VictorSPX liftLeftBackMotor;
 
   // Configures the maximum/minumum speeds the lift can travel at
   private double maxSpeedUp = 0.8;
@@ -45,78 +48,95 @@ public class Lift extends Subsystem {
   private double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
-  private double kP = 14;
+  private double kP = 1;
   private double kI = 0;
   private double kD = 0;
   private double kF = 0;
 
-  // How much the actual position vary from the target (in encoder ticks)
+  // How much the actual position may vary from the set target position (in encoder
+  // ticks)
   private int allowableError = 0;
 
   /**
-   * * Sets the imits set in the code where the mechanism cannot go outside of 
-   *(in current analog sensor values) 
+   * Sets the boundary of where the mechanism cannot go outside of (in current
+   * analog sensor (in this case a stringpot) values)
+   * 
    * @see #setSoftLimits()
    */
   public static int forwardLiftSoftLimit = 590;
   public static int reverseLiftSoftLimit = 50;
 
   protected void initDefaultCommand() {
-     //setDefaultCommand(new liftWithJoystick());
+    // setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
-    // Configurations for the right lift motor
-    liftRightMotor = new TalonSRX(liftRightID);
-    liftRightMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // String Potentiometer
-    liftRightMotor.setSensorPhase(false);
-    liftRightMotor.setInverted(false);
-    liftRightMotor.setStatusFramePeriod(0, 0, 0);
-    liftRightMotor.setNeutralMode(NeutralMode.Brake);
 
     /*
-    * Configurations for the right lift motor
-    * The left motor is set up to follow the motions of the right motor
-    */
-    liftLeftMotor = new VictorSPX(liftLeftID);
-    liftLeftMotor.follow(liftRightMotor);
-    liftLeftMotor.setInverted(true);
-    liftLeftMotor.setNeutralMode(NeutralMode.Brake);
+     * Configurations for the right motors, set up to follow the motions of the
+     * right front motor
+     */
+    liftRightFrontMotor = new TalonSRX(liftRightFrontID);
+    liftRightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // Typically a stringpot
+    liftRightFrontMotor.setSensorPhase(false);
+    liftRightFrontMotor.setInverted(false);
+    liftRightFrontMotor.setStatusFramePeriod(0, 0, 0);
+    liftRightFrontMotor.setNeutralMode(NeutralMode.Brake);
+
+    liftRightBackMotor = new VictorSPX(liftRightBackID);
+    liftRightBackMotor.follow(liftRightFrontMotor);
+    liftRightBackMotor.setInverted(false);
+    liftRightBackMotor.setNeutralMode(NeutralMode.Brake);
+
+    /*
+     * Configurations for the left motors, set up to follow the motions of the right
+     * front motor
+     */
+    liftLeftFrontMotor = new VictorSPX(liftLeftFrontID);
+    liftLeftFrontMotor.follow(liftRightFrontMotor);
+    liftLeftFrontMotor.setInverted(true);
+    liftLeftFrontMotor.setNeutralMode(NeutralMode.Brake);
+
+    liftLeftBackMotor = new VictorSPX(liftLeftBackID);
+    liftLeftBackMotor.follow(liftRightFrontMotor);
+    liftLeftBackMotor.setInverted(true);
+    liftLeftBackMotor.setNeutralMode(NeutralMode.Brake);
 
     // Enable/disable soft limits for when the motor is going forwards
-    liftRightMotor.configForwardSoftLimitEnable(true, 0);
-    liftLeftMotor.configForwardSoftLimitEnable(true, 0);
+    liftRightFrontMotor.configForwardSoftLimitEnable(true, 0);
+    liftLeftFrontMotor.configForwardSoftLimitEnable(true, 0);
 
     // Enable/disable soft limits for when the motor is going backwards
-    liftRightMotor.configReverseSoftLimitEnable(true, 0);
-    liftLeftMotor.configReverseSoftLimitEnable(true, 0);
+    liftRightFrontMotor.configReverseSoftLimitEnable(true, 0);
+    liftLeftFrontMotor.configReverseSoftLimitEnable(true, 0);
 
     // Sets the soft limits for the lift that were decided above
     setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
 
     /*
      * Set the peak (maximum) and nominal (minimum) output voltages for the motors
-     * according to whether they are moving forwards or in reverse
+     * according to whether they are moving forward or in reverse
      * 
-     * If the motor is given a voltage value below the nominal voltage, or above the peak voltage,
-     * it will be bumped up/down to return it to the set nominal voltage.
+     * If the motor is given a voltage value below the nominal voltage, or above the
+     * peak voltage, it will be bumped up/down to return it to the set nominal
+     * voltage.
      */
-    liftRightMotor.configPeakOutputForward(maxSpeedUp, 0); // Forwards
-    liftRightMotor.configNominalOutputForward(nominalSpeed, 0);
-    liftRightMotor.configPeakOutputReverse(-maxSpeedDown, 0); // Reverse
-    liftRightMotor.configNominalOutputReverse(nominalSpeed, 0);
+    liftRightFrontMotor.configPeakOutputForward(maxSpeedUp, 0); // Forwards
+    liftRightFrontMotor.configNominalOutputForward(nominalSpeed, 0);
+    liftRightFrontMotor.configPeakOutputReverse(-maxSpeedDown, 0); // Reverse
+    liftRightFrontMotor.configNominalOutputReverse(nominalSpeed, 0);
 
     /*
-     * Sets the allowable closed-loop error, Closed-Loop output will be neutral
-     * within this range. See Table in Section 17.2.1 for native units per rotation.
+     * Sets the allowable closed-loop error, the motor output will be neutral within
+     * this range (causing it to break or coast)
      */
-    liftRightMotor.configAllowableClosedloopError(0, allowableError, 0);
+    liftRightFrontMotor.configAllowableClosedloopError(0, allowableError, 0);
 
-    /* set closed loop gains in slot0, typically kF stays zero. */
-    liftRightMotor.config_kP(0, kP, 0);
-    liftRightMotor.config_kI(0, kI, 0);
-    liftRightMotor.config_kD(0, kD, 0);
-    liftRightMotor.config_kF(0, kF, 0); 
+    /* Set closed loop gains in slot0, typically kF stays zero. */
+    liftRightFrontMotor.config_kP(0, kP, 0);
+    liftRightFrontMotor.config_kI(0, kI, 0);
+    liftRightFrontMotor.config_kD(0, kD, 0);
+    liftRightFrontMotor.config_kF(0, kF, 0);
 
   }
 
@@ -126,7 +146,7 @@ public class Lift extends Subsystem {
    * @param pos Analog position that the arm will move to
    */
   public void setSetpoint(double pos) {
-    liftRightMotor.set(ControlMode.Position, pos);
+    liftRightFrontMotor.set(ControlMode.Position, pos);
   }
 
   /**
@@ -135,7 +155,7 @@ public class Lift extends Subsystem {
    * @return Analog position that the arm is moving to
    */
   public double getSetpoint() {
-    return liftRightMotor.getClosedLoopTarget(0);
+    return liftRightFrontMotor.getClosedLoopTarget(0);
   }
 
   /**
@@ -144,7 +164,7 @@ public class Lift extends Subsystem {
    * @return Analog position that the arm is at
    */
   public double getPosition() {
-    return liftRightMotor.getSelectedSensorPosition(0);
+    return liftRightFrontMotor.getSelectedSensorPosition(0);
   }
 
   /**
@@ -153,20 +173,21 @@ public class Lift extends Subsystem {
    * @param power A decimal value from 1 to -1 to supply power to the lift
    */
   public void move(double power) {
-    liftRightMotor.set(ControlMode.PercentOutput, power);
+    liftRightFrontMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
    * Stops the lift motors
    */
   public void stop() {
-    liftRightMotor.set(ControlMode.PercentOutput, 0);
+    liftRightFrontMotor.set(ControlMode.PercentOutput, 0);
   }
 
   /**
-   * Sets soft limits within the code, defining a range of motion for the motors. 
-   * If the sensor value surpasses this range, the code will run the motors in 
-   * the opposite direction to get the sensor value to be back within the given range.
+   * Sets soft limits within the code, defining a range of motion for the motors.
+   * If the sensor value surpasses this range, the code will run the motors in the
+   * opposite direction to get the sensor value to be back within the given range.
+   * 
    * @param forward The soft limit for when the motor is going forwards
    * @param reverse The soft limit for when the motor is going backwards
    */
@@ -174,33 +195,8 @@ public class Lift extends Subsystem {
     forwardLiftSoftLimit = forward;
     reverseLiftSoftLimit = reverse;
 
-    liftRightMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
-    liftRightMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
-  }
-
-  /**
-   * Sets the level of the lift
-   * Each level has a setpoint to send the arm to 
-   * @param level - int value for the level the lift should go to
-   * (0 = bottom; 1 = middle; 2 = top)
-   */
-  public void setLevel(String button) {
-    this.button = button;
-    switch(button) {
-      case "BottomThrottleButton":
-      Robot.Lift.setSetpoint(70);
-      break;
-      case "MiddleThrottleButton":
-      Robot.Lift.setSetpoint(375);
-      break;
-      case "TopThrottleButton":
-      Robot.Lift.setSetpoint(500);
-      break;
-      // Sets the current position of the lift as the setpoint as to not break the robot
-      default:
-      Robot.Lift.setSetpoint(this.getPosition());
-      break;
-    }
+    liftRightFrontMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
+    liftRightFrontMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
   }
 
   /**
@@ -213,6 +209,7 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("reverseLIFTSoftLimit", reverseLiftSoftLimit);
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
+      SmartDashboard.putNumber("percentoutput", liftRightFrontMotor.getMotorOutputPercent());
     }
   }
 }
