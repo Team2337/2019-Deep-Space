@@ -1,12 +1,10 @@
 package frc.robot;
 
 import frc.robot.commands.*;
-import frc.robot.commands.CargoEscalator.cargoEscalatorDown;
-import frc.robot.commands.CargoEscalator.cargoEscalatorUp;
-import frc.robot.commands.CargoIntake.cargoIntakeIn;
-import frc.robot.commands.CargoIntake.cargoIntakeOut;
-import frc.robot.commands.CargoScore.cargoScoreIn;
-import frc.robot.commands.CargoScore.cargoScoreOut;
+import frc.robot.commands.CargoEscalator.*;
+import frc.robot.commands.CargoIntake.*;
+import frc.robot.commands.CargoScore.*;
+import frc.robot.commands.Lift.*;
 import frc.robot.nerdyfiles.controller.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -29,9 +27,13 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whileHeld(new cargoIntakeIn(0.5));
-		driverJoystick.redB				.whileHeld(new cargoIntakeOut(0.5));
-		driverJoystick.povUp			.whenPressed(new doNothing());
+		driverJoystick.greenA			.whileHeld(new doNothing());
+		driverJoystick.redB				.whileHeld(new doNothing());
+		driverJoystick.yellowY			.whenPressed(new goToPosition(550));
+		driverJoystick.blueX			.whenPressed(new goToPosition(65));
+		driverJoystick.povUp			.whileHeld(new cargoIntakeIn(0.5));
+		driverJoystick.povRight			.whileHeld(new cargoEscalatorUp(0.5));
+		driverJoystick.povDown			.whileHeld(new cargoScoreOut(0.5));
 	    
 	    ////////////////////////////////// 
 	    
