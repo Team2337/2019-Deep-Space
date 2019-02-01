@@ -62,7 +62,7 @@ public class Pathway {
 * @param points - array of waypoints
 */
 public static Trajectory curveFromToHatchRight() {
- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.1, 0.25, 2.0);  //2, 1.7, 10
+ config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.5, 0.35, 0.1);  //2, 1.7, 10
  trajectory = Pathfinder.generate(curveFromToHatchRight, config);
  return trajectory;
 }

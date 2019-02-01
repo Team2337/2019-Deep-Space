@@ -34,6 +34,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
+// import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
@@ -52,7 +53,7 @@ public class Chassis extends Subsystem {
   boolean chassisDebug = true;
   boolean neoDebug = true;
   boolean pathFinderDebug = true;
-  boolean pathfinderDebug = true;
+  boolean pathfinderDebug = false;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -270,6 +271,7 @@ public class Chassis extends Subsystem {
  
 
   public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA) {
+    pathfinderDebug = true;
     modifier = new TankModifier(trajectory).modify(wheelBase);
 
     leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
@@ -484,13 +486,18 @@ public class Chassis extends Subsystem {
     }
 
     if(pathfinderDebug) {
-      SmartDashboard.putNumber("Encoder Follower: last_error", EncoderFollower.last_error);
-      SmartDashboard.putNumber("Encoder Follower: key", EncoderFollower.segment);
-      SmartDashboard.putNumber("Encoder Follower: Start position", EncoderFollower.encoder_offset);
-      SmartDashboard.putNumber("Encoder Follower: kp", EncoderFollower.kp);
-      SmartDashboard.putNumber("Encoder Follower: calculated_value", EncoderFollower.calculated_value);
-      SmartDashboard.putNumber("Encoder Follower: error", EncoderFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: distance_covered", EncoderFollower.distance_covered);
+      // SmartDashboard.putNumber("Encoder Follower: last_error", EncoderFollower.last_error);
+      // SmartDashboard.putNumber("Encoder Follower: key", EncoderFollower.segment);
+      // SmartDashboard.putNumber("Encoder Follower: Start position", EncoderFollower.encoder_offset);
+      // SmartDashboard.putNumber("Encoder Follower: kp", EncoderFollower.kp);
+      // SmartDashboard.putNumber("Encoder Follower: LEFT calculated_value", leftSideFollower.calculated_value);
+      // SmartDashboard.putNumber("Encoder Follower: RIGHT calculated_value", rightSideFollower.calculated_value);
+      SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);
+      SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
+      SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
+      // SmartDashboard.putNumber("Encoder Follower: distance_covered", EncoderFollower.distance_covered);
+      // SmartDashboard.putNumber("Encoder Follower: LEFT error", getLeftPosition() - leftSideFollower.calculated_value);
+      // SmartDashboard.putNumber("Encoder Follower: RIGHT error", getRightPosition() - rightSideFollower.calculated_value);
       }
   }
 }

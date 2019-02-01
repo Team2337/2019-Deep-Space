@@ -12,14 +12,15 @@ import jaci.pathfinder.Trajectory;
 public class EncoderFollower {
     boolean pathfinderDebug = true;
 
-    public static int encoder_offset, encoder_tick_count;
-    public static int segment;
+    public int encoder_offset, encoder_tick_count;
+    public int segment;
 
-    public static double kp, ki, kd, kv, ka;
-    public static double wheel_circumference, last_error, heading, distance_covered, error, calculated_value;
+    public double kp, ki, kd, kv, ka;
+    public double wheel_circumference, last_error, heading, distance_covered, error;
+    public double calculated_value;
 
     Trajectory trajectory;
-    Trajectory.Segment seg;
+    public Trajectory.Segment seg;
 
     public EncoderFollower(Trajectory traj) {
         this.trajectory = traj;
@@ -82,8 +83,7 @@ public class EncoderFollower {
      */
     public double calculate(int encoder_tick) {
         // Number of Revolutions * Wheel Circumference
-        distance_covered = ((double)(encoder_tick - encoder_offset) / encoder_tick_count)
-                * wheel_circumference;
+        distance_covered = ((double)(encoder_tick - encoder_offset) / encoder_tick_count) * wheel_circumference;
         if (segment < trajectory.length()) {
             seg = trajectory.get(segment);
             error = seg.position - distance_covered;
