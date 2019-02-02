@@ -93,6 +93,21 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
+  private final static int rightMidID = 1;
+  private final static int rightRearID = 2;
+  private final static int leftMidID = 14;
+  private final static int leftRearID = 13;
+  
+  // Encoder Talons / Talon Drive Motors
+  private final static int rightFrontID = 0; //30 before
+  private final static int leftFrontID = 15; //45 
+
+  private final static int neoRightFrontID = 30;
+  private final static int neoRightRearID = 31;
+  private final static int neoLeftFrontID = 35;
+  private final static int neoLeftRearID = 34;
+
+  /*
   private final static int rightMidID = 31;
   private final static int rightRearID = 32;
   private final static int leftMidID = 44;
@@ -106,6 +121,7 @@ public class Chassis extends Subsystem {
   private final static int neoRightRearID = 1;
   private final static int neoLeftFrontID = 15;
   private final static int neoLeftRearID = 14;
+  */
 
   public Chassis() {
 
@@ -224,7 +240,7 @@ public class Chassis extends Subsystem {
   public void initDefaultCommand() {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
-    setDefaultCommand(new driveByJoystick(true));
+    setDefaultCommand(new driveByJoystick(false)); //true for neoDrive
   }
 
   /*****************************************/

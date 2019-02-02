@@ -31,7 +31,7 @@ public class driveByJoystick extends Command {
     double turnSpeed = driverJoystick.getRawAxis(4); // Right joysticks left/right movement as a number from -1 to 1
 
     if (this.neoDrive) {
-      Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
+      Chassis.neoDrive.arcadeDrive(1/*moveSpeed*/, 0, true);
     } else {
       Chassis.drive.arcadeDrive(moveSpeed, turnSpeed, true);
     }

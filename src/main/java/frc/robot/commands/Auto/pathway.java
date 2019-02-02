@@ -131,7 +131,7 @@ public static Trajectory curveFromToHatchRight() {
 * @param points - array of waypoints
 */
 public static Trajectory driveForward() {
- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1, 0.5, 10.0);
+ config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1, 0.5, 2.5);
  trajectory = Pathfinder.generate(driveForward, config);
  return trajectory;
 }
