@@ -1,49 +1,41 @@
 package frc.robot.commands.LED;
-
+import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.nerdyfiles.wrappers.AutoCommandManager;
+import frc.robot.subsystems.LED;
 
 /**
  * An example command. You can replace me with your own command.
  */
 public class LEDRuntime extends Command {
 
+  int rightBumper = 6;
+	int timesThrough = 0;
+	int blinkNum = 5;
+	
+	public LEDRuntime() {
+		requires(Robot.LED);
+	}
 
+	protected void initialize() {
 
-  // CONSTRUCTOR
-  public LEDRuntime() {
+	}
 
-    requires(Robot.Example);
-  }
+	protected void execute() {
+		if (AutoCommandManager.getInstance().state.equals("teleop")) {
+			Robot.LED.blinkin.setColor(0.93);
+	}
+	}
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    
-  }
+	protected boolean isFinished() {
+		return false;
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    
-  }
+	protected void end() {
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    this.end();
-  }
+	protected void interrupted() {
+		this.end();
+	}
 }
