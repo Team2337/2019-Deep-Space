@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.nerdyfiles.controller.*;
 
@@ -24,8 +25,10 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whenPressed(new goToPosition(550));
-		driverJoystick.redB				.whenPressed(new goToPosition(65));
+		driverJoystick.greenA			.whenPressed(new CGAcquireHatch());
+		driverJoystick.redB				.whenPressed(new CGFireHatch());
+		driverJoystick.yellowY			.whenPressed(new goToPosition(550));
+		driverJoystick.blueX			.whenPressed(new goToPosition(65));
 		driverJoystick.povUp			.whenPressed(new doNothing());
 	    
 	    ////////////////////////////////// 
