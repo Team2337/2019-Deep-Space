@@ -40,6 +40,7 @@ public class OI {
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
 		operatorControls.GreenButton	.whenPressed(new doNothing());
+		operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
 	
 		///////////////////////////////////////// 
 	}
