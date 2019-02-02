@@ -1,10 +1,7 @@
 package frc.robot.nerdyfiles.wrappers;
 
 
-import java.awt.List;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import frc.robot.nerdyfiles.led.*;
@@ -12,14 +9,11 @@ import frc.robot.nerdyfiles.led.*;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * FusionManager - Manager for {@link FusionSubsystem}
+ * LED color in different states.
  * @author Brendan & Zayd
- *
  */
 public class AutoCommandManager {
 	
@@ -29,7 +23,7 @@ public class AutoCommandManager {
 	private int running = 0;
 	public String state;
 	private HashMap<Integer, AutoObject> commands = new HashMap<Integer, AutoObject>();
-	private BlinkIn led;
+	private Blinkin led;
 		
 	private NetworkTable table;
 	/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
@@ -57,7 +51,7 @@ public class AutoCommandManager {
 	 * setBlinkin - Set color output time, BlinkIn lib is used in this case
 	 * @param led
 	 */
-	public void setBlinkin(BlinkIn led) {
+	public void setBlinkin(Blinkin led) {
 		this.led = led;
 	}
 	/**

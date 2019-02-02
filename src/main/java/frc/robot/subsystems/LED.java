@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 
  public class LED extends Subsystem {
-	 public BlinkIn blinkin;
+	 public Blinkin blinkin;
 
 	public LED(){
-		blinkin = new BlinkIn(0);
+		blinkin = new Blinkin(60);
 
 	}
 	public void initDefaultCommand() {

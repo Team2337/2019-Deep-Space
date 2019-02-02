@@ -1,8 +1,11 @@
 package frc.robot.nerdyfiles.wrappers;
 
-import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDateTime;
+/**
+ * Taking local time and date and setting start and end time
+ * @author Zayd
+ */
 
 public class AutoObject {
 	public String commandName;

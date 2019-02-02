@@ -1,12 +1,11 @@
 package frc.robot.commands.LED;
-import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.wrappers.AutoCommandManager;
-import frc.robot.subsystems.LED;
 
 /**
- * An example command. You can replace me with your own command.
+ * Setting the color when it is in teleop
+ * @author Zayd 
  */
 public class LEDRuntime extends Command {
 
