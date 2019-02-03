@@ -1,7 +1,6 @@
 package frc.robot.commands.Shifter;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Robot;
 
 /**

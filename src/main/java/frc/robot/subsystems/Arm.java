@@ -57,7 +57,7 @@ public class Arm extends Subsystem {
   public static int reverseLiftSoftLimit = 50;
 
   protected void initDefaultCommand() {
-     setDefaultCommand(new armWithJoystick());
+     //setDefaultCommand(new armWithJoystick());
   }
 
   public Arm() {
