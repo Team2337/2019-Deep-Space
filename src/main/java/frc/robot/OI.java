@@ -9,11 +9,13 @@ import frc.robot.commands.Auto.setpaths.autoWriteTrajectoryFile;
 import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
 import frc.robot.commands.Auto.CommandGroups.CGPostProfileVision;
 import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
-import frc.robot.commands.HatchBeak.hatchBeakExtend;
-import frc.robot.commands.HatchBeak.hatchBeakRetract;
-import frc.robot.commands.HatchBeak.hatchLauncherRetract;
 import frc.robot.commands.Vision.limeLightLEDOff;
 import frc.robot.commands.Vision.limeLightLEDOn;
+import frc.robot.commands.CargoEscalator.*;
+import frc.robot.commands.CargoIntake.*;
+import frc.robot.commands.CargoScore.*;
+import frc.robot.commands.HatchBeak.*;
+import frc.robot.commands.Lift.*;
 import frc.robot.nerdyfiles.controller.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -41,8 +43,8 @@ public class OI {
 		driverJoystick.blueX			.whenPressed(new autoSetPathWithHold(Robot.curveFromToHatchRightT, valuesPID[1])); 
 		driverJoystick.yellowY			.whenPressed(new CGPostProfileVision());
 		
-		driverJoystick.bumperLeft		.whenPressed(new hatchBeakRetract());
-		driverJoystick.bumperRight		.whenPressed(new hatchBeakExtend());
+		driverJoystick.bumperLeft		.whenPressed(new doNothing());
+		driverJoystick.bumperRight		.whenPressed(new doNothing());
 		
 		driverJoystick.back				.whenPressed(new autoSetPathReverse(Robot.driveForwardFile, valuesPID[0])); 
 		driverJoystick.start			.whileHeld(new autoWriteTrajectoryFile(Robot.driveForwardT, "test"));
@@ -68,14 +70,20 @@ public class OI {
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		operatorJoystick.StripedButton	.whenPressed(new doNothing());
-	
+	 	operatorJoystick.RightTrigger				.whileHeld(new CGAcquireHatch());
+		operatorJoystick.StripedButton				.whileHeld(new CGFireHatch());
+		operatorJoystick.ThrottleTopThumbButton		.whenPressed(new goToPosition(550));
+		operatorJoystick.ThrottleMidThumbButton		.whenPressed(new goToPosition(65));
+		operatorJoystick.povUp						.whileHeld(new cargoIntakeIn(0.5));
+		operatorJoystick.povRight					.whileHeld(new cargoEscalatorUp(0.5));
+		operatorJoystick.povDown					.whileHeld(new cargoScoreOut(0.5));
 		////////////////////////////////////
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
 		operatorControls.GreenButton	.whenPressed(new doNothing());
+		operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
 	
 		///////////////////////////////////////// 
 	}

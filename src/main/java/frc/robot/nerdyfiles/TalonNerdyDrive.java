@@ -9,7 +9,7 @@ package frc.robot.nerdyfiles;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class NerdyDrive {
+public class TalonNerdyDrive {
 	private TalonSRX left;
 	private TalonSRX right;
 
@@ -25,7 +25,7 @@ public class NerdyDrive {
 	 * @param left  Left TalonSRX Motor Controller
 	 * @param right Right TaonSRX Motor Controller
 	 */
-	public NerdyDrive(TalonSRX left, TalonSRX right) {
+	public TalonNerdyDrive(TalonSRX left, TalonSRX right) {
 		this.left = left;
 		this.right = right;
 	}

@@ -33,7 +33,7 @@ public class driveByJoystick extends Command {
     if (this.neoDrive) {
       Chassis.neoDrive.arcadeDrive(1/*moveSpeed*/, 0, true);
     } else {
-      Chassis.drive.arcadeDrive(moveSpeed, turnSpeed, true);
+      Chassis.talonDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     }
   }
 

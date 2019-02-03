@@ -1,43 +1,42 @@
-package frc.robot.commands.Compressor;
+package frc.robot.commands.HatchLauncher;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * This command retracts the hatch launchers
+ * 
+ * @author Hunter B
  */
-public class compressorDoNothing extends Command {
-
-
+public class hatchLauncherRetract extends Command {
 
   // CONSTRUCTOR
-  public compressorDoNothing() {
-
-    requires(Robot.Example);
+  public hatchLauncherRetract() {
+    requires(Robot.HatchLauncher);
   }
 
-  // Called just before this Command runs the first time
+  // Retracts the launching mechanism to allow the beak to grab another panel
   @Override
   protected void initialize() {
-    
+    Robot.HatchLauncher.retract();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+
   }
 
   // Called when another command which requires one or more of the same

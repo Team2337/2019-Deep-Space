@@ -4,25 +4,21 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command extends the hatch intake (ready to load)
+ * Opens the hatch beak, grabbing the hatch panel
  * 
  * @author Emily H.
  */
-public class hatchBeakExtend extends Command {
+public class hatchBeakOpen extends Command {
 
   // CONSTRUCTOR
-  public hatchBeakExtend() {
+  public hatchBeakOpen() {
     requires(Robot.HatchBeak);
   }
 
-  // Called just before this Command runs the first time
+  // Opens the beak to grab the hatch panel
   @Override
   protected void initialize() {
-
-    // Extend the hatch grabber to prepare to grab the piece
-    Robot.HatchBeak.extendHatchGrabber();
-    Robot.HatchBeak.extendLaunchers();
-
+    Robot.HatchBeak.openHatchBeak();
   }
 
   // Called repeatedly when this Command is scheduled to run

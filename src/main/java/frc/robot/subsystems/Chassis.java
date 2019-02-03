@@ -2,14 +2,13 @@ package frc.robot.subsystems;
 
 import frc.robot.nerdyfiles.*;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
-import frc.robot.nerdyfiles.NerdyDrive;
 import frc.robot.nerdyfiles.pathway.EncoderFollower;
+import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -58,8 +57,6 @@ public class Chassis extends Subsystem {
   public VictorSPX rightMidMotor;
   public VictorSPX rightRearMotor;
 
-  public NerdyDrive nerdyDrive;
-
   /* --- Talon Drive Motor Declaration --- */
   public static CANSparkMax neoLeftFrontMotor;
   // public static CANSparkMax neoLeftMidMotor;
@@ -68,10 +65,13 @@ public class Chassis extends Subsystem {
   public static CANSparkMax neoRightFrontMotor;
   // public static CANSparkMax neoRightMidMotor;
   public static CANSparkMax neoRightRearMotor;
-  public static CANEncoder neoLeftEncoder;
-  public static CANEncoder neoRightEncoder;
+  public static CANEncoder neoLeftFrontEncoder;
+  public static CANEncoder neoLeftRearEncoder; 
+  public static CANEncoder neoRightFrontEncoder;
+  public static CANEncoder neoRightRearEncoder; 
 
-  public static NerdyDrive drive;
+  /* --- Drive Declarations --- */
+  public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
   /* --- CAN ID SETUP --- */
@@ -82,21 +82,6 @@ public class Chassis extends Subsystem {
   private final static int leftRearID = 13;
   
   // Encoder Talons / Talon Drive Motors
-  private final static int rightFrontID = 0; //30 before
-  private final static int leftFrontID = 15; //45 
-
-  private final static int neoRightFrontID = 30;
-  private final static int neoRightRearID = 31;
-  private final static int neoLeftFrontID = 35;
-  private final static int neoLeftRearID = 34;
-
-  /*
-  private final static int rightMidID = 31;
-  private final static int rightRearID = 32;
-  private final static int leftMidID = 44;
-  private final static int leftRearID = 43;
-  
-  // Encoder Talons / Talon Drive Motors
   private final static int rightFrontID = 2; //30 before
   private final static int leftFrontID = 13; //45 
 
@@ -104,7 +89,6 @@ public class Chassis extends Subsystem {
   private final static int neoRightRearID = 1;
   private final static int neoLeftFrontID = 15;
   private final static int neoLeftRearID = 14;
-  */
 
   public Chassis() {
 
@@ -173,20 +157,22 @@ public class Chassis extends Subsystem {
 
     // Sets up the left side motors as CAN SparkMax Brushless Motors
     neoLeftFrontMotor = new CANSparkMax(neoLeftFrontID, MotorType.kBrushless);
-    // neoLeftMidMotor = new CANSparkMax(neoLeftMidID, MotorType.kBrushless);
     neoLeftRearMotor = new CANSparkMax(neoLeftRearID, MotorType.kBrushless);
 
     // Left side Neo encoder
-    neoLeftEncoder = new CANEncoder(neoLeftFrontMotor);
+    neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
+    neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
     // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
-    // neoLeftMidMotor.setInverted(false);
     neoLeftRearMotor.setInverted(false);
 
-    // All left Neo motors currently follow the front left motor
-    // neoLeftMidMotor.follow(neoLeftFrontMotor);
+    // The rear left neo motor follows the front left one
     neoLeftRearMotor.follow(neoLeftFrontMotor);
+
+    // By default, the drive motors will coast to a stop
+    neoLeftFrontMotor.setIdleMode(IdleMode.kCoast);
+    neoLeftRearMotor.setIdleMode(IdleMode.kCoast);
 
     ////////////////////////
 
@@ -194,25 +180,27 @@ public class Chassis extends Subsystem {
 
     // Sets up the right side motors as CAN SparkMax Brushless Motors
     neoRightFrontMotor = new CANSparkMax(neoRightFrontID, MotorType.kBrushless);
-    // neoRightMidMotor = new CANSparkMax(neoRightMidID, MotorType.kBrushless);
     neoRightRearMotor = new CANSparkMax(neoRightRearID, MotorType.kBrushless);
 
-    // Right side encoder
-    neoRightEncoder = new CANEncoder(neoRightFrontMotor);
+    // Right side encoders
+    neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
+    neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
     // Right side motors aren't currently reversed
     neoRightFrontMotor.setInverted(true);
-    // neoRightMidMotor.setInverted(true);
     neoRightRearMotor.setInverted(true);
 
-    // All right Neo motors currently follow the front right motor
-    // neoRightMidMotor.follow(neoRightFrontMotor);
+    // The rear right neo motor follows the front right one
     neoRightRearMotor.follow(neoRightFrontMotor);
+
+    // By default, the drive motors will coast to a stop
+    neoRightFrontMotor.setIdleMode(IdleMode.kCoast);
+    neoRightRearMotor.setIdleMode(IdleMode.kCoast);
 
     ////////////////////////
 
     /* --- Talon Nerdy Drive --- */
-    drive = new NerdyDrive(leftFrontMotor, rightFrontMotor);
+    talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
 
     /* --- Neo Nerdy Drive --- */
     neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
@@ -223,9 +211,8 @@ public class Chassis extends Subsystem {
   public void initDefaultCommand() {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
-    setDefaultCommand(new driveByJoystick(false)); //true for neoDrive
+    setDefaultCommand(new driveByJoystick(true));
   }
-
 
   /*****************************************/
   /* ------------------------------------- */
@@ -265,7 +252,7 @@ public class Chassis extends Subsystem {
    * @param squaredInputs
    */
   public void driveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
-    this.nerdyDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
+    talonDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
   }
   
   /**
@@ -274,7 +261,7 @@ public class Chassis extends Subsystem {
    * @param squaredInputs
    */
   public void driveCurvature(double moveSpeed, double turnSpeed, boolean isQuickTurn) {
-    this.nerdyDrive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
+    talonDrive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
   }
   
   /**
@@ -283,7 +270,7 @@ public class Chassis extends Subsystem {
    * @param squaredInputs
    */
   public void driveTank(double leftSpeed, double rightSpeed, boolean squareInputs) {
-    this.nerdyDrive.tankDrive(leftSpeed, rightSpeed, squareInputs);
+    talonDrive.tankDrive(leftSpeed, rightSpeed, squareInputs);
   }
   
   /**
@@ -292,7 +279,7 @@ public class Chassis extends Subsystem {
    * @param squaredInputs
    */
   public void stopDrive() {
-    this.nerdyDrive.arcadeDrive(0, 0, true);
+    talonDrive.arcadeDrive(0, 0, true);
   }
 
   /**
@@ -307,10 +294,10 @@ public class Chassis extends Subsystem {
   /**
    * Determines what the Talon drive motors will do when no signal is given to them
    * 
-   * @param mode The breaking mode to use
+   * @param mode The braking mode to use
    *             <p>
    *             {@code NeutralMode.Coast} - Allow the robot to roll to a stop
-   *             {@code NeutralMode.Break} - The motors run backwards and attempt
+   *             {@code NeutralMode.Brake} - The motors run backwards and attempt
    *             stop the robot sooner
    *             </p>
    */
@@ -330,18 +317,36 @@ public class Chassis extends Subsystem {
   /*****************************************/
 
   /**
-   * Get the average value of the two drive encoders
+   * Get the average value of both drive side's encoder averages
    * 
-   * @return The average of the two drive encoder values
+   * @return The average of both drive side's encoder averages
    */
   public double getAverageNeoEncoder() {
-    return (neoRightEncoder.getPosition() + neoLeftEncoder.getPosition()) / 2;
+    return (getAverageLeftNeoEncoder() + getAverageRightNeoEncoder()) / 2;
+  }
+
+  /**
+   * Get the average position of all the right side neo drive encoders
+   * 
+   * @return The average rotational position of the drive's right side (in ticks)
+   */
+  public double getAverageRightNeoEncoder() {
+    return neoRightFrontEncoder.getPosition() + neoRightRearEncoder.getPosition();
+  }
+
+  /**
+   * Get the average position of all the right side neo drive encoders
+   * 
+   * @return The average rotational position of the drive's right side (in ticks)
+   */
+  public double getAverageLeftNeoEncoder() {
+    return neoLeftFrontEncoder.getPosition() + neoLeftRearEncoder.getPosition();
   }
 
   /**
    * Manually set the rotational position of the drive encoders
    * 
-   * @param pos Position to set encoders to - in encoder ticks
+   * @param pos The position to set the encoder to (in ticks)
    */
   public void setNeoEncoders(int pos) {
     // As of 1/24/19, no way to set Neo encoder values
@@ -366,11 +371,9 @@ public class Chassis extends Subsystem {
    */
   public void setAllNeoBrakeMode(IdleMode mode) {
     neoLeftFrontMotor.setIdleMode(mode);
-    // neoLeftMidMotor.setIdleMode(mode);
     neoLeftRearMotor.setIdleMode(mode);
 
     neoRightFrontMotor.setIdleMode(mode);
-    // neoRightMidMotor.setIdleMode(mode);
     neoRightRearMotor.setIdleMode(mode);
   }
 
@@ -382,10 +385,10 @@ public class Chassis extends Subsystem {
    * Determines what the drive motors will do when no signal is given to them
    * 
    * @param motor A CANSparkMax motor to assign a breakmode to
-   * @param mode  The breaking mode to use
+   * @param mode  The braking mode to use
    *              <p>
    *              {@code IdleMode.kCoast} - Allow the robot to roll to a stop
-   *              {@code IdleMode.kBreak} - The motors run backwards and attempt
+   *              {@code IdleMode.kBrake} - The motors run backwards and attempt
    *              stop the robot sooner
    *              </p>
    */
@@ -421,8 +424,8 @@ public class Chassis extends Subsystem {
     }
 
     if(neoDebug) {
-      SmartDashboard.putNumber("neoRightEncoder", neoRightEncoder.getPosition());
-      SmartDashboard.putNumber("neoLeftEncoder", neoLeftEncoder.getPosition());
+      SmartDashboard.putNumber("neoRightEncoder", neoRightFrontEncoder.getPosition());
+      SmartDashboard.putNumber("neoLeftEncoder", neoLeftFrontEncoder.getPosition());
       SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
       SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
     }

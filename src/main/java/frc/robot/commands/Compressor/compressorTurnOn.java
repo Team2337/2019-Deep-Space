@@ -8,10 +8,10 @@ import frc.robot.subsystems.AirCompressor;
 /**
  * Enables the compressor
  */
-public class compressor_TurnOn extends Command {
+public class compressorTurnOn extends Command {
 
   // CONSTRUCTOR
-  public compressor_TurnOn() {
+  public compressorTurnOn() {
     requires(Robot.AirCompressor);
   }
 
