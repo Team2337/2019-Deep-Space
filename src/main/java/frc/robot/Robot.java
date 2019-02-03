@@ -19,6 +19,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.commands.Auto.Pathway;
+import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchBeak;
@@ -61,6 +62,8 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static Vision Vision;
 
+  public static NerdyPath NerdyPath;
+
   public static ExampleSubsystem Example;
 
   public static OI oi;
@@ -74,6 +77,8 @@ public class Robot extends TimedRobot {
   public static Trajectory fromRightLoadJTurnToCargoShipT;
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory driveForwardT;
+
+  public static Trajectory driveForwardFile;
 
   private boolean logger;
   private String selectedAuto;
@@ -100,6 +105,8 @@ public class Robot extends TimedRobot {
     Shifter = new Shifter();
     Vision = new Vision();
 
+    NerdyPath = new NerdyPath();
+
     Example = new ExampleSubsystem();
 
     System.out.println("Start");
@@ -116,6 +123,8 @@ public class Robot extends TimedRobot {
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
       // driveForwardT = Pathway.driveForward();
       curveFromToHatchRightT = Pathway.curveFromToHatchRight();
+
+      driveForwardFile = NerdyPath.loadTrajectoryFile("test");
       break;
     }
     System.out.println("Fin (fish)");

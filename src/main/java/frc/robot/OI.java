@@ -2,9 +2,10 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.Pathway;
-import frc.robot.commands.Auto.autoSetPath;
-import frc.robot.commands.Auto.autoSetPathReverse;
-import frc.robot.commands.Auto.autoSetPathWithHold;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
+import frc.robot.commands.Auto.setpaths.autoSetPathWithHold;
+import frc.robot.commands.Auto.setpaths.autoWriteTrajectoryFile;
 import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
 import frc.robot.commands.Auto.CommandGroups.CGPostProfileVision;
 import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
@@ -43,8 +44,8 @@ public class OI {
 		driverJoystick.bumperLeft		.whenPressed(new hatchBeakRetract());
 		driverJoystick.bumperRight		.whenPressed(new hatchBeakExtend());
 		
-		driverJoystick.back				.whenPressed(new autoSetPathReverse(Robot.fromRightLoadJTurnToCargoShipT, valuesPID[2])); 
-		driverJoystick.start			.whileHeld(new hatchLauncherRetract());
+		driverJoystick.back				.whenPressed(new autoSetPathReverse(Robot.driveForwardFile, valuesPID[0])); 
+		driverJoystick.start			.whileHeld(new autoWriteTrajectoryFile(Robot.driveForwardT, "test"));
 		
 		driverJoystick.leftStickButton		.whenPressed(new doNothing()); 
 		driverJoystick.rightStickButton		.whenPressed(new doNothing()); 

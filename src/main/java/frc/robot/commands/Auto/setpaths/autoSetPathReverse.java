@@ -1,4 +1,4 @@
-package frc.robot.commands.Auto;
+package frc.robot.commands.Auto.setpaths;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -59,13 +59,13 @@ public class autoSetPathReverse extends Command {
     timeout = (trajectory.length() / 50)+0.7;
     setTimeout(timeout);
 
-    Robot.Chassis.setTrajectory(trajectory, kP, kI, kD, kA);
+    Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.Chassis.makePathReverse();
+    Robot.NerdyPath.makePathReverse();
   }
 
   // Make this return true when this Command no longer needs to run execute()

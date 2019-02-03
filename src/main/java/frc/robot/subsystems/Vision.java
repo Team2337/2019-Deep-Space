@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * 
+ * Vision subsystem for the limelight
  */
 public class Vision extends Subsystem {
 

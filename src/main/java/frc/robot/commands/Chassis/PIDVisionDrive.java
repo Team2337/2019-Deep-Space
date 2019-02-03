@@ -1,8 +1,10 @@
 package frc.robot.commands.Chassis;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.Chassis;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 //import com.ctre.phoenix.motorcontrol.NeutralMode;
 
@@ -85,7 +87,7 @@ public class PIDVisionDrive extends PIDCommand {
         System.out.println("turnInPlace: " + turnInPlace);
       }
 
-      Robot.Chassis.driveArcade(m_speed, -output, false);  // <== here we use the output to do something
+      Chassis.neoDrive.arcadeDrive(m_speed, -output, false);  // <== here we use the output to do something
   }
 
   protected void initialize() {
@@ -107,8 +109,10 @@ public class PIDVisionDrive extends PIDCommand {
 
   protected void end() {
     Robot.Vision.setLEDMode(1);
-    Robot.Chassis.stopDrive();
-    Robot.Chassis.setBrakeMode(NeutralMode.Brake); // set brakemode back to coast??
+    Robot.Chassis.stopNeoDrive();
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    // Robot.Chassis.stopDrive();
+    // Robot.Chassis.setBrakeMode(NeutralMode.Brake); // set brakemode back to coast??
   }
 
   protected void interrupted() {

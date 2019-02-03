@@ -16,7 +16,6 @@ public class autoWaitSensorReset extends Command {
 	}
 
 	protected void initialize() {
-		Robot.Chassis.commandNum++;
         Robot.Chassis.resetEncoders();
 		Robot.Pigeon.resetPidgey();
 		setTimeout(timeout);

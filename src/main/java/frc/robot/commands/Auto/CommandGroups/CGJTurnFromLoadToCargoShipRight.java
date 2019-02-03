@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.autoResetEncoders;
-import frc.robot.commands.Auto.autoSetPath;
-import frc.robot.commands.Auto.autoSetPathReverse;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Auto.autoWaitSensorReset;
 
 /**

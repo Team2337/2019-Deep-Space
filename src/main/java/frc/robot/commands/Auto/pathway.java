@@ -8,11 +8,15 @@ import jaci.pathfinder.Waypoint;
  * @author Bryce G.
  */
 public class Pathway {
-   public static double pathweaverConversion;  //17.5 //35.166666666 - Our conversion from our trials, 33.33333 
+   public static double metersConversion = 0.0254;  //17.5 //35.166666666 - Our conversion from our trials, 33.33333 
    public static Trajectory.Config config;
    public static Trajectory trajectory;
 
    private static double timeStep = 0.1;
+
+    private double inchesToMeters(double inches) {
+        return inches * metersConversion;
+    }
 
    /**
      * Double 2D array

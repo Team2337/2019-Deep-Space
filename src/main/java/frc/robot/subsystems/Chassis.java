@@ -6,8 +6,8 @@ import frc.robot.nerdyfiles.NerdyDrive;
 import frc.robot.nerdyfiles.pathway.EncoderFollower;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
-import frc.robot.commands.Auto.autoSetPath;
-import frc.robot.commands.Auto.autoSetPathReverse;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 
+import java.io.File;
 import java.lang.module.ModuleDescriptor.Exports.Modifier;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -29,13 +30,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.PathfinderFRC;
-import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Waypoint;
-// import jaci.pathfinder.followers.EncoderFollower;
-import jaci.pathfinder.modifiers.TankModifier;
 
 /**
  * The main chassis runtime
@@ -65,17 +59,6 @@ public class Chassis extends Subsystem {
   public VictorSPX rightRearMotor;
 
   public NerdyDrive nerdyDrive;
-
-  /* --- Path Weaver Variables --- */ 
-  private int ticksPerRev =  4096*3; // Gear ratio 
-  private double wheelDiameter = 6.0 * 0.0254;
-  private double wheelBase = 20.5 * 0.0254; //old practice bot: 21.5
-  private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
-
-  public TankModifier modifier;
-  public EncoderFollower rightSideFollower;
-  public EncoderFollower leftSideFollower;
-  public double commandNum = 0;
 
   /* --- Talon Drive Motor Declaration --- */
   public static CANSparkMax neoLeftFrontMotor;
@@ -243,62 +226,12 @@ public class Chassis extends Subsystem {
     setDefaultCommand(new driveByJoystick(false)); //true for neoDrive
   }
 
+
   /*****************************************/
   /* ------------------------------------- */
   /* ----------- Talon Methods ----------- */
   /* ------------------------------------- */
   /*****************************************/
-
-  /**
-   * Use this in execute 
-   * These variables are constantly being updated
-   */
-  public void makePathForawrd() {
-    leftOutput = leftSideFollower.calculate((int)getLeftPosition());
-    rightOutput = rightSideFollower.calculate((int)getRightPosition());
-    
-    gyro_heading = Robot.Pigeon.getYaw();    
-    desired_heading = Pathfinder.r2d(leftSideFollower.getHeading()); 
-
-    angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-    turn = 0.8 * (-1.0/80.0) * angleDifference;
-
-    neoDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
-  }
-
-  /**
-   * Use this in execute 
-   * These variables are constantly being updated
-   */
-  public void makePathReverse() {
-    leftOutput = leftSideFollower.calculate(-(int)getLeftPosition());
-    rightOutput = rightSideFollower.calculate(-(int)getRightPosition());
-    
-    gyro_heading = -Robot.Pigeon.getYaw();    
-    desired_heading = Pathfinder.r2d(leftSideFollower.getHeading()); 
-
-    angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-    //0.8 * (-1.0/80.0) * angleDifference
-    turn = 1.6 * (-1.0/80.0) * angleDifference;
-    
-    neoDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
-  }
-
- 
-
-  public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA) {
-    pathfinderDebug = true;
-    modifier = new TankModifier(trajectory).modify(wheelBase);
-
-    leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
-    rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
-
-    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
-    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
-
-    leftSideFollower.configureEncoder((int)getLeftPosition(), ticksPerRev, wheelDiameter);
-    rightSideFollower.configureEncoder((int)getRightPosition(), ticksPerRev, wheelDiameter);
-  }
 
   /**
    * Manually set the rotational position of the drive encoders - UNTESTED
@@ -441,6 +374,10 @@ public class Chassis extends Subsystem {
     neoRightRearMotor.setIdleMode(mode);
   }
 
+  public void stopNeoDrive() {
+    neoDrive.arcadeDrive(0, 0, false);
+  }
+
   /**
    * Determines what the drive motors will do when no signal is given to them
    * 
@@ -471,8 +408,6 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
 
-      SmartDashboard.putNumber("Command Number", commandNum);
-
       SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
       SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
       SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
@@ -485,35 +420,11 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("printX", autoSetPath.printX);
     }
 
-    if(pathFinderDebug) {
-      SmartDashboard.putNumber("RightVelocity", rightFrontMotor.getSelectedSensorVelocity());
-      SmartDashboard.putNumber("LeftVelocity", leftFrontMotor.getSelectedSensorVelocity());
-      SmartDashboard.putNumber("Turn Value", this.turn);
-      SmartDashboard.putNumber("AngleDifferance", this.angleDifference);
-      SmartDashboard.putNumber("leftOutput", this.leftOutput);
-      SmartDashboard.putNumber("rightOutput", this.rightOutput);
-    }
-
     if(neoDebug) {
       SmartDashboard.putNumber("neoRightEncoder", neoRightEncoder.getPosition());
       SmartDashboard.putNumber("neoLeftEncoder", neoLeftEncoder.getPosition());
       SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
       SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
     }
-
-    if(pathfinderDebug) {
-      // SmartDashboard.putNumber("Encoder Follower: last_error", EncoderFollower.last_error);
-      // SmartDashboard.putNumber("Encoder Follower: key", EncoderFollower.segment);
-      // SmartDashboard.putNumber("Encoder Follower: Start position", EncoderFollower.encoder_offset);
-      // SmartDashboard.putNumber("Encoder Follower: kp", EncoderFollower.kp);
-      // SmartDashboard.putNumber("Encoder Follower: LEFT calculated_value", leftSideFollower.calculated_value);
-      // SmartDashboard.putNumber("Encoder Follower: RIGHT calculated_value", rightSideFollower.calculated_value);
-      SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
-      // SmartDashboard.putNumber("Encoder Follower: distance_covered", EncoderFollower.distance_covered);
-      // SmartDashboard.putNumber("Encoder Follower: LEFT error", getLeftPosition() - leftSideFollower.calculated_value);
-      // SmartDashboard.putNumber("Encoder Follower: RIGHT error", getRightPosition() - rightSideFollower.calculated_value);
-      }
   }
 }
