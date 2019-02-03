@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.subsystems.AirCompressor;
+import frc.robot.subsystems.CargoEscalator;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
@@ -37,7 +39,8 @@ public class Robot extends TimedRobot {
   public static AirCompressor AirCompressor;
   public static Chassis Chassis;
   public static CargoIntake CargoIntake;
-  public static CargoScore CargoScore; 
+  public static CargoEscalator CargoEscalator;
+  public static CargoScore CargoScore;
   public static ClimberPneumatics ClimberPneumatics;
   public static ClimberMotors ClimberMotors;
   public static HatchLauncher HatchLauncher;
@@ -61,22 +64,22 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-     AirCompressor = new AirCompressor();
-     CargoIntake = new CargoIntake();
-     CargoScore = new CargoScore();
-     Chassis = new Chassis();
-     ClimberMotors = new ClimberMotors();
-     ClimberPneumatics = new ClimberPneumatics();
-     HatchBeak = new HatchBeak();
-     HatchLauncher = new HatchLauncher();
-     LED = new LED();
-     Lift = new Lift();
-     Shifter = new Shifter();
-     Vision = new Vision();
+    AirCompressor = new AirCompressor();
+    CargoIntake = new CargoIntake();
+    CargoScore = new CargoScore();
+    Chassis = new Chassis();
+    ClimberMotors = new ClimberMotors();
+    ClimberPneumatics = new ClimberPneumatics();
+    HatchBeak = new HatchBeak();
+    HatchLauncher = new HatchLauncher();
+    LED = new LED();
+    Lift = new Lift();
+    Shifter = new Shifter();
+    Vision = new Vision();
 
-     Example = new ExampleSubsystem();
+    Example = new ExampleSubsystem();
 
-     oi = new OI();
+    oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
