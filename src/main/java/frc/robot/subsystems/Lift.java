@@ -37,7 +37,7 @@ public class Lift extends Subsystem {
    * receive the same commands
    */
   public static TalonSRX liftRightFrontMotor;
-  
+
   /* --- Follower Victors --- */
   public static VictorSPX liftRightBackMotor;
   public static VictorSPX liftLeftFrontMotor;
@@ -55,7 +55,7 @@ public class Lift extends Subsystem {
   private double kF = 0;
 
   // How much the actual position may vary from the set target position (in
-  // encoder ticks)
+  // current analog sensor (in this case a stringpot) values)
   private int allowableError = 0;
 
   /**
@@ -105,11 +105,9 @@ public class Lift extends Subsystem {
 
     // Enable/disable soft limits for when the motor is going forwards
     liftRightFrontMotor.configForwardSoftLimitEnable(true, 0);
-    liftLeftFrontMotor.configForwardSoftLimitEnable(false, 0);
 
     // Enable/disable soft limits for when the motor is going backwards
     liftRightFrontMotor.configReverseSoftLimitEnable(true, 0);
-    liftLeftFrontMotor.configReverseSoftLimitEnable(false, 0);
 
     // Sets the soft limits for the lift that were decided above
     setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
@@ -126,11 +124,6 @@ public class Lift extends Subsystem {
     liftRightFrontMotor.configNominalOutputForward(nominalSpeed, 0);
     liftRightFrontMotor.configPeakOutputReverse(-maxSpeedDown, 0); // Reverse
     liftRightFrontMotor.configNominalOutputReverse(nominalSpeed, 0);
-
-    liftRightBackMotor.configPeakOutputForward(maxSpeedUp, 0); // Forwards
-    liftRightBackMotor.configNominalOutputForward(nominalSpeed, 0);
-    liftRightBackMotor.configPeakOutputReverse(-maxSpeedDown, 0); // Reverse
-    liftRightBackMotor.configNominalOutputReverse(nominalSpeed, 0);
 
     /*
      * Sets the allowable closed-loop error, the motor output will be neutral within
