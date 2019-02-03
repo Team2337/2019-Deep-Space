@@ -29,16 +29,16 @@ public class CargoScore extends Subsystem {
   public CargoScore() {
     // Configurations for the scoring mechanism motor
     this.CargoScoreMotor = new TalonSRX(CargoScoreMotorID);
-    CargoScoreMotor.setInverted(true);
+    CargoScoreMotor.setInverted(false);
     CargoScoreMotor.setNeutralMode(NeutralMode.Brake);
 
     // Sets the cargoSensor up as a digital input (could be a limit switch or a
-    // proximity sensor) on port 0
-    cargoSensor = new DigitalInput(0);
+    // proximity sensor) on port 1
+    cargoSensor = new DigitalInput(1);
   }
 
   public void initDefaultCommand() {
-    // setDefaultCommand(new doNothing());
+    
   }
 
   /**

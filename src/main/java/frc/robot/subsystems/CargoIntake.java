@@ -21,12 +21,12 @@ public class CargoIntake extends Subsystem {
   public CargoIntake() {
     // Configurations for the cargo intake motor
     this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
-    CargoIntakeMotor.setInverted(true);
+    CargoIntakeMotor.setInverted(false);
     CargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   public void initDefaultCommand() {
-    // setDefaultCommand(new doNothing());
+    
   }
 
   /**

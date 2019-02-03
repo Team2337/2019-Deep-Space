@@ -1,27 +1,24 @@
-package frc.robot.commands.HatchBeak;
+package frc.robot.commands.HatchLauncher;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command extends the hatch intake (ready to load)
+ * This command retracts the hatch launchers
  * 
- * @author Emily H.
+ * @author Hunter B
  */
-public class hatchBeakExtend extends Command {
+public class hatchLauncherRetract extends Command {
 
   // CONSTRUCTOR
-  public hatchBeakExtend() {
-    requires(Robot.HatchBeak);
+  public hatchLauncherRetract() {
+    requires(Robot.HatchLauncher);
   }
 
-  // Called just before this Command runs the first time
+  // Retracts the launching mechanism to allow the beak to grab another panel
   @Override
   protected void initialize() {
-
-    // Extend the hatch grabber to prepare to grab the piece
-    Robot.HatchBeak.extendHatchGrabber();
-
+    Robot.HatchLauncher.retract();
   }
 
   // Called repeatedly when this Command is scheduled to run
