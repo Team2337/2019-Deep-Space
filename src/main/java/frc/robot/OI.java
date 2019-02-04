@@ -1,6 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.*;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
 import frc.robot.commands.CargoScore.*;
@@ -19,9 +18,9 @@ public class OI {
 	/*
 	 * Controllers
 	 */
-	public NerdyXbox			driverJoystick			= new NerdyXbox(0);
-	public NerdyFlightStick		operatorJoystick		= new NerdyFlightStick(1);
-	public NerdyOperatorStation	operatorControls		= new NerdyOperatorStation(2);
+	public NerdyXbox				driverJoystick			= new NerdyXbox(0);
+	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
+	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
 
     
 	public OI() {
@@ -34,19 +33,21 @@ public class OI {
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-	 	operatorJoystick.RightTrigger				.whileHeld(new CGAcquireHatch());
-		operatorJoystick.StripedButton				.whileHeld(new CGFireHatch());
-		operatorJoystick.ThrottleTopThumbButton		.whenPressed(new goToPosition(550));
-		operatorJoystick.ThrottleMidThumbButton		.whenPressed(new goToPosition(65));
-		operatorJoystick.povUp						.whileHeld(new cargoIntakeIn(0.5));
-		operatorJoystick.povRight					.whileHeld(new cargoEscalatorUp(0.5));
-		operatorJoystick.povDown					.whileHeld(new cargoScoreOut(0.5));
+	 	operatorJoystick.greenA						.whenPressed(new CGAcquireHatch());
+		operatorJoystick.redB						.whenPressed(new CGFireHatch());
+		operatorJoystick.povUp						.whenPressed(new goToPosition(550));
+		operatorJoystick.povDown					.whenPressed(new goToPosition(65));
+		operatorJoystick.triggerRight				.whileHeld(new cargoIntakeIn(1));
+		operatorJoystick.bumperRight				.whileHeld(new cargoIntakeOut(1));
+		operatorJoystick.triggerLeft				.whileHeld(new cargoEscalatorUp(1));
+		operatorJoystick.bumperLeft					.whileHeld(new cargoEscalatorDown(1));
+		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
+		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
 		////////////////////////////////////
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
-		operatorControls.GreenButton	.whenPressed(new doNothing());
 		operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
 	
 		///////////////////////////////////////// 

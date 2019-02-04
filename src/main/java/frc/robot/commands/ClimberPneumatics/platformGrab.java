@@ -13,7 +13,7 @@ public class platformGrab extends Command {
   // CONSTRUCTOR
   public platformGrab() {
 
-    requires(Robot.Example);
+    requires(Robot.ClimberPneumatics);
   }
 
   // Called just before this Command runs the first time

@@ -16,7 +16,6 @@ public class liftWithJoystick extends Command {
 
     // Joystick modifiers, they are different to account for differences in gravity
     private double joystickForwardModifier = 0.5;
-    private double joystickBackwardModifier = 0.25;
 
     // The value that the joystick must exceed for movement to take effect
     private double joystickDeadband = 0.25;
@@ -34,11 +33,9 @@ public class liftWithJoystick extends Command {
      * </p>
      * <br/>
      * <p>
-     * <strong>IN CASE OF EMERGENCY</strong> - Flip yellow switch on the operator
-     * interface
+     * <strong>IF THE LIFT STRINGPOT IS BROKEN</strong> - Flip yellow switch on the
+     * operator interface
      * </p>
-     * <br/>
-     * <strong>IF THE STRINGPOT IS BROKEN</strong> - Flip the black switch as well
      */
     public liftWithJoystick() {
         requires(Robot.Lift);

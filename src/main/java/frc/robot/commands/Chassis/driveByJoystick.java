@@ -1,9 +1,9 @@
 package frc.robot.commands.Chassis;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
+import frc.robot.nerdyfiles.controller.NerdyXbox;
 import frc.robot.subsystems.Chassis;
 
 /**
@@ -11,33 +11,39 @@ import frc.robot.subsystems.Chassis;
  */
 public class driveByJoystick extends Command {
 
-  // Gets the joystick to be used from OI.java
-  private Joystick driverJoystick = Robot.oi.driverJoystick;
-  private boolean neoDrive;
+  // Gets the driver joystick from OI.java
+  private NerdyXbox driverJoystick = Robot.oi.driverJoystick;
+  private boolean isNeoDrive;
 
-  public driveByJoystick() {
-    this.neoDrive = false;
-    requires(Robot.Chassis);
-  }
-
-  public driveByJoystick(boolean neoDrive) {
-    this.neoDrive = neoDrive;
+  /**
+   * Uses Arcade Drive to drive either Neo or Talon motor controllers
+   * 
+   * @param isNeoDrive A boolean representing whether or not the joystick should
+   *                   control Neos to drive
+   */
+  public driveByJoystick(boolean isNeoDrive) {
+    this.isNeoDrive = isNeoDrive;
     requires(Robot.Chassis);
   }
 
   // Supplys the correct values to the arcadeDrive command to drive the robot
   protected void execute() {
-    double moveSpeed = -driverJoystick.getRawAxis(1); // Left joystick's front/back movement as a number from -1 to 1
-    double turnSpeed = driverJoystick.getRawAxis(4); // Right joysticks left/right movement as a number from -1 to 1
+    // Left joystick's front/back movement as a number from -1 to 1
+    double moveSpeed = -driverJoystick.getLeftStickY();
 
-    if (this.neoDrive) {
+    // Right joysticks left/right movement as a number from -1 to 1
+    double turnSpeed = driverJoystick.getRightStickX();
+
+    // If the robot is driving with Neos, send the values to neoDrive, otherwise,
+    // send the values to talonDrive
+    if (this.isNeoDrive) {
       Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     } else {
       Chassis.talonDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     }
   }
 
-  // This command is not meant to exit, so we don't ever allow it to
+  // This command is not meant to exit
   protected boolean isFinished() {
     return false;
   }
