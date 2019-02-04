@@ -1,6 +1,9 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.CargoEscalator.*;
+import frc.robot.commands.CargoIntake.*;
+import frc.robot.commands.CargoScore.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.nerdyfiles.controller.*;
@@ -25,24 +28,26 @@ public class OI {
 		
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whenPressed(new CGAcquireHatch());
-		driverJoystick.redB				.whenPressed(new CGFireHatch());
-		driverJoystick.yellowY			.whenPressed(new goToPosition(550));
-		driverJoystick.blueX			.whenPressed(new goToPosition(65));
-		driverJoystick.povUp			.whenPressed(new doNothing());
+		
 	    
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		operatorJoystick.StripedButton	.whenPressed(new doNothing());
-	
+	 	operatorJoystick.RightTrigger				.whileHeld(new CGAcquireHatch());
+		operatorJoystick.StripedButton				.whileHeld(new CGFireHatch());
+		operatorJoystick.ThrottleTopThumbButton		.whenPressed(new goToPosition(550));
+		operatorJoystick.ThrottleMidThumbButton		.whenPressed(new goToPosition(65));
+		operatorJoystick.povUp						.whileHeld(new cargoIntakeIn(0.5));
+		operatorJoystick.povRight					.whileHeld(new cargoEscalatorUp(0.5));
+		operatorJoystick.povDown					.whileHeld(new cargoScoreOut(0.5));
 		////////////////////////////////////
 		
 		
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
 		operatorControls.GreenButton	.whenPressed(new doNothing());
+		operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
 	
 		///////////////////////////////////////// 
 	}

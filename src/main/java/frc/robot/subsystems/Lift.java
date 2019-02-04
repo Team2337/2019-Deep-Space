@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import frc.robot.Robot;
 import frc.robot.commands.Lift.liftWithJoystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +23,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = true;
+  boolean liftDebug = false;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -33,11 +32,13 @@ public class Lift extends Subsystem {
   private final static int liftLeftFrontID = 10;
   private final static int liftLeftBackID = 11;
 
-  /*
+  /**
    * The front right motor is the master for the other three as they will all
    * receive the same commands
    */
   public static TalonSRX liftRightFrontMotor;
+
+  /* --- Follower Victors --- */
   public static VictorSPX liftRightBackMotor;
   public static VictorSPX liftLeftFrontMotor;
   public static VictorSPX liftLeftBackMotor;
@@ -48,13 +49,13 @@ public class Lift extends Subsystem {
   private double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
-  private double kP = 1;
+  private double kP = 3;
   private double kI = 0;
   private double kD = 0;
   private double kF = 0;
 
-  // How much the actual position may vary from the set target position (in encoder
-  // ticks)
+  // How much the actual position may vary from the set target position (in
+  // current analog sensor (in this case a stringpot) values)
   private int allowableError = 0;
 
   /**
@@ -63,11 +64,11 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 590;
-  public static int reverseLiftSoftLimit = 50;
+  public static int forwardLiftSoftLimit = 500;
+  public static int reverseLiftSoftLimit = 100;
 
   protected void initDefaultCommand() {
-    // setDefaultCommand(new liftWithJoystick());
+    setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
@@ -104,11 +105,9 @@ public class Lift extends Subsystem {
 
     // Enable/disable soft limits for when the motor is going forwards
     liftRightFrontMotor.configForwardSoftLimitEnable(true, 0);
-    liftLeftFrontMotor.configForwardSoftLimitEnable(true, 0);
 
     // Enable/disable soft limits for when the motor is going backwards
     liftRightFrontMotor.configReverseSoftLimitEnable(true, 0);
-    liftLeftFrontMotor.configReverseSoftLimitEnable(true, 0);
 
     // Sets the soft limits for the lift that were decided above
     setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
@@ -197,6 +196,22 @@ public class Lift extends Subsystem {
 
     liftRightFrontMotor.configForwardSoftLimitThreshold(forwardLiftSoftLimit, 0);
     liftRightFrontMotor.configReverseSoftLimitThreshold(reverseLiftSoftLimit, 0);
+  }
+
+  /**
+   * Disables the software limitations for all lift motors
+   */
+  public void disableSoftLimits() {
+    liftRightFrontMotor.configForwardSoftLimitEnable(false);
+    liftRightFrontMotor.configReverseSoftLimitEnable(false);
+  }
+
+  /**
+   * Enables the software limitations for all lift motors
+   */
+  public void enableSoftLimits() {
+    liftRightFrontMotor.configForwardSoftLimitEnable(true);
+    liftRightFrontMotor.configReverseSoftLimitEnable(true);
   }
 
   /**

@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -19,7 +17,7 @@ public class Climber extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new doNothing());
+    
   }
 
 }
