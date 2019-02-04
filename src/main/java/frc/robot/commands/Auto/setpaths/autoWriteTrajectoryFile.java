@@ -4,11 +4,19 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import jaci.pathfinder.Trajectory;
 
+/**
+ * @author Bryce G.
+ */
 public class autoWriteTrajectoryFile extends Command{
 
     String fileName;
     Trajectory trajectory;
 
+    /**
+     * Makes a trajectory path file
+     * @param trajectory - trajectory from Robot.java to build the file
+     * @param fileName - name for the file
+     */
     public autoWriteTrajectoryFile(Trajectory trajectory, String fileName) {
         this.trajectory = trajectory;
         this.fileName = fileName;

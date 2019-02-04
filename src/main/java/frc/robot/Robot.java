@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -93,6 +94,7 @@ public class Robot extends TimedRobot {
     // CONSTRUCTORS
     AirCompressor = new AirCompressor();
     Chassis = new Chassis();
+    CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
     ClimberMotors = new ClimberMotors();
@@ -121,15 +123,18 @@ public class Robot extends TimedRobot {
       //  initTrajectory2 = Pathway.testSCurve();
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
-      // driveForwardT = Pathway.driveForward();
-      curveFromToHatchRightT = Pathway.curveFromToHatchRight();
+      driveForwardT = Pathway.driveForward();
+      // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
 
-      driveForwardFile = NerdyPath.loadTrajectoryFile("test");
+      // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
       break;
     }
     System.out.println("Fin (fish)");
 
     oi = new OI();
+
+    // Robot.NerdyPath.makeTrajectoryFile(driveForwardT, "driveForwardTrajectory");
+    // System.out.println("*****" + Filesystem.getDeployDirectory().toString() + "*****");
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     

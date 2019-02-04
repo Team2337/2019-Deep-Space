@@ -13,6 +13,7 @@ import jaci.pathfinder.modifiers.TankModifier;
 /**
  * This command is mainly a placeholder command, but it can be used
  * functionally. It does just as it says: nothing.
+ * @author Bryce G.
  */
 public class autoSetPathWithHold extends Command {
 

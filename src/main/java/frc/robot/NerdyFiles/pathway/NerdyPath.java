@@ -3,6 +3,7 @@ package frc.robot.nerdyfiles.pathway;
 import java.io.File;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
@@ -11,6 +12,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
+
 // import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
@@ -23,6 +25,8 @@ public class NerdyPath {
   private double wheelBase = 20.5 * 0.0254; //old practice bot: 21.5
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
 
+  String deployDir;
+
   public TankModifier modifier;
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
@@ -30,7 +34,7 @@ public class NerdyPath {
   public static NeoNerdyDrive neoDrive;
 
   public NerdyPath() {
-
+    deployDir = Filesystem.getDeployDirectory().toString();
   }
 
   /**
@@ -99,8 +103,9 @@ public class NerdyPath {
    * @see Pathway.java 
    */
   public void makeTrajectoryFile(Trajectory trajectory, String fileName) {
-    File myFile = new File("/home/admin/paths/" + fileName + ".csv");
-    Pathfinder.writeToCSV(myFile, trajectory);
+    // File myFile = new File(deployDir + "/" + fileName + ".traj"); ///home/lvuser/paths/
+    File myFile = new File("/home/lvuser/deploy/bucket.bat");
+    Pathfinder.writeToFile(myFile, trajectory);
   }
 
   /**
@@ -111,8 +116,8 @@ public class NerdyPath {
    * @return - returns the trajectory recieved from the CSV file
    */
   public Trajectory loadTrajectoryFile(String fileName) {
-   File myFile = new File("/home/admin/paths/" + fileName + ".csv");
-   return Pathfinder.readFromCSV(myFile);
+   File myFile = new File(deployDir + "/" + fileName + ".traj");
+   return Pathfinder.readFromFile(myFile);
   }
 
   public void periodic() {
