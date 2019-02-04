@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
     ClimberPneumatics = new ClimberPneumatics();
     HatchBeak = new HatchBeak();
     HatchLauncher = new HatchLauncher();
-    LED = new LED();
+    LED = new LED(0);
     Lift = new Lift();
     Shifter = new Shifter();
     Vision = new Vision();
@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    LED.setColor(LED.rainbow);
   }
 
   @Override

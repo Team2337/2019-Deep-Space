@@ -1,18 +1,19 @@
 package frc.robot.commands.LED;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.nerdyfiles.wrappers.AutoCommandManager;
+import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.LED;
 
 /**
- * Setting the color when it is in teleop
- * @author Zayd 
+ * Sets the color according to various factors, such as if the robot was
+ * intaking, climbing, etc.
+ * 
+ * @author Zayd A. Jack E.
  */
 public class LEDRuntime extends Command {
 
-  int rightBumper = 6;
-	int timesThrough = 0;
-	int blinkNum = 5;
-	
 	public LEDRuntime() {
 		requires(Robot.LED);
 	}
@@ -22,9 +23,14 @@ public class LEDRuntime extends Command {
 	}
 
 	protected void execute() {
-		if (AutoCommandManager.getInstance().state.equals("teleop")) {
-			Robot.LED.blinkin.setColor(0.93);
-	}
+		if (DriverStation.getInstance().isAutonomous()) {
+			LED.setColor(LED.off);
+		} else if (DriverStation.getInstance().isOperatorControl()) {
+			if (CargoIntake.isRunning()) {
+				LED.setColor(LED.strobeWhite);
+			}
+			LED.setColor(LED.off);
+		}
 	}
 
 	protected boolean isFinished() {
