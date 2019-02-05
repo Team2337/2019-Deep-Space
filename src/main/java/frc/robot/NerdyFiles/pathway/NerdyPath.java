@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
+import frc.robot.nerdyfiles.TalonNerdyDrive;
 import jaci.pathfinder.modifiers.TankModifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
@@ -32,6 +33,7 @@ public class NerdyPath {
   public EncoderFollower leftSideFollower;
 
   public static NeoNerdyDrive neoDrive;
+  public TalonNerdyDrive nerdyDrive;
 
   public NerdyPath() {
     deployDir = Filesystem.getDeployDirectory().toString();
@@ -51,7 +53,8 @@ public class NerdyPath {
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
     turn = 0.8 * (-1.0/80.0) * angleDifference;
 
-    neoDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
+    // neoDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
+    nerdyDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
   }
 
   /**
@@ -69,7 +72,8 @@ public class NerdyPath {
     //0.8 * (-1.0/80.0) * angleDifference
     turn = 1.6 * (-1.0/80.0) * angleDifference;
     
-    neoDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
+    // neoDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
+    nerdyDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
   }
  
   /**
@@ -87,6 +91,21 @@ public class NerdyPath {
     leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
     rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
 
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
+
+    leftSideFollower.configureEncoder((int)Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
+    rightSideFollower.configureEncoder((int)Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
+  }
+
+  public void setTrajectoryWithFile(double kP, double kI, double kD, double kA, String pathName) {
+    Trajectory left_trajectory = PathfinderFRC.getTrajectory(pathName + "_left.csv");  //pathName + ".left" for pathweaver
+    Trajectory right_trajectory = PathfinderFRC.getTrajectory(pathName + "_right.csv");  //pathName + ".right" for pathweaver
+
+    leftSideFollower = new EncoderFollower(left_trajectory);
+    rightSideFollower = new EncoderFollower(right_trajectory);
+   
+    // You must tune the PID values on the following line!
     leftSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
     rightSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
 

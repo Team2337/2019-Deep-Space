@@ -4,6 +4,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
+import frc.robot.commands.Auto.setpaths.autoSetPathWithFile;
 import frc.robot.commands.Auto.setpaths.autoSetPathWithHold;
 import frc.robot.commands.Auto.setpaths.autoWriteTrajectoryFile;
 import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
@@ -43,8 +44,8 @@ public class OI {
 		driverJoystick.blueX			.whenPressed(new autoSetPathWithHold(Robot.curveFromToHatchRightT, valuesPID[1])); 
 		driverJoystick.yellowY			.whenPressed(new CGPostProfileVision());
 		
-		driverJoystick.bumperLeft		.whenPressed(new doNothing());
-		driverJoystick.bumperRight		.whenPressed(new doNothing());
+		driverJoystick.bumperLeft		.whenPressed(new autoSetPathWithFile(valuesPID[0], "CrazyPath"));
+		driverJoystick.bumperRight		.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[0]));
 		
 		driverJoystick.back				.whenPressed(new autoSetPathReverse(Robot.driveForwardFile, valuesPID[0])); 
 		driverJoystick.start			.whileHeld(new autoWriteTrajectoryFile(Robot.driveForwardT, "test"));
