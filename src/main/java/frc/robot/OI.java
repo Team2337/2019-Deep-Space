@@ -4,7 +4,6 @@ import frc.robot.commands.*;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
-import frc.robot.commands.Auto.setpaths.autoSetPathWithFile;
 import frc.robot.commands.Auto.setpaths.autoSetPathWithHold;
 import frc.robot.commands.Auto.setpaths.autoWriteTrajectoryFile;
 import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
