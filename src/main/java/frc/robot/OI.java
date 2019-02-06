@@ -44,7 +44,7 @@ public class OI {
 		driverJoystick.blueX			.whenPressed(new autoSetPathWithHold(Robot.curveFromToHatchRightT, valuesPID[1])); 
 		driverJoystick.yellowY			.whenPressed(new CGPostProfileVision());
 		
-		driverJoystick.bumperLeft		.whenPressed(new autoSetPathWithFile(valuesPID[0], "CrazyPath"));
+		driverJoystick.bumperLeft		.whenPressed(new autoSetPath(Robot.NerdyPath.readFile("locations"), valuesPID[0]));
 		driverJoystick.bumperRight		.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[0]));
 		
 		driverJoystick.back				.whenPressed(new autoSetPathReverse(Robot.driveForwardFile, valuesPID[0])); 

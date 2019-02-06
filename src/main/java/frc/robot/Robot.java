@@ -1,5 +1,9 @@
 package frc.robot;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.nio.Buffer;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -125,7 +129,8 @@ public class Robot extends TimedRobot {
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
       driveForwardT = Pathway.driveForward();
       // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
-
+      // System.out.println(FileUtilities.getFilePath());
+      Robot.NerdyPath.writeFile("locations", driveForwardT);
       // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
       break;
     }

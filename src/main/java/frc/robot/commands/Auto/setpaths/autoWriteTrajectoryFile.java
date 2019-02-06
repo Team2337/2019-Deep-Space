@@ -24,7 +24,7 @@ public class autoWriteTrajectoryFile extends Command{
 
     @Override
     protected void initialize() {
-        Robot.NerdyPath.makeTrajectoryFile(trajectory, fileName);
+        // Robot.NerdyPath.makeTrajectoryFile(trajectory, fileName);
     }
 
     @Override
