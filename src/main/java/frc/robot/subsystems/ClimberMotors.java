@@ -13,7 +13,7 @@ public class ClimberMotors extends Subsystem {
   private int portRight;
 
   public ClimberMotors() {
-    portRight = 6;
+    portRight = 7;
     rightMotor = new TalonSRX(portRight);
     rightMotor.setInverted(false);
     rightMotor.setNeutralMode(NeutralMode.Brake);

@@ -17,8 +17,8 @@ public class liftWithJoystickOverride extends Command {
     private double joystickDeadband = 0.25;
 
     // Joystick modifiers, they are different to account for differences in gravity
-    private double joystickForwardModifier = 0.5;
-    private double joystickBackwardModifier = 0.25;
+    private double joystickForwardModifier = 1;
+    private double joystickBackwardModifier = 1;
 
     // CONSTRUCTOR
     public liftWithJoystickOverride() {
@@ -34,7 +34,10 @@ public class liftWithJoystickOverride extends Command {
     @Override
     protected void execute() {
         // The value of the driver joystick's left thumbsticks up/down motion
-        joy = (Robot.oi.driverJoystick.getLeftStickY());
+        joy = (Robot.oi.operatorJoystick.getLeftStickY());
+        System.out.println("Joystick: " + joy);
+        Robot.Lift.move(joy * joystickForwardModifier);
+        /*
         // If the driver wants the lift to go upwards
         if (joy > joystickDeadband) {
             // The lifts speed is the joystick value multiplied by an upward modifier
@@ -55,6 +58,7 @@ public class liftWithJoystickOverride extends Command {
                 Robot.Lift.move(0);
             }
         }
+        */
     }
 
     // Make this return true when this Command no longer needs to run execute()

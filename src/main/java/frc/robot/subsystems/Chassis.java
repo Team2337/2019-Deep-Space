@@ -61,7 +61,7 @@ public class Chassis extends Subsystem {
   private final static int rightEncoderTalonID = 2;
   private final static int leftFrontID = 15;
   private final static int leftRearID = 14;
-  private final static int leftEncoderTalonID = 13;
+  private final static int leftEncoderTalonID = 53; //move 13 into cargo intake
 
   private final static int talonRightMidID = 31;
   private final static int talonRightRearID = 32;

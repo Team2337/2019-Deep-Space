@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class HatchBeak extends Subsystem {
 
-  private Solenoid hatchBeakSolenoid = new Solenoid(0, 0);
+  private Solenoid hatchBeakSolenoid = new Solenoid(0, 2);
 
   public HatchBeak() {
 

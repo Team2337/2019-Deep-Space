@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.commands.Lift.liftWithJoystick;
+import frc.robot.commands.Lift.liftWithJoystickOverride;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,8 +28,8 @@ public class Lift extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int liftRightFrontID = 8;
-  private final static int liftRightBackID = 9;
+  private final static int liftRightFrontID = 4;
+  private final static int liftRightBackID = 5;
   private final static int liftLeftFrontID = 10;
   private final static int liftLeftBackID = 11;
 
@@ -68,7 +69,7 @@ public class Lift extends Subsystem {
   public static int reverseLiftSoftLimit = 100;
 
   protected void initDefaultCommand() {
-    setDefaultCommand(new liftWithJoystick());
+    setDefaultCommand(new liftWithJoystickOverride());
   }
 
   public Lift() {
@@ -104,13 +105,13 @@ public class Lift extends Subsystem {
     liftLeftBackMotor.setNeutralMode(NeutralMode.Brake);
 
     // Enable/disable soft limits for when the motor is going forwards
-    liftRightFrontMotor.configForwardSoftLimitEnable(true, 0);
+    liftRightFrontMotor.configForwardSoftLimitEnable(false, 0);
 
     // Enable/disable soft limits for when the motor is going backwards
-    liftRightFrontMotor.configReverseSoftLimitEnable(true, 0);
+    liftRightFrontMotor.configReverseSoftLimitEnable(false, 0);
 
     // Sets the soft limits for the lift that were decided above
-    setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
+    //////////setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
 
     /*
      * Set the peak (maximum) and nominal (minimum) output voltages for the motors
