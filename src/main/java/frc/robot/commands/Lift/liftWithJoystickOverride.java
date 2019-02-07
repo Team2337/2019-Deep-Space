@@ -14,7 +14,7 @@ import frc.robot.Robot;
 
 public class liftWithJoystickOverride extends Command {
     private double joy;
-    private double joystickDeadband = 0.25;
+    private double joystickDeadband = 0.2;
 
     // CONSTRUCTOR
     public liftWithJoystickOverride() {
@@ -25,6 +25,7 @@ public class liftWithJoystickOverride extends Command {
     @Override
     protected void initialize() {
         Robot.Lift.disableSoftLimits();
+        Robot.Lift.setMinMaxSpeed(1, -1);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -79,7 +79,7 @@ public class Lift extends Subsystem {
      */
     liftLeftFrontMotor = new TalonSRX(liftLeftFrontID);
     liftLeftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0); // Typically a stringpot
-    liftLeftFrontMotor.setSensorPhase(false);
+    liftLeftFrontMotor.setSensorPhase(true);
     liftLeftFrontMotor.setInverted(true);
     liftLeftFrontMotor.setStatusFramePeriod(0, 0, 0);
     liftLeftFrontMotor.setNeutralMode(NeutralMode.Brake);
@@ -167,9 +167,36 @@ public class Lift extends Subsystem {
   }
 
   /**
+   * Sets the minimum, maximum, and nominal speeds of all lift motors, with the
+   * nominal speed set to 0
+   * 
+   * @param up   A decimal value from 0 to 1 to set the maximum lift speed to
+   * @param down A decimal value from -1 to 0 to set the minimum lift speed to
+   */
+  public void setMinMaxSpeed(double up, double down) {
+    double nominal = 0.0;
+    setMinMaxSpeed(up, down, nominal);
+  }
+
+  /**
+   * Sets the minimum, maximum, and nominal speeds of all lift motors
+   * 
+   * @param up      A decimal value from 0 to 1 to set the maximum lift speed to
+   * @param down    A decimal value from -1 to 0 to set the minimum lift speed to
+   * @param nominal A decimal value from 0 to 1 to set the nominal lift speed to -
+   *                for both up and down
+   */
+  public void setMinMaxSpeed(double up, double down, double nominal) {
+    liftLeftFrontMotor.configPeakOutputForward(up, 0); // Forwards
+    liftLeftFrontMotor.configNominalOutputForward(nominal, 0);
+    liftLeftFrontMotor.configPeakOutputReverse(down, 0); // Reverse
+    liftLeftFrontMotor.configNominalOutputReverse(-nominal, 0);
+  }
+
+  /**
    * Runs the lift by using a given power
    * 
-   * @param power A decimal value from 1 to -1 to supply power to the lift
+   * @param power A decimal value from -1 to 1 to supply power to the lift
    */
   public void move(double power) {
     liftLeftFrontMotor.set(ControlMode.PercentOutput, power);
