@@ -29,7 +29,7 @@ public class driveByJoystick extends Command {
   // Supplys the correct values to the arcadeDrive command to drive the robot
   protected void execute() {
     // Left joystick's front/back movement as a number from -1 to 1
-    double moveSpeed = -driverJoystick.getLeftStickY();
+    double moveSpeed = driverJoystick.getLeftStickY();
 
     // Right joysticks left/right movement as a number from -1 to 1
     double turnSpeed = driverJoystick.getRightStickX();

@@ -27,14 +27,14 @@ public class HatchBeak extends Subsystem {
    * Opens the hatch beak to obtain the hatch panel
    */
   public void openHatchBeak() {
-    hatchBeakSolenoid.set(true);
+    hatchBeakSolenoid.set(false);
   }
 
   /**
    * Close the hatch beak to launch the hatch panel
    */
   public void closeHatchBeak() {
-    hatchBeakSolenoid.set(false);
+    hatchBeakSolenoid.set(true);
   }
 
   /**
