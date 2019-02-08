@@ -23,7 +23,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = true;
+  boolean liftDebug = false;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
