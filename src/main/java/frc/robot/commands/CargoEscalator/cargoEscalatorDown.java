@@ -45,7 +45,7 @@ public class cargoEscalatorDown extends Command {
   // When the command ends, stop the intake motors
   @Override
   protected void end() {
-    Robot.CargoIntake.stop();
+    Robot.CargoEscalator.stop();
   }
 
   // Called when another command which requires one or more of the same
