@@ -126,7 +126,7 @@ public static Trajectory curveFromToHatchRight() {
   private static Waypoint[] driveForward = new Waypoint[] {
     // Waypoint @ x=0, y=0,   exit angle=0 radians
     new Waypoint(0, 0, 0),
-    new Waypoint(2, 0, 0)
+    new Waypoint(50, 0, 0)
     //NEGATIVE is RIGHT
  };
 
@@ -135,7 +135,7 @@ public static Trajectory curveFromToHatchRight() {
 * @param points - array of waypoints
 */
 public static Trajectory driveForward() {
- config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1, 0.5, 2.5);
+ config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.5, 0.25, 2.5);
  trajectory = Pathfinder.generate(driveForward, config);
  return trajectory;
 }

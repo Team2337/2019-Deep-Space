@@ -31,7 +31,9 @@ public class NerdyPath {
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
 
   String deployDir;
-  public String filePath = "/home/lvuser/";
+  public String filePath = "/home/lvuser/deploy/";
+  public String binary = ".txt";
+  public String csv = ".csv";
 
   public TankModifier modifier;
   public EncoderFollower rightSideFollower;
@@ -42,6 +44,7 @@ public class NerdyPath {
 
   public NerdyPath() {
     deployDir = Filesystem.getDeployDirectory().toString();
+    neoDrive = new NeoNerdyDrive(Robot.Chassis.neoLeftFrontMotor, Robot.Chassis.neoRightFrontMotor);
   }
 
   /**
@@ -109,50 +112,56 @@ public class NerdyPath {
   }
 
   /**
-   * 
+   * Writes a generated trajectory to the deploy folder on the robot
+   * <br/> Only needs to be run one time in order to write the file to the robot
+   * <br/> <p><strong>**NOTE</strong>: Make sure the file permissions on the deploy folder are able to be written to**</p>
    * @param fileName
    * @param trajectory
    */
   public void writeFile(String fileName, Trajectory trajectory) {
     try {
-      File file = new File(filePath+fileName+".txt");
+      // File file = new File(filePath+fileName+binary); // writing ro binary
+      File file = new File(filePath + fileName + csv); // writing to csv
       file.createNewFile();
       FileOutputStream oFile = new FileOutputStream(file, false);
       String content = "blahhhhhhh";
       oFile.write(content.getBytes());
       oFile.flush();
       oFile.close();
-      System.out.println("*****************************WOOOOT!****************\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      Pathfinder.writeToFile(file, trajectory);
+      // Pathfinder.writeToFile(file, trajectory);
+      Pathfinder.writeToCSV(file, trajectory);
+      System.out.println("****************Info Written To File****************\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!");
     } catch (IOException e) {
-      System.out.println("error: " + e.getMessage());
-      System.out.println("*****************RAWR: " + e + " *******************\n**********************\n**********************\n**************************\n*********************");
+      System.out.println("*** ERROR: " + e.getMessage() + " *******************\n*******************\n*******************\n*******************\n*******************");
     }
   }
 
   /**
-   * 
-   * @param fileName
-   * @return
+   * Reads in a file from the rio deploy folder, then converting it from a data stream to a trajectory
+   * <br/>Filetype is currently set to a csv, if using binary, change to txt
+   * @param fileName - Name of the file you're reading from
+   * @return - returns a trajectory
    */
   public Trajectory readFile(String fileName) {
     try {
-    File file = new File(filePath+fileName+".txt");
-    BufferedReader br = new BufferedReader(new FileReader(file)); 
-    file.createNewFile();
-    file.setReadable(true, false);
-    String st; 
-    while ((st = br.readLine()) != null) 
-    System.out.println("***************************** " + st + " ****************");
-    br.close();
-    return Pathfinder.readFromFile(file);
+      // File file = new File(filePath+fileName+binary); // writing ro binary
+      File file = new File(filePath + fileName + csv); // writing to csv
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      file.createNewFile();
+      file.setReadable(true, false);
+      String content;
+      while ((content = br.readLine()) != null) {
+        System.out.println(content);
+      }
+      br.close();
+      return Pathfinder.readFromCSV(file); //Pathfinder.readFromFile(file);
     } catch (IOException e) {
       System.out.println("error: " + e.getMessage());
-      System.out.println("*****************RAWR: " + e + " *******************\n**********************\n**********************\n**************************\n*********************");
+      System.out.println("*****************RAWR: " + e
+          + " *******************\n**********************\n**********************\n**************************\n*********************");
     }
     return null;
   }
-
 
   public void periodic() {
     if (pathfinderDebug) {

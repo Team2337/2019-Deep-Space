@@ -130,10 +130,10 @@ public class Robot extends TimedRobot {
       driveForwardT = Pathway.driveForward();
       // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
       // System.out.println(FileUtilities.getFilePath());
-      Robot.NerdyPath.writeFile("locations", driveForwardT);
       // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
       break;
     }
+    // Robot.NerdyPath.writeFile("locations", driveForwardT);
     System.out.println("Fin (fish)");
 
     oi = new OI();

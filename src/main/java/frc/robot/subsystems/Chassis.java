@@ -58,13 +58,14 @@ public class Chassis extends Subsystem {
   public VictorSPX rightRearMotor;
 
   /* --- Talon Drive Motor Declaration --- */
-  public static CANSparkMax neoLeftFrontMotor;
+  public CANSparkMax neoLeftFrontMotor;
   // public static CANSparkMax neoLeftMidMotor;
-  public static CANSparkMax neoLeftRearMotor;
+  public CANSparkMax neoLeftRearMotor;
 
-  public static CANSparkMax neoRightFrontMotor;
+  public CANSparkMax neoRightFrontMotor;
   // public static CANSparkMax neoRightMidMotor;
-  public static CANSparkMax neoRightRearMotor;
+  public CANSparkMax neoRightRearMotor;
+
   public static CANEncoder neoLeftFrontEncoder;
   public static CANEncoder neoLeftRearEncoder; 
   public static CANEncoder neoRightFrontEncoder;
@@ -76,19 +77,19 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int rightMidID = 1;
-  private final static int rightRearID = 2;
-  private final static int leftMidID = 14;
-  private final static int leftRearID = 13;
+  private final static int rightMidID = 31;
+  private final static int rightRearID = 32;
+  private final static int leftMidID = 34;
+  private final static int leftRearID = 33;
   
   // Encoder Talons / Talon Drive Motors
-  private final static int rightFrontID = 0; //2 before
-  private final static int leftFrontID = 15; //13 
+  private final static int rightFrontID = 2; //2 before
+  private final static int leftFrontID = 13; //13 
 
-  private final static int neoRightFrontID = 30; // 0
-  private final static int neoRightRearID = 31; // 1
-  private final static int neoLeftFrontID = 35; // 15
-  private final static int neoLeftRearID = 34; // 14
+  private final static int neoRightFrontID = 0; // 0
+  private final static int neoRightRearID = 1; // 1
+  private final static int neoLeftFrontID = 15; // 15
+  private final static int neoLeftRearID = 14; // 14
 
   public Chassis() {
 
@@ -235,7 +236,7 @@ public class Chassis extends Subsystem {
    * @return - returns the encoder position on the right encoder
    */
   public double getRightPosition() {
-    return -rightFrontMotor.getSelectedSensorPosition();
+    return rightFrontMotor.getSelectedSensorPosition();
   }
 
   /**
