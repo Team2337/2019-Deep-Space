@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * @author John Reno/ Hunter Buzzell Extens pnumatic
+ * @author John Reno/ Hunter Buzzell Extends pnumatic
  */
 public class hatchKickerExtend extends Command {
 

@@ -19,21 +19,21 @@ public class AutoHatchKicker extends Subsystem {
     hatchkicker = new Solenoid(PCM, hatchkickerport);
   }
 
-  // Set the default command for a subsystem here.
-
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new Do_Nothing());
+
   }
-/**
- * This extends the hatch kicker
- */
+
+  /**
+   * This extends the hatch kicker
+   */
   public void hatchKickerExtend() {
     hatchkicker.set(true);
   }
-/**
- * This retracts the hatch kicker
- */
+
+  /**
+   * This retracts the hatch kicker
+   */
   public void hatckKickerRetract() {
     hatchkicker.set(false);
   }
