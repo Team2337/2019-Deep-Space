@@ -1,34 +1,39 @@
-package frc.robot.commands.ClimberPneumatics;
+package frc.robot.commands.AutoHatchKicker;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * @author John Reno/ Hunter Buzzell Extends pnumatic
  */
-public class platformGrab extends Command {
+public class hatchKickerExtend extends Command {
 
   // CONSTRUCTOR
-  public platformGrab() {
+  public hatchKickerExtend() {
 
-    requires(Robot.ClimberPneumatics);
+    requires(Robot.AutoHatchKicker);
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-   Robot.ClimberPneumatics.platformGrab();
+    Robot.AutoHatchKicker.hatchKickerExtend();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return true;
   }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
 

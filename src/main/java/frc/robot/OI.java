@@ -6,7 +6,6 @@ import frc.robot.commands.CargoScore.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.nerdyfiles.controller.*;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -22,9 +21,8 @@ public class OI {
 	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
 	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
 
-    
 	public OI() {
-		
+
 		/* ====== DRIVER JOYSTICK ===== */
 		
 		
@@ -51,8 +49,7 @@ public class OI {
 		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
 		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
 		////////////////////////////////////
-		
-		
+
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
 		// operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
@@ -63,11 +60,11 @@ public class OI {
 	public Joystick getDriverJoystick() {
 		return driverJoystick;
 	}
-	
+
 	public Joystick getOperatorJoystick() {
 		return operatorJoystick;
 	}
-	
+
 	public Joystick getOperatorControls() {
 		return operatorControls;
 	}

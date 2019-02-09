@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.AirCompressor;
+import frc.robot.subsystems.AutoHatchKicker;
 import frc.robot.subsystems.CargoEscalator;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.subsystems.HatchBeak;
 import frc.robot.subsystems.HatchLauncher;
@@ -36,12 +36,12 @@ public class Robot extends TimedRobot {
 
   // DECLARATIONS
   public static AirCompressor AirCompressor;
+  public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
   public static ClimberPneumatics ClimberPneumatics;
-  public static ClimberMotors ClimberMotors;
   public static HatchLauncher HatchLauncher;
   public static HatchBeak HatchBeak;
   public static LED LED;
@@ -62,11 +62,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     AirCompressor = new AirCompressor();
+    AutoHatchKicker = new AutoHatchKicker();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
     Chassis = new Chassis();
-    ClimberMotors = new ClimberMotors();
     ClimberPneumatics = new ClimberPneumatics();
     HatchBeak = new HatchBeak();
     HatchLauncher = new HatchLauncher();
