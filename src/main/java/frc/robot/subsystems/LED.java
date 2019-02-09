@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
@@ -56,4 +57,29 @@ public class LED extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new LEDRuntime());
 	}
+=======
+package frc.robot.subsystems;
+
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+/**
+ * Controls the LEDs of the robot
+ */
+public class LED extends Subsystem {
+
+
+
+  public LED() {
+
+  }
+
+  // Set the default command for a subsystem here.
+
+  @Override
+  public void initDefaultCommand() {
+   // setDefaultCommand(new doNothing());
+  }
+
+>>>>>>> 79e120810e68181690a04b0c98741d218ab88e5a
 }
