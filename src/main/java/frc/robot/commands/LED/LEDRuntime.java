@@ -3,7 +3,6 @@ package frc.robot.commands.LED;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.LED;
 
 /**
@@ -25,8 +24,7 @@ public class LEDRuntime extends Command {
 	protected void execute() {
 		if (DriverStation.getInstance().isAutonomous()) {
 			LED.setColor(LED.off);
-		} else if (DriverStation.getInstance().isOperatorControl()) {
-			
+		} else if (DriverStation.getInstance().isOperatorControl()) {	
 			LED.setColor(LED.red);
 		}
 	}
