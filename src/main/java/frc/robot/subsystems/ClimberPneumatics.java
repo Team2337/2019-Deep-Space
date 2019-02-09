@@ -21,8 +21,8 @@ public class ClimberPneumatics extends Subsystem {
 
   public ClimberPneumatics() {
     PCM = 0;
-    rightPort  = 3;
-    leftPort = 4;
+    rightPort  = 1;
+    leftPort = 7;
     pistonLeft = new Solenoid(PCM, leftPort);
     pistonRight = new Solenoid(PCM, rightPort);
    }

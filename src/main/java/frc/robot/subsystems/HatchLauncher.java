@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class HatchLauncher extends Subsystem {
 
-  private Solenoid hatchLauncherPneumatics = new Solenoid(0, 1);
+  private Solenoid hatchLauncherPneumatics = new Solenoid(0, 3);
 
   public HatchLauncher() {
 

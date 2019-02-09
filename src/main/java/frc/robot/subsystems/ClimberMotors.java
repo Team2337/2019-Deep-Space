@@ -10,20 +10,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ClimberMotors extends Subsystem {
   private TalonSRX rightMotor;
-  private TalonSRX leftMotor;
-  private int portLeft;
   private int portRight;
 
   public ClimberMotors() {
-    portRight = 3;
-    portLeft = 4;
+    portRight = 7;
     rightMotor = new TalonSRX(portRight);
-    leftMotor = new TalonSRX(portLeft);
     rightMotor.setInverted(false);
-    leftMotor.setInverted(true);
     rightMotor.setNeutralMode(NeutralMode.Brake);
-    leftMotor.setNeutralMode(NeutralMode.Brake);
-
   }
 
   // Set the default command for a subsystem here.
@@ -35,12 +28,10 @@ public class ClimberMotors extends Subsystem {
 
   public void flipUp(double speed) {
     rightMotor.set(ControlMode.PercentOutput, speed);
-    leftMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void flipDowm(double speed) {
     rightMotor.set(ControlMode.PercentOutput, -speed);
-    leftMotor.set(ControlMode.PercentOutput, -speed);
 
   }
 }

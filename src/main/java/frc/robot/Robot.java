@@ -13,7 +13,6 @@ import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ClimberMotors;
 import frc.robot.subsystems.ClimberPneumatics;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchBeak;
 import frc.robot.subsystems.HatchLauncher;
 import frc.robot.subsystems.LED;
@@ -50,8 +49,6 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static Vision Vision;
 
-  public static ExampleSubsystem Example;
-
   public static OI oi;
 
   Command autonomousCommand;
@@ -65,20 +62,18 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     AirCompressor = new AirCompressor();
+    CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
-    CargoEscalator = new CargoEscalator();
     Chassis = new Chassis();
     ClimberMotors = new ClimberMotors();
     ClimberPneumatics = new ClimberPneumatics();
     HatchBeak = new HatchBeak();
     HatchLauncher = new HatchLauncher();
-    LED = new LED(0);
+    LED = new LED();
     Lift = new Lift();
     Shifter = new Shifter();
     Vision = new Vision();
-
-    Example = new ExampleSubsystem();
 
     oi = new OI();
 
@@ -106,7 +101,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    LED.setColor(LED.rainbow);
   }
 
   @Override
