@@ -26,9 +26,7 @@ public class LEDRuntime extends Command {
 		if (DriverStation.getInstance().isAutonomous()) {
 			LED.setColor(LED.off);
 		} else if (DriverStation.getInstance().isOperatorControl()) {
-			if (CargoIntake.isRunning()) {
-				LED.setColor(LED.rainbow);
-			}
+			
 			LED.setColor(LED.red);
 		}
 	}

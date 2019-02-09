@@ -9,8 +9,8 @@ import frc.robot.commands.LED.LEDRuntime;
  * 
  * @author Zayd A.
  */
-public class LED extends Subsystem {
 
+public class LED extends Subsystem {
 	/*
 	 * PREDEFINED COLORS - Add more as needed
 	 * http://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf#page=14
@@ -28,12 +28,14 @@ public class LED extends Subsystem {
 	// The currently set color
 	private static double setColor = 0;
 
+	// PWM port
+	private static int pwm = 0;
 	/**
 	 * Controls the LEDs on the Robot using a Blinkin
 	 * 
 	 * @param pwm The PWM port that the blinkin is plugged into
 	 */
-	public LED(int pwm) {
+	public LED() {
 		blinkin = new Spark(pwm);
 		blinkin.setSafetyEnabled(false);
 	}

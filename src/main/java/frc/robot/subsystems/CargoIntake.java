@@ -12,21 +12,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CargoIntake extends Subsystem {
 
   // The motor to run the cargo intake
-  private TalonSRX CargoIntakeMotor;
+  private static TalonSRX CargoIntakeMotor;
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoIntakeMotorID = 13;
+  private int CargoIntakeMotorID = 3;
 
   public CargoIntake() {
     // Configurations for the cargo intake motor
-    this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
+    CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
     CargoIntakeMotor.setInverted(false);
     CargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   public void initDefaultCommand() {
-    
+
   }
 
   /**
@@ -49,11 +49,11 @@ public class CargoIntake extends Subsystem {
     CargoIntakeMotor.set(ControlMode.PercentOutput, -speed);
   }
 
+
   /**
    * Stop the cargo intake motor
    */
   public void stop() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
-
 }
