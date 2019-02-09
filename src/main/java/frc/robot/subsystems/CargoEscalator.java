@@ -17,7 +17,7 @@ public class CargoEscalator extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoEscalatorMotorID = 4;
+  private int CargoEscalatorMotorID = 9;
 
   // The cargoEscalatorSensor is a proximity sensor to detect if the escalator
   // contains a cargo ball
