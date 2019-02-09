@@ -1,11 +1,10 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ * Controls data input/output using a camera
  */
 public class Vision extends Subsystem {
 
@@ -19,7 +18,6 @@ public class Vision extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new doNothing());
   }
 
 }

@@ -13,7 +13,7 @@ public class LEDRuntime extends Command {
   // CONSTRUCTOR
   public LEDRuntime() {
 
-    requires(Robot.Example);
+    requires(Robot.LED);
   }
 
   // Called just before this Command runs the first time

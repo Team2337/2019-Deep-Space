@@ -5,14 +5,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoScore;
+
+import frc.robot.subsystems.AirCompressor;
+import frc.robot.subsystems.CargoEscalator;
 import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.AutoHatchKicker;
 import frc.robot.subsystems.ClimberPneumatics;
-import frc.robot.subsystems.AirCompressor;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchBeak;
 import frc.robot.subsystems.HatchLauncher;
 import frc.robot.subsystems.LED;
@@ -35,15 +35,13 @@ public class Robot extends TimedRobot {
   public static boolean isComp = false;
 
   // DECLARATIONS
-  public static OI oi;
-
-  public static Arm Arm;
+  public static AirCompressor AirCompressor;
+  public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
   public static CargoIntake CargoIntake;
-  public static CargoScore CargoScore; 
+  public static CargoEscalator CargoEscalator;
+  public static CargoScore CargoScore;
   public static ClimberPneumatics ClimberPneumatics;
-  public static AutoHatchKicker AutoHatchKicker;
-  public static AirCompressor AirCompressor;
   public static HatchLauncher HatchLauncher;
   public static HatchBeak HatchBeak;
   public static LED LED;
@@ -51,7 +49,7 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static Vision Vision;
 
-  public static ExampleSubsystem Example;
+  public static OI oi;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -64,11 +62,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
      AirCompressor = new AirCompressor();
-     Arm = new Arm();
+     AutoHatchKicker = new AutoHatchKicker();
      CargoIntake = new CargoIntake();
      CargoScore = new CargoScore();
      Chassis = new Chassis();
-     AutoHatchKicker = new AutoHatchKicker();
      ClimberPneumatics = new ClimberPneumatics();
      HatchBeak = new HatchBeak();
      HatchLauncher = new HatchLauncher();
@@ -76,9 +73,6 @@ public class Robot extends TimedRobot {
      Lift = new Lift();
      Shifter = new Shifter();
      Vision = new Vision();
-
-     Example = new ExampleSubsystem();
-
      oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());

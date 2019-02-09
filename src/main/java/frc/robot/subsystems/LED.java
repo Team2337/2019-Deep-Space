@@ -1,11 +1,10 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * 
+ * Controls the LEDs of the robot
  */
 public class LED extends Subsystem {
 
