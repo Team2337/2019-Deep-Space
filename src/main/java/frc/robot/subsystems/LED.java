@@ -16,7 +16,7 @@ public class LED extends Subsystem {
 	 * http://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf#page=14
 	 */
 	public static double green = 0.75;
-	public static double off = 0.00;// When the robot is enabled
+	public static double off = 0.99;// When the robot is enabled
 	public static double rainbow = -0.99; // When the robot is disabled
 	public static double red = 0.61;
 	public static double strobeWhite = -0.05; // When the cargo intake is running

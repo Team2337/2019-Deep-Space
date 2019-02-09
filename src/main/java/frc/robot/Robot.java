@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
     AirCompressor = new AirCompressor();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
+    CargoEscalator = new CargoEscalator();
     Chassis = new Chassis();
     ClimberMotors = new ClimberMotors();
     ClimberPneumatics = new ClimberPneumatics();
