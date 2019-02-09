@@ -26,7 +26,7 @@ public class CargoIntake extends Subsystem {
   }
 
   public void initDefaultCommand() {
-    
+
   }
 
   /**
@@ -55,5 +55,4 @@ public class CargoIntake extends Subsystem {
   public void stop() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
-
 }
