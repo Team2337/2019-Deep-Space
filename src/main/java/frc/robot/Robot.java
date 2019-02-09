@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.commands.CargoEscalator.cargoEscalatorUp;
 import frc.robot.subsystems.AirCompressor;
+import frc.robot.subsystems.AutoHatchKicker;
 import frc.robot.subsystems.CargoEscalator;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.AutoHatchKicker;
 import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.subsystems.HatchBeak;
 import frc.robot.subsystems.HatchLauncher;
@@ -61,19 +61,20 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-     AirCompressor = new AirCompressor();
-     AutoHatchKicker = new AutoHatchKicker();
-     CargoIntake = new CargoIntake();
-     CargoScore = new CargoScore();
-     Chassis = new Chassis();
-     ClimberPneumatics = new ClimberPneumatics();
-     HatchBeak = new HatchBeak();
-     HatchLauncher = new HatchLauncher();
-     LED = new LED();
-     Lift = new Lift();
-     Shifter = new Shifter();
-     Vision = new Vision();
-     oi = new OI();
+    AirCompressor = new AirCompressor();
+    AutoHatchKicker = new AutoHatchKicker();
+    CargoEscalator = new CargoEscalator();
+    CargoIntake = new CargoIntake();
+    CargoScore = new CargoScore();
+    Chassis = new Chassis();
+    ClimberPneumatics = new ClimberPneumatics();
+    HatchBeak = new HatchBeak();
+    HatchLauncher = new HatchLauncher();
+    LED = new LED();
+    Lift = new Lift();
+    Shifter = new Shifter();
+    Vision = new Vision();
+    oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
