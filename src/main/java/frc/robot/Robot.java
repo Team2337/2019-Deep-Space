@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.AutoHatchKicker;
+import frc.robot.subsystems.CargoDrawbridge;
 import frc.robot.subsystems.CargoEscalator;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CargoScore;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
   public static AirCompressor AirCompressor;
   public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
+  public static CargoDrawbridge CargoDrawbridge;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
@@ -63,6 +65,7 @@ public class Robot extends TimedRobot {
 
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
+    CargoDrawbridge = new CargoDrawbridge();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();

@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.CargoDrawbridge.*;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
 import frc.robot.commands.CargoScore.*;
@@ -39,6 +40,8 @@ public class OI {
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
+		operatorJoystick.povUp						.whenPressed(new raiseTheDrawbridge());
+		operatorJoystick.povDown					.whenPressed(new lowerTheDrawbridge());
 		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
 		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
 
