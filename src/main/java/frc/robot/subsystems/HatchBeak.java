@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class HatchBeak extends Subsystem {
   public DigitalInput tripWire = new DigitalInput(2);
 
-  private Solenoid hatchBeakSolenoid = new Solenoid(0, 0);
+  private Solenoid hatchBeakSolenoid = new Solenoid(0, 2);
 
   public HatchBeak() {
 
@@ -32,14 +32,14 @@ public class HatchBeak extends Subsystem {
    * Opens the hatch beak to obtain the hatch panel
    */
   public void openHatchBeak() {
-    hatchBeakSolenoid.set(true);
+    hatchBeakSolenoid.set(false);
   }
 
   /**
    * Close the hatch beak to launch the hatch panel
    */
   public void closeHatchBeak() {
-    hatchBeakSolenoid.set(false);
+    hatchBeakSolenoid.set(true);
   }
 
   /**

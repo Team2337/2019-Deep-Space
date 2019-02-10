@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,7 +14,6 @@ public class Vision extends Subsystem {
   public double voltsToInch = 0.4;
 
   private int analogPort = 1;
-  private boolean visionDebug = true;
   private boolean distSensorDebug = false;
 
   public Vision() {

@@ -1,11 +1,8 @@
 package frc.robot.subsystems;
 
-import frc.robot.nerdyfiles.*;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
-import frc.robot.nerdyfiles.pathway.EncoderFollower;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
-import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
@@ -13,20 +10,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
-
-import java.io.File;
-import java.lang.module.ModuleDescriptor.Exports.Modifier;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -77,19 +65,17 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int rightMidID = 31;
-  private final static int rightRearID = 32;
-  private final static int leftMidID = 34;
-  private final static int leftRearID = 33;
-  
-  // Encoder Talons / Talon Drive Motors
-  private final static int rightFrontID = 2; //2 before
-  private final static int leftFrontID = 13; //13 
+  private final static int rightFrontID = 0;
+  private final static int rightRearID = 1;
+  private final static int rightEncoderTalonID = 2;
+  private final static int leftFrontID = 15;
+  private final static int leftRearID = 14;
+  private final static int leftEncoderTalonID = 53; //move 13 into cargo intake
 
-  private final static int neoRightFrontID = 0; // 0
-  private final static int neoRightRearID = 1; // 1
-  private final static int neoLeftFrontID = 15; // 15
-  private final static int neoLeftRearID = 14; // 14
+  private final static int talonRightMidID = 31;
+  private final static int talonRightRearID = 32;
+  private final static int talonLeftMidID = 46;
+  private final static int talonLeftRearID = 47;
 
   public Chassis() {
 
@@ -104,13 +90,13 @@ public class Chassis extends Subsystem {
 
     // Sets up the left front motor as a Talon with a mag encoder that isn't
     // reversed
-    leftFrontMotor = new TalonSRX(leftFrontID);
+    leftFrontMotor = new TalonSRX(leftEncoderTalonID);
     leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
     leftFrontMotor.setSensorPhase(false);
 
     // Sets up the other left side motors as Victors
-    leftMidMotor = new VictorSPX(leftMidID);
-    leftRearMotor = new VictorSPX(leftRearID);
+    leftMidMotor = new VictorSPX(talonLeftMidID);
+    leftRearMotor = new VictorSPX(talonLeftRearID);
 
     // None of the left motors are currently reversed
     leftFrontMotor.setInverted(false);
@@ -131,13 +117,13 @@ public class Chassis extends Subsystem {
 
     // Sets up the right front motor as a Talon with a mag encoder that isn't
     // reversed
-    rightFrontMotor = new TalonSRX(rightFrontID);
+    rightFrontMotor = new TalonSRX(rightEncoderTalonID);
     rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
     rightFrontMotor.setSensorPhase(false);
 
     // Sets up the other right side motors as Victors
-    rightMidMotor = new VictorSPX(rightMidID);
-    rightRearMotor = new VictorSPX(rightRearID);
+    rightMidMotor = new VictorSPX(talonRightMidID);
+    rightRearMotor = new VictorSPX(talonRightRearID);
 
     // All of the right motors are currently reversed
     rightFrontMotor.setInverted(true);
@@ -157,8 +143,8 @@ public class Chassis extends Subsystem {
     /* --- Neo Drive Left --- */
 
     // Sets up the left side motors as CAN SparkMax Brushless Motors
-    neoLeftFrontMotor = new CANSparkMax(neoLeftFrontID, MotorType.kBrushless);
-    neoLeftRearMotor = new CANSparkMax(neoLeftRearID, MotorType.kBrushless);
+    neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
+    neoLeftRearMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
 
     // Left side Neo encoder
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
@@ -180,8 +166,8 @@ public class Chassis extends Subsystem {
     /* --- Neo Drive Right --- */
 
     // Sets up the right side motors as CAN SparkMax Brushless Motors
-    neoRightFrontMotor = new CANSparkMax(neoRightFrontID, MotorType.kBrushless);
-    neoRightRearMotor = new CANSparkMax(neoRightRearID, MotorType.kBrushless);
+    neoRightFrontMotor = new CANSparkMax(rightFrontID, MotorType.kBrushless);
+    neoRightRearMotor = new CANSparkMax(rightRearID, MotorType.kBrushless);
 
     // Right side encoders
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);

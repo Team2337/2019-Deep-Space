@@ -16,7 +16,7 @@ public class CargoIntake extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoIntakeMotorID = 3;
+  private int CargoIntakeMotorID = 13;
 
   public CargoIntake() {
     // Configurations for the cargo intake motor
@@ -26,7 +26,7 @@ public class CargoIntake extends Subsystem {
   }
 
   public void initDefaultCommand() {
-    
+
   }
 
   /**
@@ -55,5 +55,4 @@ public class CargoIntake extends Subsystem {
   public void stop() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
-
 }

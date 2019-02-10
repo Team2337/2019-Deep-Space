@@ -20,7 +20,7 @@ public class CargoScore extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoScoreMotorID = 5;
+  private int CargoScoreMotorID = 6;
 
   // The cargoSensor is a proximity sensor to detect if the scoring mechanism
   // contains a cargo ball

@@ -1,49 +1,42 @@
 package frc.robot.commands.LED;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.LED;
 
 /**
- * An example command. You can replace me with your own command.
+ * Sets the color according to various factors, such as if the robot was
+ * intaking, climbing, etc.
+ * 
+ * @author Zayd A. Jack E.
  */
 public class LEDRuntime extends Command {
 
+	public LEDRuntime() {
+		requires(Robot.LED);
+	}
 
+	protected void initialize() {
 
-  // CONSTRUCTOR
-  public LEDRuntime() {
+	}
 
-    requires(Robot.Example);
-  }
+	protected void execute() {
+		if (DriverStation.getInstance().isAutonomous()) {
+			LED.setColor(LED.off);
+		} else if (DriverStation.getInstance().isOperatorControl()) {	
+			LED.setColor(LED.red);
+		}
+	}
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    
-  }
+	protected boolean isFinished() {
+		return false;
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    
-  }
+	protected void end() {
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    this.end();
-  }
+	protected void interrupted() {
+		this.end();
+	}
 }
