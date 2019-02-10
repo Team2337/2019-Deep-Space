@@ -1,13 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.Auto.Pathway;
-import frc.robot.commands.Auto.setpaths.autoSetPath;
-import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
-import frc.robot.commands.Auto.setpaths.autoSetPathWithHold;
-import frc.robot.commands.Auto.setpaths.autoWriteTrajectoryFile;
-import frc.robot.commands.Auto.CommandGroups.CGJTurnFromLoadToCargoShipRight;
-import frc.robot.commands.Auto.CommandGroups.CGPostProfileVision;
-import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
 import frc.robot.commands.CargoScore.*;
@@ -30,36 +22,10 @@ public class OI {
 	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
 
 	public OI() {
-		double[][] valuesPID = Pathway.valuesPID;
+
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.greenA			.whenPressed(new autoSetPath(Robot.curveFromToHatchRightT, valuesPID[1])); 
-		driverJoystick.redB				.whenPressed(new autoSetPathReverse(Robot.initTrajectory, valuesPID[0])); 
-		driverJoystick.blueX			.whenPressed(new autoSetPathWithHold(Robot.curveFromToHatchRightT, valuesPID[1])); 
-		driverJoystick.yellowY			.whenPressed(new CGPostProfileVision());
 		
-		driverJoystick.bumperLeft		.whenPressed(new autoSetPath(Robot.NerdyPath.readFile("locations"), valuesPID[0]));
-		driverJoystick.bumperRight		.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[0]));
-		
-		driverJoystick.back				.whenPressed(new autoSetPathReverse(Robot.driveForwardFile, valuesPID[0])); 
-		driverJoystick.start			.whileHeld(new autoWriteTrajectoryFile(Robot.driveForwardT, "test"));
-		
-		// driverJoystick.leftStickButton		.whenPressed(new doNothing()); 
-		// driverJoystick.rightStickButton		.whenPressed(new doNothing()); 
-		
-		// driverJoystick.triggerLeft		.whileHeld(new doNothing());
-		// driverJoystick.triggerRight		.whileHeld(new doNothing());
-		
-		driverJoystick.povUp			.whenPressed(new CGJTurnFromLoadToCargoShipRight());  
-		//driver_POVUpRight		.whenPressed(new _doNothing()); 
-	    // driverJoystick.povRight			.whenPressed(new doNothing()); 
-	   	//driver_POVDownRight	.whenPressed(new _doNothing()); 
-		   driverJoystick.povDown			.whenPressed(new limeLightLEDOn()); 
-	   	//driver_POVDownLeft	.whenPressed(new _doNothing()); 
-		//    driverJoystick.povLeft			.whenPressed(new doNothing()); 
-	   	//driver_POVUpLeft		.whenPressed(new _doNothing()); 
-	    
-	    //////////////////////////////////
 	    
 	    ////////////////////////////////// 
 	    
