@@ -1,6 +1,5 @@
 package frc.robot.commands.Chassis;
 
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
