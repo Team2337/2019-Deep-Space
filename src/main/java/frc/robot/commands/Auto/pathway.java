@@ -14,7 +14,7 @@ public class Pathway {
 
    private static double timeStep = 0.1;
 
-    private double inchesToMeters(double inches) {
+    private static double inchesToMeters(double inches) {
         return inches * metersConversion;
     }
 
@@ -126,7 +126,7 @@ public static Trajectory curveFromToHatchRight() {
   private static Waypoint[] driveForward = new Waypoint[] {
     // Waypoint @ x=0, y=0,   exit angle=0 radians
     new Waypoint(0, 0, 0),
-    new Waypoint(50, 0, 0)
+    new Waypoint(inchesToMeters(12), 0, 0)
     //NEGATIVE is RIGHT
  };
 

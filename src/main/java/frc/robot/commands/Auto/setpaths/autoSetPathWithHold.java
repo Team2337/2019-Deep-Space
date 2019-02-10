@@ -1,11 +1,8 @@
 package frc.robot.commands.Auto.setpaths;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.subsystems.Chassis;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
@@ -28,7 +25,7 @@ public class autoSetPathWithHold extends Command {
   public static double kP, kI, kD, kA;
   private double[] pidValues;
 
-  private double currentRightPos, currentLeftPos, rightTarget, leftTarget, rightThreshold, leftThreshold, timeout, visionTimeout;
+  private double timeout;
 
   // CONSTRUCTOR
   public autoSetPathWithHold(Trajectory trajectoryIn, double[] pidValues) {

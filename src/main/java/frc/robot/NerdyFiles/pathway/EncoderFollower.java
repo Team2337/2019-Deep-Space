@@ -1,6 +1,5 @@
 package frc.robot.nerdyfiles.pathway;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
 
 /**

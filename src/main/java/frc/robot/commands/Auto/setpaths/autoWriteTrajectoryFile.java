@@ -1,7 +1,6 @@
 package frc.robot.commands.Auto.setpaths;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 import jaci.pathfinder.Trajectory;
 
 /**
