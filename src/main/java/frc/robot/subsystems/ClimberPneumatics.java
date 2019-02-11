@@ -9,22 +9,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ClimberPneumatics extends Subsystem {
 
-  private Solenoid pistonRight;
-  private Solenoid pistonLeft;
-  private int rightPort;
-  private int leftPort;
+  private Solenoid piston;
+  private int climberPort;
   private int PCM;
-
-
-  
-
 
   public ClimberPneumatics() {
     PCM = 0;
-    rightPort  = 1;
-    leftPort = 7;
-    pistonLeft = new Solenoid(PCM, leftPort);
-    pistonRight = new Solenoid(PCM, rightPort);
+    climberPort = 5;
+    piston = new Solenoid(PCM, climberPort);
    }
 
   // Set the default command for a subsystem here.
@@ -34,11 +26,9 @@ public class ClimberPneumatics extends Subsystem {
     //setDefaultCommand(new Do_Nothing());
   }
    public void platformGrab(){
-    pistonRight.set(true);
-    pistonLeft.set(true);
+    piston.set(true);
    }
    public void platformRetract(){
-    pistonLeft.set(false);
-    pistonRight.set(false);
+    piston.set(false);
    }
 }

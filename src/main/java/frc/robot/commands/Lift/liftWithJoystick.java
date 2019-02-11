@@ -43,6 +43,7 @@ public class liftWithJoystick extends Command {
 
     @Override
     protected void initialize() {
+        holdPosition = Robot.Lift.getPosition();
         // Ensure that soft limits are enabled (set in case the manual drive activated)
         Robot.Lift.enableSoftLimits();
     }
@@ -52,7 +53,7 @@ public class liftWithJoystick extends Command {
     protected void execute() {
 
         // The value of the driver joystick's left thumbsticks up/down motion
-        joy = (Robot.oi.driverJoystick.getLeftStickY());
+        joy = (Robot.oi.operatorJoystick.getLeftStickY());
 
         // If the joystick value exceeds a threshold (adjust for noise)
         if (Math.abs(joy) > joystickDeadband) {

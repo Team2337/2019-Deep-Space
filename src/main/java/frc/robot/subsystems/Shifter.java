@@ -15,11 +15,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class Shifter extends Subsystem {
 
   private int PCM = 0;
-  private int portRight = 5;
-  private int portLeft = 6;
+  private int shifterPort = 1;
 
-  private Solenoid leftSide = new Solenoid(PCM, portLeft);
-  private Solenoid rightSide = new Solenoid(PCM, portRight);
+  private Solenoid shifter = new Solenoid(PCM, shifterPort);
 
   public Shifter() {
 
@@ -35,15 +33,13 @@ public class Shifter extends Subsystem {
    * Shift the robot into high gear (Speed)
    */
   public void shiftHighGear() {
-    leftSide.set(true);
-    rightSide.set(true);
+    shifter.set(true);
   }
 
   /**
    * Shift the robot into low gear (Torque)
    */
   public void shiftLowGear() {
-    leftSide.set(false);
-    rightSide.set(false);
+    shifter.set(false);
   }
 }
