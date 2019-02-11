@@ -9,7 +9,8 @@ import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Auto.autoWaitSensorReset;
 
 /**
- * This is an example command group, put commands in here to run them in auton
+ * Runs reverse off the platform, to the first right side cargo ship spot, scores, and 
+ * drives in an s-curve to the right load station
  */
 public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = Pathway.valuesPID;

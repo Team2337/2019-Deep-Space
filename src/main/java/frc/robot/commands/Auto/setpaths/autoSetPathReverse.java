@@ -9,8 +9,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Reads the trajectory to drive to a position given by the waypoints in the reverse direction
  * @author Bryce G.
  */
 public class autoSetPathReverse extends Command {
@@ -28,7 +27,12 @@ public class autoSetPathReverse extends Command {
 
   private double timeout;
 
-  // CONSTRUCTOR
+  /**
+   * Reads the set trajectories into the drive, and sets it in reverse
+   * @param trajectoryIn - desired trajectory
+   * @param pidValues - PID values for the current trajcetory, given in the array
+   * @see Pathway.java for more info on each row/column of the PID values
+   */
   public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
@@ -43,12 +47,6 @@ public class autoSetPathReverse extends Command {
     kD = pidValues[2];
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
-
-    // Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
-    // Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
-
-    // Robot.Chassis.leftFrontMotor.configPeakOutputForward(1.0);
-    // Robot.Chassis.leftFrontMotor.configPeakOutputReverse(-1.0);
 
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
@@ -69,16 +67,12 @@ public class autoSetPathReverse extends Command {
   @Override
   protected boolean isFinished() {
     return isTimedOut();
-    //(Robot.Chassis.leftSideFollower.isFinished() && Robot.Chassis.rightSideFollower.isFinished());
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     System.out.println("**** COMMAND ENDED ****");
-    // Robot.Pigeon.resetPidgey();
-    // Robot.Chassis.leftFrontMotor.set(ControlMode.PercentOutput, 0);
-    // Robot.Chassis.rightFrontMotor.set(ControlMode.PercentOutput, 0);
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 

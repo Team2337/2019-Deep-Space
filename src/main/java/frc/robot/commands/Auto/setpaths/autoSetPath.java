@@ -8,8 +8,7 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Reads the trajectory to drive to a position given by the waypoints in the forawrd direction
  * @author Bryce G.
  */
 public class autoSetPath extends Command {
@@ -26,7 +25,12 @@ public class autoSetPath extends Command {
 
   private double timeout;
 
-  // CONSTRUCTOR
+  /**
+   * Reads the set trajectories into the drive 
+   * @param trajectoryIn - desired trajectory
+   * @param pidValues - PID values for the current trajcetory, given in the array
+   * @see Pathway.java for more info on each row/column of the PID values
+   */
   public autoSetPath(Trajectory trajectoryIn, double[] pidValues) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
@@ -41,18 +45,11 @@ public class autoSetPath extends Command {
     kD = pidValues[2];
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
-    
-    // Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
-    // Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
-
-    // Robot.Chassis.leftFrontMotor.configPeakOutputForward(1.0);
-    // Robot.Chassis.leftFrontMotor.configPeakOutputReverse(-1.0);
 
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Chassis.resetEncoders();
 
-    timeout = (trajectory.length() / 10) + 1.5;//0.2;   timeout = (trajectory.length() / 50)+0.2
-    // printX = ((trajectory.length()-40) / 50)+0.2;
+    timeout = (trajectory.length() / 10) + 1.5; //0.2;   timeout = (trajectory.length() / 50)+0.2
     setTimeout(timeout);
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
   }

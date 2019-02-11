@@ -1,6 +1,8 @@
 package frc.robot.commands.Auto.setpaths;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import jaci.pathfinder.Trajectory;
@@ -27,7 +29,13 @@ public class autoSetPathWithHold extends Command {
 
   private double timeout;
 
-  // CONSTRUCTOR
+  /**
+   * Reads the set trajectories into the drive, and ends the command using a timeout,
+   * before the robot reaches all of its points
+   * @param trajectoryIn - desired trajectory
+   * @param pidValues - PID values for the current trajcetory, given in the array
+   * @see Pathway.java for more info on each row/column of the PID values
+   */
   public autoSetPathWithHold(Trajectory trajectoryIn, double[] pidValues) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
@@ -43,16 +51,9 @@ public class autoSetPathWithHold extends Command {
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
     
-    Robot.Chassis.rightFrontMotor.configPeakOutputForward(1.0);
-    Robot.Chassis.rightFrontMotor.configPeakOutputReverse(-1.0);
-
-    Robot.Chassis.leftFrontMotor.configPeakOutputForward(1.0);
-    Robot.Chassis.leftFrontMotor.configPeakOutputReverse(-1.0);
-
-    Robot.Chassis.setBrakeMode(NeutralMode.Brake);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Chassis.resetEncoders();
 
-    // visionTimeout = ((trajectory.length()-70) / 50);
     timeout = ((trajectory.length()-65) / 50);
     setTimeout(timeout);
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
@@ -75,7 +76,7 @@ public class autoSetPathWithHold extends Command {
   protected void end() {
     System.out.println("Right Motor Percent Output: " + Robot.Chassis.rightFrontMotor.getMotorOutputPercent());
     System.out.println("Left Motor Percent Output: " + Robot.Chassis.leftFrontMotor.getMotorOutputPercent());
-    Robot.Chassis.setBrakeMode(NeutralMode.Coast);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Vision.setLEDMode(3);
     System.out.println("**** COMMAND ENDED ****");
   }

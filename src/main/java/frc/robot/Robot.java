@@ -1,13 +1,11 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.AutoHatchKicker;
 import frc.robot.subsystems.CargoEscalator;
@@ -120,13 +118,11 @@ public class Robot extends TimedRobot {
       // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
       break;
     }
+
+    // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("locations", driveForwardT);
-    System.out.println("Fin (fish)");
 
     oi = new OI();
-
-    // Robot.NerdyPath.makeTrajectoryFile(driveForwardT, "driveForwardTrajectory");
-    // System.out.println("*****" + Filesystem.getDeployDirectory().toString() + "*****");
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     
@@ -146,6 +142,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putBoolean("Logger", logger);
   }
 
   /**
@@ -156,7 +153,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    // Robot.Chassis.setBrakeMode(NeutralMode.Coast);
     Robot.Vision.setLEDMode(1);
     logger = false;
   }
@@ -233,6 +229,6 @@ public class Robot extends TimedRobot {
   }
 
   public void allPeriodic() {
-    SmartDashboard.putBoolean("Logger", logger);
+
   }
 }

@@ -9,7 +9,8 @@ import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Auto.autoWaitSensorReset;
 
 /**
- * This is an example command group, put commands in here to run them in auton
+ * Two hatch auto, starting on the right side of the platform backwards, 
+ * running a JTurn at the end for the final hatch
  */
 public class CGJTurnFromLoadToCargoShipRight extends CommandGroup {
   double[][] valuesPID = Pathway.valuesPID;

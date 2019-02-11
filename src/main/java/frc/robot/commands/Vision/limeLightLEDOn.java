@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Turns the Limelights LEDs on 
+ * <p><br/>Mode 3 is to turn on the LED</p>
  */
 public class limeLightLEDOn extends InstantCommand {
 

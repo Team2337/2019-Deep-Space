@@ -6,7 +6,8 @@ import frc.robot.commands.Auto.Pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 
 /**
- * This is an example command group, put commands in here to run them in auton
+ * Driving with the limelight after the paths have finished
+ * Turns the limelight on before reaching the end of the path
  */
 public class CGPostProfileVision extends CommandGroup {
   public CGPostProfileVision() {

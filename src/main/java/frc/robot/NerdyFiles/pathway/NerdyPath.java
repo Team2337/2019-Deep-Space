@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Pathway;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
@@ -17,18 +15,21 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
 public class NerdyPath {
-  boolean pathfinderDebug = true;
+  boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int ticksPerRev = 4096 * 3; // Gear ratio
-  private double wheelDiameter = 6.0 * 0.0254;
-  private double wheelBase = 20.5 * 0.0254; // old practice bot: 21.5
-  private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
+  private int gearRatio = 3;
+  private int ticksPerRev = 4096 * gearRatio;
 
-  String deployDir;
-  public String filePath = "/home/lvuser/deploy/";
-  public String binary = ".txt";
-  public String csv = ".csv";
+  private double inchesToMeters = 0.0254;
+  private double wheelDiameter = 6.0 * inchesToMeters;
+  private double wheelBase = 20.5 * inchesToMeters; // old practice bot: 21.5
+  private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
+  private double turnCompensation = 0.8 * (-1.0 / 80.0); 
+
+  private String filePath = "/home/lvuser/deploy/";
+  private String csv = ".csv";
+  // private String binary = ".txt";
 
   public TankModifier modifier;
   public EncoderFollower rightSideFollower;
@@ -38,7 +39,6 @@ public class NerdyPath {
   public TalonNerdyDrive nerdyDrive;
 
   public NerdyPath() {
-    deployDir = Filesystem.getDeployDirectory().toString();
     neoDrive = new NeoNerdyDrive(Robot.Chassis.neoLeftFrontMotor, Robot.Chassis.neoRightFrontMotor);
   }
 
@@ -54,10 +54,9 @@ public class NerdyPath {
     desired_heading = Pathfinder.r2d(leftSideFollower.getHeading());
 
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-    turn = 0.8 * (-1.0 / 80.0) * angleDifference;
+    turn = turnCompensation * angleDifference;
 
     neoDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
-    // nerdyDrive.tankDrive(leftOutput + turn, rightOutput - turn, false);
   }
 
   /**
@@ -72,11 +71,9 @@ public class NerdyPath {
     desired_heading = Pathfinder.r2d(leftSideFollower.getHeading());
 
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-    // 0.8 * (-1.0/80.0) * angleDifference
-    turn = 1.6 * (-1.0 / 80.0) * angleDifference;
+    turn = turnCompensation * angleDifference;
 
     neoDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
-    // nerdyDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
   }
 
   /**
@@ -123,7 +120,6 @@ public class NerdyPath {
       oFile.write(content.getBytes());
       oFile.flush();
       oFile.close();
-      // Pathfinder.writeToFile(file, trajectory);
       Pathfinder.writeToCSV(file, trajectory);
       System.out.println("****************Info Written To File****************\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!");
     } catch (IOException e) {
@@ -139,20 +135,18 @@ public class NerdyPath {
    */
   public Trajectory readFile(String fileName) {
     try {
-      // File file = new File(filePath+fileName+binary); // writing ro binary
       File file = new File(filePath + fileName + csv); // writing to csv
       BufferedReader br = new BufferedReader(new FileReader(file));
-      file.createNewFile();
+      file.createNewFile(); //creating new file to read from
       file.setReadable(true, false);
       String content;
       while ((content = br.readLine()) != null) {
         System.out.println(content);
       }
       br.close();
-      return Pathfinder.readFromCSV(file); //Pathfinder.readFromFile(file);
+      return Pathfinder.readFromCSV(file);
     } catch (IOException e) {
-      System.out.println("error: " + e.getMessage());
-      System.out.println("*****************RAWR: " + e
+      System.out.println("*****************ERROR: " + e
           + " *******************\n**********************\n**********************\n**************************\n*********************");
     }
     return null;
@@ -160,25 +154,9 @@ public class NerdyPath {
 
   public void periodic() {
     if (pathfinderDebug) {
-      // SmartDashboard.putNumber("Encoder Follower: last_error",
-      // EncoderFollower.last_error);
-      // SmartDashboard.putNumber("Encoder Follower: key", EncoderFollower.segment);
-      // SmartDashboard.putNumber("Encoder Follower: Start position",
-      // EncoderFollower.encoder_offset);
-      // SmartDashboard.putNumber("Encoder Follower: kp", EncoderFollower.kp);
-      // SmartDashboard.putNumber("Encoder Follower: LEFT calculated_value",
-      // leftSideFollower.calculated_value);
-      // SmartDashboard.putNumber("Encoder Follower: RIGHT calculated_value",
-      // rightSideFollower.calculated_value);
       SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);
       SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
       SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
-      // SmartDashboard.putNumber("Encoder Follower: distance_covered",
-      // EncoderFollower.distance_covered);
-      // SmartDashboard.putNumber("Encoder Follower: LEFT error", getLeftPosition() -
-      // leftSideFollower.calculated_value);
-      // SmartDashboard.putNumber("Encoder Follower: RIGHT error", getRightPosition()
-      // - rightSideFollower.calculated_value);
 
       SmartDashboard.putNumber("RightVelocity", Robot.Chassis.rightFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
