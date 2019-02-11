@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.Solenoid;
  * @author Hunter B
  */
 public class HatchLauncher extends Subsystem {
-
-  private Solenoid hatchLauncherPneumatics = new Solenoid(0, 3);
+  private int launcherPort = 3;
+  private Solenoid launcherPiston;
 
   public HatchLauncher() {
-
+    launcherPiston = new Solenoid(0, launcherPort);
   }
 
   // Set the default command for a subsystem here.
@@ -28,14 +28,14 @@ public class HatchLauncher extends Subsystem {
    * Extend the hatch launcher
    */
   public void extend() {
-    hatchLauncherPneumatics.set(true);
+    launcherPiston.set(true);
   }
 
   /**
    * Retract the hatch launcher
    */
   public void retract() {
-    hatchLauncherPneumatics.set(false);
+    launcherPiston.set(false);
 
   }
 

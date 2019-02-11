@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import frc.robot.commands.Lift.liftWithJoystickOverride;
+import frc.robot.commands.Lift.liftWithJoystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -49,14 +49,14 @@ public class Lift extends Subsystem {
   private double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
-  private double kP = 3;
+  private double kP = 14;
   private double kI = 0;
   private double kD = 0;
   private double kF = 0;
 
   // How much the actual position may vary from the set target position (in
   // current analog sensor (in this case a stringpot) values)
-  private int allowableError = 0;
+  public int allowableError = 0;
 
   /**
    * Sets the boundary of where the mechanism cannot go outside of (in current
@@ -64,11 +64,15 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 500;
-  public static int reverseLiftSoftLimit = 100;
+  public static int forwardLiftSoftLimit = 700;
+  public static int reverseLiftSoftLimit = 150;
+
+  //min and max bounds the string pot can go to 
+  public int maxValue = 730;
+  public int minValue = 40;
 
   protected void initDefaultCommand() {
-    setDefaultCommand(new liftWithJoystickOverride());
+    //setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
@@ -104,13 +108,13 @@ public class Lift extends Subsystem {
     liftRightBackMotor.setNeutralMode(NeutralMode.Brake);
 
     // Enable/disable soft limits for when the motor is going forwards
-    liftLeftFrontMotor.configForwardSoftLimitEnable(false, 0);
+    liftLeftFrontMotor.configForwardSoftLimitEnable(true, 0);
 
     // Enable/disable soft limits for when the motor is going backwards
-    liftLeftFrontMotor.configReverseSoftLimitEnable(false, 0);
+    liftLeftFrontMotor.configReverseSoftLimitEnable(true, 0);
 
     // Sets the soft limits for the lift that were decided above
-    ////////// setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
+    setSoftLimits(forwardLiftSoftLimit, reverseLiftSoftLimit);
 
     /*
      * Set the peak (maximum) and nominal (minimum) output voltages for the motors
