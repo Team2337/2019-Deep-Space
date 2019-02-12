@@ -7,7 +7,7 @@ import jaci.pathfinder.Waypoint;
 /**
  * @author Bryce G.
  */
-public class Pathway {
+public class pathway {
     public static double metersConversion = 0.0254; // 17.5 //35.166666666 - Our conversion from our trials, 33.33333
     public static Trajectory.Config config;
     public static Trajectory trajectory;

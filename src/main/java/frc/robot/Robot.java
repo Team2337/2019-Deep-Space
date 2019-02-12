@@ -13,7 +13,7 @@ import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CargoScore;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ClimberPneumatics;
-import frc.robot.commands.Auto.Pathway;
+import frc.robot.commands.Auto.pathway;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.HatchBeak;
 import frc.robot.subsystems.HatchLauncher;
@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
       //  initTrajectory2 = Pathway.testSCurve();
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
-      driveForwardT = Pathway.driveForward();
+      driveForwardT = pathway.driveForward();
       // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
       // System.out.println(FileUtilities.getFilePath());
       // driveForwardFile = NerdyPath.loadTrajectoryFile("test");

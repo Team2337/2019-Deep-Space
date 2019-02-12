@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.commands.Auto.Pathway;
+import frc.robot.commands.Auto.pathway;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import jaci.pathfinder.modifiers.TankModifier;
@@ -96,8 +96,8 @@ public class NerdyPath {
     leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
     rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
 
-    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
-    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / Pathway.config.max_velocity, kA);
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);
 
     leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
     rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);

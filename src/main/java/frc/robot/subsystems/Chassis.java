@@ -14,7 +14,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,10 +30,9 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = true;
-  boolean neoDebug = true;
-  boolean pathFinderDebug = true;
-  boolean pathfinderDebug = false;
+  boolean chassisDebug = false;
+  boolean neoDebug = false;
+  boolean pathFinderDebug = false;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -198,7 +196,7 @@ public class Chassis extends Subsystem {
   public void initDefaultCommand() {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
-    setDefaultCommand(new driveByJoystick(false));
+    setDefaultCommand(new driveByJoystick(true));
   }
 
   /*****************************************/
@@ -208,7 +206,7 @@ public class Chassis extends Subsystem {
   /*****************************************/
 
   /**
-   * Manually set the rotational position of the drive encoders - UNTESTED
+   * Manually set the rotational position of the TALON drive encoders 
    * 
    * @param pos Position to set encoders to - in encoder ticks
    */
@@ -218,7 +216,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Talon Encoder Values
+   * Talon Methods
    * @return - returns the encoder position on the right encoder
    */
   public double getRightPosition() {
@@ -226,7 +224,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Talon Encoder Values
+   * Talon Methods
    * @return - returns the encoders position on the left encoder
    */
   public double getLeftPosition() {
@@ -234,6 +232,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
+   * Talon Method
    * @param moveSpeed - forward speed (-1.0 - 1.0)
    * @param turnSpeed - turn speed (-1.0 - 1.0)
    * @param squaredInputs
@@ -243,6 +242,7 @@ public class Chassis extends Subsystem {
   }
   
   /**
+   * Talon Method
    * @param moveSpeed - forward speed (-1.0 - 1.0)
    * @param turnSpeed - turn speed (-1.0 - 1.0)
    * @param squaredInputs
@@ -252,6 +252,7 @@ public class Chassis extends Subsystem {
   }
   
   /**
+   * Talon Method
    * @param moveSpeed - forward speed (-1.0 - 1.0)
    * @param turnSpeed - turn speed (-1.0 - 1.0)
    * @param squaredInputs
@@ -261,6 +262,7 @@ public class Chassis extends Subsystem {
   }
   
   /**
+   * Talon Method
    * @param moveSpeed - forward speed (-1.0 - 1.0)
    * @param turnSpeed - turn speed (-1.0 - 1.0)
    * @param squaredInputs
@@ -270,7 +272,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Manually reset the rotational position of the drive encoders to 0 ticks
+   * Manually reset the rotational position of the Talon drive encoders to 0 ticks
    */
   public void resetEncoders() {
     rightFrontMotor.setSelectedSensorPosition(0, 0, 0);
@@ -304,7 +306,7 @@ public class Chassis extends Subsystem {
   /*****************************************/
 
   /**
-   * Get the average value of both drive side's encoder averages
+   * Get the average value of both NEO drive side's encoder averages
    * 
    * @return The average of both drive side's encoder averages
    */
@@ -331,7 +333,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Manually set the rotational position of the drive encoders
+   * Manually set the rotational position of the NEO drive encoders
    * 
    * @param pos The position to set the encoder to (in ticks)
    */
@@ -340,14 +342,14 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Manually reset the rotational position of the drive encoders to 0 ticks
+   * Manually reset the rotational position of the NEO drive encoders to 0 ticks
    */
   public void resetNeoEncoders() {
     // As of 1/24/19, no way to set Neo encoder values
   }
 
   /**
-   * Determines what the drive motors will do when no signal is given to them
+   * Determines what the NEO drive motors will do when no signal is given to them
    * 
    * @param mode The breaking mode to use
    *             <p>
@@ -369,7 +371,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Determines what the drive motors will do when no signal is given to them
+   * Determines what the NEO drive motors will do when no signal is given to them
    * 
    * @param motor A CANSparkMax motor to assign a breakmode to
    * @param mode  The braking mode to use
@@ -389,8 +391,6 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      // ***** FIX FOR COMP BOT ********
-      // ***** SENSOR PHASE NOT INVERTING ******
       SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); //rightFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); //leftFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());

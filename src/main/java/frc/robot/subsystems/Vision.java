@@ -1,40 +1,29 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Vision subsystem for the limelight
+ * Vision subsystem for the limelight, and any other camera/vision sensors
  */
 public class Vision extends Subsystem {
 
-  public AnalogInput ultrasonic;
   public double voltsToInch = 0.4;
-
-  private int analogPort = 1;
-  private boolean distSensorDebug = false;
 
   public Vision() {
 
-    ultrasonic = new AnalogInput(analogPort);
   }
-
-  // Set the default command for a subsystem here.
 
   @Override
   public void initDefaultCommand() {
     
   }
 
-
   /*****************************/
   /* ------------------------- */
   /* --- LIMELIGHT METHODS --- */
   /* ------------------------- */
   /*****************************/
-
 
   /**
    * Sets the LED mode to on, off, or blink
@@ -49,6 +38,10 @@ public class Vision extends Subsystem {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
   }
 
+  /**
+   * Gets the Limelight's LED mode from network tables
+   * @return - returns the LED mode value as an int from networktables
+   */
   public int getLEDMode() {
     return (int)NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getValue().getDouble();
   }
@@ -76,30 +69,9 @@ public class Vision extends Subsystem {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(mode);
   }
 
-
-  /**
-   * 
-   * @return - returns the raw distance output in the form of voltage, from the ultrasonic sensor
-   */
-  public double getVoltage() {
-    return ultrasonic.getVoltage();
-  }
-
-  /**
-   * 
-   * @return - returns the voltage value multiplied by the voltsToInch conversion constant
-   * @see getVoltage()
-   */
-  public double getDistance() {
-   return (getVoltage() * voltsToInch); 
-  }
-
   @Override
   public void periodic() {
-    if(distSensorDebug) {
-    SmartDashboard.putNumber("UltraSonic - Distance", getDistance());
-    SmartDashboard.putNumber("UltraSonic - Voltage", getVoltage());
-    }
+
   }
 
 }

@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Team2337 - EngiNERDs
  * Must be initiated after RobotMap
  */
-
 public class Pigeon extends Subsystem {
 
 	public static PigeonIMU pidgey;
@@ -20,17 +19,17 @@ public class Pigeon extends Subsystem {
 	public double[] xyz_dps;
 	private int timeoutMs = 20;
 	
+	/**
+	 * The subsystem to calibrate the Pigeon (gyro)
+	 */
 	public Pigeon() {
-		// Assign to the Talon the Pigeon is connected into.
-
-		//pidgey = new PigeonIMU(RobotMap.intake_left);
 		pidgey = new PigeonIMU(20);
+		//Put this line in, in order to calibrate the pigeon to the correct degree mode
 		//pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
 		gyrofusionStatus = new PigeonIMU.FusionStatus();
 		gyroGenStatus = new PigeonIMU.GeneralStatus();
 		ypr_deg = new double[3];
 		xyz_dps = new double[3];
-	
 	}
 	
 	@Override
@@ -54,11 +53,10 @@ public class Pigeon extends Subsystem {
 		SmartDashboard.putNumber("yaw", getYaw());
 		//SmartDashboard.putNumber("Pitch", getPitch());
 		//SmartDashboard.putNumber("Roll", getRoll());
-
-		
 	}
+
 	/**
-	 * 
+	 * Gets the yaw from the gyro
 	 * @return yaw
 	 */
 	public double getYaw() {
@@ -66,8 +64,9 @@ public class Pigeon extends Subsystem {
 		yaw = ypr_deg[0];
 		return yaw;
 	}
+
 	/**
-	 * 
+	 * Returns the pitch from the gyro
 	 * @return pitch
 	 */
 	public double getPitch() {
@@ -75,8 +74,9 @@ public class Pigeon extends Subsystem {
 		pitch = ypr_deg[1];
 		return pitch;
 	}
+
 	/**
-	 * 
+	 * Returns the roll value from the gyro
 	 * @return roll
 	 */
 	public double getRoll() {
@@ -84,24 +84,35 @@ public class Pigeon extends Subsystem {
 		roll = ypr_deg[2];
 		return roll;
 	}
+
 	/**
-	 * 
+	 * Returns the absolute compass heading of the gyro 
 	 * @return returns the absolute compass heading 
 	 */
 	public double getAbsoluteCompassHeading() {
 		return pidgey.getAbsoluteCompassHeading();
 	}
 	
+	/**
+	 * Resets the pigeon 
+	 */
 	public void resetPidgey() {
 		pidgey.setYaw(0, timeoutMs);
 	}
 
+	/**
+	 * Gets the rate at which the robot is spinning
+	 * @return
+	 */
 	public double getAngularRate() {
 		double angularRate;
 		angularRate = xyz_dps[2];
 		return angularRate;
 	}
 	
+	/**
+	 * Use to manually set the yaw in degrees
+	 */
 	public void manualSetYaw(double yaw) {
 		yaw *= 64;
 		pidgey.setYaw(yaw, timeoutMs);

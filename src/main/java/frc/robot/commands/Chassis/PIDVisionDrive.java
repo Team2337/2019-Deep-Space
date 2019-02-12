@@ -2,16 +2,13 @@ package frc.robot.commands.Chassis;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
-
 import com.revrobotics.CANSparkMax.IdleMode;
-
-//import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- * Uses a PID to get us closer 
+ * Uses a PID to get us closer to the vision target
+ * The drive system uses the limelight to determine the error
  * @author Bryce G.
  */
 public class PIDVisionDrive extends PIDCommand {
@@ -78,40 +75,33 @@ public class PIDVisionDrive extends PIDCommand {
         m_speed = 0;
         output = 0;
       }
-
       System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed);
 
       if(turnInPlace) {
         m_speed = 0;
         System.out.println("turnInPlace: " + turnInPlace);
       }
-
-      Chassis.neoDrive.arcadeDrive(m_speed, -output, false);  // <== here we use the output to do something
+      Chassis.neoDrive.arcadeDrive(m_speed, -output, false);
   }
 
   protected void initialize() {
     Robot.Vision.setLEDMode(3);
     setTimeout(m_timeout);
-    System.out.println("***********************************************************");
     this.setSetpoint(targetAngle);
-
-    // Robot.m_chassis.setBrakeMode(NeutralMode brake);  //probably want to turn on brakemode to lessen overshoot??
   }
 
   protected void execute() {
-      //  Nothing to put here.  The heavy lifting is done inside the PID object & executed in the isPIDOutput (above).
+      
   }
 
   protected boolean isFinished() {
-    return (isTimedOut()); //|| getPIDController().onTarget());
+    return isTimedOut();
   }
 
   protected void end() {
     Robot.Vision.setLEDMode(1);
     Robot.Chassis.stopNeoDrive();
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
-    // Robot.Chassis.stopDrive();
-    // Robot.Chassis.setBrakeMode(NeutralMode.Brake); // set brakemode back to coast??
   }
 
   protected void interrupted() {

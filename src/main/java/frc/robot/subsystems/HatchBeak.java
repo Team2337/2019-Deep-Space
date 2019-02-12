@@ -1,17 +1,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * This subsystem controls the hatch beak, which acquires the hatch panel
  * 
- * @author Emily H.
+ * @author Emily H. Jack E.
  */
 public class HatchBeak extends Subsystem {
-  public DigitalInput tripWire = new DigitalInput(2);
 
   private Solenoid hatchBeakSolenoid = new Solenoid(0, 2);
 
@@ -44,7 +41,7 @@ public class HatchBeak extends Subsystem {
    * Display the status on the smartdashboard
    */
   public void periodic() {
-    SmartDashboard.putBoolean("tripWire", tripWire.get());
+    
   }
 
 }
