@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   public static AirCompressor AirCompressor;
   public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
+  public static CargoBigBrother CargoBigBrother;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
@@ -51,6 +52,7 @@ public class Robot extends TimedRobot {
 
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
+    CargoBigBrother = new CargoBigBrother();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();

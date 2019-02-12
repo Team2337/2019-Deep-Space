@@ -15,30 +15,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CargoScore extends Subsystem {
 
-  //The motor to run the scoring mechanism
+  // The motor to run the scoring mechanism
   private TalonSRX CargoScoreMotor;
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
   private int CargoScoreMotorID = 6;
 
-  // The cargoSensor is a proximity sensor to detect if the scoring mechanism
-  // contains a cargo ball
-  public DigitalInput cargoSensor;
-
   public CargoScore() {
     // Configurations for the scoring mechanism motor
     this.CargoScoreMotor = new TalonSRX(CargoScoreMotorID);
     CargoScoreMotor.setInverted(false);
     CargoScoreMotor.setNeutralMode(NeutralMode.Brake);
-
-    // Sets the cargoSensor up as a digital input (could be a limit switch or a
-    // proximity sensor) on port 1
-    cargoSensor = new DigitalInput(1);
   }
 
   public void initDefaultCommand() {
-    
+
   }
 
   /**
@@ -66,14 +58,5 @@ public class CargoScore extends Subsystem {
    */
   public void stop() {
     CargoScoreMotor.set(ControlMode.PercentOutput, 0);
-  }
-
-  /**
-   * Return whether or not a cargo ball is detected in the scoring mechanism
-   * 
-   * @return A boolean about whether or not a cargo ball is detected
-   */
-  public boolean hasCargo() {
-    return !cargoSensor.get();
   }
 }
