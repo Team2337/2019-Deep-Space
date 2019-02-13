@@ -161,6 +161,10 @@ public class Lift extends Subsystem {
     return liftLeftFrontMotor.getClosedLoopTarget(0);
   }
 
+  public boolean atPosition(double tolerance){
+    return Math.abs(getSetpoint() - getPosition()) <= tolerance;
+  }
+
   /**
    * Gets the current position of the lift
    * 
