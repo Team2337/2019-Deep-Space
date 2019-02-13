@@ -24,49 +24,76 @@ public class CargoBigBrother extends Subsystem {
     // and need to eject the ball, it would be faster than to go through the robot
     public double ejectCargoPosition = 200;
 
+    public double currentScoringPosition;
+
     // Determines how the command will run when there is a ball in the trolley
     public boolean passedIntakeSensor;
+
+    public boolean isScoreMode;
 
     public CargoBigBrother() {
         cargoIntakeSensor = new DigitalInput(0);
         cargoEscalatorSensor = new DigitalInput(1);
         cargoTrolleySensor = new DigitalInput(2);
 
+        //Default to the middle scoring position
+        currentScoringPosition = midCargoPosition;
+
         passedIntakeSensor = false;
+        isScoreMode = false;
     }
 
     public void initDefaultCommand() {
 
     }
 
+    /**
+     * Stop all systems involved in the movement of cargo (the lift will pick up
+     * right where a new command is telling it to go, even if it stops for a moment)
+     */
     public void stop() {
+        Robot.Lift.stop();
+        Robot.CargoIntake.rollIn(0);
+        Robot.CargoEscalator.rollUp(0);
+        Robot.CargoScore.rollIn(0);
     }
 
+    /*
+     * 0 - No ball: Automatically set as the default value 1 - At intake sensor: Set
+     * when the in 2 - Between escalator sensors: Set when isPassedIntake is true
+     * AND the cargoIntake sensor is false (it is part of the conditions for
+     * isPassedIntake to be set to true, but double check while testing) 3 - Top of
+     * escalator: Set when the escalator sensor is true 4 - Fully in the cargo
+     * scoring mechanism: Set when the trolley sensor is true 5 - At low cargo
+     * scoring position: Set when the lift is atPosition(10) for the low cargo
+     * scoring position 6 - At mid cargo scoring position: Set when the lift is
+     * atPosition(10) for the mid cargo scoring position 7 - At eject cargo
+     * position: Set when the lift is atPosition(10) for the eject cargo scoring
+     * position
+     */
+
     public int cargoLevel() {
-        //If the cargo is just at the bottom of the 
         if (cargoIntakeSensor.get()) {
             return 1;
-
-        } else if (cargoEscalatorSensor.get()) {
+        } else if (passedIntakeSensor) {
             return 2;
-
+        } else if (cargoEscalatorSensor.get()) {
+            return 3;
         } else if (cargoTrolleySensor.get()) {
-
-            // If the lift is meant to be at the low cargo scoring position and is within 10
-            // ticks
-            if (Robot.Lift.getSetpoint() == lowCargoPosition && Robot.Lift.atPosition(10)) {
-                return 4;
-
-                // If the lift is meant to be at the middle cargo scoring position and is within
-                // 10 ticks
-            } else if (Robot.Lift.getSetpoint() == midCargoPosition && Robot.Lift.atPosition(10)) {
-                return 5;
-
-                // If the cargo is in the trolley, but not in position
-            } else {
-                return 3;
-            }
+            return 4;
+        } else if (Robot.Lift.getSetpoint() == lowCargoPosition && Robot.Lift.atPosition(10)) {
+            return 5;
+        } else if (Robot.Lift.getSetpoint() == midCargoPosition && Robot.Lift.atPosition(10)) {
+            return 6;
+        } else if (Robot.Lift.getSetpoint() == ejectCargoPosition && Robot.Lift.atPosition(10)) {
+            return 7;
+        } else {
+            return 0;
         }
-        return 0;
+    }
+
+    public void moveToPosition(double pos) {
+        isScoreMode = false;
+        Robot.Lift.setSetpoint(pos);
     }
 }

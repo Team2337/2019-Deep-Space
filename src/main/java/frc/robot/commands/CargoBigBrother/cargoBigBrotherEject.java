@@ -16,7 +16,7 @@ public class cargoBigBrotherEject extends Command {
     double scoreSpeed = 1;
 
     boolean startWithBall = false;
-    
+
     boolean liftEject = false;
 
     public cargoBigBrotherEject() {
@@ -26,8 +26,6 @@ public class cargoBigBrotherEject extends Command {
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
-        this.startWithBall = Robot.CargoBigBrother.startWithCargo;
-
         if (startWithBall) {
             if (Robot.CargoBigBrother.cargoLevel() == 3) {
                 // If the lift is meant to at the mid cargo position, its likely traveling to

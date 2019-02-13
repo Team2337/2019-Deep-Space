@@ -15,6 +15,8 @@ public class cargoBigBrotherIntake extends Command {
     double escalatorSpeed = 1;
     double scoreSpeed = 1;
 
+    boolean isScoreMode = Robot.CargoBigBrother.isScoreMode;
+
     public cargoBigBrotherIntake() {
         requires(Robot.CargoBigBrother);
     }
@@ -22,85 +24,120 @@ public class cargoBigBrotherIntake extends Command {
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
+        if (isScoreMode) {
+            switch (Robot.CargoBigBrother.cargoLevel()) {
 
-        switch (Robot.CargoBigBrother.cargoLevel()) {
-        // If a ball is not detected within the robot
-        case 0: {
-            // Set the lift to move to the intake position
-            Robot.Lift.setSetpoint(Robot.CargoBigBrother.intakeCargoPosition);
-            // If the ball is just between the escalator sensors
-            if (Robot.CargoBigBrother.passedIntakeSensor) {
-                // If there really is no ball within the robot
-
-            } else {
+            case 0: {
                 Robot.CargoIntake.rollIn(1);
                 Robot.CargoEscalator.rollUp(1);
+                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
             }
-        }
-        case 1: {
-            Robot.Lift.setSetpoint(Robot.CargoBigBrother.intakeCargoPosition);
-            Robot.CargoEscalator.rollUp(1);
-        }
-        case 2: {
-            Robot.Lift.setSetpoint(Robot.CargoBigBrother.intakeCargoPosition);
-        }
-        case 3: {
-            //Figure out a way to use both the low and mid position
-            Robot.Lift.setSetpoint(Robot.CargoBigBrother.midCargoPosition);
-        }
-        default: {
-            System.out.println("ERROR");
-        }
+            case 1: {
+                Robot.CargoEscalator.rollUp(1);
+                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+            case 2: {
+                Robot.CargoEscalator.rollUp(1);
+                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+            case 3: {
+                // The escalator stops until the lift is in position
+                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+            case 4: {
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+            case 5: {
+                // At this point, it should be in fire mode, but it could be that the scoring
+                // position changed from low to mid or vice versa, which would reset inScoreMode
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+            case 6: {
+                // At this point, it should be in fire mode, but it could be that the scoring
+                // position changed from low to mid or vice versa, which would reset inScoreMode
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+            case 7: {
+                // At this point, it should be in fire mode, but it could be that the scoring
+                // position changed from low to mid or vice versa, which would reset inScoreMode
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
+            }
+
+            }
         }
     }
 
     @Override
     protected void execute() {
-        /*
-        if (!startWithBall) {
-            if (Robot.CargoBigBrother.cargoIntakeSensor.get()) {
-                Robot.CargoIntake.stop();
-            }
-            if (Robot.CargoBigBrother.cargoEscalatorSensor.get()) {
-                if (!Robot.Lift.atPosition(10)) {
-                    Robot.CargoEscalator.stop();
-                } else {
-                    Robot.CargoScore.rollIn(1);
-                    Robot.CargoEscalator.rollUp(1);
-                    // isFinished
-                }
-            }
-        }
-        */
-        switch(Robot.CargoBigBrother.cargoLevel()){
+
+        if (!Robot.CargoBigBrother.isScoreMode) {
+            switch (Robot.CargoBigBrother.cargoLevel()) {
             case 0: {
-                if (Robot.CargoBigBrother.passedIntakeSensor) {
-                    // If there really is no ball within the robot
-
-                } else {
-
-                }
+                // Nothing needs to happen in execute, as the neccisary motors are running as
+                // per initialize
+                break;
             }
             case 1: {
-
+                // Once the ball has passed the intake, stop the intake
+                Robot.CargoIntake.stop();
+                // Once the ball has passed the intake sensor, it is between the two escalator
+                // sensors, and thus, in position 2
+                if (Robot.CargoBigBrother.cargoIntakeSensor.get() == false) {
+                    Robot.CargoBigBrother.passedIntakeSensor = true;
+                }
+                break;
             }
             case 2: {
-
+                // Nothing special needs to happen at this position
             }
             case 3: {
-
+                if (Robot.Lift.atPosition(10)) {
+                    Robot.CargoEscalator.rollUp(1);
+                    Robot.CargoScore.rollIn(1);
+                } else {
+                    Robot.CargoEscalator.stop();
+                }
             }
+            case 4: {
+                Robot.CargoEscalator.stop();
+                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+            }
+            case 5: {
+                Robot.CargoBigBrother.isScoreMode = Robot.Lift.atPosition(10);
+            }
+            case 6: {
+                Robot.CargoBigBrother.isScoreMode = Robot.Lift.atPosition(10);
+            }
+            case 7: {
+                // The lift is not meant to be at this position
+            }
+            }
+        } else {
+            // If the robot is in score mode
+            // The motor is told to run outwards in init
+            Robot.CargoBigBrother.isScoreMode = Robot.CargoBigBrother.cargoTrolleySensor.get();
+            Robot.CargoBigBrother.passedIntakeSensor = Robot.CargoBigBrother.cargoTrolleySensor.get();
         }
     }
 
     @Override
     protected boolean isFinished() {
-        if (startWithBall) {
-            // If the cargo has successfully reached the trolley
-            return Robot.CargoBigBrother.cargoTrolleySensor.get() && !Robot.CargoBigBrother.cargoEscalatorSensor.get();
+        if (!isScoreMode) {
+            return Robot.CargoBigBrother.isScoreMode;
         } else {
-            // If the cargo has successfully exited the trolley (scoring or otherwise)
-            return !Robot.CargoBigBrother.cargoTrolleySensor.get();
+            return !Robot.CargoBigBrother.isScoreMode;
         }
     }
 
