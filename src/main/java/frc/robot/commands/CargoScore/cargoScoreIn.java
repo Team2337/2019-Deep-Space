@@ -40,7 +40,7 @@ public class cargoScoreIn extends Command {
     // has been detected to have successfully entered the scoring mechanism
     @Override
     protected boolean isFinished() {
-        return Robot.CargoScore.hasCargo();
+        return Robot.CargoBigBrother.cargoTrolleySensor.get();
     }
 
     // When the command ends, stop the scoring mechanism motors

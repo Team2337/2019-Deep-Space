@@ -43,12 +43,29 @@ public class CargoBigBrother extends Subsystem {
     }
 
     public int cargoLevel() {
+        //If the cargo is just at the bottom of the 
         if (cargoIntakeSensor.get()) {
             return 1;
+
         } else if (cargoEscalatorSensor.get()) {
             return 2;
+
         } else if (cargoTrolleySensor.get()) {
-            return 3;
+
+            // If the lift is meant to be at the low cargo scoring position and is within 10
+            // ticks
+            if (Robot.Lift.getSetpoint() == lowCargoPosition && Robot.Lift.atPosition(10)) {
+                return 4;
+
+                // If the lift is meant to be at the middle cargo scoring position and is within
+                // 10 ticks
+            } else if (Robot.Lift.getSetpoint() == midCargoPosition && Robot.Lift.atPosition(10)) {
+                return 5;
+
+                // If the cargo is in the trolley, but not in position
+            } else {
+                return 3;
+            }
         }
         return 0;
     }
