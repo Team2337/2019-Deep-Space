@@ -5,6 +5,8 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 
 /**
+ * Stores all of the waypoints and max velocity, acceleration, and jerk values
+ * <p><br/>Each of the waypoints are set in an array</p>
  * @author Bryce G.
  */
 public class pathway {
@@ -45,6 +47,9 @@ public class pathway {
         { 1.5, 0, 0, 0 }, // TEST
     };
 
+    /**
+     * Drives backwards starting on the platform
+     */
     private static Waypoint[] autoReverseToShipFromLvl1 = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), new Waypoint(5, 0, 0)
@@ -70,7 +75,9 @@ public class pathway {
         return trajectory;
     }
     
-
+    /**
+     * <p>S-Curves from the cargo ship, to the <strong>RIGHT</strong> load station to grab a hatch
+     */
     private static Waypoint[] curveFromToHatchRight = new Waypoint[] { 
         new Waypoint(0, 0, 0),
         new Waypoint(3.5, 2, 0.42), // 3.5, 2.35
@@ -88,6 +95,9 @@ public class pathway {
         return trajectory;
     }
 
+    /**
+     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and points the beak towards the cargo ship
+     */
     private static Waypoint[] fromRightLoadJTurnToCargoShip = new Waypoint[] { 
         new Waypoint(0, 0, 0),
         new Waypoint(2, -.8, -0.58), // 33 degrees
@@ -106,6 +116,9 @@ public class pathway {
         return trajectory;
     }
 
+    /**
+     * Coming out of the <strong>RIGHT</strong> J-Turn and drives to the cargo ship
+     */
     private static Waypoint[] JTurnToCargoShipRight = new Waypoint[] { 
             new Waypoint(0, 0, 0),
             new Waypoint(2, 0, -0.58) 
@@ -122,6 +135,9 @@ public class pathway {
         return trajectory;
     }
 
+    /**
+     * <strong>TEST</strong> S-Curve
+     */
     private static Waypoint[] testSCurve = new Waypoint[] { 
         new Waypoint(0, 0, 0), 
         new Waypoint(3, 1, 0) // POSITIVE IS LEFT
@@ -142,6 +158,9 @@ public class pathway {
         return trajectory;
     }
 
+    /**
+     * <strong>TEST</strong> drive forwards path
+     */
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 

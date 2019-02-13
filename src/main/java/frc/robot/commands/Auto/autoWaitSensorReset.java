@@ -7,7 +7,7 @@ import frc.robot.Robot;
  * Waits a given amount of time until the next command is run
  * 
  * @category AUTO
- * @author Team2337 - EngiNERDs
+ * @author Bryce G.
  */
 public class autoWaitSensorReset extends Command {
 	public double timeout;

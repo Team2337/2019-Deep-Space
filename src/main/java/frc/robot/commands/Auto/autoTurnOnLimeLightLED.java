@@ -4,7 +4,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import jaci.pathfinder.Trajectory;
 
-public class autoTurnOnLimeLightLED extends Command{
+/**
+ * Turns on the limelight LED after a certain amount of time has passed
+ * <p><br/>Mode 3</p>
+ * @author Bryce G.
+ */
+public class autoTurnOnLimeLightLED extends Command {
 
     private Trajectory trajectory = Robot.curveFromToHatchRightT;
   public autoTurnOnLimeLightLED() {

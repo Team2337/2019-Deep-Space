@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * Waits a given amount of time until the next command is run
  * 
  * @category AUTO
- * @author Team2337 - EngiNERDs
+ * @author Bryce G.
  */
 public class autoWait extends Command {
 	double timeout;
