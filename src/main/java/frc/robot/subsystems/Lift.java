@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Lift.goToPosition;
 
 /**
  * Controls lift movement using PID setpoints
@@ -24,15 +25,19 @@ public class Lift extends Subsystem {
    */
   boolean liftDebug = false;
 
-      // Position to score in the low rocket
-      public double lowCargoScorePosition = 200;
-      // Position to score in the mid rocket
-      public double midCargoScorePosition = 250;
-      // Position to allow the escalator to feed a ball into the trolley
-      public double cargoIntakePosition = 150;
-      // Position to eject the cargo ball (if applicable) - to be used if we are mid
-      // and need to eject the ball, it would be faster than to go through the robot
-      public double cargoEjectPosition = 500;
+  public double currentPosition;
+
+  // Position to score in the low rocket
+  public double cargoLowScorePosition = 200;
+  // Position to score in the mid rocket
+  public double cargoMidScorePosition = 250;
+  // Position to score in the cargo ship
+  public double cargoShipScorePosition = 225;
+  // Position to allow the escalator to feed a ball into the trolley
+  public double cargoIntakePosition = 150;
+  // Position to eject the cargo ball (if applicable) - to be used if we are mid
+  // and need to eject the ball, it would be faster than to go through the robot
+  public double cargoEjectPosition = 500;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -76,12 +81,12 @@ public class Lift extends Subsystem {
   public static int forwardLiftSoftLimit = 700;
   public static int reverseLiftSoftLimit = 150;
 
-  //min and max bounds the string pot can go to 
+  // min and max bounds the string pot can go to
   public int maxValue = 730;
   public int minValue = 40;
 
   protected void initDefaultCommand() {
-    //setDefaultCommand(new liftWithJoystick());
+    setDefaultCommand(new goToPosition(currentPosition));
   }
 
   public Lift() {
@@ -150,6 +155,8 @@ public class Lift extends Subsystem {
     liftLeftFrontMotor.config_kD(0, kD, 0);
     liftLeftFrontMotor.config_kF(0, kF, 0);
 
+    currentPosition = getPosition();
+
   }
 
   /**
@@ -171,10 +178,47 @@ public class Lift extends Subsystem {
   }
 
   /**
-   * Determines whether the lift is near it's setpoint within a tolerance
+   * 
+   * @param tolerance
+   * @return
    */
-  public boolean atPosition(double tolerance){
+  public boolean atPosition(double tolerance) {
     return Math.abs(getSetpoint() - getPosition()) <= tolerance;
+  }
+
+  /**
+   * 
+   */
+  public boolean atCargoLowPosition(double tolerance) {
+    return Math.abs(cargoLowScorePosition - getPosition()) <= tolerance;
+  }
+
+  /**
+  * 
+  */
+  public boolean atCargoMidPosition(double tolerance) {
+    return Math.abs(cargoMidScorePosition - getPosition()) <= tolerance;
+  }
+
+  /**
+  * 
+  */
+  public boolean atCargoShipPosition(double tolerance) {
+    return Math.abs(cargoShipScorePosition - getPosition()) <= tolerance;
+  }
+
+  /**
+  * 
+  */
+  public boolean atCargoIntakePosition(double tolerance) {
+    return Math.abs(cargoIntakePosition - getPosition()) <= tolerance;
+  }
+
+  /**
+  * 
+  */
+  public boolean atCargoEjectPosition(double tolerance) {
+    return Math.abs(cargoEjectPosition - getPosition()) <= tolerance;
   }
 
   /**

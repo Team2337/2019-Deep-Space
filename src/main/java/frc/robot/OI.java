@@ -1,8 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.CargoEscalator.*;
-import frc.robot.commands.CargoIntake.*;
-import frc.robot.commands.CargoScore.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
@@ -42,13 +39,14 @@ public class OI {
 
 		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
 		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
-
+/*
 		operatorJoystick.triggerRight				.whileHeld(new cargoIntakeIn(1));
 		operatorJoystick.triggerLeft				.whileHeld(new cargoIntakeOut(1));
 		operatorJoystick.greenA						.whileHeld(new cargoEscalatorUp(1));
 		operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
 		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
 		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
+		*/
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */

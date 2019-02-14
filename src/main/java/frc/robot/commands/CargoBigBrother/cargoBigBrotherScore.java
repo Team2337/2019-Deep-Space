@@ -9,9 +9,9 @@ import frc.robot.Robot;
  * 
  * @author Jack E.
  */
-public class cargoBigBrotherEject extends Command {
+public class cargoBigBrotherScore extends Command {
 
-    public cargoBigBrotherEject() {
+    public cargoBigBrotherScore() {
         requires(Robot.CargoBigBrother);
         requires(Robot.CargoScore);
     }
@@ -19,18 +19,17 @@ public class cargoBigBrotherEject extends Command {
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
-
+        Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
     }
 
     @Override
     protected void execute() {
-        // Is the lift within 10 of its given setpoint (whatever it may be)
         if (Robot.Lift.atPosition(10)) {
-            if (Robot.Lift.atCargoLowPosition(10)) {
+            if (Robot.Lift.currentPosition == Robot.Lift.cargoLowScorePosition) {
                 Robot.CargoScore.rollIn(1);
-            } else if (Robot.Lift.atCargoMidPosition(10)) {
+            } else if (Robot.Lift.currentPosition == Robot.Lift.cargoMidScorePosition) {
                 Robot.CargoScore.rollIn(0.75);
-            } else if (Robot.Lift.atCargoShipPosition(10)) {
+            } else if (Robot.Lift.currentPosition == Robot.Lift.cargoShipScorePosition) {
                 Robot.CargoScore.rollIn(0.5);
             }
         }

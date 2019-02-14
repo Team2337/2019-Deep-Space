@@ -19,9 +19,7 @@ public class CargoBigBrother extends Subsystem {
     public double currentScoringPosition;
 
     // Determines how the command will run when there is a ball in the trolley
-    public boolean passedIntakeSensor;
-
-    public boolean isScoreMode;
+    public boolean inDeadzone;
 
     public CargoBigBrother() {
         cargoIntakeSensor = new DigitalInput(0);
@@ -29,10 +27,9 @@ public class CargoBigBrother extends Subsystem {
         cargoTrolleySensor = new DigitalInput(2);
 
         // Default to the middle scoring position
-        currentScoringPosition = Robot.Lift.midCargoScorePosition;
+        currentScoringPosition = Robot.Lift.cargoShipScorePosition;
 
-        passedIntakeSensor = false;
-        isScoreMode = false;
+        inDeadzone = false;
     }
 
     public void initDefaultCommand() {
@@ -40,11 +37,9 @@ public class CargoBigBrother extends Subsystem {
     }
 
     /**
-     * Stop all systems involved in the movement of cargo (the lift will pick up
-     * right where a new command is telling it to go, even if it stops for a moment)
+     * Stop all systems involved in the movement of cargo
      */
     public void stop() {
-        Robot.Lift.stop();
         Robot.CargoIntake.rollIn(0);
         Robot.CargoEscalator.rollUp(0);
         Robot.CargoScore.rollIn(0);
@@ -68,18 +63,19 @@ public class CargoBigBrother extends Subsystem {
     public int cargoLevel() {
         if (cargoIntakeSensor.get()) {
             return 1;
-        } else if (passedIntakeSensor) {
+        } else if (inDeadzone) {
             return 2;
         } else if (cargoEscalatorSensor.get()) {
             return 3;
         } else if (cargoTrolleySensor.get()) {
             return 4;
-        } else if (Robot.Lift.getSetpoint() == Robot.Lift.lowCargoScorePosition && Robot.Lift.atPosition(10)) {
-            return 5;
-        } else if (Robot.Lift.getSetpoint() == Robot.Lift.midCargoScorePosition && Robot.Lift.atPosition(10)) {
-            return 6;
-        } else if (Robot.Lift.getSetpoint() == Robot.Lift.cargoEjectPosition && Robot.Lift.atPosition(10)) {
-            return 7;
+            /*
+             * } else if (Robot.Lift.getSetpoint() == Robot.Lift.lowCargoScorePosition &&
+             * Robot.Lift.atPosition(10)) { return 5; } else if (Robot.Lift.getSetpoint() ==
+             * Robot.Lift.midCargoScorePosition && Robot.Lift.atPosition(10)) { return 6; }
+             * else if (Robot.Lift.getSetpoint() == Robot.Lift.cargoEjectPosition &&
+             * Robot.Lift.atPosition(10)) { return 7;
+             */
         } else {
             return 0;
         }
@@ -92,18 +88,16 @@ public class CargoBigBrother extends Subsystem {
      * @param pos The setpoint to move to
      */
     public void moveToPosition(double pos) {
-        isScoreMode = false;
         Robot.Lift.setSetpoint(pos);
     }
 
     public void periodic() {
-        SmartDashboard.putBoolean("Score mode", isScoreMode);
-        SmartDashboard.putBoolean("Passed intake sensor", passedIntakeSensor);
+        SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
         SmartDashboard.putNumber("Cargo level", cargoLevel());
         SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
         SmartDashboard.putBoolean("Escalator sensor", cargoEscalatorSensor.get());
         SmartDashboard.putBoolean("Trolley sensor", cargoTrolleySensor.get());
         SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
-        SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
+        SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atCargoLowPosition(10)); // Add more
     }
 }
