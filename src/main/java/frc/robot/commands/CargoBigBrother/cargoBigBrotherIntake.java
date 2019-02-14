@@ -25,27 +25,25 @@ public class cargoBigBrotherIntake extends Command {
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
-
         Robot.CargoBigBrother.inDeadzone = false;
+        Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
+
         // Check the cargo level
         switch (Robot.CargoBigBrother.cargoLevel()) {
 
         case 0: {
+            // May want to put the drawbridge down *****************
             Robot.CargoIntake.rollIn(intakeSpeed);
             // Does not break, as the next two cases have the same ending
         }
         case 1:
-        case 2: {
+        case 2:
+        case 3: {
             Robot.CargoEscalator.rollUp(intakeSpeed);
             Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
             break;
         }
-        case 3: {
-            Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
-            break;
-        }
 
-        // All positions after 3 simply move the lift straight to the scoring position
         case 4:
         case 5:
         case 6:
@@ -68,6 +66,7 @@ public class cargoBigBrotherIntake extends Command {
             break;
         }
         case 1: {
+            // Probably want to raise the pneumatics
             // Once the ball has passed the intake, stop the intake
             Robot.CargoIntake.stop();
             // Once the ball has passed the intake sensor, it is between the two escalator
@@ -96,6 +95,7 @@ public class cargoBigBrotherIntake extends Command {
         }
         case 4: {
             Robot.CargoEscalator.stop();
+            Robot.CargoScore.stop();
             Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
             break;
         }
@@ -107,13 +107,17 @@ public class cargoBigBrotherIntake extends Command {
     protected boolean isFinished() {
         // If the lift is traveling to the set scoring position (whether it's actually
         // there or not) end the command
-        return Robot.Lift.currentPosition == Robot.CargoBigBrother.currentScoringPosition;
+        return false;
     }
 
     @Override
     protected void end() {
-        // If the trigger is released mid-travel or the ball has exited
-        Robot.CargoBigBrother.stop();
+        // Bring up the drawbridge
+        Robot.CargoEscalator.stop();
+        Robot.CargoIntake.stop();
+        if (!Robot.oi.operatorJoystick.bumperLeft.get()) {
+            Robot.CargoScore.stop();
+        }
     }
 
     @Override
