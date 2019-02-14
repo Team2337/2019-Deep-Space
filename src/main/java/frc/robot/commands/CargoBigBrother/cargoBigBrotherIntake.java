@@ -24,53 +24,32 @@ public class cargoBigBrotherIntake extends Command {
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
-        if (isScoreMode) {
+        // If it is not in score mode
+        if (!isScoreMode) {
+            // Check the cargo level
             switch (Robot.CargoBigBrother.cargoLevel()) {
 
             case 0: {
                 Robot.CargoIntake.rollIn(1);
-                Robot.CargoEscalator.rollUp(1);
-                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
-                break;
+                // Does not break, as the next two cases have the same ending
             }
-            case 1: {
-                Robot.CargoEscalator.rollUp(1);
-                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
-                break;
-            }
+            case 1:
             case 2: {
                 Robot.CargoEscalator.rollUp(1);
-                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
                 break;
             }
             case 3: {
                 // The escalator stops until the lift is in position
-                Robot.CargoBigBrother.currentScoringPosition = Robot.CargoBigBrother.intakeCargoPosition;
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
                 break;
             }
-            case 4: {
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
-                break;
-            }
-            case 5: {
-                // At this point, it should be in fire mode, but it could be that the scoring
-                // position changed from low to mid or vice versa, which would reset inScoreMode
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
-                break;
-            }
-            case 6: {
-                // At this point, it should be in fire mode, but it could be that the scoring
-                // position changed from low to mid or vice versa, which would reset inScoreMode
-                Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
-                break;
-            }
+
+            // All positions after 3 simply move the lift straight to the scoring position
+            case 4:
+            case 5:
+            case 6:
             case 7: {
-                // At this point, it should be in fire mode, but it could be that the scoring
-                // position changed from low to mid or vice versa, which would reset inScoreMode
                 Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
                 break;
             }
@@ -101,6 +80,7 @@ public class cargoBigBrotherIntake extends Command {
             }
             case 2: {
                 // Nothing special needs to happen at this position
+                break;
             }
             case 3: {
                 if (Robot.Lift.atPosition(10)) {
@@ -109,24 +89,26 @@ public class cargoBigBrotherIntake extends Command {
                 } else {
                     Robot.CargoEscalator.stop();
                 }
+                break;
             }
             case 4: {
                 Robot.CargoEscalator.stop();
                 Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+                break;
             }
-            case 5: {
-                Robot.CargoBigBrother.isScoreMode = Robot.Lift.atPosition(10);
-            }
+            case 5:
             case 6: {
                 Robot.CargoBigBrother.isScoreMode = Robot.Lift.atPosition(10);
+                break;
             }
             case 7: {
                 // The lift is not meant to be at this position
+                break;
             }
             }
         } else {
             // If the robot is in score mode
-            // The motor is told to run outwards in init
+            // The trolley motor is told to run outwards in init
             Robot.CargoBigBrother.isScoreMode = Robot.CargoBigBrother.cargoTrolleySensor.get();
             Robot.CargoBigBrother.passedIntakeSensor = Robot.CargoBigBrother.cargoTrolleySensor.get();
         }

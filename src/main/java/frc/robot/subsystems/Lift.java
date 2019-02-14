@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import frc.robot.commands.Lift.liftWithJoystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -24,6 +23,16 @@ public class Lift extends Subsystem {
    * @see #periodic()
    */
   boolean liftDebug = false;
+
+      // Position to score in the low rocket
+      public double lowCargoScorePosition = 200;
+      // Position to score in the mid rocket
+      public double midCargoScorePosition = 250;
+      // Position to allow the escalator to feed a ball into the trolley
+      public double cargoIntakePosition = 150;
+      // Position to eject the cargo ball (if applicable) - to be used if we are mid
+      // and need to eject the ball, it would be faster than to go through the robot
+      public double cargoEjectPosition = 500;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -161,6 +170,9 @@ public class Lift extends Subsystem {
     return liftLeftFrontMotor.getClosedLoopTarget(0);
   }
 
+  /**
+   * Determines whether the lift is near it's setpoint within a tolerance
+   */
   public boolean atPosition(double tolerance){
     return Math.abs(getSetpoint() - getPosition()) <= tolerance;
   }
