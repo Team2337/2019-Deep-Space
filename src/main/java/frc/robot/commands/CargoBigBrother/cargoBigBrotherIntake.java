@@ -13,7 +13,10 @@ public class cargoBigBrotherIntake extends Command {
 
     double intakeSpeed = 1;
     double escalatorSpeed = 1;
+    double scorerIntakeSpeed = 0.5; // speed of the lift intake, may be slower than scoreSpeed so we are sure to stop before ejecting the cargo.
     double scoreSpeed = 1;
+
+    double toleranceLift = 10; // how close the lift needs to be to set point to allow loading of cargo
 
     public cargoBigBrotherIntake() {
         requires(Robot.CargoBigBrother);
@@ -22,33 +25,37 @@ public class cargoBigBrotherIntake extends Command {
         requires(Robot.CargoScore);
     }
 
-    // Set the speed of the cargo escalator motors
+    // Set the speed of the cargo escalator motors and adjust lift accordingly.
     @Override
     protected void initialize() {
-        Robot.CargoBigBrother.inDeadzone = false;
-        Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
+        Robot.CargoBigBrother.inDeadzone = false; // assume we don't have a cargo the deadzone (area of excalator that sensors don't cover)
 
-        // Check the cargo level
+        // Check the cargo level and start the command accordingly.
         switch (Robot.CargoBigBrother.cargoLevel()) {
 
         case 0: {
-            // May want to put the drawbridge down *****************
+            //TODO:  need to setup buttons in OI
+            //TODO:  need to add pnematics to CargoIntake!!
+
+            // TODO: May want to put the drawbridge down IF!! normal intake button pressed (ask Robin)*****************
+            /*
+            if (!Robot.oi.operatorJoystick.??NORMAL INTAKE BUTTON VS DEFENSIVE INTAKE BUTTON?? {
+            Robot.CargoIntake.extend();
+        
+            */
             Robot.CargoIntake.rollIn(intakeSpeed);
-            // Does not break, as the next two cases have the same ending
+            // Does not break, as the next cases have the same ending
         }
         case 1:
         case 2:
         case 3: {
-            Robot.CargoEscalator.rollUp(intakeSpeed);
-            Robot.CargoBigBrother.moveToPosition(Robot.Lift.cargoIntakePosition);
+            Robot.CargoEscalator.rollUp(escalatorSpeed);
+            // TODO: change to a lift command, sets a postion variable
+            Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
             break;
         }
-
-        case 4:
-        case 5:
-        case 6:
-        case 7: {
-            Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+        case 4: {
+            // TODO: don't need, its in execute!  Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
             break;
         }
 
@@ -61,16 +68,16 @@ public class cargoBigBrotherIntake extends Command {
         switch (Robot.CargoBigBrother.cargoLevel()) {
 
         case 0: {
-            // Nothing needs to happen in execute, as the neccisary motors are running as
-            // per initialize
+            // Nothing needs to happen in execute, as the TODO: neccisary motors are running as per initialize
+            // TODO: ???copy intake, excalator, drawbridge and lift command to read better, then delete contents of Inti case 0.
             break;
         }
         case 1: {
-            // Probably want to raise the pneumatics
-            // Once the ball has passed the intake, stop the intake
+            // TODO: Probably want to raise the pneumatics
+            // Once the ball has passed the intake, stop the intake. Escalator is still running.
             Robot.CargoIntake.stop();
             // Once the ball has passed the intake sensor, it is between the two escalator
-            // sensors, and thus, in position 2
+            // sensors, and thus, in position 2.
             if (Robot.CargoBigBrother.cargoIntakeSensor.get() == false) {
                 Robot.CargoBigBrother.inDeadzone = true;
             }
@@ -84,10 +91,10 @@ public class cargoBigBrotherIntake extends Command {
             break;
         }
         case 3: {
-            if (Robot.Lift.atCargoIntakePosition(10)) {
+            if (Robot.Lift.atCargoIntakePosition(toleranceLift)) {
                 Robot.CargoEscalator.rollUp(escalatorSpeed);
-                // Go slower to start, so that it doesn't shoot past the sensor
-                Robot.CargoScore.rollIn(scoreSpeed / 2);
+                // Go slower on lift intake to start, so that it doesn't shoot past the sensor
+                Robot.CargoScore.rollIn(scorerIntakeSpeed);
             } else {
                 Robot.CargoEscalator.stop();
             }
@@ -96,7 +103,7 @@ public class cargoBigBrotherIntake extends Command {
         case 4: {
             Robot.CargoEscalator.stop();
             Robot.CargoScore.stop();
-            Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+            Robot.Lift.setSetpoint(Robot.CargoBigBrother.defaultScoringPosition);
             break;
         }
 
@@ -105,24 +112,22 @@ public class cargoBigBrotherIntake extends Command {
 
     @Override
     protected boolean isFinished() {
-        // If the lift is traveling to the set scoring position (whether it's actually
-        // there or not) end the command
         return false;
     }
 
     @Override
     protected void end() {
-        // Bring up the drawbridge
+        // TODO:Bring up the drawbridge
         Robot.CargoEscalator.stop();
         Robot.CargoIntake.stop();
         if (!Robot.oi.operatorJoystick.bumperLeft.get()) {
-            Robot.CargoScore.stop();
+            Robot.CargoScore.stop();  //TODO: add stop score to case zero incase we lose lift sensor.?
         }
     }
 
     @Override
     protected void interrupted() {
-        // If the trigger is released, stop the cargo system regardless
+        // If the trigger is released, stop the cargo system
         this.end();
     }
 }

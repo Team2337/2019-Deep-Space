@@ -14,9 +14,11 @@ public class CargoBigBrother extends Subsystem {
     public DigitalInput cargoEscalatorSensor;
     public DigitalInput cargoTrolleySensor;
 
+    //TODO:  we should move escalator, Intake and Score into here and delete other subsystems!!!
+
     // The current position to go to when scoring (such as the middle or lower cargo
     // ports in the rocket)
-    public double currentScoringPosition;
+    public double defaultScoringPosition;
 
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
@@ -27,7 +29,7 @@ public class CargoBigBrother extends Subsystem {
         cargoTrolleySensor = new DigitalInput(2);
 
         // Default to the middle scoring position
-        currentScoringPosition = Robot.Lift.cargoShipScorePosition;
+        defaultScoringPosition = Robot.Lift.cargoShipScorePosition;
 
         inDeadzone = false;
     }
@@ -45,7 +47,7 @@ public class CargoBigBrother extends Subsystem {
         Robot.CargoScore.rollIn(0);
     }
 
-    // Ball positions:
+    // Ball positions: TODO:
     // 0 - No ball: Automatically set as the default value
     // 1 - At intake sensor: Set when the cargo reaches the intake sensor
     // 2 - Between escalator sensors: Set when isPassedIntake is
@@ -69,7 +71,7 @@ public class CargoBigBrother extends Subsystem {
             return 3;
         } else if (cargoTrolleySensor.get()) {
             return 4;
-            /*
+            /* TODO:
              * } else if (Robot.Lift.getSetpoint() == Robot.Lift.lowCargoScorePosition &&
              * Robot.Lift.atPosition(10)) { return 5; } else if (Robot.Lift.getSetpoint() ==
              * Robot.Lift.midCargoScorePosition && Robot.Lift.atPosition(10)) { return 6; }
@@ -81,13 +83,13 @@ public class CargoBigBrother extends Subsystem {
         }
     }
 
-    /**
+    /** TODO: ...remove....neeed to use LIFT method......
      * Set the lift setpoint, which would mean that the trolley is no longer ready
      * to score
      * 
      * @param pos The setpoint to move to
      */
-    public void moveToPosition(double pos) {
+    public void mmmoveToPosition(double pos) {
         Robot.Lift.setSetpoint(pos);
     }
 

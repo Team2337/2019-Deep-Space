@@ -16,15 +16,26 @@ public class cargoBigBrotherScore extends Command {
         requires(Robot.CargoScore);
     }
 
+    double tolerance = 10;
+
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
-        Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
+        //Robot.Lift.setSetpoint(Robot.CargoBigBrother.currentScoringPosition);
     }
 
     @Override
     protected void execute() {
-        if (Robot.Lift.atPosition(10)) {
+        // Is the lift within tolerance(10) of its given setpoint (whatever it may be)
+        if (Robot.Lift.atPosition(tolerance)) {
+            if (Robot.Lift.atCargoLowPosition(tolerance)) {
+                Robot.CargoScore.rollIn(1);
+            } else if (Robot.Lift.atCargoMidPosition(tolerance)) {
+                Robot.CargoScore.rollIn(0.75);
+            } else if (Robot.Lift.atCargoShipPosition(tolerance)) {
+                Robot.CargoScore.rollIn(0.5);
+            }
+            /*
             if (Robot.Lift.currentPosition == Robot.Lift.cargoLowScorePosition) {
                 Robot.CargoScore.rollIn(1);
             } else if (Robot.Lift.currentPosition == Robot.Lift.cargoMidScorePosition) {
@@ -32,6 +43,7 @@ public class cargoBigBrotherScore extends Command {
             } else if (Robot.Lift.currentPosition == Robot.Lift.cargoShipScorePosition) {
                 Robot.CargoScore.rollIn(0.5);
             }
+            */
         }
     }
 
