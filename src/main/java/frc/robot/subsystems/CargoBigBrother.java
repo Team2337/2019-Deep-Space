@@ -83,15 +83,6 @@ public class CargoBigBrother extends Subsystem {
         }
     }
 
-    /** TODO: ...remove....neeed to use LIFT method......
-     * Set the lift setpoint, which would mean that the trolley is no longer ready
-     * to score
-     * 
-     * @param pos The setpoint to move to
-     */
-    public void mmmoveToPosition(double pos) {
-        Robot.Lift.setSetpoint(pos);
-    }
 
     public void periodic() {
         SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
