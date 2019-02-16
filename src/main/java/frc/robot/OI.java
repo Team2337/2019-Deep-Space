@@ -25,8 +25,18 @@ public class OI {
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
-		
-		
+		driverJoystick.blueX                        .whenPressed(new goToPosition(150));//Climb Position
+		driverJoystick.redB                         .whenPressed(new goToPosition(160));//Cargo ship height
+		driverJoystick.yellowY                      .whenPressed(new goToPosition(170));//Cargo mid height
+		driverJoystick.greenA                       .whenPressed(new goToPosition(180));//Cargo ground
+		driverJoystick.povUp                        .whenPressed(new goToPosition(190));//Mid hatch
+		driverJoystick.povDown                      .whenPressed(new goToPosition(200));//Low hatch
+
+		driverJoystick.bumperLeft                   .whenPressed(new hatchLauncherExtend());//Extends hatch
+		driverJoystick.triggerLeft                  .whenPressed(new hatchLauncherRetract());//Retracts the hatch
+
+		driverJoystick.triggerRight                 .whenPressed(new cargoIntakeIn(1));
+		driverJoystick.bumperRight                  .whenPressed(new cargoIntakeOut(1));//rejcts the cargo
 	    
 	    ////////////////////////////////// 
 	    
