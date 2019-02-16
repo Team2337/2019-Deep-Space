@@ -35,7 +35,7 @@ public class OI {
 		operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
 		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
-		operatorJoystick.bumperRight				.whenPressed(new cargoIntakeIn());
+		operatorJoystick.bumperRight				.whenPressed(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
 		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
@@ -43,7 +43,7 @@ public class OI {
 		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen()); //.whenPressed(new hatchBeakOpen());
 		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
 
-		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
+		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake()); // If the position of this command changes, UPDATE THE COMMAND
 		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
 
 		operatorJoystick.greenA						.whileHeld(new goToPosition(201));

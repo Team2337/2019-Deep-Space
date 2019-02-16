@@ -38,7 +38,6 @@ public class cargoBigBrotherIntake extends Command {
         switch (Robot.CargoBigBrother.cargoLevel()) {
 
         case 0: {
-            // TODO: need to setup buttons in OI
             // TODO: need to add pnematics to CargoIntake!!
 
             // TODO: May want to put the drawbridge down IF!! normal intake button pressed
@@ -59,13 +58,10 @@ public class cargoBigBrotherIntake extends Command {
             break;
         }
         case 4: {
-            // TODO: don't need, its in execute!
-            // Robot.CargoBigBrother.moveToPosition(Robot.CargoBigBrother.currentScoringPosition);
             break;
         }
 
         }
-        SmartDashboard.putNumber("CargoBB Level Init", Robot.CargoBigBrother.cargoLevel());
     }
 
     @Override
@@ -81,7 +77,6 @@ public class cargoBigBrotherIntake extends Command {
             break;
         }
         case 1: {
-            // TODO: Probably want to raise the pneumatics
             // Once the ball has passed the intake, stop the intake. Escalator is still
             // running.
             Robot.CargoIntake.stop();
