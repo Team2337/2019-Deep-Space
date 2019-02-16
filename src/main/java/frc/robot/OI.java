@@ -4,11 +4,7 @@ import frc.robot.commands.CargoDrawbridge.*;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
 import frc.robot.commands.CargoScore.*;
-import frc.robot.commands.HatchBeak.*;
-import frc.robot.commands.HatchLauncher.*;
-import frc.robot.commands.Lift.*;
-import frc.robot.commands.Shifter.shifterHighGear;
-import frc.robot.commands.Shifter.shifterLowGear;
+import frc.robot.commands.Shifter.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
