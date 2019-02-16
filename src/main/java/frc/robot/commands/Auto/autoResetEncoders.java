@@ -1,6 +1,7 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 /**
  * Waits a given amount of time until the next command is run
@@ -8,19 +9,15 @@ import edu.wpi.first.wpilibj.command.Command;
  * @category AUTO
  * @author Bryce G.
  */
-public class autoWait extends Command {
-	double timeout;
+public class autoResetEncoders extends Command {
 	
-	/**
-	 * @param timeout
-	 * Amount of time the command runs for until it is forced to terminate, in seconds
-	 */
-	public autoWait(double timeout) {
-		this.timeout = timeout;
+	public autoResetEncoders() {
+		
 	}
 
 	protected void initialize() {
-		setTimeout(timeout);
+        Robot.Chassis.resetEncoders();
+        Robot.Pigeon.resetPidgey();
 	}
 
 
@@ -30,7 +27,7 @@ public class autoWait extends Command {
 
 
 	protected boolean isFinished() {
-		return isTimedOut();
+		return true;
 	}
 
 	protected void end() {
