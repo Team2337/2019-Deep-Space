@@ -33,13 +33,13 @@ public class Shifter extends Subsystem {
    * Shift the robot into high gear (Speed)
    */
   public void shiftHighGear() {
-    shifter.set(true);
+    shifter.set(false);
   }
 
   /**
    * Shift the robot into low gear (Torque)
    */
   public void shiftLowGear() {
-    shifter.set(false);
+    shifter.set(true);
   }
 }
