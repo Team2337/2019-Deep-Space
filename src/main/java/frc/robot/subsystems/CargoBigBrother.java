@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.commands.CargoIntake.cargoIntakeIn;
 
 /**
  * Controls the escalator/conveyor for cargo
@@ -24,9 +25,9 @@ public class CargoBigBrother extends Subsystem {
     public boolean inDeadzone;
 
     public CargoBigBrother() {
-        cargoIntakeSensor = new DigitalInput(4);
-        cargoEscalatorSensor = new DigitalInput(0);
-        cargoTrolleySensor = new DigitalInput(2);
+        cargoIntakeSensor = new DigitalInput(0);
+        cargoEscalatorSensor = new DigitalInput(2);
+        cargoTrolleySensor = new DigitalInput(3);
 
         // Default to the middle scoring position
         defaultScoringPosition = Robot.Lift.cargoShipScorePosition;
@@ -67,9 +68,9 @@ public class CargoBigBrother extends Subsystem {
             return 1;
         } else if (inDeadzone) {
             return 2;
-        } else if (cargoEscalatorSensor.get()) {
+        } else if (!cargoEscalatorSensor.get()) {
             return 3;
-        } else if (cargoTrolleySensor.get()) {
+        } else if (!cargoTrolleySensor.get()) {
             return 4;
             /* TODO:
              * } else if (Robot.Lift.getSetpoint() == Robot.Lift.lowCargoScorePosition &&
@@ -88,9 +89,13 @@ public class CargoBigBrother extends Subsystem {
         SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
         SmartDashboard.putNumber("Cargo level", cargoLevel());
         SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
-        SmartDashboard.putBoolean("Escalator sensor", cargoEscalatorSensor.get());
-        SmartDashboard.putBoolean("Trolley sensor", cargoTrolleySensor.get());
+        SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
+        SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
         SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
         SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atCargoLowPosition(10)); // Add more
+        SmartDashboard.putNumber("CargoBB Level EXEC", Robot.CargoBigBrother.cargoLevel());
+
+       // SmartDashboard.putData("value", new cargoIntakeIn());
+
     }
 }
