@@ -24,8 +24,8 @@ public class CargoBigBrother extends Subsystem {
     public boolean inDeadzone;
 
     public CargoBigBrother() {
-        cargoIntakeSensor = new DigitalInput(0);
-        cargoEscalatorSensor = new DigitalInput(1);
+        cargoIntakeSensor = new DigitalInput(4);
+        cargoEscalatorSensor = new DigitalInput(0);
         cargoTrolleySensor = new DigitalInput(2);
 
         // Default to the middle scoring position

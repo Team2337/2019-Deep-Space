@@ -11,10 +11,10 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherIntake extends Command {
 
-    double intakeSpeed = 1;
-    double escalatorSpeed = 1;
-    double scorerIntakeSpeed = 0.5; // speed of the lift intake, may be slower than scoreSpeed so we are sure to stop before ejecting the cargo.
-    double scoreSpeed = 1;
+    double intakeSpeed = -0.5;
+    double escalatorSpeed = 0.5;
+    double scorerIntakeSpeed = -0.4; // speed of the lift intake, may be slower than scoreSpeed so we are sure to stop before ejecting the cargo.
+    double scoreSpeed = 0.5;
 
     double toleranceLift = 10; // how close the lift needs to be to set point to allow loading of cargo
 
@@ -103,7 +103,7 @@ public class cargoBigBrotherIntake extends Command {
         case 4: {
             Robot.CargoEscalator.stop();
             Robot.CargoScore.stop();
-            Robot.Lift.setSetpoint(Robot.CargoBigBrother.defaultScoringPosition);
+            Robot.Lift.setSetpoint(Robot.Lift.cargoLoadedPosition);
             break;
         }
 

@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,15 +15,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CargoScore extends Subsystem {
 
   // The motor to run the scoring mechanism
-  private TalonSRX CargoScoreMotor;
+  private VictorSPX CargoScoreMotor;
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoScoreMotorID = 6;
+  private int CargoScoreMotorID = 8;
 
   public CargoScore() {
     // Configurations for the scoring mechanism motor
-    this.CargoScoreMotor = new TalonSRX(CargoScoreMotorID);
+    this.CargoScoreMotor = new VictorSPX(CargoScoreMotorID);
     CargoScoreMotor.setInverted(false);
     CargoScoreMotor.setNeutralMode(NeutralMode.Brake);
   }
@@ -39,7 +39,7 @@ public class CargoScore extends Subsystem {
    *              motor speed to (going in reverse)
    */
   public void rollOut(double speed) {
-    CargoScoreMotor.set(ControlMode.PercentOutput, speed);
+    CargoScoreMotor.set(ControlMode.PercentOutput, -speed);
   }
 
   /**
@@ -49,7 +49,7 @@ public class CargoScore extends Subsystem {
    *              motor speed to
    */
   public void rollIn(double speed) {
-    CargoScoreMotor.set(ControlMode.PercentOutput, -speed);
+    CargoScoreMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**

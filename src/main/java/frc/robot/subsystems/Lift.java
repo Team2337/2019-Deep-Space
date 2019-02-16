@@ -23,18 +23,20 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
 
   public double currentPosition;
 
   // Position to score in the low rocket
-  public double cargoLowScorePosition = 200;
+  public double cargoLowScorePosition = 201;
   // Position to score in the mid rocket
-  public double cargoMidScorePosition = 250;
+  public double cargoMidScorePosition = 703;
   // Position to score in the cargo ship
-  public double cargoShipScorePosition = 225;
+  public double cargoShipScorePosition = 469;//225;
   // Position to allow the escalator to feed a ball into the trolley
   public double cargoIntakePosition = 150;
+    // Position to store the cargo after loaded but before scoring
+  public double cargoLoadedPosition = 208;
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
   // and need to eject the ball, it would be faster than to go through the robot
   public double cargoEjectPosition = 500;
@@ -79,14 +81,14 @@ public class Lift extends Subsystem {
    * @see #setSoftLimits()
    */
   public static int forwardLiftSoftLimit = 700;
-  public static int reverseLiftSoftLimit = 150;
+  public static int reverseLiftSoftLimit = 125;
 
   // min and max bounds the string pot can go to
   public int maxValue = 730;
   public int minValue = 40;
 
   protected void initDefaultCommand() {
-    setDefaultCommand(new goToPosition(currentPosition));
+    //setDefaultCommand(new goToPosition(currentPosition));
   }
 
   public Lift() {

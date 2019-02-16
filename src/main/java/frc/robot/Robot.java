@@ -52,7 +52,6 @@ public class Robot extends TimedRobot {
 
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
-    CargoBigBrother = new CargoBigBrother();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
@@ -65,10 +64,16 @@ public class Robot extends TimedRobot {
     Shifter = new Shifter();
     Vision = new Vision();
 
+    // Keep below other subsysttems as these have dependencies for other subsystems to be instantiated first.
+    CargoBigBrother = new CargoBigBrother();
     oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
+    //Set the lift PID to current position
+    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+    //Disable the air compressor so it doesn't run every time we start the robot.
+    Robot.AirCompressor.disable();
   }
 
   /**
@@ -82,7 +87,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if(Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
+    if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
     } else {
       stringPotBroken = false;

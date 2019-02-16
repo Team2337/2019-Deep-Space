@@ -15,7 +15,7 @@ public class cargoBigBrotherScore extends Command {
         requires(Robot.CargoBigBrother);
         requires(Robot.CargoScore);
     }
-
+// TODO: determine actual value for this.
     double tolerance = 10;
 
     // Set the speed of the cargo escalator motors
@@ -31,9 +31,9 @@ public class cargoBigBrotherScore extends Command {
             if (Robot.Lift.atCargoLowPosition(tolerance)) {
                 Robot.CargoScore.rollIn(1);
             } else if (Robot.Lift.atCargoMidPosition(tolerance)) {
-                Robot.CargoScore.rollIn(0.75);
+                Robot.CargoScore.rollIn(1);
             } else if (Robot.Lift.atCargoShipPosition(tolerance)) {
-                Robot.CargoScore.rollIn(0.5);
+                Robot.CargoScore.rollIn(1);
             }
             /*
             if (Robot.Lift.currentPosition == Robot.Lift.cargoLowScorePosition) {

@@ -38,17 +38,17 @@ public class OI {
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
+		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen()); //.whenPressed(new hatchBeakOpen());
 		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
-/*
-		operatorJoystick.greenA						.whileHeld(new cargoEscalatorUp(1));
-		operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
-		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
-		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
-		*/
+
+		operatorJoystick.greenA						.whileHeld(new goToPosition(208));
+		//operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
+		operatorJoystick.blueX						.whileHeld(new goToPosition(477));
+		operatorJoystick.yellowY					.whileHeld(new goToPosition(706));
+
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
