@@ -43,16 +43,12 @@ public class OI {
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
-<<<<<<< HEAD
 
 		operatorJoystick.greenA						.whileHeld(new goToPosition(208));
 		//operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
 		operatorJoystick.blueX						.whileHeld(new goToPosition(477));
 		operatorJoystick.yellowY					.whileHeld(new goToPosition(706));
 
-=======
-		
->>>>>>> f85c2179eae7d6c4c0142204b0ee69628a1429b8
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
