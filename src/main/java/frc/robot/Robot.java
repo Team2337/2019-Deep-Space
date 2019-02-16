@@ -1,10 +1,14 @@
 package frc.robot;
 
+import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Auto.pathway;
+import frc.robot.nerdyfiles.pathway.NerdyPath;
+import jaci.pathfinder.Trajectory;
 import frc.robot.subsystems.*;
 
 /**
@@ -27,6 +31,7 @@ public class Robot extends TimedRobot {
   public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
   public static CargoBigBrother CargoBigBrother;
+  public static CargoDrawbridge CargoDrawbridge;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
@@ -35,13 +40,29 @@ public class Robot extends TimedRobot {
   public static HatchBeak HatchBeak;
   public static LED LED;
   public static Lift Lift;
+  public static Pigeon Pigeon;
   public static Shifter Shifter;
   public static Vision Vision;
 
+  public static NerdyPath NerdyPath;
+
+  public static Constants Constants;
   public static OI oi;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
+
+  public static Trajectory initTrajectory;
+  public static Trajectory initTrajectory2;
+  public static Trajectory curveFromToHatchRightT;
+  public static Trajectory fromRightLoadJTurnToCargoShipT;
+  public static Trajectory jTurnToCargoShipRightT;
+  public static Trajectory driveForwardT;
+
+  public static Trajectory driveForwardFile;
+
+  private boolean logger;
+  private String selectedAuto;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -50,8 +71,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    // CONSTRUCTORS
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
+    CargoDrawbridge = new CargoDrawbridge();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
@@ -61,18 +84,49 @@ public class Robot extends TimedRobot {
     HatchLauncher = new HatchLauncher();
     LED = new LED();
     Lift = new Lift();
+    Pigeon = new Pigeon();
     Shifter = new Shifter();
     Vision = new Vision();
-
-    // Keep below other subsysttems as these have dependencies for other subsystems to be instantiated first.
+    // Keep below other subsystems as these have dependencies for other subsystems
+    // to be instantiated first.
     CargoBigBrother = new CargoBigBrother();
+
+    NerdyPath = new NerdyPath();
+    Constants = new Constants();
+
+    System.out.println("Start");
+    Robot.Vision.setLEDMode(1);
+    // Used to load the points for the auton. These points take a long time to load,
+    // so to reduce time,
+    // we only load the ones we need for the current auton we're going to run
+    selectedAuto = "";
+
+    switch (selectedAuto) {
+    default:
+      // initTrajectory = Pathway.autoReverseToShipFromLvl1();
+      // initTrajectory2 = Pathway.testSCurve();
+      // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
+      // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
+      driveForwardT = pathway.driveForward();
+      // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
+      // System.out.println(FileUtilities.getFilePath());
+      // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
+      break;
+    }
+
+    // Writing a trajectory to a file (keep commented out until needed)
+    // Robot.NerdyPath.writeFile("locations", driveForwardT);
+
     oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
+
+    Robot.Chassis.resetEncoders();
+    Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", chooser);
-    //Set the lift PID to current position
+    // Set the lift PID to current position
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-    //Disable the air compressor so it doesn't run every time we start the robot.
+    // Disable the air compressor so it doesn't run every time we start the robot.
     Robot.AirCompressor.disable();
   }
 
@@ -87,6 +141,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
     } else {
@@ -102,11 +157,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Vision.setLEDMode(1);
+    logger = false;
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    allPeriodic();
   }
 
   /**
@@ -157,6 +216,7 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    logger = true;
   }
 
   /**
@@ -165,6 +225,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    allPeriodic();
   }
 
   /**
@@ -172,5 +233,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public void allPeriodic() {
+
   }
 }

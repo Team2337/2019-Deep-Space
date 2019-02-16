@@ -1,10 +1,10 @@
 package frc.robot;
 
+import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
-import frc.robot.commands.CargoBigBrother.*;
-import frc.robot.commands.CargoIntake.cargoIntakeIn;
+import frc.robot.commands.Shifter.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -25,14 +25,16 @@ public class OI {
 
 		/* ====== DRIVER JOYSTICK ===== */
 		
+		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
+		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		
 	    
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		operatorJoystick.povUp						.whenPressed(new goToPosition(500));
-		operatorJoystick.povDown					.whenPressed(new goToPosition(300));
+		// operatorJoystick.povUp					.whenPressed(new goToPosition(500));
+		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
 		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
 		operatorJoystick.bumperRight				.whenPressed(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
