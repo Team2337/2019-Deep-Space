@@ -50,7 +50,6 @@ public class cargoBigBrotherIntake extends Command {
         case 2:
         case 3: {
             Robot.CargoEscalator.rollUp(escalatorSpeed);
-            // TODO: change to a lift command, sets a postion variable
             Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
             break;
         }
