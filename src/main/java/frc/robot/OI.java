@@ -1,10 +1,10 @@
 package frc.robot;
 
+import frc.robot.commands.CargoDrawbridge.*;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
 import frc.robot.commands.CargoScore.*;
-import frc.robot.commands.HatchBeak.*;
-import frc.robot.commands.HatchLauncher.*;
+import frc.robot.commands.Shifter.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -25,27 +25,29 @@ public class OI {
 
 		/* ====== DRIVER JOYSTICK ===== */
 		
+		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
+		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		
 	    
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		//operatorJoystick.povUp					.whenPressed(new goToPosition(550));
-		//operatorJoystick.povDown					.whenPressed(new goToPosition(65));
+		// operatorJoystick.povUp					.whenPressed(new goToPosition(500));
+		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
-		operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
-		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
-		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
-		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
+		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
+		// operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
+		// operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
+		// operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
-		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
+		operatorJoystick.start						.whenPressed(new raiseTheDrawbridge());
+		operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
 
-		operatorJoystick.triggerRight				.whileHeld(new cargoIntakeIn(1));
-		operatorJoystick.triggerLeft				.whileHeld(new cargoIntakeOut(1));
-		operatorJoystick.greenA						.whileHeld(new cargoEscalatorUp(1));
-		operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
+		operatorJoystick.bumperRight				.whileHeld(new cargoIntakeIn(1));
+		operatorJoystick.triggerRight				.whileHeld(new cargoIntakeOut(1));
+		operatorJoystick.triggerLeft				.whileHeld(new cargoEscalatorUp(1));
+		operatorJoystick.bumperLeft					.whileHeld(new cargoEscalatorDown(1));
 		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
 		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
 		////////////////////////////////////

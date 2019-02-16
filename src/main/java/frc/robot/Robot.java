@@ -6,23 +6,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.AirCompressor;
-import frc.robot.subsystems.AutoHatchKicker;
-import frc.robot.subsystems.CargoEscalator;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.CargoScore;
-import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.ClimberPneumatics;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
-import frc.robot.subsystems.HatchBeak;
-import frc.robot.subsystems.HatchLauncher;
-import frc.robot.subsystems.LED;
-import frc.robot.subsystems.Lift;
-import frc.robot.subsystems.Pigeon;
-import frc.robot.subsystems.Shifter;
-import frc.robot.subsystems.Vision;
 import jaci.pathfinder.Trajectory;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,11 +24,13 @@ public class Robot extends TimedRobot {
    * Specifies whether or not the Robot is the competition robot
    */
   public static boolean isComp = false;
+  public static boolean stringPotBroken = false;
 
   // DECLARATIONS
   public static AirCompressor AirCompressor;
   public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
+  public static CargoDrawbridge CargoDrawbridge;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
@@ -84,6 +73,7 @@ public class Robot extends TimedRobot {
     // CONSTRUCTORS
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
+    CargoDrawbridge = new CargoDrawbridge();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
@@ -143,6 +133,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putBoolean("Logger", logger);
+    if(Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
+      stringPotBroken = true;
+    } else {
+      stringPotBroken = false;
+    }
+    SmartDashboard.putBoolean("STRING POT OUT OF BOUNDS IF RED", stringPotBroken);
   }
 
   /**
@@ -177,6 +173,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     autonomousCommand = chooser.getSelected();
 
     /*
@@ -202,6 +199,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
