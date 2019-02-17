@@ -16,7 +16,7 @@ public class cargoBigBrotherIntake extends Command {
     double trolleyIntakeSpeed = 0.2;
 
     // How close the lift needs to be to the intake position
-    double liftTolerance = 10;
+    double liftTolerance = 5;
 
     public cargoBigBrotherIntake() {
         requires(Robot.CargoBigBrother);
@@ -26,8 +26,6 @@ public class cargoBigBrotherIntake extends Command {
         requires(Robot.Lift);
     }
 
-    // TODO: Revisit to possibly further clean up (such as turning case 0 into a
-    // single if statement)
     // Check the cargo level and start the command accordingly.
     @Override
     protected void initialize() {
@@ -38,7 +36,7 @@ public class cargoBigBrotherIntake extends Command {
 
         case 0: {
             // If the non-defensive intake button is pressed
-            if (Robot.oi.operatorJoystick.triggerRight.get()) {
+            if (Robot.oi.operatorJoystick.start.get()) {
                 Robot.CargoDrawbridge.lowerTheDrawbridge();
             }
             // Start rolling the intake inwards
@@ -69,8 +67,6 @@ public class cargoBigBrotherIntake extends Command {
         case 0: {
             // Nothing needs to happen in execute, as the necessary motors are running
             // as per initialize
-            // TODO: Copy intake, excalator, drawbridge and lift command to read better,
-            // then delete contents of init case 0.
             break;
         }
         case 1: {
@@ -97,7 +93,7 @@ public class cargoBigBrotherIntake extends Command {
             if (Robot.Lift.atCargoIntakePosition(liftTolerance)) {
                 // Roll the cargo into the trolley
                 Robot.CargoEscalator.rollUp(escalatorSpeed);
-                Robot.CargoScore.rollIn(trolleyIntakeSpeed);
+                Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
             } else {
                 Robot.CargoEscalator.stop();
             }
@@ -107,9 +103,8 @@ public class cargoBigBrotherIntake extends Command {
             // Stop both the escalator and the trolley
             Robot.CargoEscalator.stop();
             Robot.CargoScore.stop();
-            // TODO: Possibly change to cargoLoadedPosition
             // Move the lift to a lower position to prevent the robot from being topheavy
-            Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+            Robot.Lift.setSetpoint(Robot.Lift.cargoLoadedPosition);
             // When the intake is finished, the trolley is "loaded"
             Robot.CargoBigBrother.inFireMode = true;
             break;
@@ -133,7 +128,7 @@ public class cargoBigBrotherIntake extends Command {
         // Since this command requires cargoBigBrother, when we try to score, it will
         // kick out this command. This condition prevents the scoring motors from
         // locking up due to this fighting
-        if (!Robot.oi.operatorJoystick.bumperLeft.get()) {
+        if (!Robot.oi.operatorJoystick.triggerLeft.get()) {
             Robot.CargoScore.stop();
         }
     }

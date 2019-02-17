@@ -10,6 +10,8 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
+    double liftTolerance = 5;
+
     public cargoBigBrotherEject() {
         requires(Robot.CargoBigBrother);
     }
@@ -25,8 +27,8 @@ public class cargoBigBrotherEject extends Command {
     @Override
     protected void execute() {
         // If the lift is in the intake position, run the cargo systems outwards
-        if (Robot.Lift.atPosition(10)) {
-            Robot.CargoScore.reverse(1);
+        if (Robot.Lift.atPosition(liftTolerance)) {
+            Robot.CargoScore.rollReverse(1);
             Robot.CargoEscalator.rollDown(1);
             Robot.CargoIntake.rollOut(1);
         }

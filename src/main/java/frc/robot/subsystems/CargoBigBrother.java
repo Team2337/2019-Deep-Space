@@ -15,7 +15,7 @@ public class CargoBigBrother extends Subsystem {
     public DigitalInput cargoTrolleySensor;
 
     // TODO: Consider moving all of the other cargo subsystems (motor declarations,
-    // etc.) into this one
+    // etc.) into this subsystem
 
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
@@ -48,7 +48,7 @@ public class CargoBigBrother extends Subsystem {
     public void stop() {
         Robot.CargoIntake.rollIn(0);
         Robot.CargoEscalator.rollUp(0);
-        Robot.CargoScore.rollIn(0);
+        Robot.CargoScore.rollForwards(0);
     }
 
     /**

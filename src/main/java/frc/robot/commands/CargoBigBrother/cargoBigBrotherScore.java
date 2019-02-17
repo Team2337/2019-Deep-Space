@@ -12,20 +12,19 @@ import frc.robot.Robot;
 public class cargoBigBrotherScore extends Command {
 
     public cargoBigBrotherScore() {
-        // requires(Robot.CargoBigBrother);
-        // requires(Robot.Lift);
+        requires(Robot.CargoBigBrother);
+        requires(Robot.Lift);
     }
 
-    // TODO: determine actual value for this.
-    double tolerance = 10;
+    double liftTolerance = 5;
 
     @Override
     protected void initialize() {
         // If the ball is within the trolley and the lift is in position (whatever it is
         // set to using the buttons)
-        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atPosition(10)) {
+        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atPosition(liftTolerance)) {
             // Score the ball and consider it scored once the command ends
-            Robot.CargoScore.score(1);
+            Robot.CargoScore.rollForwards(1);
             Robot.CargoBigBrother.inFireMode = false;
         } else {
             // If the lift isn't in position, tell it to go there

@@ -36,7 +36,7 @@ public class Lift extends Subsystem {
   // Position to allow the escalator to feed a ball into the trolley
   public double cargoIntakePosition = 160;
   // Position to store the cargo after loading, but before scoring
-  public double cargoLoadedPosition = 125; // 208
+  public double cargoLoadedPosition = cargoIntakePosition; // 208
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
   // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
@@ -80,11 +80,11 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 350;
-  public static int reverseLiftSoftLimit = 125;
+  public static int forwardLiftSoftLimit = 700;
+  public static int reverseLiftSoftLimit = 150;
 
-  // min and max bounds the string pot can go to
-  public int maxValue = 300;
+  // The boundaries of where the robot should consider the stringpot to be working
+  public int maxValue = 700;
   public int minValue = 40;
 
   protected void initDefaultCommand() {
