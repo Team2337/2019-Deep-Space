@@ -1,5 +1,7 @@
 package frc.robot;
 
+import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.CargoDrawbridge.*;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
@@ -21,25 +23,29 @@ public class OI {
 	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
 	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
 
+	public double[][] valuesPID = pathway.valuesPID;
+
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
-		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
+		// driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
+		// driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		
-	    
+		driverJoystick.bumperRight						.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[4]));
+		
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		// operatorJoystick.povUp					.whenPressed(new goToPosition(500));
-		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
+		/*
+		operatorJoystick.povUp					.whenPressed(new goToPosition(500));
+		operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
-		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
-		// operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
-		// operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
-		// operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
+		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
+		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
 		operatorJoystick.start						.whenPressed(new raiseTheDrawbridge());
 		operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
@@ -50,6 +56,7 @@ public class OI {
 		operatorJoystick.bumperLeft					.whileHeld(new cargoEscalatorDown(1));
 		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
 		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
+		*/
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */

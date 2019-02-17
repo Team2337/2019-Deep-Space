@@ -44,7 +44,7 @@ public class pathway {
         { 1.2, 0, 0, 0 }, // curveFromToHatchRightT
         { 2, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
-        { 1.5, 0, 0, 0 }, // TEST
+        { 1, 0, 0, 0 }, // TEST
     };
 
     /**
@@ -164,7 +164,7 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(12), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
+        new Waypoint(inchesToMeters(72), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
     };
 
     /**

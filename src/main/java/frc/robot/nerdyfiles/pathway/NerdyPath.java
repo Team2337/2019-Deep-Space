@@ -14,6 +14,12 @@ import jaci.pathfinder.modifiers.TankModifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
+/**
+ * Calculates the trajectories for Jaci's pathfinder code
+ * Library for pathfinder code
+ * 
+ * @author Bryce G.
+ */
 public class NerdyPath {
   boolean pathfinderDebug = false;
 
@@ -43,7 +49,7 @@ public class NerdyPath {
   }
 
   /**
-   * Use this in execute, if driving forward These variables are constantly being
+   * Use this in execute, if driving forward, these variables are constantly being
    * updated
    */
   public void makePathForawrd() {
@@ -60,7 +66,7 @@ public class NerdyPath {
   }
 
   /**
-   * Use this in execute, if driving in reverse These variables are constantly
+   * Use this in execute, if driving in reverse, these variables are constantly
    * being updated
    */
   public void makePathReverse() {

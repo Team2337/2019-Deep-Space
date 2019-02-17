@@ -26,7 +26,7 @@ public class Shifter extends Subsystem {
   // Set the default command for a subsystem here.
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new shifterHighGear());
+    // setDefaultCommand(new shifterHighGear());
   }
 
   /**
