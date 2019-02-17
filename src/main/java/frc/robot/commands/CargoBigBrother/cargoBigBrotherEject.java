@@ -16,12 +16,15 @@ public class cargoBigBrotherEject extends Command {
 
     @Override
     protected void initialize() {
+        // TODO: Determine if launching backwards over the robot is possible
+
+        // Move the trolley to the intake position
         Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
     }
 
     @Override
     protected void execute() {
-        // Is the lift within 10 of its given setpoint (whatever it may be)
+        // If the lift is in the intake position, run the cargo systems outwards
         if (Robot.Lift.atPosition(10)) {
             Robot.CargoScore.reverse(1);
             Robot.CargoEscalator.rollDown(1);
@@ -29,20 +32,20 @@ public class cargoBigBrotherEject extends Command {
         }
     }
 
+    // This command is not meant to stop until the trigger is released
     @Override
     protected boolean isFinished() {
         return false;
     }
 
+    // Stop all the cargo systems
     @Override
     protected void end() {
-        // If the trigger is released mid-travel or the ball has exited
         Robot.CargoBigBrother.stop();
     }
 
     @Override
     protected void interrupted() {
-        // If the trigger is released, stop the cargo system regardless
         this.end();
     }
 }

@@ -19,22 +19,26 @@ public class cargoBigBrotherScore extends Command {
     // TODO: determine actual value for this.
     double tolerance = 10;
 
-    // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
+        // If the ball is within the trolley and the lift is in position (whatever it is
+        // set to using the buttons)
         if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atPosition(10)) {
+            // Score the ball and consider it scored once the command ends
             Robot.CargoScore.score(1);
             Robot.CargoBigBrother.inFireMode = false;
         } else {
+            // If the lift isn't in position, tell it to go there
             Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
         }
     }
 
     @Override
     protected void execute() {
-
+        // Everything happens in initalize for this command
     }
 
+    // This command is not meant to end until the trigger is released
     @Override
     protected boolean isFinished() {
         return false;
@@ -42,8 +46,7 @@ public class cargoBigBrotherScore extends Command {
 
     @Override
     protected void end() {
-        // If the trigger is released mid-travel or the ball has exited
-        Robot.CargoBigBrother.inFireMode = !Robot.CargoBigBrother.inFireMode;
+        // Stop the cargo system
         Robot.CargoBigBrother.stop();
     }
 
