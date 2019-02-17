@@ -27,23 +27,18 @@ public class autoLineSensorDrive extends Command {
   
   protected void execute() {
     if(Robot.Chassis.lineSensorBack.get()) {
-      moveSpeed = -0.5;
-    }
-
-   if(Robot.Chassis.lineSensorFront.get()) {
-    if(Robot.Chassis.lineSensorMiddle.get()) {
+      moveSpeed = -0.1;
+    } else if(Robot.Chassis.lineSensorFront.get()) {
+      moveSpeed = 0.1;
+    } else if(Robot.Chassis.lineSensorMiddle.get()) {
       moveSpeed = 0;
-      if(Robot.Chassis.lineSensorBack.get()) {
-        moveSpeed = -0.1;
-      } else if(Robot.Chassis.lineSensorFront.get()) {
-        moveSpeed = 0.1;
-      } else {
-        moveSpeed = 0;
-        finished = true;
-      }
+      finished = true;
+    } else {
+      moveSpeed = 0;
+      finished = false;
+      System.out.println("NO LINE");
     }
-  }
-   SmartDashboard.putNumber("moveSpeed", moveSpeed);
+    SmartDashboard.putNumber("moveSpeed", moveSpeed);
     Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
   }
 
