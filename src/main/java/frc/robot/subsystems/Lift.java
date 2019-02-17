@@ -22,22 +22,23 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = true;
+  boolean liftDebug = false;
 
   public double targetPosition;
 
-  // Position to score in the low rocket
+  // TODO: Tune these positions for comp bot
+  // Position to score cargo low in the rocket
   public double cargoLowScorePosition = 300; // 201
-  // Position to score in the mid rocket
+  // Position to score cargo mid in the rocket
   public double cargoMidScorePosition = 703;
-  // Position to score in the cargo ship
+  // Position to score cargo in the cargo ship
   public double cargoShipScorePosition = 469;// 225;
   // Position to allow the escalator to feed a ball into the trolley
   public double cargoIntakePosition = 160;
-  // Position to store the cargo after loaded but before scoring
+  // Position to store the cargo after loading, but before scoring
   public double cargoLoadedPosition = 125; // 208
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
-  // and need to eject the ball, it would be faster than to go through the robot
+  // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
 
   /* --- CAN ID SETUP --- */
@@ -156,6 +157,7 @@ public class Lift extends Subsystem {
     liftLeftFrontMotor.config_kD(0, kD, 0);
     liftLeftFrontMotor.config_kF(0, kF, 0);
 
+    // When starting the robot, hold the position it's currently at
     targetPosition = getPosition();
 
   }
@@ -179,45 +181,77 @@ public class Lift extends Subsystem {
   }
 
   /**
+   * Determines whether or not the lift is within range of any given setpoint
    * 
-   * @param tolerance
-   * @return
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
    */
   public boolean atPosition(double tolerance) {
     return Math.abs(getSetpoint() - getPosition()) <= tolerance;
   }
 
   /**
+   * Determines whether or not the lift is within range of the low cargo scoring
+   * position
    * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
    */
   public boolean atCargoLowPosition(double tolerance) {
     return Math.abs(cargoLowScorePosition - getPosition()) <= tolerance;
   }
 
   /**
-  * 
-  */
+   * Determines whether or not the lift is within range of the mid cargo scoring
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
   public boolean atCargoMidPosition(double tolerance) {
     return Math.abs(cargoMidScorePosition - getPosition()) <= tolerance;
   }
 
   /**
-  * 
-  */
+   * Determines whether or not the lift is within range of the cargo ship scoring
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
   public boolean atCargoShipPosition(double tolerance) {
     return Math.abs(cargoShipScorePosition - getPosition()) <= tolerance;
   }
 
   /**
-   * Sets the tolerance when the lift is at the intake position
+   * Determines whether or not the lift is within range of the cargo intake
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
    */
   public boolean atCargoIntakePosition(double tolerance) {
     return Math.abs(cargoIntakePosition - getPosition()) <= tolerance;
   }
 
   /**
-  * 
-  */
+   * Determines whether or not the lift is within range of the cargo loaded
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atCargoLoadedPosition(double tolerance) {
+    return Math.abs(cargoLoadedPosition - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the cargo eject
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
   public boolean atCargoEjectPosition(double tolerance) {
     return Math.abs(cargoEjectPosition - getPosition()) <= tolerance;
   }

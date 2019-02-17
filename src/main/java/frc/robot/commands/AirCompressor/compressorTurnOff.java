@@ -1,4 +1,4 @@
-package frc.robot.commands.Compressor;
+package frc.robot.commands.AirCompressor;
 
 import edu.wpi.first.wpilibj.command.Command;
 

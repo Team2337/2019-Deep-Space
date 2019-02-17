@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command will run the escalator upwards to move cargo towards the scoring
- * mechanism
+ * This command eject the cargo ball from the robot as quickly as possible
  * 
  * @author Jack E.
  */
@@ -15,7 +14,6 @@ public class cargoBigBrotherEject extends Command {
         requires(Robot.CargoBigBrother);
     }
 
-    // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
         Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);

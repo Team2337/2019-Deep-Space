@@ -97,8 +97,8 @@ public class Robot extends TimedRobot {
     System.out.println("Start");
     Robot.Vision.setLEDMode(1);
     // Used to load the points for the auton. These points take a long time to load,
-    // so to reduce time,
-    // we only load the ones we need for the current auton we're going to run
+    // so to reduce time, we only load the ones we need for the current auton we're
+    // going to run
     selectedAuto = "";
 
     switch (selectedAuto) {
@@ -124,8 +124,8 @@ public class Robot extends TimedRobot {
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", chooser);
-    // Set the lift PID to current position
-    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+    // Hold the current lift position so that the lift doesn't move on startup
+    Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
     // Disable the air compressor so it doesn't run every time we start the robot.
     Robot.AirCompressor.disable();
   }

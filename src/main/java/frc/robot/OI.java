@@ -48,10 +48,10 @@ public class OI {
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake()); // If the position of this command changes, UPDATE THE COMMAND
 		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
 
-		operatorJoystick.greenA						.whileHeld(new goToPosition(201));
+		operatorJoystick.greenA						.whileHeld(new setTargetPosition(201));
 		operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
-		operatorJoystick.blueX						.whileHeld(new goToPosition(325));
-		operatorJoystick.yellowY					.whileHeld(new goToPosition(150));
+		operatorJoystick.blueX						.whileHeld(new setTargetPosition(325));
+		operatorJoystick.yellowY					.whileHeld(new setTargetPosition(150));
 
 		////////////////////////////////////
 
