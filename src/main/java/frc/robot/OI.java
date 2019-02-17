@@ -1,11 +1,16 @@
 package frc.robot;
 
+import frc.robot.commands.Auto.autoLineSensorDrive;
+import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
+import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.CargoDrawbridge.*;
 import frc.robot.commands.CargoEscalator.*;
 import frc.robot.commands.CargoIntake.*;
 import frc.robot.commands.CargoScore.*;
+import frc.robot.commands.HatchLauncher.hatchLauncherExtend;
 import frc.robot.commands.Shifter.*;
 import frc.robot.nerdyfiles.controller.*;
+import frc.robot.subsystems.AutoHatchKicker;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -27,7 +32,9 @@ public class OI {
 		
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
-		
+		driverJoystick.povLeft                      .whenPressed(new hatchKickerExtend());
+		driverJoystick.povRight                     .whenPressed(new hatchKickerRetract());
+		driverJoystick.povDown						.whenPressed(new autoLineSensorDrive());
 	    
 	    ////////////////////////////////// 
 	    
