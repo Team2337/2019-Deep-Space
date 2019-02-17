@@ -5,8 +5,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -22,7 +23,10 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
+  ShuffleboardTab liftTab = Shuffleboard.getTab("Lift");
+  private NetworkTableEntry liftpos = liftTab.add("StringPot Position", 0).getEntry();
+  private NetworkTableEntry SetPointpos = liftTab.add("Lift SetPoint", 0).getEntry();
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -157,6 +161,7 @@ public class Lift extends Subsystem {
    * @return Analog position that the arm is moving to
    */
   public double getSetpoint() {
+    
     return liftLeftFrontMotor.getClosedLoopTarget(0);
   }
 
@@ -255,6 +260,13 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
+      
+      liftpos.setDouble(getPosition());
+      
+      SetPointpos.setDouble(getSetpoint());
+      
+      
+      
     }
   }
 }

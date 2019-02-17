@@ -23,16 +23,20 @@ public class OI {
 
 	public OI() {
 
+
+		if ( ! driverJoystick.getName().equals("") ) {
+
+	 
 		/* ====== DRIVER JOYSTICK ===== */
 		
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		
-	    
+		}
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
-		
+		if ( ! operatorJoystick.getName().equals("") ) {
 		// operatorJoystick.povUp					.whenPressed(new goToPosition(500));
 		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
@@ -51,11 +55,11 @@ public class OI {
 		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
 		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
 		////////////////////////////////////
-
+		}
 		/* ===== DRIVER STATION CONTROLS ===== */
-		
+		if ( ! operatorControls.getName().equals("") ) {
 		// operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
-	
+		}
 		///////////////////////////////////////// 
 	}
 
