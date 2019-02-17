@@ -12,39 +12,40 @@ import frc.robot.Robot;
 public class cargoBigBrotherScore extends Command {
 
     public cargoBigBrotherScore() {
-        requires(Robot.CargoBigBrother);
-        requires(Robot.CargoScore);
+        // requires(Robot.CargoBigBrother);
+        // requires(Robot.Lift);
     }
-// TODO: determine actual value for this.
+
+    // TODO: determine actual value for this.
     double tolerance = 10;
 
     // Set the speed of the cargo escalator motors
     @Override
     protected void initialize() {
-        //Robot.Lift.setSetpoint(Robot.CargoBigBrother.currentScoringPosition);
+        /*
+         * if (!Robot.CargoBigBrother.inFireMode) {
+         * Robot.Lift.setSetpoint(Robot.Lift.cargoLowScorePosition); }
+         */
+        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atPosition(10)) {
+            Robot.CargoScore.score(1);
+            Robot.CargoBigBrother.inFireMode = false;
+        } else {
+            Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
+        }
     }
 
     @Override
     protected void execute() {
-        // Is the lift within tolerance(10) of its given setpoint (whatever it may be)
-        if (Robot.Lift.atPosition(tolerance)) {
-            if (Robot.Lift.atCargoLowPosition(tolerance)) {
-                Robot.CargoScore.rollIn(1);
-            } else if (Robot.Lift.atCargoMidPosition(tolerance)) {
-                Robot.CargoScore.rollIn(1);
-            } else if (Robot.Lift.atCargoShipPosition(tolerance)) {
-                Robot.CargoScore.rollIn(1);
-            }
-            /*
-            if (Robot.Lift.currentPosition == Robot.Lift.cargoLowScorePosition) {
-                Robot.CargoScore.rollIn(1);
-            } else if (Robot.Lift.currentPosition == Robot.Lift.cargoMidScorePosition) {
-                Robot.CargoScore.rollIn(0.75);
-            } else if (Robot.Lift.currentPosition == Robot.Lift.cargoShipScorePosition) {
-                Robot.CargoScore.rollIn(0.5);
-            }
-            */
-        }
+        /*
+         * // Is the lift within tolerance(10) of its given setpoint (whatever it may
+         * be) if (Robot.CargoBigBrother.inFireMode) { if
+         * (Robot.Lift.atPosition(tolerance)) { if
+         * (Robot.Lift.atCargoLowPosition(tolerance)) { Robot.CargoScore.score(1); }
+         * else if (Robot.Lift.atCargoMidPosition(tolerance)) {
+         * Robot.CargoScore.score(1); } else if
+         * (Robot.Lift.atCargoShipPosition(tolerance)) { Robot.CargoScore.score(1); } }
+         * }
+         */
     }
 
     @Override
@@ -55,6 +56,7 @@ public class cargoBigBrotherScore extends Command {
     @Override
     protected void end() {
         // If the trigger is released mid-travel or the ball has exited
+        Robot.CargoBigBrother.inFireMode = !Robot.CargoBigBrother.inFireMode;
         Robot.CargoBigBrother.stop();
     }
 

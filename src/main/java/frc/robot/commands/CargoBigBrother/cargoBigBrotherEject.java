@@ -2,7 +2,6 @@ package frc.robot.commands.CargoBigBrother;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.CargoBigBrother;
 
 /**
  * This command will run the escalator upwards to move cargo towards the scoring
@@ -14,7 +13,6 @@ public class cargoBigBrotherEject extends Command {
 
     public cargoBigBrotherEject() {
         requires(Robot.CargoBigBrother);
-        requires(Robot.CargoScore);
     }
 
     // Set the speed of the cargo escalator motors
@@ -27,7 +25,7 @@ public class cargoBigBrotherEject extends Command {
     protected void execute() {
         // Is the lift within 10 of its given setpoint (whatever it may be)
         if (Robot.Lift.atPosition(10)) {
-            Robot.CargoScore.rollOut(1);
+            Robot.CargoScore.reverse(1);
             Robot.CargoEscalator.rollDown(1);
             Robot.CargoIntake.rollOut(1);
         }

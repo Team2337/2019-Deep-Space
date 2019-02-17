@@ -14,6 +14,7 @@ public class goToPosition extends Command {
 
     /**
      * @param pos - The position of the lift in (stringpot) encoder ticks
+     * TODO: Change command name, you're setting a setpoint, not going to a position
      */
     public goToPosition(double pos) {
         this.pos = pos;
@@ -24,7 +25,8 @@ public class goToPosition extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.Lift.setSetpoint(pos);
+        Robot.Lift.targetPosition = pos;
+        Robot.CargoBigBrother.inFireMode = false;
     }
 
     // Called repeatedly when this Command is scheduled to run

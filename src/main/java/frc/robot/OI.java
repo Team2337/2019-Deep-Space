@@ -49,9 +49,9 @@ public class OI {
 		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
 
 		operatorJoystick.greenA						.whileHeld(new goToPosition(201));
-		//operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
-		operatorJoystick.blueX						.whileHeld(new goToPosition(469));
-		operatorJoystick.yellowY					.whileHeld(new goToPosition(703));
+		operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
+		operatorJoystick.blueX						.whileHeld(new goToPosition(325));
+		operatorJoystick.yellowY					.whileHeld(new goToPosition(150));
 
 		////////////////////////////////////
 

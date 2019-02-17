@@ -1,7 +1,6 @@
 package frc.robot.commands.CargoBigBrother;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -14,11 +13,11 @@ public class cargoBigBrotherIntake extends Command {
 
     double intakeSpeed = 1;
     double escalatorSpeed = 1;
-    double scorerIntakeSpeed = 0.4; // speed of the lift intake, may be slower than scoreSpeed so we are sure to
+    double scorerIntakeSpeed = 0.2; // speed of the lift intake, may be slower than scoreSpeed so we are sure to
                                     // stop before ejecting the cargo.
     double scoreSpeed = 0.5;
 
-    double toleranceLift = 10; // how close the lift needs to be to set point to allow loading of cargo
+    double liftTolerance = 10; // how close the lift needs to be to set point to allow loading of cargo
 
     public cargoBigBrotherIntake() {
         requires(Robot.CargoBigBrother);
@@ -38,15 +37,9 @@ public class cargoBigBrotherIntake extends Command {
         switch (Robot.CargoBigBrother.cargoLevel()) {
 
         case 0: {
-            // TODO: need to add pnematics to CargoIntake!!
-
-            // TODO: May want to put the drawbridge down IF!! normal intake button pressed
-            // (ask Robin)*****************
-            /*
-             * if (!Robot.oi.operatorJoystick.??NORMAL INTAKE BUTTON VS DEFENSIVE INTAKE
-             * BUTTON?? { Robot.CargoIntake.extend();
-             * 
-             */
+            if (Robot.oi.operatorJoystick.triggerRight.get()) {
+                Robot.CargoDrawbridge.lowerTheDrawbridge();
+            }
             Robot.CargoIntake.rollIn(intakeSpeed);
             // Does not break, as the next cases have the same ending
         }
@@ -70,13 +63,14 @@ public class cargoBigBrotherIntake extends Command {
         switch (Robot.CargoBigBrother.cargoLevel()) {
 
         case 0: {
-            // Nothing needs to happen in execute, as the TODO: neccisary motors are running
+            // Nothing needs to happen in execute, as the necessary motors are running
             // as per initialize
-            // TODO: ???copy intake, excalator, drawbridge and lift command to read better,
-            // then delete contents of Inti case 0.
+            // TODO: Copy intake, excalator, drawbridge and lift command to read better,
+            // then delete contents of init case 0.
             break;
         }
         case 1: {
+            Robot.CargoDrawbridge.raiseTheDrawbridge();
             // Once the ball has passed the intake, stop the intake. Escalator is still
             // running.
             Robot.CargoIntake.stop();
@@ -95,7 +89,7 @@ public class cargoBigBrotherIntake extends Command {
             break;
         }
         case 3: {
-            if (Robot.Lift.atCargoIntakePosition(toleranceLift)) {
+            if (Robot.Lift.atCargoIntakePosition(liftTolerance)) {
                 Robot.CargoEscalator.rollUp(escalatorSpeed);
                 // Go slower on lift intake to start, so that it doesn't shoot past the sensor
                 Robot.CargoScore.rollIn(scorerIntakeSpeed);
@@ -107,7 +101,8 @@ public class cargoBigBrotherIntake extends Command {
         case 4: {
             Robot.CargoEscalator.stop();
             Robot.CargoScore.stop();
-            Robot.Lift.setSetpoint(Robot.Lift.cargoLoadedPosition);
+            Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+            Robot.CargoBigBrother.inFireMode = true;
             break;
         }
 
@@ -121,7 +116,7 @@ public class cargoBigBrotherIntake extends Command {
 
     @Override
     protected void end() {
-        // TODO:Bring up the drawbridge
+        Robot.CargoDrawbridge.raiseTheDrawbridge();
         Robot.CargoEscalator.stop();
         Robot.CargoIntake.stop();
         if (!Robot.oi.operatorJoystick.bumperLeft.get()) {

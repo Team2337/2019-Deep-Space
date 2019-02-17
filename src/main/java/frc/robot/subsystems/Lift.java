@@ -24,18 +24,18 @@ public class Lift extends Subsystem {
    */
   boolean liftDebug = true;
 
-  public double currentPosition;
+  public double targetPosition;
 
   // Position to score in the low rocket
-  public double cargoLowScorePosition = 150; // 201
+  public double cargoLowScorePosition = 300; // 201
   // Position to score in the mid rocket
   public double cargoMidScorePosition = 703;
   // Position to score in the cargo ship
   public double cargoShipScorePosition = 469;// 225;
   // Position to allow the escalator to feed a ball into the trolley
-  public double cargoIntakePosition = 150;
+  public double cargoIntakePosition = 160;
   // Position to store the cargo after loaded but before scoring
-  public double cargoLoadedPosition = 150; //208
+  public double cargoLoadedPosition = 125; // 208
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
   // and need to eject the ball, it would be faster than to go through the robot
   public double cargoEjectPosition = 500;
@@ -79,11 +79,11 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 700;
+  public static int forwardLiftSoftLimit = 350;
   public static int reverseLiftSoftLimit = 125;
 
   // min and max bounds the string pot can go to
-  public int maxValue = 730;
+  public int maxValue = 300;
   public int minValue = 40;
 
   protected void initDefaultCommand() {
@@ -156,7 +156,7 @@ public class Lift extends Subsystem {
     liftLeftFrontMotor.config_kD(0, kD, 0);
     liftLeftFrontMotor.config_kF(0, kF, 0);
 
-    currentPosition = getPosition();
+    targetPosition = getPosition();
 
   }
 
@@ -209,8 +209,8 @@ public class Lift extends Subsystem {
   }
 
   /**
-  * Sets the tolerance when the lift is at the intake position
-  */
+   * Sets the tolerance when the lift is at the intake position
+   */
   public boolean atCargoIntakePosition(double tolerance) {
     return Math.abs(cargoIntakePosition - getPosition()) <= tolerance;
   }

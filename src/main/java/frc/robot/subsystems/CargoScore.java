@@ -38,7 +38,7 @@ public class CargoScore extends Subsystem {
    * @param speed A decimal value from -1 to 1 to set the cargo scoring mechanism
    *              motor speed to (going in reverse)
    */
-  public void rollOut(double speed) {
+  public void reverse(double speed) {
     CargoScoreMotor.set(ControlMode.PercentOutput, -speed);
   }
 
@@ -50,6 +50,17 @@ public class CargoScore extends Subsystem {
    */
   public void rollIn(double speed) {
     CargoScoreMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  /**
+   * Run the cargo scoring mechanisms motor at a specified speed (Does the same
+   * thing as rollIn())
+   * 
+   * @param speed A decimal value from -1 to 1 to set the cargo scoring mechanism
+   *              motor speed to
+   */
+  public void score(double speed) {
+    rollIn(speed);
   }
 
   /**

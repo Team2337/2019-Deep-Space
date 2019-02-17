@@ -24,6 +24,8 @@ public class CargoBigBrother extends Subsystem {
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
 
+    public boolean inFireMode;
+
     public CargoBigBrother() {
         cargoIntakeSensor = new DigitalInput(0);
         cargoEscalatorSensor = new DigitalInput(2);
@@ -33,6 +35,8 @@ public class CargoBigBrother extends Subsystem {
         defaultScoringPosition = Robot.Lift.cargoShipScorePosition;
 
         inDeadzone = false;
+
+        inFireMode = false;
     }
 
     public void initDefaultCommand() {
@@ -48,7 +52,7 @@ public class CargoBigBrother extends Subsystem {
         Robot.CargoScore.rollIn(0);
     }
 
-    // Ball positions: TODO:
+    // Ball positions:
     // 0 - No ball: Automatically set as the default value
     // 1 - At intake sensor: Set when the cargo reaches the intake sensor
     // 2 - Between escalator sensors: Set when isPassedIntake is
@@ -78,8 +82,8 @@ public class CargoBigBrother extends Subsystem {
         SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
         SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
         SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
-        SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atCargoLowPosition(10)); // Add more
-        SmartDashboard.putNumber("CargoBB Level EXEC", Robot.CargoBigBrother.cargoLevel());
+        SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atCargoLowPosition(10));
+        SmartDashboard.putBoolean("In fire mode", inFireMode);
 
         // SmartDashboard.putData("value", new cargoIntakeIn());
 
