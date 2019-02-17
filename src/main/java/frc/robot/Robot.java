@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
-import jaci.pathfinder.Trajectory;
 import frc.robot.subsystems.*;
+import jaci.pathfinder.Trajectory;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,7 +19,6 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-
   /**
    * Specifies whether or not the Robot is the competition robot
    */
@@ -29,37 +28,34 @@ public class Robot extends TimedRobot {
   // DECLARATIONS
   public static AirCompressor AirCompressor;
   public static AutoHatchKicker AutoHatchKicker;
-  public static Chassis Chassis;
   public static CargoBigBrother CargoBigBrother;
   public static CargoDrawbridge CargoDrawbridge;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
+  public static Chassis Chassis;
   public static ClimberPneumatics ClimberPneumatics;
+  public static Constants Constants;
   public static HatchLauncher HatchLauncher;
   public static HatchBeak HatchBeak;
   public static LED LED;
   public static Lift Lift;
+  public static NerdyPath NerdyPath;
+  public static OI oi;
   public static Pigeon Pigeon;
   public static Shifter Shifter;
   public static Vision Vision;
 
-  public static NerdyPath NerdyPath;
-
-  public static Constants Constants;
-  public static OI oi;
-
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
+  public static Trajectory curveFromToHatchRightT;
+  public static Trajectory driveForwardFile;
+  public static Trajectory driveForwardT;
+  public static Trajectory fromRightLoadJTurnToCargoShipT;
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
-  public static Trajectory curveFromToHatchRightT;
-  public static Trajectory fromRightLoadJTurnToCargoShipT;
   public static Trajectory jTurnToCargoShipRightT;
-  public static Trajectory driveForwardT;
-
-  public static Trajectory driveForwardFile;
 
   private boolean logger;
   private String selectedAuto;
@@ -90,12 +86,12 @@ public class Robot extends TimedRobot {
     // Keep below other subsystems as these have dependencies for other subsystems
     // to be instantiated first.
     CargoBigBrother = new CargoBigBrother();
-
     NerdyPath = new NerdyPath();
     Constants = new Constants();
 
-    System.out.println("Start");
+    // Turn off the Limelight LED if it is on.
     Robot.Vision.setLEDMode(1);
+
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
@@ -165,7 +161,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    allPeriodic();
   }
 
   /**
@@ -225,7 +220,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    allPeriodic();
   }
 
   /**
@@ -235,7 +229,4 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
-  public void allPeriodic() {
-
-  }
 }
