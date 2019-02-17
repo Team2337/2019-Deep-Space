@@ -1,9 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.HatchBeak.*;
-import frc.robot.commands.HatchLauncher.*;
-import frc.robot.commands.Lift.*;
-import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -17,8 +13,8 @@ public class OI {
 	 * Controllers
 	 */
 	public NerdyXbox				driverJoystick			= new NerdyXbox(0);
-	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
-	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
+	//public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
+	//public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
 
 	public OI() {
 
@@ -29,7 +25,7 @@ public class OI {
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
-		
+		/*
 		operatorJoystick.povUp						.whenPressed(new goToPosition(500));
 		operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
@@ -48,7 +44,7 @@ public class OI {
 		//operatorJoystick.redB						.whileHeld(new cargoEscalatorDown(1));
 		operatorJoystick.blueX						.whileHeld(new goToPosition(477));
 		operatorJoystick.yellowY					.whileHeld(new goToPosition(706));
-
+		*/
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
@@ -61,7 +57,7 @@ public class OI {
 	public Joystick getDriverJoystick() {
 		return driverJoystick;
 	}
-
+/*
 	public Joystick getOperatorJoystick() {
 		return operatorJoystick;
 	}
@@ -69,4 +65,5 @@ public class OI {
 	public Joystick getOperatorControls() {
 		return operatorControls;
 	}
+	*/
 }

@@ -23,20 +23,7 @@ public class Robot extends TimedRobot {
   public static boolean stringPotBroken = false;
 
   // DECLARATIONS
-  public static AirCompressor AirCompressor;
-  public static AutoHatchKicker AutoHatchKicker;
   public static Chassis Chassis;
-  public static CargoBigBrother CargoBigBrother;
-  public static CargoIntake CargoIntake;
-  public static CargoEscalator CargoEscalator;
-  public static CargoScore CargoScore;
-  public static ClimberPneumatics ClimberPneumatics;
-  public static HatchLauncher HatchLauncher;
-  public static HatchBeak HatchBeak;
-  public static LED LED;
-  public static Lift Lift;
-  public static Shifter Shifter;
-  public static Vision Vision;
 
   public static OI oi;
 
@@ -50,30 +37,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    AirCompressor = new AirCompressor();
-    AutoHatchKicker = new AutoHatchKicker();
-    CargoEscalator = new CargoEscalator();
-    CargoIntake = new CargoIntake();
-    CargoScore = new CargoScore();
-    Chassis = new Chassis();
-    ClimberPneumatics = new ClimberPneumatics();
-    HatchBeak = new HatchBeak();
-    HatchLauncher = new HatchLauncher();
-    LED = new LED();
-    Lift = new Lift();
-    Shifter = new Shifter();
-    Vision = new Vision();
 
-    // Keep below other subsysttems as these have dependencies for other subsystems to be instantiated first.
-    CargoBigBrother = new CargoBigBrother();
+    Chassis = new Chassis();
+
+
     oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", chooser);
-    //Set the lift PID to current position
-    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-    //Disable the air compressor so it doesn't run every time we start the robot.
-    Robot.AirCompressor.disable();
   }
 
   /**
@@ -87,12 +58,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
-      stringPotBroken = true;
-    } else {
-      stringPotBroken = false;
-    }
-    SmartDashboard.putBoolean("STRING POT OUT OF BOUNDS IF RED", stringPotBroken);
   }
 
   /**
@@ -123,7 +88,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     autonomousCommand = chooser.getSelected();
 
     /*
@@ -149,7 +113,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
