@@ -1,14 +1,11 @@
 package frc.robot;
 
-import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.CargoDrawbridge.*;
-import frc.robot.commands.ClimberPneumatics.platformGrab;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
-import frc.robot.nerdyfiles.motorTest;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -71,9 +68,8 @@ public class OI {
 		////////////////////////////////////
 
 		/* ===== PROGRAMMING JOYSTICK CONTROL ===== */
-		
-		// programmingJoystick.greenA					.whileHeld(new motorTest(0.5));
-		// programmingJoystick.redB					.whileHeld(new motorTest(-0.5));
+		// programmingJoystick.greenA					.whileHeld(new motorTest(new TalonSRX(0), 0.5));
+		// programmingJoystick.redB					.whileHeld(new motorTest(new TalonSRX(0), -0.5));
 	
 		///////////////////////////////////////// 
 	}

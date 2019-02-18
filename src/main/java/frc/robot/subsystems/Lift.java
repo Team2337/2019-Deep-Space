@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Robot;
-import frc.robot.commands.Lift.liftWithJoystick;
 import frc.robot.commands.Lift.liftWithJoystickOverride;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;

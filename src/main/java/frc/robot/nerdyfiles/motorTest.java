@@ -4,8 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class motorTest extends Command {
@@ -22,9 +20,9 @@ public class motorTest extends Command {
      * @param speed - Speed of the motor
      * <p><br/>Examples:<ul><li>full speed forward -> 1.0</li><li>half speed reverse -> -0.5</li></ul></p>
      */
-    public motorTest(TalonSRX talon, int talonID, double speed) {
+    public motorTest(TalonSRX talon, double speed) {
         this.speed = speed;
-        talon = new TalonSRX(talonID);
+        this.talon = talon;
     }
 
     /**
@@ -34,9 +32,9 @@ public class motorTest extends Command {
      * @param speed - Speed of the motor
      * <p><br/>Examples:<ul><li>full speed forward -> 1.0</li><li>half speed reverse -> -0.5</li></ul></p>
      */
-    public motorTest(VictorSPX victor, int victorID, double speed) {
+    public motorTest(VictorSPX victor, double speed) {
         this.speed = speed;
-        victor = new VictorSPX(victorID);
+        this.victor = victor;
     }
 
     /**
@@ -47,11 +45,9 @@ public class motorTest extends Command {
      * @param speed - Speed of the motor
      * <p><br/>Examples:<ul><li>full speed forward -> 1.0</li><li>half speed reverse -> -0.5</li></ul></p>
      */
-    public motorTest(CANSparkMax spark, int sparkID, MotorType type, double speed) {
+    public motorTest(CANSparkMax spark, double speed) {
         this.speed = speed;
-        spark = new CANSparkMax(sparkID, type);
-        spark.setIdleMode(IdleMode.kCoast);
-        spark.close();
+        this.spark = spark;
     }
 
     @Override
