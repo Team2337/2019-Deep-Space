@@ -1,5 +1,9 @@
 package frc.robot.subsystems;
 
+import frc.robot.Robot;
+import frc.robot.commands.Lift.liftWithJoystick;
+import frc.robot.commands.Lift.liftWithJoystickOverride;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -41,12 +45,24 @@ public class Lift extends Subsystem {
   // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
 
+  // Position to raise the robot to when climbing
+  public double climbPosition = 120;
+
+  // Position to score hatch on the low rocket
+  public double hatchLowScorePosition = 300;
+  // Position to score hatch on the cargo ship
+  public double hatchCargoShipScorePosition = 469;
+  // Position to score hatch on the mid rocket
+  public double hatchMidScorePosition = 703;
+  // Position to intake a hatch panel at
+  public double hatchIntakePosition = 160;
+
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int liftRightFrontID = Constants.liftRightFrontID;
-  private final static int liftRightBackID = Constants.liftRightRearID;
-  private final static int liftLeftFrontID = Constants.liftLeftFrontID;
-  private final static int liftLeftBackID = Constants.liftLeftRearID;
+  private final static int liftRightFrontID = Robot.Constants.liftRightFrontID;
+  private final static int liftRightBackID = Robot.Constants.liftRightRearID;
+  private final static int liftLeftFrontID = Robot.Constants.liftLeftFrontID;
+  private final static int liftLeftBackID = Robot.Constants.liftLeftRearID;
 
   /**
    * The front right motor is the master for the other three as they will all
@@ -89,7 +105,7 @@ public class Lift extends Subsystem {
   public int minValue = 40;
 
   protected void initDefaultCommand() {
-    // setDefaultCommand(new goToPosition(currentPosition));
+    setDefaultCommand(new liftWithJoystickOverride());
   }
 
   public Lift() {

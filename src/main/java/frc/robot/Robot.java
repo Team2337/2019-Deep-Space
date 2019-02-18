@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
   public static Chassis Chassis;
+  public static ClimberArms ClimberArms;
   public static ClimberPneumatics ClimberPneumatics;
   public static Constants Constants;
   public static HatchLauncher HatchLauncher;
@@ -68,7 +69,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
     // CONSTRUCTORS
-    NerdyPath = new NerdyPath();
     Constants = new Constants();
     
     AirCompressor = new AirCompressor();
@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
     Chassis = new Chassis();
+    ClimberArms = new ClimberArms();
     ClimberPneumatics = new ClimberPneumatics();
     HatchBeak = new HatchBeak();
     HatchLauncher = new HatchLauncher();
@@ -89,6 +90,8 @@ public class Robot extends TimedRobot {
     // Keep below other subsystems as these have dependencies for other subsystems
     // to be instantiated first.
     CargoBigBrother = new CargoBigBrother();
+    NerdyPath = new NerdyPath();
+    
 
     // Turn off the Limelight LED if it is on.
     Robot.Vision.setLEDMode(1);

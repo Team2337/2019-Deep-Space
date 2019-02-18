@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
 import frc.robot.Robot;
 
 /**
@@ -27,9 +26,9 @@ public class CargoBigBrother extends Subsystem {
     public CargoBigBrother() {
 
         // Cargo system sensors to help know where the ball is within the robot
-        cargoIntakeSensor = new DigitalInput(Constants.cargoIntakeSensorID);
-        cargoEscalatorSensor = new DigitalInput(Constants.cargoEscalatorSensorID);
-        cargoTrolleySensor = new DigitalInput(Constants.cargoTrolleySensorID);
+        cargoIntakeSensor = new DigitalInput(Robot.Constants.cargoIntakeSensorID);
+        cargoEscalatorSensor = new DigitalInput(Robot.Constants.cargoEscalatorSensorID);
+        cargoTrolleySensor = new DigitalInput(Robot.Constants.cargoTrolleySensorID);
 
         // By default, the ball is not in the deadzone (if it is, then it will simply be
         // moved out of it)

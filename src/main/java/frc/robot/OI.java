@@ -1,10 +1,14 @@
 package frc.robot;
 
+import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
+import frc.robot.commands.CargoDrawbridge.*;
+import frc.robot.commands.ClimberPneumatics.platformGrab;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
+import frc.robot.nerdyfiles.motorTest;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -17,9 +21,10 @@ public class OI {
 	/*
 	 * Controllers
 	 */
-	public NerdyXbox				driverJoystick			= new NerdyXbox(0);
-	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
+	public NerdyUltimateXbox		driverJoystick			= new NerdyUltimateXbox(0);
+	public NerdyUltimateXbox		operatorJoystick		= new NerdyUltimateXbox(1);
 	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
+	public NerdyUltimateXbox		programmingJoystick		= new NerdyUltimateXbox(3);
 
 	public OI() {
 
@@ -27,41 +32,48 @@ public class OI {
 		
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
-		
+
 	    
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		// operatorJoystick.povUp					.whenPressed(new goToPosition(500));
-		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
-
-		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
-		operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose()); 
-		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
+		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
+		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.leftStickUp				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
+		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
+		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
-		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
+		operatorJoystick.macroFour					.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
-		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
-		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
+		operatorJoystick.macroTwo					.whenPressed(new lowerTheDrawbridge());
+		operatorJoystick.povRight					.whenPressed(new raiseTheDrawbridge());
 
-		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake()); // If the position of this command changes, UPDATE THE COMMAND
-		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.povUp						.whenPressed(new setTargetPosition(Robot.Lift.hatchLowScorePosition));
+		operatorJoystick.povDown					.whenPressed(new setTargetPosition(Robot.Lift.hatchMidScorePosition));
 
-		operatorJoystick.greenA						.whileHeld(new setTargetPosition(201));
-		operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
-		operatorJoystick.blueX						.whileHeld(new setTargetPosition(325));
-		operatorJoystick.yellowY					.whileHeld(new setTargetPosition(150));
+		operatorJoystick.greenA						.whenPressed(new setTargetPosition(Robot.Lift.cargoMidScorePosition));
+		operatorJoystick.redB						.whenPressed(new setTargetPosition(Robot.Lift.cargoShipScorePosition));
+		operatorJoystick.blueX						.whenPressed(new setTargetPosition(Robot.Lift.climbPosition));
+		operatorJoystick.yellowY					.whenPressed(new setTargetPosition(Robot.Lift.cargoLowScorePosition));
 
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
 		// operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
+	
+		///////////////////////////////////////// 
+
+		////////////////////////////////////
+
+		/* ===== PROGRAMMING JOYSTICK CONTROL ===== */
+		
+		// programmingJoystick.greenA					.whileHeld(new motorTest(0.5));
+		// programmingJoystick.redB					.whileHeld(new motorTest(-0.5));
 	
 		///////////////////////////////////////// 
 	}

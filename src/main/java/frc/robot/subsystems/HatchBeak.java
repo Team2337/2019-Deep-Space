@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Constants;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class HatchBeak extends Subsystem {
 
-  private Solenoid hatchBeakSolenoid = new Solenoid(Constants.hatchBeakPort);
+  private Solenoid hatchBeakSolenoid = new Solenoid(Robot.Constants.hatchBeakPort);
 
   public HatchBeak() {
 

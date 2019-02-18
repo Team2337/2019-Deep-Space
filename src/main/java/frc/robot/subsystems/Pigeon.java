@@ -23,7 +23,7 @@ public class Pigeon extends Subsystem {
 	 * The subsystem to calibrate the Pigeon (gyro)
 	 */
 	public Pigeon() {
-		pidgey = new PigeonIMU(20);
+		pidgey = new PigeonIMU(0);
 		//Put this line in, in order to calibrate the pigeon to the correct degree mode
 		//pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
 		gyrofusionStatus = new PigeonIMU.FusionStatus();
