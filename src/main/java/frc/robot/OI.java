@@ -46,6 +46,9 @@ public class OI {
 
 		operatorJoystick.macroTwo					.whenPressed(new lowerTheDrawbridge());
 
+		operatorJoystick.leftStickUp				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
+		operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
+
 		operatorJoystick.povUp						.whenPressed(new setTargetPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenPressed(new setTargetPosition(Robot.Lift.hatchMidScorePosition));
 
