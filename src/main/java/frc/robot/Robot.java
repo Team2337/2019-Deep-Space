@@ -68,7 +68,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
     // CONSTRUCTORS
-    NerdyPath = new NerdyPath();
     Constants = new Constants();
     
     AirCompressor = new AirCompressor();
@@ -88,6 +87,7 @@ public class Robot extends TimedRobot {
     Vision = new Vision();
     // Keep below other subsystems as these have dependencies for other subsystems
     // to be instantiated first.
+    NerdyPath = new NerdyPath();
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
