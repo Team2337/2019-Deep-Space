@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
 /**
  * Gyro class for CTRE Pigeon Gyro
@@ -23,7 +24,7 @@ public class Pigeon extends Subsystem {
 	 * The subsystem to calibrate the Pigeon (gyro)
 	 */
 	public Pigeon() {
-		pidgey = new PigeonIMU(20);
+		pidgey = new PigeonIMU(Robot.Constants.pidgeyID);
 		//Put this line in, in order to calibrate the pigeon to the correct degree mode
 		//pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
 		gyrofusionStatus = new PigeonIMU.FusionStatus();
