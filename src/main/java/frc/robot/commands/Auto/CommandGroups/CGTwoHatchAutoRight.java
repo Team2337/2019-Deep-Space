@@ -16,9 +16,9 @@ import frc.robot.commands.Auto.autoWaitSensorReset;
 public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
   public CGTwoHatchAutoRight() {
-      addSequential(new autoSetPathReverse(Robot.initTrajectory, valuesPID[0]));
+      addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0]));
       addSequential(new autoResetEncoders());
-      addSequential(new autoWaitSensorReset(0.3));
+      addSequential(new autoWaitSensorReset(0.5));
       addSequential(new autoSetPath(Robot.curveFromToHatchRightT, valuesPID[1]));
   }
 }

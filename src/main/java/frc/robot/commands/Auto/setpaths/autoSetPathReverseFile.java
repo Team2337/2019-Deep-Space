@@ -12,7 +12,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  * Reads the trajectory to drive to a position given by the waypoints in the reverse direction
  * @author Bryce G.
  */
-public class autoSetPathReverse extends Command {
+public class autoSetPathReverseFile extends Command {
 
   /* --- Path Weaver Variables --- */
 
@@ -23,6 +23,7 @@ public class autoSetPathReverse extends Command {
   public EncoderFollower leftSideFollower;
 
   public static double kP, kI, kD, kA;
+  public double maxVelocity;
   private double[] pidValues;
 
   private double timeout;
@@ -33,9 +34,10 @@ public class autoSetPathReverse extends Command {
    * @param pidValues - PID values for the current trajcetory, given in the array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues) {
+  public autoSetPathReverseFile(Trajectory trajectoryIn, double[] pidValues, double maxVelocity) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
+    this.maxVelocity = maxVelocity;
     requires(Robot.Chassis);
   }
 
@@ -51,10 +53,10 @@ public class autoSetPathReverse extends Command {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
 
-    timeout = (trajectory.length() / 50) + 0.7;
+    // timeout = (trajectory.length() / 50)+0.7;
     setTimeout(timeout);
 
-    Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
+    Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA, maxVelocity);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -66,7 +68,7 @@ public class autoSetPathReverse extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;//isTimedOut();
   }
 
   // Called once after isFinished returns true

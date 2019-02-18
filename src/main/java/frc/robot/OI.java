@@ -1,6 +1,9 @@
 package frc.robot;
 
 import frc.robot.commands.Auto.autoLineSensorDrive;
+import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
+import frc.robot.commands.Auto.setpaths.*;
 import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
 import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.CargoDrawbridge.*;
@@ -24,15 +27,21 @@ public class OI {
 	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
 	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
 
+	double valuesPID[][] = pathway.valuesPID;
+
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
-		
+		driverJoystick.greenA						.whenPressed(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0]));
+		driverJoystick.redB							.whenPressed(new autoSetPath(Robot.curveFromToHatchRightT, valuesPID[1]));
+		driverJoystick.blueX						.whenPressed(new autoSetPathReverseFile(Robot.NerdyPath.readFile("backUpDriveDefault"), valuesPID[0], 0.5));
+		driverJoystick.yellowY						.whenPressed(new CGTwoHatchAutoRight());
+	
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
-		driverJoystick.povLeft                      .whenPressed(new hatchKickerExtend());
-		driverJoystick.povRight                     .whenPressed(new hatchKickerRetract());
-		driverJoystick.povDown						.whenPressed(new autoLineSensorDrive());
+		// driverJoystick.povLeft                      .whenPressed(new hatchKickerExtend());
+		// driverJoystick.povRight                     .whenPressed(new hatchKickerRetract());
+		// driverJoystick.povDown						.whenPressed(new autoLineSensorDrive());
 	    
 	    ////////////////////////////////// 
 	    

@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
   public static Trajectory fromRightLoadJTurnToCargoShipT;
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory driveForwardT;
+  public static Trajectory backUpDriveT;
 
   public static Trajectory driveForwardFile;
 
@@ -90,11 +91,11 @@ public class Robot extends TimedRobot {
     NerdyPath = new NerdyPath();
     Constants = new Constants();
 
-    System.out.println("Start");
     Robot.Vision.setLEDMode(1);
     //Used to load the points for the auton. These points take a long time to load, so to reduce time, 
     //we only load the ones we need for the current auton we're going to run
     selectedAuto = "";
+    Robot.Chassis.resetNeoEncoders();
 
     switch(selectedAuto) {
       default :
@@ -103,9 +104,11 @@ public class Robot extends TimedRobot {
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
       driveForwardT = pathway.driveForward();
-      // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
+      // backUpDriveT = pathway.backUpDrive();
+      curveFromToHatchRightT = pathway.curveFromToHatchRight();
       // System.out.println(FileUtilities.getFilePath());
-      // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
+      // driveForwardT = pathway.driveForward();
+      // NerdyPath.writeFile("backUpDriveMinusFive", backUpDriveT);
       break;
     }
 
@@ -132,6 +135,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    NerdyPath.periodic();
     SmartDashboard.putBoolean("Logger", logger);
     if(Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;

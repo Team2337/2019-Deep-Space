@@ -55,7 +55,7 @@ public class Lift extends Subsystem {
 
   // How much the actual position may vary from the set target position (in
   // current analog sensor (in this case a stringpot) values)
-  public int allowableError = 0;
+  public int allowableError = 5;
 
   /**
    * Sets the boundary of where the mechanism cannot go outside of (in current

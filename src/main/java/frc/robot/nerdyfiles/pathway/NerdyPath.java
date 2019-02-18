@@ -15,25 +15,26 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
 public class NerdyPath {
-  boolean pathfinderDebug = false;
+  boolean pathfinderDebug = true;
 
   /* --- Pathfinder Variables --- */
   private int gearRatio = 3;
-  private int ticksPerRev = 4096 * gearRatio;
+  private int ticksPerRev = 13988;//4096 * gearRatio;
 
   private double inchesToMeters = 0.0254;
-  private double wheelDiameter = 6.0 * inchesToMeters;
+  private double wheelDiameter = 6.375 * inchesToMeters;
   private double wheelBase = 20.5 * inchesToMeters; // old practice bot: 21.5
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
-  private double turnCompensation = 0.8 * (-1.0 / 80.0); 
+  private double turnCompensation = 1 * (-1.0 / 80.0); 
 
   private String filePath = "/home/lvuser/deploy/";
   private String csv = ".csv";
-  // private String binary = ".txt";
+  private String binary = ".txt";
 
   public TankModifier modifier;
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
+  public Trajectory.Config config;
 
   public static NeoNerdyDrive neoDrive;
   public TalonNerdyDrive nerdyDrive;
@@ -97,11 +98,35 @@ public class NerdyPath {
     rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
 
     leftSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);
-    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);//pathway.config.max_velocity
 
     leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
     rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
   }
+
+  /**
+   * 
+   * @param trajectory
+   * @param kP
+   * @param kI
+   * @param kD
+   * @param kA
+   * @param maxVelocity
+   */
+  public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA, double maxVelocity) {
+    modifier = new TankModifier(trajectory).modify(wheelBase);
+    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.1, maxVelocity, 0.25, 2.5);
+
+    leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
+    rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
+
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / config.max_velocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / config.max_velocity, kA);
+
+    leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
+    rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
+  }
+
 
   /**
    * Writes a generated trajectory to the deploy folder on the robot
@@ -112,14 +137,9 @@ public class NerdyPath {
    */
   public void writeFile(String fileName, Trajectory trajectory) {
     try {
-      // File file = new File(filePath+fileName+binary); // writing ro binary
+      // File file = new File(filePath + fileName + binary); // writing to binary
       File file = new File(filePath + fileName + csv); // writing to csv
       file.createNewFile();
-      FileOutputStream oFile = new FileOutputStream(file, false);
-      String content = "blahhhhhhh";
-      oFile.write(content.getBytes());
-      oFile.flush();
-      oFile.close();
       Pathfinder.writeToCSV(file, trajectory);
       System.out.println("****************Info Written To File****************\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!");
     } catch (IOException e) {
@@ -145,6 +165,7 @@ public class NerdyPath {
       }
       br.close();
       return Pathfinder.readFromCSV(file);
+      // return Pathfinder.readFromCSV(file);
     } catch (IOException e) {
       System.out.println("*****************ERROR: " + e
           + " *******************\n**********************\n**********************\n**************************\n*********************");
@@ -154,12 +175,12 @@ public class NerdyPath {
 
   public void periodic() {
     if (pathfinderDebug) {
-      SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
+      // SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);
+      // SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
+      // SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
 
       SmartDashboard.putNumber("RightVelocity", Robot.Chassis.rightFrontMotor.getSelectedSensorVelocity());
-      SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
+      // SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("Turn Value", this.turn);
       SmartDashboard.putNumber("AngleDifferance", this.angleDifference);
       SmartDashboard.putNumber("leftOutput", this.leftOutput);

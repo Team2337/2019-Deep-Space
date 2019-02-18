@@ -32,9 +32,9 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = false;
-  boolean neoDebug = false;
-  boolean pathFinderDebug = false;
+  boolean chassisDebug = true;
+  boolean neoDebug = true;
+  boolean lineSensorDebug = true;
 
   /* --- Line Sensors --- */
   public DigitalInput lineSensorFront;
@@ -71,12 +71,12 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int rightFrontID = 0;
+  private final static int rightFrontID = 60;
   private final static int rightRearID = 1;
   private final static int rightEncoderTalonID = 2;
   private final static int leftFrontID = 15;
   private final static int leftRearID = 14;
-  private final static int leftEncoderTalonID = 53; //move 13 into cargo intake
+  // private final static int leftEncoderTalonID = 53; //move 13 into cargo intake
 
   private final static int talonRightMidID = 31;
   private final static int talonRightRearID = 32;
@@ -99,6 +99,7 @@ public class Chassis extends Subsystem {
 
     // Sets up the left front motor as a Talon with a mag encoder that isn't
     // reversed
+    /*
     leftFrontMotor = new TalonSRX(leftEncoderTalonID);
     leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
     leftFrontMotor.setSensorPhase(false);
@@ -196,7 +197,7 @@ public class Chassis extends Subsystem {
     ////////////////////////
 
     /* --- Talon Nerdy Drive --- */
-    talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
+    // talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
 
     /* --- Neo Nerdy Drive --- */
     neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
@@ -223,7 +224,7 @@ public class Chassis extends Subsystem {
    */
   public void setEncoders(int pos) {
     rightFrontMotor.setSelectedSensorPosition(pos, 0, 0);
-    leftFrontMotor.setSelectedSensorPosition(-pos, 0, 0);
+    Robot.CargoIntake.CargoIntakeMotor.setSelectedSensorPosition(-pos, 0, 0);
   }
 
   /**
@@ -239,7 +240,17 @@ public class Chassis extends Subsystem {
    * @return - returns the encoders position on the left encoder
    */
   public double getLeftPosition() {
-    return leftFrontMotor.getSelectedSensorPosition();
+    return Robot.CargoIntake.CargoIntakeMotor.getSelectedSensorPosition();
+  }
+
+  /**
+   * Talon Method
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void neoDriveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+    neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
   }
 
   /**
@@ -287,7 +298,7 @@ public class Chassis extends Subsystem {
    */
   public void resetEncoders() {
     rightFrontMotor.setSelectedSensorPosition(0, 0, 0);
-    leftFrontMotor.setSelectedSensorPosition(0, 0, 0);
+    Robot.CargoIntake.CargoIntakeMotor.setSelectedSensorPosition(0, 0, 0);
   }
   
 
@@ -302,7 +313,7 @@ public class Chassis extends Subsystem {
    *             </p>
    */
   public void setBrakeMode(NeutralMode mode) {
-    leftFrontMotor.setNeutralMode(mode);
+    Robot.CargoIntake.CargoIntakeMotor.setNeutralMode(mode);
     rightFrontMotor.setNeutralMode(mode);
     leftMidMotor.setNeutralMode(mode);
     rightMidMotor.setNeutralMode(mode);
@@ -356,7 +367,8 @@ public class Chassis extends Subsystem {
    * Manually reset the rotational position of the NEO drive encoders to 0 ticks
    */
   public void resetNeoEncoders() {
-    // As of 1/24/19, no way to set Neo encoder values
+    neoLeftFrontEncoder.setPosition(0);
+    neoRightFrontEncoder.setPosition(0);
   }
 
   /**
@@ -404,10 +416,13 @@ public class Chassis extends Subsystem {
     if (chassisDebug) {
       SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); //rightFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); //leftFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("Right encoder dist INCH", (getRightPosition()/13988)*20);
+      SmartDashboard.putNumber("Left encoder dist INCH", (getLeftPosition()/13988)*20);
+
+      SmartDashboard.putNumber("leftFront", Robot.CargoIntake.CargoIntakeMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
-      SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("left Chassis POWER", Robot.CargoIntake.CargoIntakeMotor.getMotorOutputPercent());
 
       SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
       SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
@@ -426,6 +441,12 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("neoLeftEncoder", neoLeftFrontEncoder.getPosition());
       SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
       SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
+    }
+
+    if(lineSensorDebug) {
+      SmartDashboard.putBoolean("Front Line Sensor", lineSensorFront.get());
+      SmartDashboard.putBoolean("Mid Line Sensor", lineSensorMiddle.get());
+      SmartDashboard.putBoolean("Back Line Sensor", lineSensorBack.get());
     }
   }
 }
