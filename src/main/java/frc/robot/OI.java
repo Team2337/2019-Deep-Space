@@ -27,8 +27,7 @@ public class OI {
 		
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
-		
-	    
+
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
@@ -41,8 +40,6 @@ public class OI {
 		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
-
-		operatorJoystick.leftStickUp				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
 
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
 

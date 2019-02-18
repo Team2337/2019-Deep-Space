@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Constants;
+import frc.robot.Robot;
 
 /**
  * @author John Reno/ Hunter Buzzell It makes the pnunumetics in the kicker
@@ -13,7 +13,7 @@ public class AutoHatchKicker extends Subsystem {
   private Solenoid hatchkicker;
 
   public AutoHatchKicker() {
-    hatchkicker = new Solenoid(Constants.hatchKickerPort);
+    hatchkicker = new Solenoid(Robot.Constants.hatchKickerPort);
   }
 
   @Override

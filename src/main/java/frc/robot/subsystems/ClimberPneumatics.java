@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Constants;
+import frc.robot.Robot;
 
 /**
  * 
@@ -13,7 +13,7 @@ public class ClimberPneumatics extends Subsystem {
   private Solenoid piston;
 
   public ClimberPneumatics() {
-    piston = new Solenoid(Constants.climberPort);
+    piston = new Solenoid(Robot.Constants.climberPort);
    }
 
   // Set the default command for a subsystem here.

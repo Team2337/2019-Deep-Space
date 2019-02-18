@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Constants;
+import frc.robot.Robot;
 
 /**
  * Controls the raising and lowering of the cargo drawbridge
@@ -13,7 +13,7 @@ public class CargoDrawbridge extends Subsystem {
   private Solenoid CargoDrawbridge;
 
   public CargoDrawbridge() {
-    CargoDrawbridge = new Solenoid(Constants.cargoDrawbridgePort);
+    CargoDrawbridge = new Solenoid(Robot.Constants.cargoDrawbridgePort);
   }
 
   public void initDefaultCommand() {

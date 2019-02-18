@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Constants;
+import frc.robot.Robot;
 
 /**
  * Controls the intake mechanism for cargo
@@ -17,7 +17,7 @@ public class CargoIntake extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoIntakeMotorID = Constants.cargoIntakeID;
+  private int CargoIntakeMotorID = Robot.Constants.cargoIntakeID;
 
   public CargoIntake() {
     // Configurations for the cargo intake motor
