@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
   public static NerdyPath NerdyPath;
   public static OI oi;
   public static Pigeon Pigeon;
+  public static RoboWrangler RoboWrangler;
   public static Shifter Shifter;
   public static TRexArms TRexArms;
   public static Vision Vision;
@@ -82,6 +83,7 @@ public class Robot extends TimedRobot {
     LED = new LED();
     Lift = new Lift();
     Pigeon = new Pigeon();
+    RoboWrangler = new RoboWrangler();
     Shifter = new Shifter();
     TRexArms = new TRexArms();
     Vision = new Vision();
