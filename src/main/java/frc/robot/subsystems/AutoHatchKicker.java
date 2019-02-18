@@ -15,7 +15,7 @@ public class AutoHatchKicker extends Subsystem {
 
   public AutoHatchKicker() {
     PCM = 0;
-    hatchkickerport = 6;
+    hatchkickerport = 4;
     hatchkicker = new Solenoid(PCM, hatchkickerport);
   }
 
