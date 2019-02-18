@@ -3,7 +3,7 @@ package frc.robot.commands.Chassis;
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
-import frc.robot.nerdyfiles.controller.NerdyXbox;
+import frc.robot.nerdyfiles.controller.NerdyUltimateXbox;
 import frc.robot.subsystems.Chassis;
 
 /**
@@ -12,7 +12,7 @@ import frc.robot.subsystems.Chassis;
 public class driveByJoystick extends Command {
 
   // Gets the driver joystick from OI.java
-  private NerdyXbox driverJoystick = Robot.oi.driverJoystick;
+  private NerdyUltimateXbox driverJoystick = Robot.oi.driverJoystick;
   private boolean isNeoDrive;
 
   /**

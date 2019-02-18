@@ -41,6 +41,18 @@ public class Lift extends Subsystem {
   // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
 
+  // Position to raise the robot to when climbing
+  public double climbPosition = 120;
+
+  //Position to score hatch on the low rocket
+  public double hatchLowScorePosition = 300;
+  //Position to score hatch on the cargo ship
+  public double hatchCargoShipScorePosition = 469;
+  //Position to score hatch on the mid rocket
+  public double hatchMidScorePosition = 703;
+  //Position to intake a hatch panel at
+  public double hatchIntakePosition = 160;
+
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private final static int liftRightFrontID = 4;
