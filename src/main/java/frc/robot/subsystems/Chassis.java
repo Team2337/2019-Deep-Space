@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
@@ -63,17 +64,17 @@ public class Chassis extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int rightFrontID = 0;
-  private final static int rightRearID = 1;
-  private final static int rightEncoderTalonID = 2;
-  private final static int leftFrontID = 15;
-  private final static int leftRearID = 14;
-  private final static int leftEncoderTalonID = 53; //move 13 into cargo intake
+  private final static int rightFrontID = Constants.chassisRightFrontID;
+  private final static int rightRearID = Constants.chassisRightRearID;
+  private final static int rightEncoderTalonID = Constants.chassisRightEncoderTalon;
+  private final static int leftFrontID = Constants.chassisFrontLeftID;
+  private final static int leftRearID = Constants.chassisRearLeftID;
+  private final static int leftEncoderTalonID = Constants.chassisLeftEncoderTalon;
 
-  private final static int talonRightMidID = 31;
-  private final static int talonRightRearID = 32;
-  private final static int talonLeftMidID = 46;
-  private final static int talonLeftRearID = 47;
+  private final static int talonRightMidID = Constants.chassisTalonRightMidID;
+  private final static int talonRightRearID = Constants.chassisTalonRightRearID;
+  private final static int talonLeftMidID = Constants.chassisTalonLeftMidID;
+  private final static int talonLeftRearID = Constants.chassisTalonLeftRearID;
 
   public Chassis() {
 

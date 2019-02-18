@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -10,11 +11,11 @@ import edu.wpi.first.wpilibj.Solenoid;
  * @author Hunter B
  */
 public class HatchLauncher extends Subsystem {
-  private int launcherPort = 0;
+
   private Solenoid launcherPiston;
 
   public HatchLauncher() {
-    launcherPiston = new Solenoid(0, launcherPort);
+    launcherPiston = new Solenoid(Constants.hatchLauncherPort);
   }
 
   // Set the default command for a subsystem here.

@@ -2,86 +2,88 @@ package frc.robot;
 
 public class Constants {
     /* --- CAN IDs --- */
-    public int neoChassisFrontRight0 = 0;
-    public int neoChassisBackRight1 = 1;
-    public int canID2 = 2;
-    public int canID3 = 3;
-    public int liftRightFrontID4 = 4;
-    public int liftRightBackID5 = 5;
-    public int cargoScoreMotorID6 = 6;
-    public int canID7 = 7;
-    public int canID8 = 8;
-    public int cargoEscalatorMotorID9 = 9;
-    public int liftLeftFrontID10 = 10;
-    public int liftLeftBackID11 = 11;
-    public int canID12 = 12;
-    public int talonCargoIntake13 = 13;
-    public int neoChassisBackLeft14 = 14;
-    public int neoChassisFrontLeft15 = 15;
-    
-    public int pidgeyCANID20 = 20;
+    public static int chassisRightFrontID = 0;
+    public static int chassisRightRearID = 1;
+    public static int chassisRightEncoderTalon = 2;
+    public static int canID3 = 3;
+    public static int liftRightFrontID = 4;
+    public static int liftRightRearID = 5;
+    public static int cargoScoreID = 6;
+    public static int canID7 = 7;
+    public static int canID8 = 8;
+    public static int cargoEscalatorID = 9;
+    public static int liftLeftFrontID = 10;
+    public static int liftLeftRearID = 11;
+    public static int canID12 = 12;
+    public static int cargoIntakeID = 13;
+    public static int chassisRearLeftID = 14;
+    public static int chassisFrontLeftID = 15;
 
-    public int talonRightMidID31 = 31;
-    public int talonRightRearID32 = 32;
-    public int talonLeftMidID46 = 46;
-    public int talonLeftRearID47 = 47;
+    public static int pidgeyID = 20;
+
+    public static int chassisTalonRightMidID = 31;
+    public static int chassisTalonRightRearID = 32;
+    public static int chassisTalonLeftMidID = 46;
+    public static int chassisTalonLeftRearID = 47;
+
+    public static int chassisLeftEncoderTalon = 53;
 
     /* --- PCMs --- */
-    public int PCM_0 = 0;
-    public int PCM_1 = 1;
+    public static int PCM0 = 0;
+    public static int PCM1 = 1;
 
     /* --- PCM Ports --- */
-    public int pcm0ID0 = 0;
-    public int climberRightPort1 = 1;
-    public int hatchBeakPort2 = 2;
-    public int hatchLauncherPort3 = 3;
-    public int shifterLeftPort = 4;
-    public int shifterRightPort = 5;
-    public int hatchKickerPort = 6;
-    public int climberLeftPort7 = 7;
+    public static int cargoDrawbridgePort = 0; //+
+    public static int shifterPort = 1;
+    public static int hatchBeakPort = 2;
+    public static int hatchLauncherPort = 3;
+    public static int hatchKickerPort = 4;
+    public static int climberPort = 5; //+
+    public static int pcm0Port6 = 6;
+    public static int pcm0Port7 = 7;
 
-    public int pcm2ID0 = 0;
-    public int pcm2ID1 = 1;
-    public int pcm2ID2 = 2;
-    public int pcm2ID3 = 3;
-    public int pcm2ID4 = 4;
-    public int pcm2ID5 = 5;
-    public int pcm2ID6 = 6;
-    public int pcm2ID7 = 7; 
+    public static int pcm2ID0 = 0;
+    public static int pcm2ID1 = 1;
+    public static int pcm2ID2 = 2;
+    public static int pcm2ID3 = 3;
+    public static int pcm2ID4 = 4;
+    public static int pcm2ID5 = 5;
+    public static int pcm2ID6 = 6;
+    public static int pcm2ID7 = 7;
 
     /* --- DIO Ports --- */
-    public int dioPort0 = 0;
-    public int dioPort1 = 1;
-    public int tripWireDIOPort2 = 2;
-    public int dioPort3 = 3;
-    public int dioPort4 = 4;
-    public int dioPort5 = 5;
-    public int dioPort6 = 6;
-    public int dioPort7 = 7;
-    public int dioPort8 = 8;
-    public int dioPort9 = 9;
+    public static int cargoIntakeSensorID = 0;
+    public static int cargoEscalatorSensorID = 1;
+    public static int cargoTrolleySensorID = 2;
+    public static int dioPort3 = 3;
+    public static int dioPort4 = 4;
+    public static int dioPort5 = 5;
+    public static int dioPort6 = 6;
+    public static int dioPort7 = 7;
+    public static int dioPort8 = 8;
+    public static int dioPort9 = 9;
 
     /* --- Analog Ports --- */
-    public int analogPorts0 = 0;
-    public int analogPorts1 = 1;
-    public int analogPorts2 = 2;
-    public int analogPorts3 = 3;
+    public static int analogPorts0 = 0;
+    public static int analogPorts1 = 1;
+    public static int analogPorts2 = 2;
+    public static int analogPorts3 = 3;
 
     /* --- Relay Ports --- */
-    public int relayPort0 = 0;
-    public int relayPort1 = 1;
-    public int relayPort2 = 2;
-    public int relayPort3 = 3;
+    public static int relayPort0 = 0;
+    public static int relayPort1 = 1;
+    public static int relayPort2 = 2;
+    public static int relayPort3 = 3;
 
     /* --- PWM Ports --- */
-    public int blinkinPWM0 = 0;
-    public int pwmPort1 = 1;
-    public int pwmPort2 = 2;
-    public int pwmPort3 = 3;
-    public int pwmPort4 = 4;
-    public int pwmPort5 = 5;
-    public int pwmPort6 = 6;
-    public int pwmPort7 = 7;
-    public int pwmPort8 = 8;
-    public int pwmPort9 = 9;
-} 
+    public static int blinkinPWM = 0;
+    public static int pwmPort1 = 1;
+    public static int pwmPort2 = 2;
+    public static int pwmPort3 = 3;
+    public static int pwmPort4 = 4;
+    public static int pwmPort5 = 5;
+    public static int pwmPort6 = 6;
+    public static int pwmPort7 = 7;
+    public static int pwmPort8 = 8;
+    public static int pwmPort9 = 9;
+}

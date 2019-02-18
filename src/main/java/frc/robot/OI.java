@@ -42,6 +42,8 @@ public class OI {
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
+		operatorJoystick.leftStickUp				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
+
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
 
 		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
