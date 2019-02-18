@@ -1,4 +1,4 @@
-package frc.robot.commands.ClimberPneumatics;
+package frc.robot.commands.ClimberDeploy;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,18 +6,17 @@ import frc.robot.Robot;
 /**
  * An example command. You can replace me with your own command.
  */
-public class platformGrab extends Command {
+public class retractClimber extends Command {
 
   // CONSTRUCTOR
-  public platformGrab() {
-
-    requires(Robot.ClimberPneumatics);
+  public retractClimber() {
+    requires(Robot.ClimberDeploy);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-   Robot.ClimberPneumatics.platformGrab();
+    Robot.ClimberDeploy.retractClimber();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -29,6 +28,7 @@ public class platformGrab extends Command {
   protected boolean isFinished() {
     return true;
   }
+
   @Override
   protected void end() {
 

@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
   public static Chassis Chassis;
-  public static ClimberPneumatics ClimberPneumatics;
+  public static ClimberDeploy ClimberDeploy;
   public static Constants Constants;
   public static HatchLauncher HatchLauncher;
   public static HatchBeak HatchBeak;
@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static Pigeon Pigeon;
   public static Shifter Shifter;
+  public static TRexArms TRexArms;
   public static Vision Vision;
 
   Command autonomousCommand;
@@ -75,13 +76,14 @@ public class Robot extends TimedRobot {
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
     Chassis = new Chassis();
-    ClimberPneumatics = new ClimberPneumatics();
+    ClimberDeploy = new ClimberDeploy();
     HatchBeak = new HatchBeak();
     HatchLauncher = new HatchLauncher();
     LED = new LED();
     Lift = new Lift();
     Pigeon = new Pigeon();
     Shifter = new Shifter();
+    TRexArms = new TRexArms();
     Vision = new Vision();
     // Keep below other subsystems as these have dependencies for other subsystems
     // to be instantiated first.
