@@ -24,6 +24,10 @@ public class NerdyXbox extends Joystick {
     public JoystickButton           rightStickButton   = new JoystickButton(this, 10);
     public JoystickAnalogButton     triggerLeft        = new JoystickAnalogButton(this, 2);
     public JoystickAnalogButton     triggerRight       = new JoystickAnalogButton(this, 3);
+    public JoystickAnalogButton     leftStickUp        = new JoystickAnalogButton(this, 1, 0.5);
+    public JoystickAnalogButton     leftStickDown      = new JoystickAnalogButton(this, 1, -0.5);
+    public JoystickAnalogButton     leftStickLeft      = new JoystickAnalogButton(this, 0, 0.5);
+    public JoystickAnalogButton     leftStickRight     = new JoystickAnalogButton(this, 0, -0.5);
     public JoystickPOVButton        povUp              = new JoystickPOVButton(this, 0);
     public JoystickPOVButton        povUpRight         = new JoystickPOVButton(this, 45);
     public JoystickPOVButton        povRight           = new JoystickPOVButton(this, 90);
