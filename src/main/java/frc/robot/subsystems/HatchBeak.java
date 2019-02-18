@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 /**
  * This subsystem controls the hatch beak, which acquires the hatch panel
  * 
- * @author Emily H.
+ * @author Emily H. Jack E.
  */
 public class HatchBeak extends Subsystem {
 
@@ -41,7 +41,7 @@ public class HatchBeak extends Subsystem {
    * Display the status on the smartdashboard
    */
   public void periodic() {
-
+    
   }
 
 }

@@ -7,7 +7,7 @@ import frc.robot.Robot;
  * This command is mainly a placeholder command, but it can be used
  * functionally. It does just as it says: nothing.
  */
-public class goToPosition extends Command {
+public class setTargetPosition extends Command {
 
     // The set position of the lift in encoder ticks
     double pos;
@@ -15,7 +15,7 @@ public class goToPosition extends Command {
     /**
      * @param pos - The position of the lift in (stringpot) encoder ticks
      */
-    public goToPosition(double pos) {
+    public setTargetPosition(double pos) {
         this.pos = pos;
 
         requires(Robot.Lift);
@@ -24,7 +24,8 @@ public class goToPosition extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.Lift.setSetpoint(pos);
+        Robot.Lift.targetPosition = pos;
+        Robot.CargoBigBrother.inFireMode = false;
     }
 
     // Called repeatedly when this Command is scheduled to run

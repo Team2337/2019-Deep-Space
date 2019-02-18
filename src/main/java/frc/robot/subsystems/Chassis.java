@@ -3,12 +3,14 @@ package frc.robot.subsystems;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -29,26 +31,31 @@ public class Chassis extends Subsystem {
    * @see #periodic()
    */
   boolean chassisDebug = false;
+  boolean neoDebug = false;
+  boolean pathFinderDebug = false;
+
+  /* --- Drive Motor Declaration --- */
+  public TalonSRX leftFrontMotor;
+  public VictorSPX leftMidMotor;
+  public VictorSPX leftRearMotor;
+
+  public TalonSRX rightFrontMotor;
+  public VictorSPX rightMidMotor;
+  public VictorSPX rightRearMotor;
 
   /* --- Talon Drive Motor Declaration --- */
-  private static TalonSRX leftFrontMotor;
-  private static VictorSPX leftMidMotor;
-  private static VictorSPX leftRearMotor;
+  public CANSparkMax neoLeftFrontMotor;
+  // public static CANSparkMax neoLeftMidMotor;
+  public CANSparkMax neoLeftRearMotor;
 
-  private static TalonSRX rightFrontMotor;
-  private static VictorSPX rightMidMotor;
-  private static VictorSPX rightRearMotor;
+  public CANSparkMax neoRightFrontMotor;
+  // public static CANSparkMax neoRightMidMotor;
+  public CANSparkMax neoRightRearMotor;
 
-  /* --- Neo Drive Motor Declaration --- */
-  private static CANSparkMax neoLeftFrontMotor;
-  private static CANSparkMax neoLeftRearMotor;
-  private static CANEncoder neoLeftFrontEncoder;
-  private static CANEncoder neoLeftRearEncoder;
-
-  private static CANSparkMax neoRightFrontMotor;
-  private static CANSparkMax neoRightRearMotor;
-  private static CANEncoder neoRightFrontEncoder;
-  private static CANEncoder neoRightRearEncoder;
+  public static CANEncoder neoLeftFrontEncoder;
+  public static CANEncoder neoLeftRearEncoder; 
+  public static CANEncoder neoRightFrontEncoder;
+  public static CANEncoder neoRightRearEncoder; 
 
   /* --- Drive Declarations --- */
   public static TalonNerdyDrive talonDrive;
@@ -69,6 +76,7 @@ public class Chassis extends Subsystem {
   private final static int talonLeftRearID = 47;
 
   public Chassis() {
+
 
     /*****************************************/
     /* ------------------------------------- */
@@ -182,7 +190,7 @@ public class Chassis extends Subsystem {
     /* --- Neo Nerdy Drive --- */
     neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
   }
-
+   
   // Sets the default drive command to drive using the joysticks on an XBox 360
   // controller
   public void initDefaultCommand() {
@@ -198,7 +206,7 @@ public class Chassis extends Subsystem {
   /*****************************************/
 
   /**
-   * Manually set the rotational position of the drive encoders
+   * Manually set the rotational position of the TALON drive encoders 
    * 
    * @param pos Position to set encoders to - in encoder ticks
    */
@@ -208,15 +216,72 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Manually reset the rotational position of the drive encoders to 0 ticks
+   * Talon Methods
+   * @return - returns the encoder position on the right encoder
+   */
+  public double getRightPosition() {
+    return rightFrontMotor.getSelectedSensorPosition();
+  }
+
+  /**
+   * Talon Methods
+   * @return - returns the encoders position on the left encoder
+   */
+  public double getLeftPosition() {
+    return leftFrontMotor.getSelectedSensorPosition();
+  }
+
+  /**
+   * Talon Method
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void driveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+    talonDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
+  }
+  
+  /**
+   * Talon Method
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void driveCurvature(double moveSpeed, double turnSpeed, boolean isQuickTurn) {
+    talonDrive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
+  }
+  
+  /**
+   * Talon Method
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void driveTank(double leftSpeed, double rightSpeed, boolean squareInputs) {
+    talonDrive.tankDrive(leftSpeed, rightSpeed, squareInputs);
+  }
+  
+  /**
+   * Talon Method
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void stopDrive() {
+    talonDrive.arcadeDrive(0, 0, true);
+  }
+
+  /**
+   * Manually reset the rotational position of the Talon drive encoders to 0 ticks
    */
   public void resetEncoders() {
     rightFrontMotor.setSelectedSensorPosition(0, 0, 0);
     leftFrontMotor.setSelectedSensorPosition(0, 0, 0);
   }
+  
 
   /**
-   * Determines what the drive motors will do when no signal is given to them
+   * Determines what the Talon drive motors will do when no signal is given to them
    * 
    * @param mode The braking mode to use
    *             <p>
@@ -241,7 +306,7 @@ public class Chassis extends Subsystem {
   /*****************************************/
 
   /**
-   * Get the average value of both drive side's encoder averages
+   * Get the average value of both NEO drive side's encoder averages
    * 
    * @return The average of both drive side's encoder averages
    */
@@ -268,7 +333,7 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Manually set the rotational position of the drive encoders
+   * Manually set the rotational position of the NEO drive encoders
    * 
    * @param pos The position to set the encoder to (in ticks)
    */
@@ -277,19 +342,19 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Manually reset the rotational position of the drive encoders to 0 ticks
+   * Manually reset the rotational position of the NEO drive encoders to 0 ticks
    */
   public void resetNeoEncoders() {
     // As of 1/24/19, no way to set Neo encoder values
   }
 
   /**
-   * Determines what the drive motors will do when no signal is given to them
+   * Determines what the NEO drive motors will do when no signal is given to them
    * 
    * @param mode The breaking mode to use
    *             <p>
    *             {@code IdleMode.kCoast} - Allow the robot to roll to a stop
-   *             {@code IdleMode.kBreak} - The motors run backwards and attempt
+   *             {@code IdleMode.kBrake} - The motors run backwards and attempt
    *             stop the robot sooner
    *             </p>
    */
@@ -301,8 +366,12 @@ public class Chassis extends Subsystem {
     neoRightRearMotor.setIdleMode(mode);
   }
 
+  public void stopNeoDrive() {
+    neoDrive.arcadeDrive(0, 0, false);
+  }
+
   /**
-   * Determines what the drive motors will do when no signal is given to them
+   * Determines what the NEO drive motors will do when no signal is given to them
    * 
    * @param motor A CANSparkMax motor to assign a breakmode to
    * @param mode  The braking mode to use
@@ -322,10 +391,30 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
+      SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); //rightFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); //leftFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+
+      SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
+      SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
+      SmartDashboard.putNumber("Auto A Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Reverse Auto P Input", autoSetPathReverse.kP);
+      SmartDashboard.putNumber("Reverse Auto I Input", autoSetPathReverse.kI);
+      SmartDashboard.putNumber("Reverse Auto D Input", autoSetPathReverse.kD);
+      SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
+
+      SmartDashboard.putNumber("printX", autoSetPath.printX);
+    }
+
+    if(neoDebug) {
+      SmartDashboard.putNumber("neoRightEncoder", neoRightFrontEncoder.getPosition());
+      SmartDashboard.putNumber("neoLeftEncoder", neoLeftFrontEncoder.getPosition());
+      SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
+      SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
     }
   }
 }
