@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  * @author Hunter B
  */
 public class HatchLauncher extends Subsystem {
-  private int launcherPort = 3;
+  private int launcherPort = 0;
   private Solenoid launcherPiston;
 
   public HatchLauncher() {

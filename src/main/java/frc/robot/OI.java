@@ -1,9 +1,9 @@
 package frc.robot;
 
-import frc.robot.commands.CargoDrawbridge.*;
-import frc.robot.commands.CargoEscalator.*;
-import frc.robot.commands.CargoIntake.*;
-import frc.robot.commands.CargoScore.*;
+import frc.robot.commands.CargoBigBrother.*;
+import frc.robot.commands.HatchBeak.*;
+import frc.robot.commands.HatchLauncher.*;
+import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,19 +37,24 @@ public class OI {
 		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
 
 		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
-		// operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
-		// operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
-		// operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose()); 
+		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
+		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.start						.whenPressed(new raiseTheDrawbridge());
-		operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
+		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
 
-		operatorJoystick.bumperRight				.whileHeld(new cargoIntakeIn(1));
-		operatorJoystick.triggerRight				.whileHeld(new cargoIntakeOut(1));
-		operatorJoystick.triggerLeft				.whileHeld(new cargoEscalatorUp(1));
-		operatorJoystick.bumperLeft					.whileHeld(new cargoEscalatorDown(1));
-		operatorJoystick.blueX						.whileHeld(new cargoScoreIn(1));
-		operatorJoystick.yellowY					.whileHeld(new cargoScoreOut(1));
+		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
+		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
+
+		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake()); // If the position of this command changes, UPDATE THE COMMAND
+		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
+
+		operatorJoystick.greenA						.whileHeld(new setTargetPosition(201));
+		operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
+		operatorJoystick.blueX						.whileHeld(new setTargetPosition(325));
+		operatorJoystick.yellowY					.whileHeld(new setTargetPosition(150));
+
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
