@@ -173,12 +173,12 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveForward() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.0, 0.25, 0.1);
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.0, 0.2, 0.1); //turn down acceloration to not tip over
         trajectory = Pathfinder.generate(driveForward, config);
         return trajectory;
     }
 
-        /**
+    /**
      * <strong>TEST</strong> drive forwards path
      */
     private static Waypoint[] backUpDriveWaypoints = new Waypoint[] {

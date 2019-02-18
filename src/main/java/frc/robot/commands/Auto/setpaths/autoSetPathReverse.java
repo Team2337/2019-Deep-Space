@@ -2,7 +2,10 @@ package frc.robot.commands.Auto.setpaths;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import org.junit.rules.Timeout;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -25,7 +28,7 @@ public class autoSetPathReverse extends Command {
   public static double kP, kI, kD, kA;
   private double[] pidValues;
 
-  private double timeout;
+  private double timeout, timer;
 
   /**
    * Reads the set trajectories into the drive, and sets it in reverse
@@ -51,7 +54,7 @@ public class autoSetPathReverse extends Command {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
 
-    timeout = (trajectory.length() / 50) + 0.7;
+    timeout = (trajectory.length() / 10) + 1.5; //0.7
     setTimeout(timeout);
 
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
@@ -60,6 +63,7 @@ public class autoSetPathReverse extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
     Robot.NerdyPath.makePathReverse();
   }
 
@@ -73,6 +77,7 @@ public class autoSetPathReverse extends Command {
   @Override
   protected void end() {
     System.out.println("**** COMMAND ENDED ****");
+    Robot.Chassis.neoDriveArcade(0, 0, false);
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 

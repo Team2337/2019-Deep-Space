@@ -53,7 +53,7 @@ public class autoSetPathReverseFile extends Command {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
 
-    // timeout = (trajectory.length() / 50)+0.7;
+    timeout = (trajectory.length() / 10) + 1.5; //0.7
     setTimeout(timeout);
 
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA, maxVelocity);
