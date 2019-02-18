@@ -84,6 +84,7 @@ public class Lift extends Subsystem {
   public static int reverseLiftSoftLimit = 150;
 
   // The boundaries of where the robot should consider the stringpot to be working
+  // These are used in Robot to determine whether the sensor is out of bounds.
   public int maxValue = 700;
   public int minValue = 40;
 
