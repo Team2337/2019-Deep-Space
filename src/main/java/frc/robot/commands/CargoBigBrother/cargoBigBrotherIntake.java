@@ -32,24 +32,25 @@ public class cargoBigBrotherIntake extends Command {
         // Assume we dont have a cargo in the deadzone
         Robot.CargoBigBrother.inDeadzone = false;
 
+        // Move the lift into the intake positon 
+        
         switch (Robot.CargoBigBrother.cargoLevel()) {
-
-        case 0: {
-            // If the non-defensive intake button is pressed
-           // if (Robot.oi.operatorJoystick.start.get()) {
-                Robot.CargoDrawbridge.lowerTheDrawbridge();
-           // }
-            // Start rolling the intake inwards
-            Robot.CargoIntake.rollIn(intakeSpeed);
-            // Does not break, as the next cases have the same ending
-        }
-        case 1:
-        case 2:
-        case 3: {
-            // Start rolling the escalator upwards
-            Robot.CargoEscalator.rollUp(escalatorSpeed);
-            // Move the lift into the intake positon
-            Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+            
+            case 0: {
+                // If the non-defensive intake button is pressed
+                // if (Robot.oi.operatorJoystick.start.get()) {
+                    Robot.CargoDrawbridge.lowerTheDrawbridge();
+                    // }
+                    // Start rolling the intake inwards
+                    Robot.CargoIntake.rollIn(intakeSpeed);
+                    // Does not break, as the next cases have the same ending
+                }
+                case 1:
+                case 2:
+                case 3: {
+                    // Start rolling the escalator upwards
+                    Robot.CargoEscalator.rollUp(escalatorSpeed);
+                    Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
             break;
         }
         case 4: {
@@ -79,14 +80,14 @@ public class cargoBigBrotherIntake extends Command {
             if (Robot.CargoBigBrother.cargoIntakeSensor.get() == false) {
                 Robot.CargoBigBrother.inDeadzone = true;
             }
-            break;
+            //break;
         }
         case 2: {
             // Nothing special needs to happen at this position
             if (!Robot.CargoBigBrother.cargoEscalatorSensor.get()) {
                 Robot.CargoBigBrother.inDeadzone = false;
             }
-            break;
+            //break;
         }
         case 3: {
             // If the lift is not in position, stop the escalator until it is

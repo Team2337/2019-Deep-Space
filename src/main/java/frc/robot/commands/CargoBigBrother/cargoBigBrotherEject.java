@@ -44,6 +44,7 @@ public class cargoBigBrotherEject extends Command {
     @Override
     protected void end() {
         Robot.CargoBigBrother.stop();
+        Robot.CargoBigBrother.inFireMode = false;
     }
 
     @Override

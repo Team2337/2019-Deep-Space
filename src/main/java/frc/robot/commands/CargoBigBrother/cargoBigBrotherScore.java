@@ -30,6 +30,7 @@ public class cargoBigBrotherScore extends Command {
         } else {
             // If the lift isn't in position, tell it to go there
             Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
+            Robot.CargoBigBrother.inFireMode = true;//TODO:  can fire if double tap, no matter what, even if loose sensor or have no ball...
         }
     }
 
