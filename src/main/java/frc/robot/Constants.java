@@ -9,13 +9,13 @@ public class Constants {
     public int liftRightFrontID = 4;
     public int liftRightRearID = 5;
     public int tRexArmsID = 6;
-    public int canID7 = 7; // limelight
+    public int canID7 = 7; // Limelight is plugged into PDP port 7
     public int cargoScoreID = 28;
     public int cargoEscalatorID = 9;
     public int liftLeftFrontID = 10;
     public int liftLeftRearID = 11;
     public int canID12 = 12;
-    public int roboRanglerID = 13;
+    public int roboWranglerID = 13;
     public int chassisRearLeftID = 14;
     public int chassisFrontLeftID = 15;
 
@@ -51,9 +51,9 @@ public class Constants {
 
     /* --- DIO Ports --- */
     public int cargoIntakeSensorID = 0;
-    public int cargoEscalatorSensorID = 1;
-    public int cargoTrolleySensorID = 2;
-    public int dioPort3 = 3;
+    public int dioPort1 = 1; // Power for cargoIntakeSensor
+    public int cargoEscalatorSensorID = 2;
+    public int cargoTrolleySensorID = 3;
     public int dioPort4 = 4;
     public int dioPort5 = 5;
     public int dioPort6 = 6;

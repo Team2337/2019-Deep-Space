@@ -13,7 +13,7 @@ public class AutoHatchKicker extends Subsystem {
   private Solenoid hatchkicker;
 
   public AutoHatchKicker() {
-    hatchkicker = new Solenoid(Robot.Constants.hatchKickerPort);
+    hatchkicker = new Solenoid(Robot.Constants.PCM0, Robot.Constants.hatchKickerPort);
   }
 
   @Override

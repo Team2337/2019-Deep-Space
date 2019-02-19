@@ -15,7 +15,7 @@ public class HatchLauncher extends Subsystem {
   private Solenoid launcherPiston;
 
   public HatchLauncher() {
-    launcherPiston = new Solenoid(Robot.Constants.hatchLauncherPort);
+    launcherPiston = new Solenoid(Robot.Constants.PCM0, Robot.Constants.hatchLauncherPort);
   }
 
   // Set the default command for a subsystem here.

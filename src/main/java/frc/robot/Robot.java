@@ -68,6 +68,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
     // CONSTRUCTORS
+    // Keep above other subsystems, as these have dependencies for other subsystems
+    // to be instantiated first.
     Constants = new Constants();
     
     AirCompressor = new AirCompressor();

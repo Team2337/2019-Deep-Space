@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class Shifter extends Subsystem {
 
-  private Solenoid shifter = new Solenoid(Robot.Constants.shifterPort);
+  private Solenoid shifter = new Solenoid(Robot.Constants.PCM0, Robot.Constants.shifterPort);
 
   public Shifter() {
 

@@ -13,7 +13,7 @@ public class CargoDrawbridge extends Subsystem {
   private Solenoid CargoDrawbridge;
 
   public CargoDrawbridge() {
-    CargoDrawbridge = new Solenoid(Robot.Constants.cargoDrawbridgePort);
+    CargoDrawbridge = new Solenoid(Robot.Constants.PCM0, Robot.Constants.cargoDrawbridgePort);
   }
 
   public void initDefaultCommand() {

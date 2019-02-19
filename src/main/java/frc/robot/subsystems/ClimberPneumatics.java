@@ -13,7 +13,7 @@ public class ClimberPneumatics extends Subsystem {
   private Solenoid piston;
 
   public ClimberPneumatics() {
-    piston = new Solenoid(Robot.Constants.climberPort);
+    piston = new Solenoid(Robot.Constants.PCM0, Robot.Constants.climberPort);
    }
 
   // Set the default command for a subsystem here.
