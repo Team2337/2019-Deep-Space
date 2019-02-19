@@ -66,8 +66,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
+    
     // CONSTRUCTORS
+    // Keep above other subsystems, as these have dependencies for other subsystems
+    // to be instantiated first.
+    Constants = new Constants();
+    
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
     CargoDrawbridge = new CargoDrawbridge();
@@ -85,9 +89,8 @@ public class Robot extends TimedRobot {
     Vision = new Vision();
     // Keep below other subsystems as these have dependencies for other subsystems
     // to be instantiated first.
-    CargoBigBrother = new CargoBigBrother();
     NerdyPath = new NerdyPath();
-    Constants = new Constants();
+    CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
     Robot.Vision.setLEDMode(1);

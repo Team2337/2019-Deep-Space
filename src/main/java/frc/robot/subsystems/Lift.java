@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
 /**
  * Controls lift movement using PID setpoints
@@ -55,10 +56,10 @@ public class Lift extends Subsystem {
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int liftRightFrontID = 4;
-  private final static int liftRightBackID = 5;
-  private final static int liftLeftFrontID = 10;
-  private final static int liftLeftBackID = 11;
+  private final static int liftRightFrontID = Robot.Constants.liftRightFrontID;
+  private final static int liftRightBackID = Robot.Constants.liftRightRearID;
+  private final static int liftLeftFrontID = Robot.Constants.liftLeftFrontID;
+  private final static int liftLeftBackID = Robot.Constants.liftLeftRearID;
 
   /**
    * The front right motor is the master for the other three as they will all
