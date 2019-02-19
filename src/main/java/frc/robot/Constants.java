@@ -21,8 +21,10 @@ public class Constants {
 
     public int pidgeyID = 0;
 
+    public int chassisTalonFrontRightID = 30;
     public int chassisTalonRightMidID = 31;
     public int chassisTalonRightRearID = 32;
+    public int chassisTalonLeftFrontID = 45;
     public int chassisTalonLeftMidID = 46;
     public int chassisTalonLeftRearID = 47;
 

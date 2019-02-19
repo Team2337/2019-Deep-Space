@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,6 +23,8 @@ public class CargoIntake extends Subsystem {
     // Configurations for the cargo intake motor
     this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
     CargoIntakeMotor.setInverted(false);
+    CargoIntakeMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    CargoIntakeMotor.setSensorPhase(false);
     CargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
   }
 

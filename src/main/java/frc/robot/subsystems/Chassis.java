@@ -78,10 +78,10 @@ public class Chassis extends Subsystem {
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
     rightRearID = Robot.Constants.chassisRightRearID;
-    rightEncoderTalonID = Robot.Constants.cargoIntakeID;
+    rightEncoderTalonID = Robot.Constants.chassisTalonFrontRightID;
     leftFrontID = Robot.Constants.chassisFrontLeftID;
     leftRearID = Robot.Constants.chassisRearLeftID;
-    leftEncoderTalonID = Robot.Constants.roboRanglerID;
+    leftEncoderTalonID = Robot.Constants.chassisTalonLeftFrontID;
 
     talonRightMidID = Robot.Constants.chassisTalonRightMidID;
     talonRightRearID = Robot.Constants.chassisTalonRightRearID;
