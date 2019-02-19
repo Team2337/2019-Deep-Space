@@ -51,6 +51,7 @@ public class cargoBigBrotherIntake extends Command {
                     // Start rolling the escalator upwards
                     Robot.CargoEscalator.rollUp(escalatorSpeed);
                     Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+                    Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
             break;
         }
         case 4: {

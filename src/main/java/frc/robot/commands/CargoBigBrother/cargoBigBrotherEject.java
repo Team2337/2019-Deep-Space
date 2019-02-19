@@ -10,7 +10,7 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
-    double liftTolerance = 5;
+    double liftTolerance = 10;
 
     public cargoBigBrotherEject() {
         requires(Robot.CargoBigBrother);

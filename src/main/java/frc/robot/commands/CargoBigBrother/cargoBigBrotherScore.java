@@ -26,7 +26,7 @@ public class cargoBigBrotherScore extends Command {
         if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atTargetPosition(liftTolerance)) {
             // Score the ball and consider it scored once the command ends
             Robot.CargoScore.rollForwards(1);
-            Robot.CargoBigBrother.inFireMode = false;
+            //Robot.CargoBigBrother.inFireMode = false;
         } else {
             // If the lift isn't in position, tell it to go there
             Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
@@ -49,11 +49,13 @@ public class cargoBigBrotherScore extends Command {
     protected void end() {
         // Stop the cargo system
         Robot.CargoBigBrother.stop();
+        System.out.println("END");
     }
 
     @Override
     protected void interrupted() {
         // If the trigger is released, stop the cargo system regardless
+        System.out.println("INTURRUPTED");
         this.end();
     }
 }

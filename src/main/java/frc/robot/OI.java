@@ -40,7 +40,7 @@ public class OI {
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
-		operatorJoystick.macroFour					.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
 		operatorJoystick.macroTwo					.whenPressed(new lowerTheDrawbridge());

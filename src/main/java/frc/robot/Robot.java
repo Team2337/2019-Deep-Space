@@ -152,6 +152,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("ReadyToFire?", Robot.CargoBigBrother.inFireMode);
     SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
     SmartDashboard.putNumber("targetpos", Robot.Lift.targetPosition);
+    SmartDashboard.putBoolean("at target position", Robot.Lift.atTargetPosition(10));
+
   }
 
   /**
