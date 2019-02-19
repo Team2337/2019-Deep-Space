@@ -60,7 +60,7 @@ public class OI {
 		// operatorJoystick.greenA						.whenPressed(new setTargetPosition(160));
 		// operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
 		// operatorJoystick.blueX						.whenPressed(new setTargetPosition(325));
-		// operatorJoystick.yellowY					.whenPressed(new setTargetPosition(474));  ///  612 high rocket  474 cargo ship
+		// operatorJoystick.yellowY					.whenPressed(new setTargetPosition(474));  ///  612 mid rocket  474 cargo ship
 
 		////////////////////////////////////
 

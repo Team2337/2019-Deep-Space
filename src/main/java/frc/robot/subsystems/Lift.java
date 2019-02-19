@@ -30,9 +30,9 @@ public class Lift extends Subsystem {
   // Position to score cargo low in the rocket
   public double cargoLowScorePosition = 300; // 201
   // Position to score cargo mid in the rocket
-  public double cargoMidScorePosition = 703;
+  public double cargoMidScorePosition = 612;// COMP
   // Position to score cargo in the cargo ship
-  public double cargoShipScorePosition = 469;// 225;
+  public double cargoShipScorePosition = 474; // COMP // 469;
   // Position to allow the escalator to feed a ball into the trolley
   public double cargoIntakePosition = 160;
   // Position to store the cargo after loading, but before scoring
