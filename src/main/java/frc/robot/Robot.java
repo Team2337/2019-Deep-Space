@@ -123,7 +123,7 @@ public class Robot extends TimedRobot {
     // Hold the current lift position so that the lift doesn't move on startup
     Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
     // Disable the air compressor so it doesn't run every time we start the robot.
-    Robot.AirCompressor.disable();
+    // Robot.AirCompressor.disable();
   }
 
   /**
