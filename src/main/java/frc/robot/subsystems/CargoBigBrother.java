@@ -26,9 +26,9 @@ public class CargoBigBrother extends Subsystem {
     public CargoBigBrother() {
 
         // Cargo system sensors to help know where the ball is within the robot
-        cargoIntakeSensor = new DigitalInput(0);
-        cargoEscalatorSensor = new DigitalInput(2);
-        cargoTrolleySensor = new DigitalInput(3);
+        cargoIntakeSensor = new DigitalInput(Robot.Constants.cargoIntakeSensorID);
+        cargoEscalatorSensor = new DigitalInput(Robot.Constants.cargoEscalatorSensorID);
+        cargoTrolleySensor = new DigitalInput(Robot.Constants.cargoTrolleySensorID);
 
         // By default, the ball is not in the deadzone (if it is, then it will simply be
         // moved out of it)

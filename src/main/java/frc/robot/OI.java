@@ -27,8 +27,7 @@ public class OI {
 		
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
-		
-	    
+
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
