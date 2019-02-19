@@ -102,6 +102,7 @@ public class Lift extends Subsystem {
 
   protected void initDefaultCommand() {
     // setDefaultCommand(new goToPosition(currentPosition));
+   // setDefaultCommand(new liftWithJoystickOverride());
   }
 
   public Lift() {
@@ -201,6 +202,16 @@ public class Lift extends Subsystem {
    */
   public boolean atPosition(double tolerance) {
     return Math.abs(getSetpoint() - getPosition()) <= tolerance;
+  }
+
+    /**
+   * Determines whether or not the lift is within range of any given targetPosition
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atTargetPosition(double tolerance) {
+    return Math.abs(targetPosition - getPosition()) <= tolerance;
   }
 
   /**

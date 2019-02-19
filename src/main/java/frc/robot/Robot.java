@@ -144,6 +144,11 @@ public class Robot extends TimedRobot {
       stringPotBroken = false;
     }
     SmartDashboard.putBoolean("STRING POT OUT OF BOUNDS IF RED", stringPotBroken);
+    SmartDashboard.putNumber("StringPot", Robot.Lift.getPosition());
+    SmartDashboard.putNumber("SetPoint", Robot.Lift.getSetpoint());
+    SmartDashboard.putBoolean("ReadyToFire?", Robot.CargoBigBrother.inFireMode);
+    SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
+    SmartDashboard.putNumber("targetpos", Robot.Lift.targetPosition);
   }
 
   /**

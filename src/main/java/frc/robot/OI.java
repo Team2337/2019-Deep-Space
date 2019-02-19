@@ -57,6 +57,11 @@ public class OI {
 		operatorJoystick.blueX						.whenPressed(new setTargetPosition(Robot.Lift.climbPosition));
 		operatorJoystick.yellowY					.whenPressed(new setTargetPosition(Robot.Lift.cargoLowScorePosition));
 
+		// operatorJoystick.greenA						.whenPressed(new setTargetPosition(160));
+		// operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
+		// operatorJoystick.blueX						.whenPressed(new setTargetPosition(325));
+		// operatorJoystick.yellowY					.whenPressed(new setTargetPosition(474));  ///  612 high rocket  474 cargo ship
+
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */

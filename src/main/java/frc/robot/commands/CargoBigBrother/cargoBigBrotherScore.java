@@ -14,15 +14,16 @@ public class cargoBigBrotherScore extends Command {
     public cargoBigBrotherScore() {
         requires(Robot.CargoBigBrother);
         requires(Robot.Lift);
+        requires(Robot.CargoScore);
     }
 
-    double liftTolerance = 5;
+    double liftTolerance = 10;
 
     @Override
     protected void initialize() {
         // If the ball is within the trolley and the lift is in position (whatever it is
         // set to using the buttons)
-        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atPosition(liftTolerance)) {
+        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atTargetPosition(liftTolerance)) {
             // Score the ball and consider it scored once the command ends
             Robot.CargoScore.rollForwards(1);
             Robot.CargoBigBrother.inFireMode = false;
