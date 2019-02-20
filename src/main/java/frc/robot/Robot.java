@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -8,8 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
-import jaci.pathfinder.Trajectory;
 import frc.robot.subsystems.*;
+import jaci.pathfinder.Trajectory;
 
 /**
  * The VM is configured to automatically run this class, and to call the

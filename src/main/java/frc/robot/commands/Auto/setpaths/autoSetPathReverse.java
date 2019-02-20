@@ -1,11 +1,7 @@
 package frc.robot.commands.Auto.setpaths;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
-import org.junit.rules.Timeout;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
