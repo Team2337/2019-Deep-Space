@@ -10,22 +10,21 @@ import frc.robot.Robot;
 public class goToPosition extends Command {
 
     // The set position of the lift in encoder ticks
-    double pos;
+    double position;
 
     /**
      * @param pos - The position of the lift in (stringpot) encoder ticks
      */
     public goToPosition(double pos) {
-        this.pos = pos;
+        position = pos;
         requires(Robot.Lift);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.Lift.targetPosition = pos;
-        Robot.CargoBigBrother.inFireMode = false;
-        Robot.Lift.setSetpoint(pos);
+        // Robot.CargoBigBrother.inFireMode = false;
+        Robot.Lift.setSetpoint(position);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,7 +36,7 @@ public class goToPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

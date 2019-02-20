@@ -37,10 +37,8 @@ public class OI {
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.triggerRight				.whenPressed(new cargoBigBrotherIntake());
-		operatorJoystick.triggerRight				.whenReleased(new goToPosition(Robot.Lift.getPosition()));
+		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
-		operatorJoystick.bumperRight				.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
@@ -48,25 +46,28 @@ public class OI {
 		// operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
 		// operatorJoystick.back						.whenReleased(new raiseTheDrawbridge());
 
-		operatorJoystick.leftStickUp				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
+		operatorJoystick.leftStickUp	/*TODO: */	.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
 		operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
 
-		operatorJoystick.povUp						.whenPressed(new setTargetPosition(Robot.Lift.hatchMidScorePosition));
-		operatorJoystick.povUp						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
-		operatorJoystick.povDown					.whenPressed(new setTargetPosition(Robot.Lift.hatchLowScorePosition));
-		operatorJoystick.povDown					.whenReleased(new goToPosition(Robot.Lift.getPosition()));
+		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
+		operatorJoystick.povUp						.whenReleased(new goToPositionStay());
+		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
+		operatorJoystick.povDown					.whenReleased(new goToPositionStay());
 //humnplayerstationintakeTODO:
 		//operatorJoystick.povRight					.whileHeld(new cargoBigBrotherEject()); //humanstationintke
 
 
 		operatorJoystick.greenA						.whenPressed(new goToPosition(Robot.Lift.cargoIntakePosition));
-		operatorJoystick.greenA						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
-		operatorJoystick.redB						.whenPressed(new setTargetPosition(Robot.Lift.cargoShipScorePosition));
-		operatorJoystick.redB						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
-		operatorJoystick.blueX						.whenPressed(new setTargetPosition(Robot.Lift.climbPosition));
-		operatorJoystick.blueX						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
-		operatorJoystick.yellowY					.whenPressed(new setTargetPosition(Robot.Lift.cargoMidScorePosition));
-		operatorJoystick.yellowY					.whenReleased(new goToPosition(Robot.Lift.getPosition()));
+		operatorJoystick.greenA						.whenReleased(new goToPositionStay());
+
+		operatorJoystick.redB						.whenPressed(new goToPosition(Robot.Lift.cargoShipScorePosition));
+		operatorJoystick.redB						.whenReleased(new goToPositionStay());
+
+		operatorJoystick.blueX						.whenPressed(new goToPosition(Robot.Lift.climbPosition));
+		operatorJoystick.blueX						.whenReleased(new goToPositionStay());
+
+		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
+		operatorJoystick.yellowY					.whenReleased(new goToPositionStay());
 
 		// operatorJoystick.greenA					.whenPressed(new setTargetPosition(160));
 		// operatorJoystick.redB					.whileHeld(new cargoBigBrotherEject());

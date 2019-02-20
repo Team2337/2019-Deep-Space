@@ -108,7 +108,6 @@ public class cargoBigBrotherIntake extends Command {
             // Move the lift to a lower position to prevent the robot from being topheavy
            // Robot.Lift.setSetpoint(Robot.Lift.cargoLoadedPosition);
             // When the intake is finished, the trolley is "loaded"
-            Robot.CargoBigBrother.inFireMode = true;
             break;
         }
 

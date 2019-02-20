@@ -124,7 +124,7 @@ public class Robot extends TimedRobot {
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", chooser);
     // Hold the current lift position so that the lift doesn't move on startup
-    Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
+    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     // Disable the air compressor so it doesn't run every time we start the robot.
     // Robot.AirCompressor.disable();
   }
@@ -149,10 +149,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("STRING POT OUT OF BOUNDS IF RED", stringPotBroken);
     SmartDashboard.putNumber("StringPot", Robot.Lift.getPosition());
     SmartDashboard.putNumber("SetPoint", Robot.Lift.getSetpoint());
-    SmartDashboard.putBoolean("ReadyToFire?", Robot.CargoBigBrother.inFireMode);
     SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
-    SmartDashboard.putNumber("targetpos", Robot.Lift.targetPosition);
-    SmartDashboard.putBoolean("at target position", Robot.Lift.atTargetPosition(10));
 
   }
 

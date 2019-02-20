@@ -12,26 +12,13 @@ import frc.robot.Robot;
 public class cargoBigBrotherScore extends Command {
 
     public cargoBigBrotherScore() {
-        requires(Robot.CargoBigBrother);
-        requires(Robot.Lift);
         requires(Robot.CargoScore);
+        requires(Robot.CargoBigBrother);
     }
-
-    double liftTolerance = 10;
 
     @Override
     protected void initialize() {
-        // If the ball is within the trolley and the lift is in position (whatever it is
-        // set to using the buttons)
-        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atTargetPosition(liftTolerance)) {
-            // Score the ball and consider it scored once the command ends
-            Robot.CargoScore.rollForwards(1);
-            //Robot.CargoBigBrother.inFireMode = false;
-        } else {
-            // If the lift isn't in position, tell it to go there
-            Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
-            Robot.CargoBigBrother.inFireMode = true;//TODO:  can fire if double tap, no matter what, even if loose sensor or have no ball...
-        }
+        Robot.CargoScore.rollForwards(1);
     }
 
     @Override
@@ -49,13 +36,10 @@ public class cargoBigBrotherScore extends Command {
     protected void end() {
         // Stop the cargo system
         Robot.CargoBigBrother.stop();
-        System.out.println("END");
     }
 
     @Override
     protected void interrupted() {
-        // If the trigger is released, stop the cargo system regardless
-        System.out.println("INTURRUPTED");
         this.end();
     }
 }

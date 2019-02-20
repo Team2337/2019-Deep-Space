@@ -10,10 +10,11 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
-    double liftTolerance = 10;
+    double tolerance = 10;
 
     public cargoBigBrotherEject() {
         requires(Robot.CargoBigBrother);
+        requires(Robot.CargoScore);
     }
 
     @Override
@@ -30,9 +31,9 @@ public class cargoBigBrotherEject extends Command {
 
     @Override
     protected void execute() {
-        if(Robot.Lift.getPosition() != Robot.Lift.cargoIntakePosition && !Robot.CargoBigBrother.cargoTrolleySensor.get()) {
-            Robot.CargoScore.rollReverse(0.5);
-        } else if(Robot.Lift.getPosition() != Robot.Lift.cargoIntakePosition && Robot.CargoBigBrother.cargoTrolleySensor.get()) {
+        if(!Robot.Lift.atCargoIntakePosition(tolerance) && Robot.CargoBigBrother.cargoTrolleySensor.get()) {
+            Robot.CargoScore.rollReverse(1);
+        } else if(!Robot.Lift.atCargoIntakePosition(tolerance) && !Robot.CargoBigBrother.cargoTrolleySensor.get()) {
             Robot.CargoScore.rollReverse(0);
         } else {
             Robot.CargoScore.rollReverse(1);
@@ -49,7 +50,6 @@ public class cargoBigBrotherEject extends Command {
     @Override
     protected void end() {
         Robot.CargoBigBrother.stop();
-        Robot.CargoBigBrother.inFireMode = false;
     }
 
     @Override

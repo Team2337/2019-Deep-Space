@@ -23,7 +23,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
 
   public double targetPosition;
 
@@ -377,6 +377,7 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putBoolean("Bolf gnbtmykgt mj", atCargoIntakePosition(10));
     }
   }
 }

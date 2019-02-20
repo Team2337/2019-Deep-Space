@@ -20,9 +20,6 @@ public class CargoBigBrother extends Subsystem {
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
 
-    // Whether or not the lift/trolley are ready score
-    public boolean inFireMode;
-
     public CargoBigBrother() {
 
         // Cargo system sensors to help know where the ball is within the robot
@@ -33,9 +30,6 @@ public class CargoBigBrother extends Subsystem {
         // By default, the ball is not in the deadzone (if it is, then it will simply be
         // moved out of it)
         inDeadzone = false;
-
-        // By default, the robot is not ready to score
-        inFireMode = false;
     }
 
     public void initDefaultCommand() {
@@ -87,6 +81,5 @@ public class CargoBigBrother extends Subsystem {
         SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
         SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
         SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
-        SmartDashboard.putBoolean("In fire mode", inFireMode);
     }
 }
