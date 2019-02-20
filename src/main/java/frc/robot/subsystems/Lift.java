@@ -46,7 +46,7 @@ public class Lift extends Subsystem {
   public double climbPosition = 120;
 
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 150;
+  public double hatchLowScorePosition = 165;
   // Position to score hatch on the cargo ship
   public double hatchCargoShipScorePosition = 469;
   // Position to score hatch on the mid rocket

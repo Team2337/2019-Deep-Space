@@ -34,7 +34,7 @@ public class OI {
 		
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
-		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherExtend());
+		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
@@ -43,18 +43,19 @@ public class OI {
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
-		operatorJoystick.macroTwo					.whenPressed(new lowerTheDrawbridge());
+		// operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
+		// operatorJoystick.back						.whenReleased(new raiseTheDrawbridge());
 
 		operatorJoystick.leftStickUp				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
 		operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
 
-		operatorJoystick.povUp						.whenPressed(new setTargetPosition(Robot.Lift.hatchLowScorePosition));
-		operatorJoystick.povDown					.whenPressed(new setTargetPosition(Robot.Lift.hatchMidScorePosition));
+		operatorJoystick.povUp						.whenPressed(new setTargetPosition(Robot.Lift.hatchMidScorePosition));
+		operatorJoystick.povDown					.whenPressed(new setTargetPosition(Robot.Lift.hatchLowScorePosition));
 
-		operatorJoystick.greenA						.whenPressed(new setTargetPosition(Robot.Lift.cargoMidScorePosition));
+		operatorJoystick.greenA						.whenPressed(new setTargetPosition(Robot.Lift.cargoIntakePosition));
 		operatorJoystick.redB						.whenPressed(new setTargetPosition(Robot.Lift.cargoShipScorePosition));
 		operatorJoystick.blueX						.whenPressed(new setTargetPosition(Robot.Lift.climbPosition));
-		operatorJoystick.yellowY					.whenPressed(new setTargetPosition(Robot.Lift.cargoLowScorePosition));
+		operatorJoystick.yellowY					.whenPressed(new setTargetPosition(Robot.Lift.cargoMidScorePosition));
 
 		// operatorJoystick.greenA						.whenPressed(new setTargetPosition(160));
 		// operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
