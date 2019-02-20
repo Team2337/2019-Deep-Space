@@ -37,8 +37,10 @@ public class OI {
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
+		operatorJoystick.triggerRight				.whenPressed(new cargoBigBrotherIntake());
+		operatorJoystick.triggerRight				.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
+		operatorJoystick.bumperRight				.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
@@ -50,16 +52,25 @@ public class OI {
 		operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
 
 		operatorJoystick.povUp						.whenPressed(new setTargetPosition(Robot.Lift.hatchMidScorePosition));
+		operatorJoystick.povUp						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 		operatorJoystick.povDown					.whenPressed(new setTargetPosition(Robot.Lift.hatchLowScorePosition));
+		operatorJoystick.povDown					.whenReleased(new goToPosition(Robot.Lift.getPosition()));
+//humnplayerstationintakeTODO:
+		//operatorJoystick.povRight					.whileHeld(new cargoBigBrotherEject()); //humanstationintke
 
-		operatorJoystick.greenA						.whenPressed(new setTargetPosition(Robot.Lift.cargoIntakePosition));
+
+		operatorJoystick.greenA						.whenPressed(new goToPosition(Robot.Lift.cargoIntakePosition));
+		operatorJoystick.greenA						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 		operatorJoystick.redB						.whenPressed(new setTargetPosition(Robot.Lift.cargoShipScorePosition));
+		operatorJoystick.redB						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 		operatorJoystick.blueX						.whenPressed(new setTargetPosition(Robot.Lift.climbPosition));
+		operatorJoystick.blueX						.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 		operatorJoystick.yellowY					.whenPressed(new setTargetPosition(Robot.Lift.cargoMidScorePosition));
+		operatorJoystick.yellowY					.whenReleased(new goToPosition(Robot.Lift.getPosition()));
 
-		// operatorJoystick.greenA						.whenPressed(new setTargetPosition(160));
-		// operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
-		// operatorJoystick.blueX						.whenPressed(new setTargetPosition(325));
+		// operatorJoystick.greenA					.whenPressed(new setTargetPosition(160));
+		// operatorJoystick.redB					.whileHeld(new cargoBigBrotherEject());
+		// operatorJoystick.blueX					.whenPressed(new setTargetPosition(325));
 		// operatorJoystick.yellowY					.whenPressed(new setTargetPosition(474));  ///  612 mid rocket  474 cargo ship
 
 		////////////////////////////////////

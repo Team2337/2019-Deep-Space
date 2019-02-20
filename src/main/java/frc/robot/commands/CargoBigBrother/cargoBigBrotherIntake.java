@@ -23,7 +23,7 @@ public class cargoBigBrotherIntake extends Command {
         requires(Robot.CargoIntake);
         requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
-        requires(Robot.Lift);
+        // requires(Robot.Lift);
     }
 
     // Check the cargo level and start the command accordingly.
@@ -50,7 +50,7 @@ public class cargoBigBrotherIntake extends Command {
                 case 3: {
                     // Start rolling the escalator upwards
                     Robot.CargoEscalator.rollUp(escalatorSpeed);
-                    Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+                    // Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
                     Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
             break;
         }
