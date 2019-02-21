@@ -9,7 +9,6 @@ import frc.robot.Robot;
  * @author Jack E.
  */
 public class cargoBigBrotherIntake extends Command {
-    // TODO: Tune these values to comp bot
     double intakeSpeed = 1;
     double escalatorSpeed = 1;
     // Speed of the trolley intake. Slower to prevent overshooting the sensor
@@ -18,6 +17,12 @@ public class cargoBigBrotherIntake extends Command {
     // How close the lift needs to be to the intake position
     double liftTolerance = 5;
 
+    /**
+     * Runs the cargo intake system to get the ball into the score position
+     * <p><br/><strong>NOTE:</strong> the lift will not automatically move to the intake position,
+     * so it must be set manually. When the ball reaches the top of the conveyor, and the lift
+     * is not at intake position, the conveyor and intake will stop until then.
+     */
     public cargoBigBrotherIntake() {
         requires(Robot.CargoBigBrother);
         requires(Robot.CargoIntake);
@@ -32,32 +37,24 @@ public class cargoBigBrotherIntake extends Command {
         // Assume we dont have a cargo in the deadzone
         Robot.CargoBigBrother.inDeadzone = false;
 
-        // Move the lift into the intake positon 
-        
-        switch (Robot.CargoBigBrother.cargoLevel()) {
-            
-            case 0: {
-                // If the non-defensive intake button is pressed
-                // if (Robot.oi.operatorJoystick.start.get()) {
-                    Robot.CargoDrawbridge.lowerTheDrawbridge();
-                    // }
-                    // Start rolling the intake inwards
-                    Robot.CargoIntake.rollIn(intakeSpeed);
-                    // Does not break, as the next cases have the same ending
-                }
-                case 1:
-                case 2:
-                case 3: {
-                    // Start rolling the escalator upwards
-                    Robot.CargoEscalator.rollUp(escalatorSpeed);
-                    // Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
-                    Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
-            break;
-        }
-        case 4: {
-            break;
-        }
+        // Move the lift into the intake positon
 
+        switch (Robot.CargoBigBrother.cargoLevel()) {
+        case 0:
+            // If the non-defensive intake button is pressed
+            Robot.CargoDrawbridge.lowerTheDrawbridge();
+            // Start rolling the intake inwards
+            Robot.CargoIntake.rollIn(intakeSpeed);
+            // Does not break, as the next cases have the same ending
+        case 1:
+        case 2:
+        case 3:
+            // Start rolling the escalator upwards
+            Robot.CargoEscalator.rollUp(escalatorSpeed);
+            Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
+            break;
+        case 4:
+            break;
         }
     }
 
@@ -81,14 +78,12 @@ public class cargoBigBrotherIntake extends Command {
             if (Robot.CargoBigBrother.cargoIntakeSensor.get() == false) {
                 Robot.CargoBigBrother.inDeadzone = true;
             }
-            //break;
         }
         case 2: {
             // Nothing special needs to happen at this position
             if (!Robot.CargoBigBrother.cargoEscalatorSensor.get()) {
                 Robot.CargoBigBrother.inDeadzone = false;
             }
-            //break;
         }
         case 3: {
             // If the lift is not in position, stop the escalator until it is
@@ -105,9 +100,6 @@ public class cargoBigBrotherIntake extends Command {
             // Stop both the escalator and the trolley
             Robot.CargoEscalator.stop();
             Robot.CargoScore.stop();
-            // Move the lift to a lower position to prevent the robot from being topheavy
-           // Robot.Lift.setSetpoint(Robot.Lift.cargoLoadedPosition);
-            // When the intake is finished, the trolley is "loaded"
             break;
         }
 

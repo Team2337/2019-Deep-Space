@@ -1,7 +1,6 @@
 package frc.robot;
 
 import frc.robot.commands.CargoBigBrother.*;
-import frc.robot.commands.CargoDrawbridge.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
@@ -46,16 +45,13 @@ public class OI {
 		// operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
 		// operatorJoystick.back						.whenReleased(new raiseTheDrawbridge());
 
-		operatorJoystick.leftStickUp	/*TODO: */	.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
-		operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
+		// operatorJoystick.leftStickUp	/*TODO: */	.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
+		// operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
 
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new goToPositionStay());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenReleased(new goToPositionStay());
-//humnplayerstationintakeTODO:
-		//operatorJoystick.povRight					.whileHeld(new cargoBigBrotherEject()); //humanstationintke
-
 
 		operatorJoystick.greenA						.whenPressed(new goToPosition(Robot.Lift.cargoIntakePosition));
 		operatorJoystick.greenA						.whenReleased(new goToPositionStay());
@@ -68,11 +64,6 @@ public class OI {
 
 		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
 		operatorJoystick.yellowY					.whenReleased(new goToPositionStay());
-
-		// operatorJoystick.greenA					.whenPressed(new setTargetPosition(160));
-		// operatorJoystick.redB					.whileHeld(new cargoBigBrotherEject());
-		// operatorJoystick.blueX					.whenPressed(new setTargetPosition(325));
-		// operatorJoystick.yellowY					.whenPressed(new setTargetPosition(474));  ///  612 mid rocket  474 cargo ship
 
 		////////////////////////////////////
 

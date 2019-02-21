@@ -4,16 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Reads the position of the lift, and sets the setpoint to the current position
+ * @author Bryce G.
  */
 public class goToPositionStay extends Command {
 
-    // The set position of the lift in encoder ticks
-    
-
     /**
-     * @param pos - The position of the lift in (stringpot) encoder ticks
+     * Reads the position of the lift, and sets the setpoint to the current position
      */
     public goToPositionStay() {
         requires(Robot.Lift);

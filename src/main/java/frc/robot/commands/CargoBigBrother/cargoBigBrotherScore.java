@@ -11,6 +11,11 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherScore extends Command {
 
+    /**
+     * Runs the scoring system outwards if the ball is in the trolley
+     * <p><br/><strong>NOTE:</strong> the lift does not automatically go to the scoring position, 
+     * the operator must move the lift manually to that position.</p>
+     */
     public cargoBigBrotherScore() {
         requires(Robot.CargoScore);
         requires(Robot.CargoBigBrother);

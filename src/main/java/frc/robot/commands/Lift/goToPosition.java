@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Go to the specified position on the lift
  */
 public class goToPosition extends Command {
 
@@ -13,7 +12,10 @@ public class goToPosition extends Command {
     double position;
 
     /**
+     * Go to the specified position on the lift
+     * Sets the setpoint on the lift to {@code pos}
      * @param pos - The position of the lift in (stringpot) encoder ticks
+     * <p><br/>Example: <ul><li>{@code goToPosition(95) //Cargo Intake Position</li></ul></p>}
      */
     public goToPosition(double pos) {
         position = pos;
@@ -23,7 +25,6 @@ public class goToPosition extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        // Robot.CargoBigBrother.inFireMode = false;
         Robot.Lift.setSetpoint(position);
     }
 

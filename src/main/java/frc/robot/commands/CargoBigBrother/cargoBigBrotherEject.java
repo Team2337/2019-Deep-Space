@@ -12,6 +12,11 @@ public class cargoBigBrotherEject extends Command {
 
     double tolerance = 10;
 
+    /**
+     * Ejects the cargo from the cargo intake insystem
+     * <p><br/><strong>NOTE:</strong> the lift will not automatically move to the eject position, 
+     * in order to fully eject the ball, the lift MUST be in position</p>
+     */
     public cargoBigBrotherEject() {
         requires(Robot.CargoBigBrother);
         requires(Robot.CargoScore);
@@ -20,11 +25,6 @@ public class cargoBigBrotherEject extends Command {
     @Override
     protected void initialize() {
         // TODO: Determine if launching backwards over the robot is possible
-
-        // Move the trolley to the intake position
-        // Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
-
-        // Robot.CargoScore.rollReverse(0.5);
         Robot.CargoEscalator.rollDown(1);
         Robot.CargoIntake.rollOut(1);
     }

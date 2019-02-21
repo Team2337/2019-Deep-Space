@@ -27,6 +27,7 @@ public class Lift extends Subsystem {
 
   public double targetPosition;
 
+  /* --- Lift Set Positions --- */
   // TODO: Tune these positions for comp bot
   // Position to score cargo low in the rocket
   public double cargoLowScorePosition = 95; // 201

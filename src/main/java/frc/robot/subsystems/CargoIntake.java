@@ -19,6 +19,9 @@ public class CargoIntake extends Subsystem {
   // Do not update without updating the wiki, too!
   private int CargoIntakeMotorID = Robot.Constants.cargoIntakeID;
 
+  /**
+   * Subsystem to intake the cargo from the floor
+   */
   public CargoIntake() {
     // Configurations for the cargo intake motor
     this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
