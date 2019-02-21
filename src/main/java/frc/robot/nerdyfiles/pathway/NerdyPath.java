@@ -14,7 +14,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
 public class NerdyPath {
-  boolean pathfinderDebug = true;
+  boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
   private int ticksPerRev = 13988;

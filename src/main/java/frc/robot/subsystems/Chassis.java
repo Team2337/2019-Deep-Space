@@ -32,9 +32,10 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = true;
-  boolean neoDebug = true;
-  boolean lineSensorDebug = true;
+  boolean chassisDebug = false;
+  boolean neoDebug = false;
+  boolean lineSensorDebug = false;
+  boolean autoDebug = false;
 
   /* --- Line Sensors --- */
   public DigitalInput lineSensorFront;
@@ -432,11 +433,19 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Right encoder dist INCH", (getRightPosition()/13988)*20);
       SmartDashboard.putNumber("Left encoder dist INCH", (getLeftPosition()/13988)*20);
 
-      SmartDashboard.putNumber("leftFront", Robot.CargoIntake.CargoIntakeMotor.getMotorOutputPercent());
-      SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("left Chassis POWER", Robot.CargoIntake.CargoIntakeMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
+      SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
+    }
 
+    if(lineSensorDebug) {
+      SmartDashboard.putBoolean("Front Line Sensor", lineSensorFront.get());
+      SmartDashboard.putBoolean("Mid Line Sensor", lineSensorMiddle.get());
+      SmartDashboard.putBoolean("Back Line Sensor", lineSensorBack.get());
+    }
+
+    if(autoDebug) {
       SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
       SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
       SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
@@ -444,16 +453,6 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Reverse Auto I Input", autoSetPathReverse.kI);
       SmartDashboard.putNumber("Reverse Auto D Input", autoSetPathReverse.kD);
       SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
-
-      SmartDashboard.putNumber("printX", autoSetPath.printX);
-    }
-      SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
-    }
-
-    if(lineSensorDebug) {
-      SmartDashboard.putBoolean("Front Line Sensor", lineSensorFront.get());
-      SmartDashboard.putBoolean("Mid Line Sensor", lineSensorMiddle.get());
-      SmartDashboard.putBoolean("Back Line Sensor", lineSensorBack.get());
     }
   }
 }

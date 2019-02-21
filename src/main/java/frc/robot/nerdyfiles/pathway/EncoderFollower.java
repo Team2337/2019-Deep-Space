@@ -9,7 +9,7 @@ import jaci.pathfinder.Trajectory;
  * @author Jaci
  */
 public class EncoderFollower {
-    boolean pathfinderDebug = true;
+    boolean pathfinderDebug = false;
 
     public int encoder_offset, encoder_tick_count;
     public int segment;
