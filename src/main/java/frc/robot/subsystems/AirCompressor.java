@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class AirCompressor extends Subsystem {
 
-  public static Compressor compressor = new Compressor();
+  public Compressor compressor = new Compressor();
 
   public AirCompressor() {
 
@@ -20,11 +20,11 @@ public class AirCompressor extends Subsystem {
     //setDefaultCommand(new compressor_TurnOn());
   }
 
-  public static void enable() {
+  public void enable() {
     compressor.start();
   }
 
-  public static void disable() {
+  public void disable() {
     compressor.stop();
   }
 

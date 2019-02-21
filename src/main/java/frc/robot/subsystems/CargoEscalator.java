@@ -4,8 +4,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 
 /**
  * Controls the escalator/conveyor for cargo
@@ -17,21 +17,13 @@ public class CargoEscalator extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoEscalatorMotorID = 9;
-
-  // The cargoEscalatorSensor is a proximity sensor to detect if the escalator
-  // contains a cargo ball
-  public DigitalInput cargoEscalatorSensor;
+  private int CargoEscalatorMotorID = Robot.Constants.cargoEscalatorID;
 
   public CargoEscalator() {
     // Configurations for the cargo escalator motor
     this.CargoEscalatorMotor = new TalonSRX(CargoEscalatorMotorID);
     CargoEscalatorMotor.setInverted(false);
     CargoEscalatorMotor.setNeutralMode(NeutralMode.Brake);
-
-    // Sets the cargoEscalatorSensor up as a digital input (could be a limit switch
-    // or a proximity sensor) on port 0
-    cargoEscalatorSensor = new DigitalInput(0);
   }
 
   public void initDefaultCommand() {

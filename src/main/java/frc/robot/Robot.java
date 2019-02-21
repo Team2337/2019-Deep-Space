@@ -20,7 +20,6 @@ import jaci.pathfinder.Trajectory;
  * project.
  */
 public class Robot extends TimedRobot {
-
   /**
    * Specifies whether or not the Robot is the competition robot
    */
@@ -30,37 +29,34 @@ public class Robot extends TimedRobot {
   // DECLARATIONS
   public static AirCompressor AirCompressor;
   public static AutoHatchKicker AutoHatchKicker;
-  public static Chassis Chassis;
+  public static CargoBigBrother CargoBigBrother;
   public static CargoDrawbridge CargoDrawbridge;
   public static CargoIntake CargoIntake;
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
+  public static Chassis Chassis;
   public static ClimberPneumatics ClimberPneumatics;
+  public static Constants Constants;
   public static HatchLauncher HatchLauncher;
   public static HatchBeak HatchBeak;
   public static LED LED;
   public static Lift Lift;
+  public static NerdyPath NerdyPath;
+  public static OI oi;
   public static Pigeon Pigeon;
   public static Shifter Shifter;
   public static Vision Vision;
 
-  public static NerdyPath NerdyPath;
-  
-  public static Constants Constants;
-  public static OI oi;
-
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
-  public static Trajectory initTrajectory;
-  public static Trajectory initTrajectory2;
+  /* --- Pathfinder Trajectories --- */
   public static Trajectory curveFromToHatchRightT;
+  public static Trajectory driveForwardFile;
+  public static Trajectory driveForwardT;
   public static Trajectory fromRightLoadJTurnToCargoShipT;
   public static Trajectory jTurnToCargoShipRightT;
-  public static Trajectory driveForwardT;
   public static Trajectory backUpDriveT;
-
-  public static Trajectory driveForwardFile;
 
   private boolean logger;
   private String selectedAuto;
@@ -71,8 +67,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-   
+    
     // CONSTRUCTORS
+    // Keep above other subsystems, as these have dependencies for other subsystems
+    // to be instantiated first.
+    Constants = new Constants();
+    
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
     CargoDrawbridge = new CargoDrawbridge();
@@ -88,28 +88,28 @@ public class Robot extends TimedRobot {
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     Vision = new Vision();
-
+    // Keep below other subsystems as these have dependencies for other subsystems
+    // to be instantiated first.
     NerdyPath = new NerdyPath();
-    Constants = new Constants();
+    CargoBigBrother = new CargoBigBrother();
 
+    // Turn off the Limelight LED if it is on.
     Robot.Vision.setLEDMode(1);
-    //Used to load the points for the auton. These points take a long time to load, so to reduce time, 
-    //we only load the ones we need for the current auton we're going to run
+
+    // Used to load the points for the auton. These points take a long time to load,
+    // so to reduce time, we only load the ones we need for the current auton we're
+    // going to run
     selectedAuto = "";
     Robot.Chassis.resetNeoEncoders();
 
-    switch(selectedAuto) {
-      default :
-      // initTrajectory = Pathway.autoReverseToShipFromLvl1();
-      //  initTrajectory2 = Pathway.testSCurve();
+    switch (selectedAuto) {
+    default:
       // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
       // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
       driveForwardT = pathway.driveForward();
       // backUpDriveT = pathway.backUpDrive();
       curveFromToHatchRightT = pathway.curveFromToHatchRight();
-      // System.out.println(FileUtilities.getFilePath());
       // driveForwardT = pathway.driveForward();
-      // NerdyPath.writeFile("backUpDriveMinusFive", backUpDriveT);
       break;
     }
 
@@ -119,10 +119,14 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     // chooser.addOption("My Auto", new MyAutoCommand());
-    
+
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", chooser);
+    // Hold the current lift position so that the lift doesn't move on startup
+    Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
+    // Disable the air compressor so it doesn't run every time we start the robot.
+    Robot.AirCompressor.disable();
   }
 
   /**
@@ -138,7 +142,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     NerdyPath.periodic();
     SmartDashboard.putBoolean("Logger", logger);
-    if(Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
+    if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
     } else {
       stringPotBroken = false;
@@ -161,7 +165,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    allPeriodic();
   }
 
   /**
@@ -221,7 +224,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    allPeriodic();
   }
 
   /**
@@ -231,7 +233,4 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
-  public void allPeriodic() {
-
-  }
 }

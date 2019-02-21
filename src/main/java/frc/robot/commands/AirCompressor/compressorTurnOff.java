@@ -1,9 +1,8 @@
-package frc.robot.commands.Compressor;
+package frc.robot.commands.AirCompressor;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.AirCompressor;
 
 /**
  * Disables the compressor
@@ -18,7 +17,7 @@ public class compressorTurnOff extends Command {
   // Disables the compressor
   @Override
   protected void initialize() {
-    AirCompressor.disable();
+    Robot.AirCompressor.disable();
   }
 
   // Ends the command once the compressor is disabled
