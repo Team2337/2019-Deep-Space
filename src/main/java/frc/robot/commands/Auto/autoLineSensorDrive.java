@@ -1,11 +1,9 @@
 package frc.robot.commands.Auto;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.subsystems.Chassis;
 
 /**
  * This detects if the robot is in line to the cargo ship and ready to do the
@@ -19,9 +17,12 @@ public class autoLineSensorDrive extends Command {
 
   private boolean squaredInputs = false;
   private boolean finished = false;
-  // timer for when it goes between brake and coast after coast it ends command
+
   private int timer = 0;
 
+  /**
+   * Centers the side of the robot on a line 
+   */
   public autoLineSensorDrive() {
 
     requires(Robot.Chassis);
@@ -30,14 +31,14 @@ public class autoLineSensorDrive extends Command {
   protected void initialize() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     finished = false;
-
     timer = 0;
   }
 
   protected void execute() {
+    //Timer used to stop the robot, then after 0.25sec we enable coast mode in order to drive off again
     if (Robot.Chassis.lineSensorMiddle.get()) {
       moveSpeed = 0;
-      if (timer == 0){
+      if (timer == 0) {
         Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
       }
       timer++;
@@ -57,8 +58,6 @@ public class autoLineSensorDrive extends Command {
       finished = false;
       System.out.println("NO LINE");
     }
-
-
 
     SmartDashboard.putNumber("moveSpeed", moveSpeed);
     Robot.Chassis.neoDriveArcade(moveSpeed, turnSpeed, squaredInputs);

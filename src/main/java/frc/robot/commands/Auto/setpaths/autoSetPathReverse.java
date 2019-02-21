@@ -24,7 +24,7 @@ public class autoSetPathReverse extends Command {
   public static double kP, kI, kD, kA;
   private double[] pidValues;
 
-  private double timeout, timer;
+  private double timeout;
 
   /**
    * Reads the set trajectories into the drive, and sets it in reverse
