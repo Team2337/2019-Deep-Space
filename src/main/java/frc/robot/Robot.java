@@ -104,12 +104,7 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
     default:
-      // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
-      // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
-      driveForwardT = pathway.driveForward();
-      // backUpDriveT = pathway.backUpDrive();
-      curveFromToHatchRightT = pathway.curveFromToHatchRight();
-      // driveForwardT = pathway.driveForward();
+      
       break;
     }
 
@@ -140,8 +135,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    NerdyPath.periodic();
-    SmartDashboard.putBoolean("Logger", logger);
+    SmartDashboard.putBoolean("Logger", logger); //needed when using logger
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
     } else {

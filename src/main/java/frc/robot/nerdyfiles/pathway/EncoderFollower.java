@@ -93,7 +93,9 @@ public class EncoderFollower {
             last_error = error;
             heading = seg.heading;
             segment++;
-            System.out.println(segment + ", " + seg.dt + ", " + seg.x + ", " + seg.y + ", " + seg.position + ", " + seg.velocity + ", " + seg.acceleration);
+            if(pathfinderDebug) {
+                System.out.println(segment + ", " + seg.dt + ", " + seg.x + ", " + seg.y + ", " + seg.position + ", " + seg.velocity + ", " + seg.acceleration);
+            }
             return calculated_value;
         } else return 0;
     }

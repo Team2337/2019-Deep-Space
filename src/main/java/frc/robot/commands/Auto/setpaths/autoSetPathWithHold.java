@@ -48,10 +48,12 @@ public class autoSetPathWithHold extends Command {
     kD = pidValues[2];
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
-    
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Chassis.resetEncoders();
+    Robot.Chassis.resetNeoEncoders();
 
+    //The timeout is converting the lenght of the trajectory by the time step in the trajectory (1/10 of a second)
+    //This equates to trajectory points per second
     timeout = ((trajectory.length()-65) / 50);
     setTimeout(timeout);
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);

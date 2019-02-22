@@ -17,7 +17,7 @@ public class NerdyPath {
   boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int ticksPerRev = 13988;
+  private int ticksPerRev = 13988; //Ticks per revolution of the wheels, found by manually moving the robot
 
   private double inchesToMeters = 0.0254;
   private double wheelDiameter = 6.375 * inchesToMeters;
@@ -103,13 +103,13 @@ public class NerdyPath {
   }
 
   /**
-   * 
-   * @param trajectory
-   * @param kP
-   * @param kI
-   * @param kD
-   * @param kA
-   * @param maxVelocity
+   * Sets the trajectory for the robot to follow
+   * @param trajectory - input the trajectory of the path you want to follow
+   * @param kP - Preportion value of the PID - generally around 1.0
+   * @param kI - Intergral value of the PID - brings the plateu closer to the desired position
+   * @param kD - Derivitive (dampener) value of the PID
+   * @param kA - Starting acceloration value - useful for quick starts
+   * @param maxVelocity - the maximum velocity of the chassis, in meters per second
    */
   public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA, double maxVelocity) {
     modifier = new TankModifier(trajectory).modify(wheelBase);
@@ -125,7 +125,6 @@ public class NerdyPath {
     rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
   }
 
-
   /**
    * Writes a generated trajectory to the deploy folder on the robot
    * <br/> Only needs to be run one time in order to write the file to the robot
@@ -135,13 +134,12 @@ public class NerdyPath {
    */
   public void writeFile(String fileName, Trajectory trajectory) {
     try {
-      // File file = new File(filePath + fileName + binary); // writing to binary
       File file = new File(filePath + fileName + csv); // writing to csv
       file.createNewFile();
       Pathfinder.writeToCSV(file, trajectory);
-      System.out.println("****************Info Written To File****************\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!");
+      System.out.println("**************** Info Written To File ****************");
     } catch (IOException e) {
-      System.out.println("*** ERROR: " + e.getMessage() + " *******************\n*******************\n*******************\n*******************\n*******************");
+      System.out.println("*** ERROR WHEN WRITING TRAJECTORY TO FILE: " + e.getMessage() + " *******************");
     }
   }
 
@@ -163,14 +161,15 @@ public class NerdyPath {
       }
       br.close();
       return Pathfinder.readFromCSV(file);
-      // return Pathfinder.readFromCSV(file);
     } catch (IOException e) {
-      System.out.println("*****************ERROR: " + e
-          + " *******************\n**********************\n**********************\n**************************\n*********************");
+      System.out.println("********ERROR: CANNOT READ FROM FILE: " + e + " *******************");
     }
     return null;
   }
 
+  /**
+   * Place in robot periodic to write values to networktables
+   */
   public void periodic() {
     if (pathfinderDebug) {
       SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);

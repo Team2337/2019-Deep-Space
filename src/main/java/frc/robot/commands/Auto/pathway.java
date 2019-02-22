@@ -81,7 +81,7 @@ public class pathway {
     private static Waypoint[] curveFromToHatchRight = new Waypoint[] { 
         new Waypoint(0, 0, 0),
         new Waypoint(3.5, 2, 0.42) // 3.5, 2.35
-        // new Waypoint(5.5, 2.35, 0) // 5.95
+        new Waypoint(5.5, 2.35, 0) // 5.95
     };
 
     /**
@@ -173,7 +173,7 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveForward() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.0, 0.2, 0.1); //turn down acceloration to not tip over
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.0, 0.2, 0.1); //turn down Acceleration to not tip over
         trajectory = Pathfinder.generate(driveForward, config);
         return trajectory;
     }

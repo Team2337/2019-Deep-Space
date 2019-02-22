@@ -46,20 +46,20 @@ public class autoSetPathReverse extends Command {
     kD = pidValues[2];
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
-
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
+    Robot.Chassis.resetNeoEncoders();
 
+    //The timeout is converting the lenght of the trajectory by the time step in the trajectory (1/10 of a second)
+    //This equates to trajectory points per second
     timeout = (trajectory.length() / 10) + 1.5; //0.7
     setTimeout(timeout);
-
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
     Robot.NerdyPath.makePathReverse();
   }
 

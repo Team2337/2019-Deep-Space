@@ -33,9 +33,6 @@ public class Chassis extends Subsystem {
    * @see #periodic()
    */
   boolean chassisDebug = false;
-  boolean neoDebug = false;
-  boolean lineSensorDebug = false;
-  boolean autoDebug = false;
 
   /* --- Line Sensors --- */
   public DigitalInput lineSensorFront;
@@ -92,6 +89,7 @@ public class Chassis extends Subsystem {
     leftRearID = Robot.Constants.chassisRearLeftID;
     leftEncoderTalonID = Robot.Constants.roboWranglerID;
 
+    /*
     talonRightMidID = Robot.Constants.chassisTalonRightMidID;
     talonRightRearID = Robot.Constants.chassisTalonRightRearID;
     talonLeftMidID = Robot.Constants.chassisTalonLeftMidID;
@@ -205,7 +203,7 @@ public class Chassis extends Subsystem {
     ////////////////////////
 
     /* --- Talon Nerdy Drive --- */
-    // talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
+    talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
 
     /* --- Neo Nerdy Drive --- */
     neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
@@ -251,16 +249,6 @@ public class Chassis extends Subsystem {
    */
   public double getLeftPosition() {
     return Robot.CargoIntake.CargoIntakeMotor.getSelectedSensorPosition();
-  }
-
-  /**
-   * Talon Method
-   * @param moveSpeed - forward speed (-1.0 - 1.0)
-   * @param turnSpeed - turn speed (-1.0 - 1.0)
-   * @param squaredInputs
-   */
-  public void neoDriveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
-    neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
   }
 
   /**
@@ -374,7 +362,8 @@ public class Chassis extends Subsystem {
    * @param pos The position to set the encoder to (in ticks)
    */
   public void setNeoEncoders(int pos) {
-    // As of 1/24/19, no way to set Neo encoder values
+    neoLeftFrontEncoder.setPosition(pos);
+    neoRightFrontEncoder.setPosition(pos);
   }
 
   /**
@@ -403,6 +392,19 @@ public class Chassis extends Subsystem {
     neoRightRearMotor.setIdleMode(mode);
   }
 
+  /**
+   * Neo Method
+   * @param moveSpeed - forward speed (-1.0 - 1.0)
+   * @param turnSpeed - turn speed (-1.0 - 1.0)
+   * @param squaredInputs
+   */
+  public void neoDriveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+    neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
+  }
+
+  /**
+   * Sets the speed of the neos to zero
+   */
   public void stopNeoDrive() {
     neoDrive.arcadeDrive(0, 0, false);
   }
@@ -428,24 +430,23 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); //rightFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); //leftFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Right Encoder Value", getRightPosition());
+      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition());
       SmartDashboard.putNumber("Right encoder dist INCH", (getRightPosition()/13988)*20);
       SmartDashboard.putNumber("Left encoder dist INCH", (getLeftPosition()/13988)*20);
 
+      /* --- Motor percentage --- */
       SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("left Chassis POWER", Robot.CargoIntake.CargoIntakeMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
       SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
-    }
 
-    if(lineSensorDebug) {
+      /* --- Line sensors --- */
       SmartDashboard.putBoolean("Front Line Sensor", lineSensorFront.get());
       SmartDashboard.putBoolean("Mid Line Sensor", lineSensorMiddle.get());
       SmartDashboard.putBoolean("Back Line Sensor", lineSensorBack.get());
-    }
 
-    if(autoDebug) {
+      /* --- Auton Values --- */
       SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
       SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
       SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);

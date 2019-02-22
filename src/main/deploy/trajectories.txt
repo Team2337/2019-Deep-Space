@@ -1,0 +1,8 @@
+Here are all of the trajectories we made 
+
+      // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
+      // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
+      // driveForwardT = pathway.driveForward();
+      // backUpDriveT = pathway.backUpDrive();
+      // curveFromToHatchRightT = pathway.curveFromToHatchRight();
+      // driveForwardT = pathway.driveForward();

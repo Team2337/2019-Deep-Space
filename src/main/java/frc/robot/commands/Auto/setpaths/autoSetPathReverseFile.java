@@ -49,10 +49,13 @@ public class autoSetPathReverseFile extends Command {
     kD = pidValues[2];
     kA = pidValues[3];
     Robot.Pigeon.resetPidgey();
-
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Chassis.resetEncoders();
+    Robot.Chassis.resetNeoEncoders();
 
+    
+    //The timeout is converting the lenght of the trajectory by the time step in the trajectory (1/10 of a second)
+    //This equates to trajectory points per second
     timeout = (trajectory.length() / 10) + 1.5; //0.7
     setTimeout(timeout);
 
@@ -68,13 +71,12 @@ public class autoSetPathReverseFile extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;//isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("**** COMMAND ENDED ****");
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 
