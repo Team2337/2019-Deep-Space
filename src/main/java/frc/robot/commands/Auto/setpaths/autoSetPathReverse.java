@@ -52,7 +52,7 @@ public class autoSetPathReverse extends Command {
 
     //The timeout is converting the lenght of the trajectory by the time step in the trajectory (1/10 of a second)
     //This equates to trajectory points per second
-    timeout = (trajectory.length() / 10) + 1.5; //0.7
+    timeout = (trajectory.length() / 10) + 1.5;
     setTimeout(timeout);
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
   }
@@ -72,7 +72,6 @@ public class autoSetPathReverse extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("**** COMMAND ENDED ****");
     Robot.Chassis.neoDriveArcade(0, 0, false);
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }

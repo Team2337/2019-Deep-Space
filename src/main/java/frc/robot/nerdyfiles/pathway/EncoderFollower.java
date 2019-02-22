@@ -6,7 +6,8 @@ import jaci.pathfinder.Trajectory;
  * The EncoderFollower is an object designed to follow a trajectory based on encoder input. This class can be used
  * for Tank or Swerve drive implementations.
  *
- * @author Jaci
+ * @author Jaci 
+ * @author Team 2337 EngiNERDs 
  */
 public class EncoderFollower {
     boolean pathfinderDebug = false;

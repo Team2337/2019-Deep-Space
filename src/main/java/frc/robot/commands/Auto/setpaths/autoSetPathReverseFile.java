@@ -56,7 +56,7 @@ public class autoSetPathReverseFile extends Command {
     
     //The timeout is converting the lenght of the trajectory by the time step in the trajectory (1/10 of a second)
     //This equates to trajectory points per second
-    timeout = (trajectory.length() / 10) + 1.5; //0.7
+    timeout = (trajectory.length() / 10) + 1.5;
     setTimeout(timeout);
 
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA, maxVelocity);

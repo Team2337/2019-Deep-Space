@@ -51,7 +51,7 @@ public class autoSetPath extends Command {
 
     //The timeout is converting the lenght of the trajectory by the time step in the trajectory (1/10 of a second)
     //This equates to trajectory points per second
-    timeout = (trajectory.length() / 10) + 1.5; //0.2;   timeout = (trajectory.length() / 50)+0.2
+    timeout = (trajectory.length() / 10) + 1.5; 
     setTimeout(timeout);
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA);
   }
@@ -71,7 +71,6 @@ public class autoSetPath extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("**** COMMAND ENDED ****");
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 
