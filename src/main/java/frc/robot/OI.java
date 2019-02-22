@@ -42,28 +42,22 @@ public class OI {
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
-		// operatorJoystick.back						.whenPressed(new lowerTheDrawbridge());
-		// operatorJoystick.back						.whenReleased(new raiseTheDrawbridge());
-
-		// operatorJoystick.leftStickUp	/*TODO: */	.whenPressed(new setTargetPosition(Robot.Lift.targetPosition + 10));
-		// operatorJoystick.leftStickDown				.whenPressed(new setTargetPosition(Robot.Lift.targetPosition - 10));
-
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
-		operatorJoystick.povUp						.whenReleased(new goToPositionStay());
+		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
-		operatorJoystick.povDown					.whenReleased(new goToPositionStay());
+		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
 
 		operatorJoystick.greenA						.whenPressed(new goToPosition(Robot.Lift.cargoIntakePosition));
-		operatorJoystick.greenA						.whenReleased(new goToPositionStay());
+		operatorJoystick.greenA						.whenReleased(new stayAtPosition());
 
 		operatorJoystick.redB						.whenPressed(new goToPosition(Robot.Lift.cargoShipScorePosition));
-		operatorJoystick.redB						.whenReleased(new goToPositionStay());
+		operatorJoystick.redB						.whenReleased(new stayAtPosition());
 
 		operatorJoystick.blueX						.whenPressed(new goToPosition(Robot.Lift.climbPosition));
-		operatorJoystick.blueX						.whenReleased(new goToPositionStay());
+		operatorJoystick.blueX						.whenReleased(new stayAtPosition());
 
 		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
-		operatorJoystick.yellowY					.whenReleased(new goToPositionStay());
+		operatorJoystick.yellowY					.whenReleased(new stayAtPosition());
 
 		////////////////////////////////////
 

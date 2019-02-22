@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.commands.Lift.liftWithJoystick;
 
 /**
  * Controls lift movement using PID setpoints
@@ -23,7 +24,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = true;
+  boolean liftDebug = false;
 
   public double targetPosition;
 
@@ -104,7 +105,7 @@ public class Lift extends Subsystem {
 
   protected void initDefaultCommand() {
     // setDefaultCommand(new goToPosition(currentPosition));
-    // setDefaultCommand(new liftWithJoystickOverride());
+    setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
@@ -378,7 +379,8 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
-      SmartDashboard.putBoolean("Bolf gnbtmykgt mj", atCargoIntakePosition(10));
+      SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
+      SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
     }
   }
 }

@@ -8,14 +8,18 @@ import frc.robot.Robot;
  */
 public class goToPosition extends Command {
 
-    // The set position of the lift in encoder ticks
+    // The set position of the lift in stringpot ticks
     double position;
 
     /**
-     * Go to the specified position on the lift
-     * Sets the setpoint on the lift to {@code pos}
-     * @param pos - The position of the lift in (stringpot) encoder ticks
-     * <p><br/>Example: <ul><li>{@code goToPosition(95) //Cargo Intake Position</li></ul></p>}
+     * Go to the specified position on the lift Sets the setpoint on the lift to
+     * {@code pos}
+     * 
+     * @param pos - The position of the lift in stringpot ticks
+     *            <p>
+     *            <br/>
+     *            Example: {@code goToPosition(95)} //Cargo Intake Position
+     *            </p>
      */
     public goToPosition(double pos) {
         position = pos;
@@ -34,7 +38,8 @@ public class goToPosition extends Command {
 
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    // This command is not meant to finish until the button is released, where the
+    // lift will hold its current position
     @Override
     protected boolean isFinished() {
         return false;

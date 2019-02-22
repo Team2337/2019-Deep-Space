@@ -7,12 +7,12 @@ import frc.robot.Robot;
  * Reads the position of the lift, and sets the setpoint to the current position
  * @author Bryce G.
  */
-public class goToPositionStay extends Command {
+public class stayAtPosition extends Command {
 
     /**
      * Reads the position of the lift, and sets the setpoint to the current position
      */
-    public goToPositionStay() {
+    public stayAtPosition() {
         requires(Robot.Lift);
     }
 

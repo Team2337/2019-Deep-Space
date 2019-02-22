@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.hal.HAL;
 
 /**
- *
+ * Manages setting up buttons and joysticks for a Razer Wolverine Ultimate Xbox One Controller
+ * 
+ * @author Robin B. Emily H.
  */
 public class NerdyUltimateXbox extends Joystick {
     public NerdyUltimateXbox(int port) {
@@ -20,6 +22,7 @@ public class NerdyUltimateXbox extends Joystick {
     public JoystickButton           bumperRight        = new JoystickButton(this, 6);
 
     public JoystickButton           back               = new JoystickButton(this, 7);
+    //TODO: Can we just do "macroFour = back"? If so, we could orginize the macros below in an easily configurable block
     public JoystickButton           macroFour         = new JoystickButton(this, 7);
     public JoystickButton           macroSix         = new JoystickButton(this, 7);
 
@@ -30,6 +33,7 @@ public class NerdyUltimateXbox extends Joystick {
     public JoystickButton           rightStickButton   = new JoystickButton(this, 10);
     public JoystickAnalogButton     triggerLeft        = new JoystickAnalogButton(this, 2);
     public JoystickAnalogButton     triggerRight       = new JoystickAnalogButton(this, 3);
+    //TODO: Verify these buttons work
     public JoystickAnalogButton     leftStickUp        = new JoystickAnalogButton(this, 1, 0.5);
     public JoystickAnalogButton     leftStickDown      = new JoystickAnalogButton(this, 1, -0.5);
     public JoystickAnalogButton     leftStickLeft      = new JoystickAnalogButton(this, 0, 0.5);
@@ -47,6 +51,7 @@ public class NerdyUltimateXbox extends Joystick {
     public JoystickPOVButton        povLeft            = new JoystickPOVButton(this, 270);
     public JoystickPOVButton        povUpLeft          = new JoystickPOVButton(this, 315);
 
+    //TODO: Determine how to assign these to non-existant buttons
  //   public JoystickButton           macroOne         = new JoystickButton(this, x);
  //   public JoystickButton           macroThree         = new JoystickButton(this, x);
  //   public JoystickButton           macroFive         = new JoystickButton(this, x);

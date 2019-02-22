@@ -10,6 +10,9 @@ import frc.robot.Robot;
  */
 public class CargoBigBrother extends Subsystem {
 
+    // Enable/disable debug mode for CargoBigBrother
+    boolean cargoBigBrotherDebug = false;
+
     public DigitalInput cargoIntakeSensor;
     public DigitalInput cargoEscalatorSensor;
     public DigitalInput cargoTrolleySensor;
@@ -74,12 +77,14 @@ public class CargoBigBrother extends Subsystem {
     }
 
     public void periodic() {
-        SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
-        SmartDashboard.putNumber("Cargo level", cargoLevel());
-        SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
-        SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
-        SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
-        SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
-        SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
+        if (cargoBigBrotherDebug) {
+            SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
+            SmartDashboard.putNumber("Cargo level", cargoLevel());
+            SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
+            SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
+            SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
+            SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
+            SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
+        }
     }
 }

@@ -23,7 +23,11 @@ public class CargoScore extends Subsystem {
   private int CargoScoreMotorID = Robot.Constants.cargoScoreID;
 
   /**
-   * Subsystem to score the cargo into the: <ul><li>Rocket Low</li><li>Rocket Mid</li><li>Cargo Ship</li>
+   * Subsystem to score the cargo into the:
+   * <ul>
+   * <li>Low Rocket</li>
+   * <li>Mid Rocket</li>
+   * <li>Cargo Ship</li>
    */
   public CargoScore() {
     // Configurations for the scoring mechanism motor

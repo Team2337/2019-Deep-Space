@@ -19,16 +19,19 @@ public class cargoBigBrotherIntake extends Command {
 
     /**
      * Runs the cargo intake system to get the ball into the score position
-     * <p><br/><strong>NOTE:</strong> the lift will not automatically move to the intake position,
-     * so it must be set manually. When the ball reaches the top of the conveyor, and the lift
-     * is not at intake position, the conveyor and intake will stop until then.
+     * <p>
+     * <br/>
+     * <strong>NOTE:</strong> the lift will not automatically move to the intake
+     * position, so it must be set manually. When the ball reaches the top of the
+     * conveyor, and the lift is not at intake position, the conveyor and intake
+     * will stop until then.
+     * </p>
      */
     public cargoBigBrotherIntake() {
         requires(Robot.CargoBigBrother);
         requires(Robot.CargoIntake);
         requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
-        // requires(Robot.Lift);
     }
 
     // Check the cargo level and start the command accordingly.
@@ -41,7 +44,6 @@ public class cargoBigBrotherIntake extends Command {
 
         switch (Robot.CargoBigBrother.cargoLevel()) {
         case 0:
-            // If the non-defensive intake button is pressed
             Robot.CargoDrawbridge.lowerTheDrawbridge();
             // Start rolling the intake inwards
             Robot.CargoIntake.rollIn(intakeSpeed);

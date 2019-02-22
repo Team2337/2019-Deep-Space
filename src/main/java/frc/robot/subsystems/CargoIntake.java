@@ -14,7 +14,6 @@ public class CargoIntake extends Subsystem {
   // The motor to run the cargo intake
   private TalonSRX CargoIntakeMotor;
 
-
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
   private int CargoIntakeMotorID = Robot.Constants.cargoIntakeID;
@@ -40,7 +39,7 @@ public class CargoIntake extends Subsystem {
    *              to
    */
   public void rollIn(double speed) {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, speed); //inverted from original 
+    CargoIntakeMotor.set(ControlMode.PercentOutput, speed); // Inverted from original
   }
 
   /**
@@ -50,7 +49,7 @@ public class CargoIntake extends Subsystem {
    *              to (going in reverse)
    */
   public void rollOut(double speed) {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed); //inverted from original 
+    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed); // Inverted from original
   }
 
   /**
@@ -60,7 +59,7 @@ public class CargoIntake extends Subsystem {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public void intakeSafety(){
+  public void intakeSafety() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0.1);
   }
 }

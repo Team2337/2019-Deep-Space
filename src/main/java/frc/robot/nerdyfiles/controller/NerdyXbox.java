@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.hal.HAL;
 
 /**
- *
+ * Manages setting up buttons and joysticks for an XBox 360 controller
+ * 
+ * @author Robin B.
  */
 public class NerdyXbox extends Joystick {
     public NerdyXbox(int port) {
