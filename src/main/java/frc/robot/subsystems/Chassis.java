@@ -34,6 +34,8 @@ public class Chassis extends Subsystem {
   boolean neoDebug = false;
   boolean pathFinderDebug = false;
 
+  public double yeetModifier = 0.8;
+
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
   public VictorSPX leftMidMotor;

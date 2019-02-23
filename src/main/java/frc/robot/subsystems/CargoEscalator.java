@@ -19,6 +19,9 @@ public class CargoEscalator extends Subsystem {
   // Do not update without updating the wiki, too!
   private int CargoEscalatorMotorID = Robot.Constants.cargoEscalatorID;
 
+  /**
+   * Susbystem to move the cargo through the robot from the intake to the scoring mechanism
+   */
   public CargoEscalator() {
     // Configurations for the cargo escalator motor
     this.CargoEscalatorMotor = new TalonSRX(CargoEscalatorMotorID);

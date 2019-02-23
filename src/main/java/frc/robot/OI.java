@@ -5,6 +5,7 @@ import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
+import frc.robot.commands.Chassis.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -17,42 +18,65 @@ public class OI {
 	/*
 	 * Controllers
 	 */
-	public NerdyXbox				driverJoystick			= new NerdyXbox(0);
-	public NerdyXbox				operatorJoystick		= new NerdyXbox(1);
-	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
+	public NerdyUltimateXboxDriver		driverJoystick			= new NerdyUltimateXboxDriver(0);
+	public NerdyUltimateXboxOperator	operatorJoystick		= new NerdyUltimateXboxOperator(1);
+	public NerdyOperatorStation			operatorControls		= new NerdyOperatorStation(2);
 
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
-		
-		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
+
+		// Assigned to Quick Turn in Chassis.driveByJoystick - DO NOT USE
+		// driverJoystick.bumperRight				.whenPressed(); 
+
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
+		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
+
+		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
+		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
+		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
+		
+		//TODO: Make a branch for this and finish the camera switching
+		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
+		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
+
+		driverJoystick.macroThree					.whenPressed(new setYeetSpeed(0.9));
+		driverJoystick.macroFour					.whenPressed(new setYeetSpeed(0.8));
+		driverJoystick.macroFive					.whenPressed(new setYeetSpeed(0.7));
+		driverJoystick.macroSix						.whenPressed(new setYeetSpeed(0.6));
+
 
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
-		// operatorJoystick.povUp					.whenPressed(new goToPosition(500));
-		// operatorJoystick.povDown					.whenPressed(new goToPosition(300));
-
-		// operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose());
-		operatorJoystick.bumperRight				.whenPressed(new hatchBeakClose()); 
-		operatorJoystick.bumperRight				.whenReleased(new hatchBeakOpen());
+		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
+		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 
-		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake()); // Same as triggerRight - Defensive mode
+		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
+		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
-		operatorJoystick.povLeft					.whenPressed(new hatchBeakOpen());
-		operatorJoystick.povRight					.whenPressed(new hatchLauncherRetract());
+		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
-		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake()); // If the position of this command changes, UPDATE THE COMMAND
-		operatorJoystick.triggerLeft				.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
+		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
+		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
+		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
 
-		operatorJoystick.greenA						.whileHeld(new setTargetPosition(201));
-		operatorJoystick.redB						.whileHeld(new cargoBigBrotherEject());
-		operatorJoystick.blueX						.whileHeld(new setTargetPosition(325));
-		operatorJoystick.yellowY					.whileHeld(new setTargetPosition(150));
+		operatorJoystick.greenA						.whenPressed(new goToPosition(Robot.Lift.cargoIntakePosition));
+		operatorJoystick.greenA						.whenReleased(new stayAtPosition());
+
+		operatorJoystick.redB						.whenPressed(new goToPosition(Robot.Lift.cargoShipScorePosition));
+		operatorJoystick.redB						.whenReleased(new stayAtPosition());
+
+		operatorJoystick.blueX						.whenPressed(new goToPosition(Robot.Lift.climbPosition));
+		operatorJoystick.blueX						.whenReleased(new stayAtPosition());
+
+		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
+		operatorJoystick.yellowY					.whenReleased(new stayAtPosition());
 
 		////////////////////////////////////
 
