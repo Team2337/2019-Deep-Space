@@ -51,7 +51,7 @@ public class AirCompressor extends Subsystem {
    * @return The pressure of the air system (PSI)
    */
   public double getPressure() {
-    return (int) (pressureSensor.getVoltage()) / 21.37;
+    return (int) (pressureSensor.getVoltage() / 21.37);
   }
 
 }
