@@ -20,28 +20,12 @@ public class NerdyUltimateXbox extends Joystick {
     public JoystickButton           yellowY            = new JoystickButton(this, 4);
     public JoystickButton           bumperLeft         = new JoystickButton(this, 5);
     public JoystickButton           bumperRight        = new JoystickButton(this, 6);
-
     public JoystickButton           back               = new JoystickButton(this, 7);
-    //TODO: Can we just do "macroFour = back"? If so, we could orginize the macros below in an easily configurable block
-    public JoystickButton           macroFour         = new JoystickButton(this, 7);
-    public JoystickButton           macroSix         = new JoystickButton(this, 7);
-
     public JoystickButton           start              = new JoystickButton(this, 8);
-    public JoystickButton           macroTwo         = new JoystickButton(this, 8);
-    
     public JoystickButton           leftStickButton    = new JoystickButton(this, 9);
     public JoystickButton           rightStickButton   = new JoystickButton(this, 10);
     public JoystickAnalogButton     triggerLeft        = new JoystickAnalogButton(this, 2);
     public JoystickAnalogButton     triggerRight       = new JoystickAnalogButton(this, 3);
-    //TODO: Verify these buttons work
-    public JoystickAnalogButton     leftStickUp        = new JoystickAnalogButton(this, 1, 0.5);
-    public JoystickAnalogButton     leftStickDown      = new JoystickAnalogButton(this, 1, -0.5);
-    public JoystickAnalogButton     leftStickLeft      = new JoystickAnalogButton(this, 0, 0.5);
-    public JoystickAnalogButton     leftStickRight     = new JoystickAnalogButton(this, 0, -0.5);
-    public JoystickAnalogButton     rightStickUp       = new JoystickAnalogButton(this, 1, 0.5);
-    public JoystickAnalogButton     rightStickDown     = new JoystickAnalogButton(this, 1, -0.5);
-    public JoystickAnalogButton     rightStickLeft     = new JoystickAnalogButton(this, 0, 0.5);
-    public JoystickAnalogButton     rightStickRight    = new JoystickAnalogButton(this, 0, -0.5);
     public JoystickPOVButton        povUp              = new JoystickPOVButton(this, 0);
     public JoystickPOVButton        povUpRight         = new JoystickPOVButton(this, 45);
     public JoystickPOVButton        povRight           = new JoystickPOVButton(this, 90);
@@ -52,14 +36,20 @@ public class NerdyUltimateXbox extends Joystick {
     public JoystickPOVButton        povUpLeft          = new JoystickPOVButton(this, 315);
 
     //TODO: Determine how to assign these to non-existant buttons
- //   public JoystickButton           macroOne         = new JoystickButton(this, x);
- //   public JoystickButton           macroThree         = new JoystickButton(this, x);
- //   public JoystickButton           macroFive         = new JoystickButton(this, x);
+    public JoystickButton           macroOne           = null;
+    public JoystickButton           macroTwo           = back;
+    public JoystickButton           macroThree         = null;
+    public JoystickButton           macroFour          = start;
+    public JoystickButton           macroFive          = null;
+    public JoystickButton           macroSix           = start;
  
     private int m_outputs;
     private short m_leftRumble;
     private short m_rightRumble;
 
+    /**
+     * 
+     */
     public double getTriggerTwist() {
         double leftTriggerValue = this.getRawAxis(2);
         double rightTriggerValue = -1 * this.getRawAxis(3);

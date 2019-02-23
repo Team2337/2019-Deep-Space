@@ -59,6 +59,9 @@ public class CargoIntake extends Subsystem {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  /**
+   * Runs the intake outwards at 10% power to keep other cargo from being intaken while the robot has a game piece
+   */
   public void intakeSafety() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0.1);
   }

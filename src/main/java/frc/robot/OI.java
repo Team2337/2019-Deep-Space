@@ -5,6 +5,7 @@ import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
+import frc.robot.commands.Chassis.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -25,8 +26,17 @@ public class OI {
 
 		/* ====== DRIVER JOYSTICK ===== */
 		
-		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
+		// driverJoystick.bumperRight				.whenPressed(); // Quick Turn
+
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
+		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
+
+		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
+		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
+		
+		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
+		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
+
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

@@ -34,6 +34,9 @@ public class Chassis extends Subsystem {
   boolean neoDebug = false;
   boolean pathFinderDebug = false;
 
+  // Used on the SmartDashboard - Whether or not the robot is in curvature drive
+  public boolean inCurvatureDrive = false;
+
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
   public VictorSPX leftMidMotor;

@@ -78,7 +78,6 @@ public class CargoBigBrother extends Subsystem {
 
     public void periodic() {
         if (cargoBigBrotherDebug) {
-            SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
             SmartDashboard.putNumber("Cargo level", cargoLevel());
             SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
             SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());

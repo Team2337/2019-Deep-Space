@@ -62,7 +62,7 @@ public class Constants {
     public int dioPort9 = 9;
 
     /* --- Analog Ports --- */
-    public int analogPorts0 = 0;
+    public int pressureSensorPort = 0;
     public int analogPorts1 = 1;
     public int analogPorts2 = 2;
     public int analogPorts3 = 3;

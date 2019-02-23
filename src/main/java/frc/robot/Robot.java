@@ -25,6 +25,8 @@ public class Robot extends TimedRobot {
   public static boolean isComp = false;
   public static boolean stringPotBroken = false;
 
+  public double[][] valuesPID = pathway.valuesPID;
+
   // DECLARATIONS
   public static AirCompressor AirCompressor;
   public static AutoHatchKicker AutoHatchKicker;
@@ -87,13 +89,17 @@ public class Robot extends TimedRobot {
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     Vision = new Vision();
-    // Keep below other subsystems as these have dependencies for other subsystems
-    // to be instantiated first.
+
+    /* 
+     * Keep below other subsystems as these have dependencies for other subsystems
+     * to be instantiated first.
+     */
+
     NerdyPath = new NerdyPath();
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
-    Robot.Vision.setLEDMode(1);
+    Vision.setLEDMode(3);
 
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
@@ -102,14 +108,7 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
     default:
-      // initTrajectory = Pathway.autoReverseToShipFromLvl1();
-      // initTrajectory2 = Pathway.testSCurve();
-      // fromRightLoadJTurnToCargoShipT = Pathway.fromRightLoadJTurnToCargoShip();
-      // jTurnToCargoShipRightT = Pathway.jTurnToCargoShipRight();
-      driveForwardT = pathway.driveForward();
-      // curveFromToHatchRightT = Pathway.curveFromToHatchRight();
-      // System.out.println(FileUtilities.getFilePath());
-      // driveForwardFile = NerdyPath.loadTrajectoryFile("test");
+      // driveForwardT = pathway.driveForward();
       break;
     }
 
@@ -118,11 +117,12 @@ public class Robot extends TimedRobot {
 
     oi = new OI();
 
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    // chooser.addOption("My Auto", new autoSetPath(driveForwardT, valuesPID[0]));
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", chooser);
+    Vision.streamMode(2);
     // Hold the current lift position so that the lift doesn't move on startup
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     // Disable the air compressor so it doesn't run every time we start the robot.
@@ -147,7 +147,11 @@ public class Robot extends TimedRobot {
     } else {
       stringPotBroken = false;
     }
-    SmartDashboard.putBoolean("STRING POT OUT OF BOUNDS IF RED", stringPotBroken);
+
+    /* --- Dashboard Items --- */
+    SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
+    SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
+    SmartDashboard.putBoolean("Arcade Drive", Robot.Chassis.inCurvatureDrive);
   }
 
   /**
@@ -158,7 +162,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Vision.setLEDMode(1);
+    Robot.Vision.setLEDMode(3);
     logger = false;
   }
 
@@ -207,11 +211,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    /*
+     * This makes sure that the autonomous stops running when
+     * teleop starts running. If you want the autonomous to
+     * continue until interrupted by another command, remove
+     * this line or comment it out.
+     */
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
