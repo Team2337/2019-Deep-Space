@@ -151,7 +151,6 @@ public class Robot extends TimedRobot {
     /* --- Dashboard Items --- */
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
-    SmartDashboard.putBoolean("Arcade Drive", Robot.Chassis.inCurvatureDrive);
   }
 
   /**

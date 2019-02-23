@@ -18,9 +18,9 @@ public class OI {
 	/*
 	 * Controllers
 	 */
-	public NerdyUltimateXbox		driverJoystick			= new NerdyUltimateXbox(0);
-	public NerdyUltimateXbox		operatorJoystick		= new NerdyUltimateXbox(1);
-	public NerdyOperatorStation		operatorControls		= new NerdyOperatorStation(2);
+	public NerdyUltimateXboxDriver		driverJoystick			= new NerdyUltimateXboxDriver(0);
+	public NerdyUltimateXboxOperator	operatorJoystick		= new NerdyUltimateXboxOperator(1);
+	public NerdyOperatorStation			operatorControls		= new NerdyOperatorStation(2);
 
 	public OI() {
 
@@ -34,8 +34,15 @@ public class OI {
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
 		
+		//TODO: Make a branch for this and finish the camera switching
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
+
+		driverJoystick.macroThree					.whenPressed(new setYeetSpeed(0.9));
+		driverJoystick.macroFour					.whenPressed(new setYeetSpeed(0.8));
+		driverJoystick.macroFive					.whenPressed(new setYeetSpeed(0.7));
+		driverJoystick.macroSix						.whenPressed(new setYeetSpeed(0.6));
+
 
 	    ////////////////////////////////// 
 	    

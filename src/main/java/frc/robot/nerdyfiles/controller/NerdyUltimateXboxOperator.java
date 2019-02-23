@@ -9,8 +9,8 @@ import edu.wpi.first.hal.HAL;
  * 
  * @author Robin B. Emily H.
  */
-public class NerdyUltimateXbox extends Joystick {
-    public NerdyUltimateXbox(int port) {
+public class NerdyUltimateXboxOperator extends Joystick {
+    public NerdyUltimateXboxOperator(int port) {
         super(port);
     }
 

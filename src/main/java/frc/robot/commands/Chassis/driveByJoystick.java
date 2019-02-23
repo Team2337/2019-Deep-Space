@@ -3,7 +3,7 @@ package frc.robot.commands.Chassis;
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
-import frc.robot.nerdyfiles.controller.NerdyUltimateXbox;
+import frc.robot.nerdyfiles.controller.NerdyUltimateXboxDriver;
 import frc.robot.subsystems.Chassis;
 
 /**
@@ -12,7 +12,7 @@ import frc.robot.subsystems.Chassis;
 public class driveByJoystick extends Command {
 
   // Gets the driver joystick from OI.java
-  private NerdyUltimateXbox driverJoystick = Robot.oi.driverJoystick;
+  private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;
   private boolean isNeoDrive;
 
   // How fast the robot moves overall
@@ -41,8 +41,9 @@ public class driveByJoystick extends Command {
     // Left joystick's front/back movement as a number from -1 to 1
     moveSpeed = driverJoystick.getLeftStickY();
 
+    // Adjust the top speed of the robot for when launching to level 2 HAB
     if (Robot.oi.driverJoystick.triggerRight.get()) {
-      moveSpeed *= yeetModifier;
+      moveSpeed *= Robot.Chassis.yeetSpeed;
     }
 
     // Right joysticks left/right movement as a number from -1 to 1
