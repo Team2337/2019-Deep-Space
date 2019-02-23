@@ -21,9 +21,6 @@ public class driveByJoystick extends Command {
   // Adjusts the turn intensity
   double turnSpeed;
 
-  // A modifier for the move speed when we are attempting to jump to HAB Level 2
-  double yeetModifier = 0.8;
-
   /**
    * Uses Arcade Drive to drive either Neo or Talon motor controllers
    * 
@@ -43,7 +40,7 @@ public class driveByJoystick extends Command {
 
     // Adjust the top speed of the robot for when launching to level 2 HAB
     if (Robot.oi.driverJoystick.triggerRight.get()) {
-      moveSpeed *= Robot.Chassis.yeetSpeed;
+      moveSpeed *= Robot.Chassis.yeetModifier;
     }
 
     // Right joysticks left/right movement as a number from -1 to 1

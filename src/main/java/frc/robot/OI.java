@@ -25,12 +25,14 @@ public class OI {
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
-		
-		// driverJoystick.bumperRight				.whenPressed(); // Quick Turn
+
+		// Assigned to Quick Turn in Chassis.driveByJoystick - DO NOT USE
+		// driverJoystick.bumperRight				.whenPressed(); 
 
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
 
+		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
 		

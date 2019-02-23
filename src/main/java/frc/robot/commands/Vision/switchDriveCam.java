@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * 
+ * TODO: Impliment this command
  */
 public class switchDriveCam extends InstantCommand {
 
@@ -16,6 +16,6 @@ public class switchDriveCam extends InstantCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.Vision.streamMode(2);
+    
   }
 }

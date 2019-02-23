@@ -46,12 +46,12 @@ public class AirCompressor extends Subsystem {
   }
 
   /**
-   * Gets the pressure of the air system
+   * Gets the pressure of the air system (PSI)
    * 
+   * @return The pressure of the air system (PSI)
    */
   public double getPressure() {
-    // TODO: Get model number of the sensor and adjust constant multiplier
-    return pressureSensor.getVoltage() * 0.5;
+    return pressureSensor.getVoltage() / (int) 21.37;
   }
 
 }

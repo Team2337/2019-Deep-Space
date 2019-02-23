@@ -24,7 +24,7 @@ public class setYeetSpeed extends Command {
     }
 
     protected void initialize() {
-        Robot.Chassis.yeetSpeed = speed;
+        Robot.Chassis.yeetModifier = speed;
     }
 
     // Supplys the correct values to the arcadeDrive command to drive the robot
