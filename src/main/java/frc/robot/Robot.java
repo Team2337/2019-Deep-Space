@@ -154,6 +154,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+    SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());
+    SmartDashboard.putNumber("Left Encoder", Robot.Chassis.getLeftPosition());
+    SmartDashboard.putNumber("Right Distance Traveled", (Robot.Chassis.getRightPosition() / 13988) * 20);
+    SmartDashboard.putNumber("Left Distance Traveled", (Robot.Chassis.getLeftPosition() / 13988) * 20);
   }
 
   /**
