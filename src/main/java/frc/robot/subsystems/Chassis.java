@@ -246,6 +246,33 @@ public class Chassis extends Subsystem {
   }
 
   /**
+   * Gets the velocity of the right side of the chassis
+   * 
+   * @return The velocity of the right side of the chassis
+   */
+  public double getRightVelocity() {
+    return rightFrontMotor.getSelectedSensorVelocity();
+  }
+
+  /**
+   * Gets the velocity of the left side of the chassis
+   * 
+   * @return The velocity of the left side of the chassis
+   */
+  public double getLeftVelocity() {
+    return leftFrontMotor.getSelectedSensorVelocity();
+  }
+
+  /**
+   * Gets the average velocity of both sides of the chassis
+   * 
+   * @return The average velocity of both sides of the chassis
+   */
+  public double getAverageVelocity() {
+    return (getLeftVelocity() + getRightVelocity()) / 2;
+  }
+
+  /**
    * Talon Method
    * 
    * @param moveSpeed     - forward speed (-1.0 - 1.0)

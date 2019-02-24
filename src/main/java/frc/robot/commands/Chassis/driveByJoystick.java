@@ -21,6 +21,12 @@ public class driveByJoystick extends Command {
   // Adjusts the turn intensity
   double turnSpeed;
 
+  // The current velocity of the robot
+  double velocity;
+
+  // How fast the robot needs to be going before anti-tip code kicks in
+  double velocityThreshold = 3000;
+
   /**
    * Uses Arcade Drive to drive either Neo or Talon motor controllers
    * 
@@ -37,6 +43,18 @@ public class driveByJoystick extends Command {
 
     // Left joystick's front/back movement as a number from -1 to 1
     moveSpeed = driverJoystick.getLeftStickY();
+
+    // The speed of the robot
+    velocity = Robot.Chassis.getAverageVelocity();
+
+    // If the velocity is above a threshold (going forward or backward)
+    if (Math.abs(velocity) > velocityThreshold) {
+      // If the joystick value and velocity are opposite signs (+/- OR -/+)
+      if (moveSpeed * velocity < 0) {
+        // Set the move speed to 0 so the robot coasts to a stop
+        moveSpeed = 0;
+      }
+    }
 
     // Adjust the top speed of the robot for when launching to level 2 HAB
     if (Robot.oi.driverJoystick.triggerRight.get()) {
