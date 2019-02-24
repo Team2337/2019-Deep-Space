@@ -36,7 +36,7 @@ public class OI {
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
 		
-		//TODO: Update macros and create branch for camera switching
+		//TODO: Update buttons and create branch for camera switching
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
 
