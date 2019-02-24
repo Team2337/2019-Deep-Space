@@ -1,5 +1,7 @@
 package frc.robot;
 
+import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -22,6 +24,8 @@ public class OI {
 	public NerdyUltimateXboxOperator	operatorJoystick		= new NerdyUltimateXboxOperator(1);
 	public NerdyOperatorStation			operatorControls		= new NerdyOperatorStation(2);
 
+	public double[][] valuesPID = pathway.valuesPID;
+
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
@@ -35,17 +39,9 @@ public class OI {
 		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
+
+		driverJoystick.start						.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[4]));
 		
-		//TODO: Make a branch for this and finish the camera switching
-		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
-		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
-
-		driverJoystick.macroThree					.whenPressed(new setYeetSpeed(0.9));
-		driverJoystick.macroFour					.whenPressed(new setYeetSpeed(0.8));
-		driverJoystick.macroFive					.whenPressed(new setYeetSpeed(0.7));
-		driverJoystick.macroSix						.whenPressed(new setYeetSpeed(0.6));
-
-
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

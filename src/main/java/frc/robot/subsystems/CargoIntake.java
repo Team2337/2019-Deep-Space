@@ -1,10 +1,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 
 /**
  * Controls the intake mechanism for cargo
@@ -12,18 +13,20 @@ import frc.robot.Robot;
 public class CargoIntake extends Subsystem {
 
   // The motor to run the cargo intake
-  private TalonSRX CargoIntakeMotor;
+  public TalonSRX CargoIntakeMotor;
+
+  public DigitalInput tripWire = new DigitalInput(2);
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoIntakeMotorID = Robot.Constants.cargoIntakeID;
+  private int CargoIntakeMotorID = 13;
 
-  /**
-   * Subsystem to intake the cargo from the floor
-   */
   public CargoIntake() {
     // Configurations for the cargo intake motor
     this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
+    //Used to read encoder values for the Chassis
+    CargoIntakeMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+    CargoIntakeMotor.setSensorPhase(false);
     CargoIntakeMotor.setInverted(false);
     CargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
   }
@@ -39,7 +42,7 @@ public class CargoIntake extends Subsystem {
    *              to
    */
   public void rollIn(double speed) {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, speed); // Inverted from original
+    CargoIntakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**
@@ -49,7 +52,7 @@ public class CargoIntake extends Subsystem {
    *              to (going in reverse)
    */
   public void rollOut(double speed) {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed); // Inverted from original
+    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed);
   }
 
   /**
@@ -57,12 +60,5 @@ public class CargoIntake extends Subsystem {
    */
   public void stop() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0);
-  }
-
-  /**
-   * Runs the intake outwards at 10% power to keep other cargo from being intaken while the robot has a game piece
-   */
-  public void intakeSafety() {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, 0.1);
   }
 }
