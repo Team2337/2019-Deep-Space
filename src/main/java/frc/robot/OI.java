@@ -40,11 +40,6 @@ public class OI {
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
 
-		driverJoystick.macroThree					.whenPressed(new setYeetSpeed(0.9));
-		driverJoystick.macroFour					.whenPressed(new setYeetSpeed(0.8));
-		driverJoystick.macroFive					.whenPressed(new setYeetSpeed(0.7));
-		driverJoystick.macroSix						.whenPressed(new setYeetSpeed(0.6));
-
 
 	    ////////////////////////////////// 
 	    

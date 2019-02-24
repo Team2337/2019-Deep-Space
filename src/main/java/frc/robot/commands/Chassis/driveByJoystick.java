@@ -40,7 +40,7 @@ public class driveByJoystick extends Command {
 
     // Adjust the top speed of the robot for when launching to level 2 HAB
     if (Robot.oi.driverJoystick.triggerRight.get()) {
-      moveSpeed *= Robot.Chassis.yeetModifier;
+      moveSpeed *= Robot.Chassis.jumpModifier;
     }
 
     // Right joysticks left/right movement as a number from -1 to 1
@@ -49,9 +49,9 @@ public class driveByJoystick extends Command {
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive
     if (this.isNeoDrive) {
-      Chassis.neoDrive.curvatureDrive(moveSpeed, turnSpeed, Robot.oi.driverJoystick.bumperRight.get());
+      Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     } else {
-      Chassis.talonDrive.curvatureDrive(moveSpeed, turnSpeed, Robot.oi.driverJoystick.bumperRight.get());
+      Chassis.talonDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     }
   }
 
