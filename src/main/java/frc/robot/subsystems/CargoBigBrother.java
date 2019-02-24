@@ -10,6 +10,9 @@ import frc.robot.Robot;
  */
 public class CargoBigBrother extends Subsystem {
 
+    // Enable/disable debug mode for CargoBigBrother
+    boolean cargoBigBrotherDebug = false;
+
     public DigitalInput cargoIntakeSensor;
     public DigitalInput cargoEscalatorSensor;
     public DigitalInput cargoTrolleySensor;
@@ -19,9 +22,6 @@ public class CargoBigBrother extends Subsystem {
 
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
-
-    // Whether or not the lift/trolley are ready score
-    public boolean inFireMode;
 
     public CargoBigBrother() {
 
@@ -33,9 +33,6 @@ public class CargoBigBrother extends Subsystem {
         // By default, the ball is not in the deadzone (if it is, then it will simply be
         // moved out of it)
         inDeadzone = false;
-
-        // By default, the robot is not ready to score
-        inFireMode = false;
     }
 
     public void initDefaultCommand() {
@@ -80,13 +77,13 @@ public class CargoBigBrother extends Subsystem {
     }
 
     public void periodic() {
-        SmartDashboard.putBoolean("Passed intake sensor", inDeadzone);
-        SmartDashboard.putNumber("Cargo level", cargoLevel());
-        SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
-        SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
-        SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
-        SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
-        SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atCargoLowPosition(10));
-        SmartDashboard.putBoolean("In fire mode", inFireMode);
+        if (cargoBigBrotherDebug) {
+            SmartDashboard.putNumber("Cargo level", cargoLevel());
+            SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
+            SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
+            SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
+            SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
+            SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
+        }
     }
 }

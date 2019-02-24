@@ -4,28 +4,22 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This command is mainly a placeholder command, but it can be used
- * functionally. It does just as it says: nothing.
+ * Reads the position of the lift, and sets the setpoint to the current position
+ * @author Bryce G.
  */
-public class setTargetPosition extends Command {
-
-    // The set position of the lift in encoder ticks
-    double pos;
+public class stayAtPosition extends Command {
 
     /**
-     * @param pos - The position of the lift in (stringpot) encoder ticks
+     * Reads the position of the lift, and sets the setpoint to the current position
      */
-    public setTargetPosition(double pos) {
-        this.pos = pos;
-
+    public stayAtPosition() {
         requires(Robot.Lift);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.Lift.targetPosition = pos;
-        Robot.CargoBigBrother.inFireMode = false;
+        Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,7 +31,7 @@ public class setTargetPosition extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

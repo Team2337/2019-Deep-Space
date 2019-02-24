@@ -10,7 +10,7 @@ public class Constants {
     public int liftRightRearID = 5;
     public int tRexArmsID = 6;
     public int canID7 = 7; // Limelight is plugged into PDP port 7
-    public int cargoScoreID = 28;
+    public int cargoScoreID = 8;
     public int cargoEscalatorID = 9;
     public int liftLeftFrontID = 10;
     public int liftLeftRearID = 11;
@@ -62,7 +62,7 @@ public class Constants {
     public int dioPort9 = 9;
 
     /* --- Analog Ports --- */
-    public int analogPorts0 = 0;
+    public int pressureSensorPort = 0;
     public int analogPorts1 = 1;
     public int analogPorts2 = 2;
     public int analogPorts3 = 3;

@@ -22,6 +22,13 @@ public class CargoScore extends Subsystem {
   // Do not update without updating the wiki, too!
   private int CargoScoreMotorID = Robot.Constants.cargoScoreID;
 
+  /**
+   * Subsystem to score the cargo into the:
+   * <ul>
+   * <li>Low Rocket</li>
+   * <li>Mid Rocket</li>
+   * <li>Cargo Ship</li>
+   */
   public CargoScore() {
     // Configurations for the scoring mechanism motor
     this.CargoScoreMotor = new VictorSPX(CargoScoreMotorID);

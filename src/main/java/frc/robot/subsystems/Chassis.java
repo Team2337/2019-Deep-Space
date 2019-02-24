@@ -40,6 +40,8 @@ public class Chassis extends Subsystem {
   public DigitalInput lineSensorBack;
 
 
+  public double yeetModifier = 0.8;
+
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
   public VictorSPX leftMidMotor;
