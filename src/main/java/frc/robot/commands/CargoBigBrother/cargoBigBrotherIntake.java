@@ -54,6 +54,9 @@ public class cargoBigBrotherIntake extends Command {
             // Start rolling the escalator upwards
             Robot.CargoEscalator.rollUp(escalatorSpeed);
             Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
+            if(Robot.Lift.atCargoIntakePosition(50)){
+                Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+            }
             break;
         case 4:
             break;
@@ -126,6 +129,7 @@ public class cargoBigBrotherIntake extends Command {
         if (!Robot.oi.operatorJoystick.triggerLeft.get()) {
             Robot.CargoScore.stop();
         }
+        Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     }
 
     @Override
