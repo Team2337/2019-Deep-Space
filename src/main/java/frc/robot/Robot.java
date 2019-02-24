@@ -104,7 +104,7 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
     default:
-      
+      driveForwardT = pathway.driveForward();
       break;
     }
 

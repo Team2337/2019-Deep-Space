@@ -80,7 +80,7 @@ public class pathway {
      */
     private static Waypoint[] curveFromToHatchRight = new Waypoint[] { 
         new Waypoint(0, 0, 0),
-        new Waypoint(3.5, 2, 0.42) // 3.5, 2.35
+        new Waypoint(3.5, 2, 0.42) ,// 3.5, 2.35
         new Waypoint(5.5, 2.35, 0) // 5.95
     };
 

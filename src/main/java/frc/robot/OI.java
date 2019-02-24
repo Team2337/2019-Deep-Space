@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -30,6 +31,8 @@ public class OI {
 	
 		driverJoystick.bumperRight					.whenPressed(new shifterHighGear());
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
+
+		driverJoystick.back							.whenPressed(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0]));
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
