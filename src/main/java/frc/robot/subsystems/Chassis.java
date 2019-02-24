@@ -30,8 +30,11 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = true;
-  boolean neoDebug = true;
+  boolean chassisDebug = false;
+  boolean neoDebug = false;
+  boolean pathFinderDebug = false;
+
+  public double jumpModifier = 0.8;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;

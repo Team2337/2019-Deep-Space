@@ -15,6 +15,7 @@ public class driveByJoystick extends Command {
   // Gets the driver joystick from OI.java
   private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;
   private boolean isNeoDrive;
+  private double moveSpeed = 0;
 
   /**
    * Uses Arcade Drive to drive either Neo or Talon motor controllers
@@ -30,7 +31,12 @@ public class driveByJoystick extends Command {
   // Supplys the correct values to the arcadeDrive command to drive the robot
   protected void execute() {
     // Left joystick's front/back movement as a number from -1 to 1
-    double moveSpeed = driverJoystick.getLeftStickY();
+    moveSpeed = driverJoystick.getLeftStickY();
+
+    // Adjust the top speed of the robot for when launching to level 2 HAB
+    if (Robot.oi.driverJoystick.triggerRight.get()) {
+      moveSpeed *= Robot.Chassis.jumpModifier;
+    }
 
     // Right joysticks left/right movement as a number from -1 to 1
     double turnSpeed = driverJoystick.getRightStickX();
@@ -38,7 +44,7 @@ public class driveByJoystick extends Command {
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive
     if (this.isNeoDrive) {
-      Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, false);
+      Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     } else {
       Chassis.talonDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     }

@@ -39,6 +39,14 @@ public class OI {
 		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
+<<<<<<< HEAD
+=======
+		
+		//TODO: Make a branch for this and finish the camera switching
+		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
+		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
+
+>>>>>>> 7f55fd429f816604fbfff059ab0516c3860ef1ed
 
 		driverJoystick.start						.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[4]));
 		
