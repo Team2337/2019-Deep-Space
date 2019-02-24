@@ -14,6 +14,15 @@ public class NerdyUltimateXboxOperator extends Joystick {
         super(port);
     }
 
+    /*
+    * (M1) Macro One   = -
+    * (M2) Macro Two   = Back
+    * (M3) Macro Three = -
+    * (M4) Macro Four  = Start
+    * (M5) Macro Five  = -
+    * (M6) Macro Six   = Start
+    */
+
     public JoystickButton           greenA             = new JoystickButton(this, 1);
     public JoystickButton           redB               = new JoystickButton(this, 2);
     public JoystickButton           blueX              = new JoystickButton(this, 3);
@@ -34,14 +43,6 @@ public class NerdyUltimateXboxOperator extends Joystick {
     public JoystickPOVButton        povDownLeft        = new JoystickPOVButton(this, 225);
     public JoystickPOVButton        povLeft            = new JoystickPOVButton(this, 270);
     public JoystickPOVButton        povUpLeft          = new JoystickPOVButton(this, 315);
-
-    //TODO: Determine how to assign these to non-existant buttons
-    public JoystickButton           macroOne           = null;
-    public JoystickButton           macroTwo           = back;
-    public JoystickButton           macroThree         = null;
-    public JoystickButton           macroFour          = start;
-    public JoystickButton           macroFive          = null;
-    public JoystickButton           macroSix           = start;
  
     private int m_outputs;
     private short m_leftRumble;
