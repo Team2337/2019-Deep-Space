@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -45,7 +46,7 @@ public class OI {
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
 
 
-		driverJoystick.start						.whenPressed(new autoSetPath(Robot.driveForwardT, valuesPID[4]));
+		driverJoystick.start						.whenPressed(new autoSetPathReverse(Robot.driveForwardT, valuesPID[1]));
 		
 	    ////////////////////////////////// 
 	    

@@ -18,14 +18,13 @@ public class NerdyPath {
   boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int gearRatio = 3;
-  private int ticksPerRev = 4096 * gearRatio;
+  private int ticksPerRev = 13988;
 
   private double inchesToMeters = 0.0254;
-  private double wheelDiameter = 6.0 * inchesToMeters;
+  private double wheelDiameter = 6.375 * inchesToMeters;
   private double wheelBase = 20.5 * inchesToMeters; // old practice bot: 21.5
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
-  private double turnCompensation = 0.8 * (-1.0 / 80.0); 
+  private double turnCompensation = 1.0 * (-1.0 / 80.0); 
 
   private String filePath = "/home/lvuser/deploy/";
   private String csv = ".csv";
@@ -158,7 +157,7 @@ public class NerdyPath {
       SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
       SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
 
-      SmartDashboard.putNumber("RightVelocity", Robot.Chassis.rightFrontMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("RightVelocity", Robot.CargoIntake.CargoIntakeMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("Turn Value", this.turn);
       SmartDashboard.putNumber("AngleDifferance", this.angleDifference);

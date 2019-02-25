@@ -10,7 +10,7 @@ import jaci.pathfinder.Waypoint;
  * @author Bryce G.
  */
 public class pathway {
-    public static double metersConversion = 0.0254; // 17.5 //35.166666666 - Our conversion from our trials, 33.33333
+    public static double metersConversion = 0.0254; 
     public static Trajectory.Config config;
     public static Trajectory trajectory;
 
@@ -41,7 +41,7 @@ public class pathway {
      */
     public static double valuesPID[][] = new double[][] { 
         { 1.5, 0, 0.15, 0 }, // autoReverseToShipFromLvl1
-        { 1.2, 0, 0, 0 }, // curveFromToHatchRightT
+        { .7, 0, 0, 0 }, // curveFromToHatchRightT
         { 2, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
         { 1, 0, 0, 0 }, // TEST
@@ -164,7 +164,7 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(72), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
+        new Waypoint(inchesToMeters(215), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
     };
 
     /**
@@ -173,7 +173,7 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveForward() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.5, 0.25, 2.5);
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.5, 0.15, 2.5);
         trajectory = Pathfinder.generate(driveForward, config);
         return trajectory;
     }
