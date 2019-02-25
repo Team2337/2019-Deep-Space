@@ -32,6 +32,7 @@ public class cargoBigBrotherIntake extends Command {
         requires(Robot.CargoIntake);
         requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
+        requires(Robot.Lift);
     }
 
     // Check the cargo level and start the command accordingly.
@@ -54,7 +55,11 @@ public class cargoBigBrotherIntake extends Command {
             // Start rolling the escalator upwards
             Robot.CargoEscalator.rollUp(escalatorSpeed);
             Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
-            if(Robot.Lift.atCargoIntakePosition(50)){
+            /*
+             * If the lift is within a large tolerance of the intake position, make sure
+             * it's in position by setting the setpoint
+             */
+            if (Robot.Lift.atCargoIntakePosition(75)) {
                 Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
             }
             break;
@@ -129,6 +134,9 @@ public class cargoBigBrotherIntake extends Command {
         if (!Robot.oi.operatorJoystick.triggerLeft.get()) {
             Robot.CargoScore.stop();
         }
+        
+        // Since we set a position within this command, we have to make sure that if the
+        // trigger is released, we stop the lift
         Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     }
 

@@ -24,7 +24,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
 
   public double targetPosition;
 
