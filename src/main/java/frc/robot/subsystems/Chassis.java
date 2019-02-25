@@ -338,7 +338,7 @@ public class Chassis extends Subsystem {
    * @return The average rotational position of the drive's right side (in ticks)
    */
   public double getAverageRightNeoEncoder() {
-    return neoRightFrontEncoder.getPosition() + neoRightRearEncoder.getPosition();
+    return (neoRightFrontEncoder.getPosition() + neoRightRearEncoder.getPosition()) /2;
   }
 
   /**
@@ -347,8 +347,39 @@ public class Chassis extends Subsystem {
    * @return The average rotational position of the drive's right side (in ticks)
    */
   public double getAverageLeftNeoEncoder() {
-    return neoLeftFrontEncoder.getPosition() + neoLeftRearEncoder.getPosition();
+    return (neoLeftFrontEncoder.getPosition() + neoLeftRearEncoder.getPosition()) /2;
   }
+
+
+
+
+    /**
+   * Get the average Velocity value of both NEO drive side's encoder averages
+   * 
+   * @return The average Velocity of both drive side's encoder averages
+   */
+  public double getAverageNeoVelocity() {
+    return (getAverageLeftNeoVelocity() + getAverageRightNeoVelocity()) / 2;
+  }
+
+  /**
+   * Get the average Velocity of all the right side neo drive encoders
+   * 
+   * @return The average rotational Velocity of the drive's right side (in ticks)
+   */
+  public double getAverageRightNeoVelocity() {
+    return (neoRightFrontEncoder.getVelocity() + neoRightRearEncoder.getVelocity()) /2;
+  }
+
+  /**
+   * Get the average Velocity of all the right side neo drive encoders
+   * 
+   * @return The average rotational Velocity of the drive's right side (in ticks)
+   */
+  public double getAverageLeftNeoVelocity() {
+    return (neoLeftFrontEncoder.getVelocity() + neoLeftRearEncoder.getVelocity()) /2;
+  }
+
 
   /**
    * Manually set the rotational position of the NEO drive encoders
