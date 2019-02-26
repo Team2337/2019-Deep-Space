@@ -27,6 +27,7 @@ public class driveByJoystickVelocity extends Command {
   private boolean quickTurn; 
  
   private BobDriveHelper helper; // the cheesy class to do cheesy math
+  private DriveSignal driveSignal;
  
   private CANPIDController right_pidController, left_pidController;
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
@@ -106,7 +107,7 @@ public class driveByJoystickVelocity extends Command {
     else if (moveSpeed < -quickTurnJoystickThreshold) { lastDirection = -1.0; }
 
     // Do cheesy math to calculate left and right drive values (-1 to 1).
-    DriveSignal driveSignal = helper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, false);
+    driveSignal = helper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, false);
 
     if (moveSpeed == 0) {
       if      (turnSpeed > 0) { leftVelocity  = (lastDirection *  turnSpeed * maxRPM) + leftEncodersVelocity; } 
