@@ -6,6 +6,9 @@ import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.NerdyUltimateXboxDriver;
 import frc.robot.subsystems.Chassis;
 
+import frc.robot.nerdyfiles.BobDriveHelper;
+import frc.robot.nerdyfiles.DriveSignal;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,12 +28,16 @@ public class driveByJoystickVelocity extends Command {
 
   double moveSpeed, turnSpeed;
   double leftVelocity, rightVelocity;
+  double quickTurnThreshold;
+  BobDriveHelper helper;
+  double averageVelocity, quickTurnVelocityThreshold;
+  double lastDirection;
 
   private CANPIDController right_pidController, left_pidController;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
   /**
-   * Uses Arcade Drive? to drive either Neo motor controllers
+   * Uses CheeseBob Drive to drive Neo motors based on velocity
    * 
    *
    */
@@ -39,6 +46,10 @@ public class driveByJoystickVelocity extends Command {
   }
 
   protected void initialize() {
+
+    quickTurnThreshold = 0.1;
+    lastDirection = 1;
+    helper = new BobDriveHelper();
 
     /**
      * In order to use PID functionality for a controller, a CANPIDController object
@@ -56,7 +67,8 @@ public class driveByJoystickVelocity extends Command {
     kFF = 0;
     kMaxOutput = 1;
     kMinOutput = -1;
-    maxRPM = 5700;
+    maxRPM = 5400; // 5200forward 5400 backwards
+    quickTurnVelocityThreshold = 1000;
 
     // set PID coefficients
     left_pidController.setP(kP);
@@ -72,6 +84,15 @@ public class driveByJoystickVelocity extends Command {
     right_pidController.setIZone(kIz);
     right_pidController.setFF(kFF);
     right_pidController.setOutputRange(kMinOutput, kMaxOutput);
+
+    // display PID coefficients on SmartDashboard
+    SmartDashboard.putNumber("P Gain", kP);
+    SmartDashboard.putNumber("I Gain", kI);
+    SmartDashboard.putNumber("D Gain", kD);
+    SmartDashboard.putNumber("I Zone", kIz);
+    SmartDashboard.putNumber("Feed Forward", kFF);
+    SmartDashboard.putNumber("Max Output", kMaxOutput);
+    SmartDashboard.putNumber("Min Output", kMinOutput);
   }
 
   protected void execute() {
@@ -80,36 +101,51 @@ public class driveByJoystickVelocity extends Command {
 
     moveSpeed = applyDeadband(driverJoystick.getLeftStickY(), 0.2);
     turnSpeed = applyDeadband(driverJoystick.getRightStickX(), 0.2);
+    // boolean quickTurn = (moveSpeed < quickTurnThreshold && moveSpeed >
+    // -quickTurnThreshold);
+    boolean quickTurn = (Robot.oi.driverJoystick.bumperRight.get());
+    // boolean quickTurn = (moveSpeed == 0);
 
-    // TODO: need to calculate left and right velocity, fix overrun, apply deadband,
-    // not in that order
+    if (moveSpeed > 0.4) {lastDirection = 1.0;}
+    else if (moveSpeed < -0.4) {lastDirection = -1.0;}
 
-    double leftVelocity = moveSpeed * maxRPM;
-    double rightVelocity = moveSpeed * maxRPM;
+    // Do cheesy math to calculate left and right drive values (-1 to 1).
+    DriveSignal driveSignal = helper.cheesyDrive(-moveSpeed, turnSpeed, quickTurn, false);
 
-    /**
-     * PIDController objects are commanded to a set point using the SetReference()
-     * method.
-     * 
-     * The first parameter is the value of the set point, whose units vary depending
-     * on the control type set in the second parameter.
-     * 
-     * The second parameter is the control type can be set to one of four
-     * parameters: com.revrobotics.ControlType.kDutyCycle
-     * com.revrobotics.ControlType.kPosition com.revrobotics.ControlType.kVelocity
-     * com.revrobotics.ControlType.kVoltage
-     */
+    if (moveSpeed == 0) {
+      if (turnSpeed > 0) {
+        leftVelocity = (lastDirection * turnSpeed * maxRPM) + Robot.Chassis.getAverageLeftNeoVelocity();
+      } else if (turnSpeed < 0) {
+        rightVelocity = (lastDirection * turnSpeed * maxRPM) + Robot.Chassis.getAverageRightNeoVelocity();
+      }
+    } else {
+      leftVelocity = driveSignal.getLeft() * maxRPM;
+      rightVelocity = driveSignal.getRight() * maxRPM;
+    }
+  
 
-    left_pidController.setReference(leftVelocity, ControlType.kVelocity);
-    right_pidController.setReference(rightVelocity, ControlType.kVelocity);
+  /**
+   * PIDController objects are commanded to a set point using the SetReference()
+   * method.
+   * 
+   * The first parameter is the value of the set point, whose units vary depending
+   * on the control type set in the second parameter.
+   * 
+   * The second parameter is the control type can be set to one of four
+   * parameters: com.revrobotics.ControlType.kDutyCycle
+   * com.revrobotics.ControlType.kPosition com.revrobotics.ControlType.kVelocity
+   * com.revrobotics.ControlType.kVoltage
+   */
 
-    writeToSmartDashboard();
+  left_pidController.setReference(leftVelocity,ControlType.kVelocity);
+  right_pidController.setReference(rightVelocity,ControlType.kVelocity);
 
-    // If the robot is driving with Neos, send the values to neoDrive, otherwise,
-    // send the values to talonDrive
-    // Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
+  writeToSmartDashboard();
+
+  // If the robot is driving with Neos, send the values to neoDrive, otherwise,
+  // send the values to talonDrive
+  // Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
   }
-
 
   @Override
   protected boolean isFinished() {
@@ -175,9 +211,9 @@ public class driveByJoystickVelocity extends Command {
 
   private void writeToSmartDashboard() {
     SmartDashboard.putNumber("Target leftVelocity", leftVelocity);
-    SmartDashboard.putNumber("leftVelocity", Robot.Chassis.getAverageLeftNeoEncoder());
+    SmartDashboard.putNumber("leftVelocity", Robot.Chassis.getAverageLeftNeoVelocity());
     SmartDashboard.putNumber("Target rightVelocity", rightVelocity);
-    SmartDashboard.putNumber("rightVelocity", Robot.Chassis.getAverageRightNeoEncoder());
+    SmartDashboard.putNumber("rightVelocity", Robot.Chassis.getAverageRightNeoVelocity());
   }
 }
 

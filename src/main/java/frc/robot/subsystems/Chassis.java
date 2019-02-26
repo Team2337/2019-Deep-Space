@@ -208,7 +208,7 @@ public class Chassis extends Subsystem {
   public void initDefaultCommand() {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
-    setDefaultCommand(new driveByJoystick(true));
+    setDefaultCommand(new driveByJoystickVelocity());
   }
 
   /*****************************************/
