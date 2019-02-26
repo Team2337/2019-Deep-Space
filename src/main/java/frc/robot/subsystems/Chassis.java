@@ -14,6 +14,8 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,6 +37,12 @@ public class Chassis extends Subsystem {
   boolean pathFinderDebug = false;
 
   public double jumpModifier = 0.8;
+
+  public boolean crossedLine = false;
+  public int linesCrossed = 0;
+
+  public DigitalInput autoLineSensor;
+  public DigitalInput lineSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -89,6 +97,9 @@ public class Chassis extends Subsystem {
     talonRightRearID = Robot.Constants.chassisTalonRightRearID;
     talonLeftMidID = Robot.Constants.chassisTalonLeftMidID;
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
+
+    autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
+    lineSensor = new DigitalInput(Robot.Constants.lineSensorID);
 
     /*****************************************/
     /* ------------------------------------- */

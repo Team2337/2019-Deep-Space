@@ -26,9 +26,9 @@ public class autoSetPathReverse extends Command {
 
   public static double kP, kI, kD, kA;
   private double[] pidValues;
-  private int segment, wait;
+  private int segment, wait, linesCrossed;
   private double timeout, finishTime;
-  private boolean finished;
+  private boolean finished, crossedLine;
 
   /**
    * Reads the set trajectories into the drive, and sets it in reverse
@@ -74,6 +74,22 @@ public class autoSetPathReverse extends Command {
     }
     if (finished) {
       wait++;
+    }
+
+    //Line sensor drive 
+    if(Robot.Chassis.autoLineSensor.get()) {
+      Robot.Chassis.crossedLine = true;
+    }
+    if(crossedLine && !Robot.Chassis.autoLineSensor.get()) {
+      Robot.Chassis.linesCrossed = 1;
+    }
+    if(Robot.Chassis.linesCrossed == 1 && Robot.Chassis.crossedLine && Robot.Chassis.autoLineSensor.get()) {
+      Robot.Chassis.linesCrossed = 2;
+    }
+    if(!Robot.Chassis.autoLineSensor.get()) {
+      if(Robot.Chassis.linesCrossed == 2) {
+        //drive backwards
+      }
     }
   }
 

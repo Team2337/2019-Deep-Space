@@ -58,8 +58,8 @@ public class Constants {
     public int dioPort5 = 5;
     public int dioPort6 = 6;
     public int dioPort7 = 7;
-    public int dioPort8 = 8;
-    public int dioPort9 = 9;
+    public int lineSensorID = 8;
+    public int autoLineSensorID = 9;
 
     /* --- Analog Ports --- */
     public int pressureSensorPort = 0;
