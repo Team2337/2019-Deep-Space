@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
   public static Trajectory jTurnToCargoShipRightT;
+  public static Trajectory testSCurveT;
 
   private boolean logger;
   private String selectedAuto;
@@ -111,6 +112,7 @@ public class Robot extends TimedRobot {
       driveForwardT = pathway.driveForward();
       break;
     }
+    testSCurveT = pathway.testSCurve();
 
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("locations", driveForwardT);

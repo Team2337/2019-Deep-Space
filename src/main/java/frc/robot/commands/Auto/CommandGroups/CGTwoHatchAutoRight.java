@@ -2,10 +2,10 @@ package frc.robot.commands.Auto.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.Auto.pathway;
-import frc.robot.commands.Auto.autoResetEncoders;
-import frc.robot.commands.Auto.setpaths.autoSetPath;
-import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
+import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.setpaths.*;
+
+import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.Auto.autoWaitSensorReset;
 
 /**
@@ -16,9 +16,15 @@ import frc.robot.commands.Auto.autoWaitSensorReset;
 public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
   public CGTwoHatchAutoRight() {
-      addSequential(new autoSetPathReverse(Robot.initTrajectory, valuesPID[0]));
+      addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[1], 2));
       addSequential(new autoResetEncoders());
-      addSequential(new autoWaitSensorReset(0.3));
-      addSequential(new autoSetPath(Robot.curveFromToHatchRightT, valuesPID[1]));
+      addSequential(new autoHatchKickerExtend(1));
+      addSequential(new hatchKickerRetract());
+      addSequential(new autoWaitSensorReset(1));
+      addSequential(new autoWait(1));
+      addSequential(new autoSetPath(Robot.testSCurveT, valuesPID[1], 2));
+      addSequential(new autoHatchKickerExtend(1));
+      addSequential(new hatchKickerRetract());
+      addSequential(new autoWaitSensorReset(1));
   }
 }
