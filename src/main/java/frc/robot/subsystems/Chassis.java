@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
+import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
@@ -16,6 +17,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,7 +34,7 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = false;
+  boolean chassisDebug = true;
   boolean neoDebug = false;
   boolean pathFinderDebug = false;
 
@@ -42,7 +44,7 @@ public class Chassis extends Subsystem {
   public int linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
-  public DigitalInput lineSensor;
+  public I2C colorSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -99,7 +101,7 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
-    lineSensor = new DigitalInput(Robot.Constants.lineSensorID);
+    // colorSensor = new I2C
 
     /*****************************************/
     /* ------------------------------------- */
@@ -424,8 +426,8 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
-      SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
-      SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+      // SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
+      // SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
 
       SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
       SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
@@ -437,6 +439,11 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
 
       SmartDashboard.putNumber("printX", autoSetPath.printX);
+
+      SmartDashboard.putBoolean("Auto Line Sensor", autoLineSensor.get());
+      SmartDashboard.putBoolean("Line Crossed", crossedLine);
+      SmartDashboard.putNumber("Auto Lines Crossed", linesCrossed);
+      SmartDashboard.putBoolean("Saw Line", autoSetPathReverse.fin);
     }
 
     if (neoDebug) {

@@ -55,11 +55,11 @@ public class Constants {
     public int cargoEscalatorSensorID = 2;
     public int cargoTrolleySensorID = 3;
     public int dioPort4 = 4;
-    public int dioPort5 = 5;
+    public int autoLineSensorID = 5;
     public int dioPort6 = 6;
     public int dioPort7 = 7;
-    public int lineSensorID = 8;
-    public int autoLineSensorID = 9;
+    public int dioPort8 = 8;
+    public int dioPort9 = 9;
 
     /* --- Analog Ports --- */
     public int pressureSensorPort = 0;

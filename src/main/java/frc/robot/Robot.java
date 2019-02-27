@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
       driveForwardT = pathway.driveForward();
       break;
     }
-    testSCurveT = pathway.testSCurve();
+    // testSCurveT = pathway.testSCurve();
 
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("locations", driveForwardT);

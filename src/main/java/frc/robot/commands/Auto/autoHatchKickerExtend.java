@@ -9,10 +9,12 @@ import frc.robot.Robot;
 public class autoHatchKickerExtend extends Command {
 
     double timeout;
+    boolean fin = false; 
 
   // CONSTRUCTOR
   public autoHatchKickerExtend(double timeout) {
     this.timeout = timeout;
+    fin = false;
     requires(Robot.AutoHatchKicker);
 
   }
@@ -20,27 +22,28 @@ public class autoHatchKickerExtend extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(timeout);
-    Robot.AutoHatchKicker.hatchKickerExtend();
-    
+    setTimeout(timeout);    
+    fin = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    if(!Robot.Chassis.autoLineSensor.get()) {
+      fin = true;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return isTimedOut() || fin;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    Robot.AutoHatchKicker.hatchKickerExtend();
   }
 
   // Called when another command which requires one or more of the same

@@ -17,16 +17,22 @@ public class autoLineSensorDrive extends Command {
 	 * Amount of time the command runs for until it is forced to terminate, in seconds
 	 */
 	public autoLineSensorDrive() {
-		
+
 	}
 
 	protected void initialize() {
-		finished = false;
+
 	}
 
 
 	protected void execute() {
-        if(Robot.Chassis.autoLineSensor.get()) {
+		if(Robot.Chassis.linesCrossed == 1) {
+			Robot.Chassis.neoDrive.arcadeDrive(0.2, 0, false);
+		}
+		if(Robot.Chassis.linesCrossed == 0 && Robot.Chassis.autoLineSensor.get()) {
+			Robot.Chassis.neoDrive.arcadeDrive(-0.2, 0, false);
+		}
+        if(!Robot.Chassis.autoLineSensor.get()) {
 			finished = true;
 		}
 	}
@@ -37,6 +43,7 @@ public class autoLineSensorDrive extends Command {
 	}
 
 	protected void end() {
+		Robot.Chassis.neoDrive.arcadeDrive(0, 0, false);
 	}
 
 
