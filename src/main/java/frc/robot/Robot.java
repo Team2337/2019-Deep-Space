@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
   public static Trajectory initTrajectory2;
   public static Trajectory jTurnToCargoShipRightT;
 
-  private boolean logger;
+  public static boolean logger;
   private String selectedAuto;
 
   /**

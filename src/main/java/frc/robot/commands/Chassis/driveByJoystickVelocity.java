@@ -42,7 +42,7 @@ public class driveByJoystickVelocity extends Command {
 
   protected void initialize() {
 
-    maxRPM = 5400; // 5200forward 5400 backwards
+    maxRPM = 2400; // 5200forward 5400 backwards
     //quickTurnVelocityThreshold = 1000;
     joystickThreshold = 0.2;
     quickTurnJoystickThreshold = 0.4;
@@ -54,8 +54,8 @@ public class driveByJoystickVelocity extends Command {
      * is constructed by calling the getPIDController() method on an existing
      * CANSparkMax object
      */
-    left_pidController = Robot.Chassis.neoLeftFrontMotor.getPIDController();
-    right_pidController = Robot.Chassis.neoRightFrontMotor.getPIDController();
+   // left_pidController = Robot.Chassis.neoLeftFrontMotor.getPIDController();
+    //right_pidController = Robot.Chassis.neoRightFrontMotor.getPIDController();
 
     // PID coefficients
     kP = 5e-5;
@@ -67,6 +67,7 @@ public class driveByJoystickVelocity extends Command {
     kMinOutput = -1;
 
     // set PID coefficients
+    /*
     left_pidController.setP(kP);
     left_pidController.setI(kI);
     left_pidController.setD(kD);
@@ -89,11 +90,12 @@ public class driveByJoystickVelocity extends Command {
     SmartDashboard.putNumber("Feed Forward", kFF);
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
+*/
   }
 
   protected void execute() {
 
-    checkSmartDashboardPIDValues();
+    //checkSmartDashboardPIDValues();
 
     moveSpeed = applyDeadband(driverJoystick.getLeftStickY(), joystickThreshold);
     turnSpeed = applyDeadband(driverJoystick.getRightStickX(), joystickThreshold);
@@ -107,21 +109,24 @@ public class driveByJoystickVelocity extends Command {
     else if (moveSpeed < -quickTurnJoystickThreshold) { lastDirection = -1.0; }
 
     // Do cheesy math to calculate left and right drive values (-1 to 1).
-    driveSignal = helper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, false);
-
+    driveSignal = helper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, true);
+/*
     if (moveSpeed == 0) {
-      if      (turnSpeed > 0) { leftVelocity  = (lastDirection *  turnSpeed * maxRPM) + leftEncodersVelocity; } 
-      else if (turnSpeed < 0) { rightVelocity = (lastDirection * -turnSpeed * maxRPM) + rightEncodersVelocity; }
+      if      (turnSpeed > 0) { leftVelocity  = (lastDirection *  turnSpeed * maxRPM); } 
+      else if (turnSpeed < 0) { rightVelocity = (lastDirection * -turnSpeed * maxRPM); }
     } 
     else {
-      leftVelocity  = driveSignal.getLeft()  * maxRPM;
-      rightVelocity = driveSignal.getRight() * maxRPM;
-    }
+*/
+      leftVelocity  = driveSignal.getLeft();//  * maxRPM;
+      rightVelocity = driveSignal.getRight();// * maxRPM;
+//    }
 
     writeToSmartDashboard();
 
-    left_pidController.setReference(leftVelocity, ControlType.kVelocity);
-    right_pidController.setReference(rightVelocity, ControlType.kVelocity);
+   // left_pidController.setReference(leftVelocity, ControlType.kVelocity);
+    //right_pidController.setReference(rightVelocity, ControlType.kVelocity);
+
+      Robot.Chassis.neoDrive.tankDrive(leftVelocity, rightVelocity);
 
     /**
      * PIDController objects are commanded to a set point using the SetReference()
