@@ -41,7 +41,7 @@ public class pathway {
      */
     public static double valuesPID[][] = new double[][] { 
         { 1.5, 0, 0.15, 0 }, // autoReverseToShipFromLvl1
-        { 1.5, 0, 0, 0 }, // curveFromToHatchRightT
+        { 1.3, 0, 0, 0 }, // curveFromToHatchRightT
         { 2, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
         { 1, 0, 0, 0 }, // TEST
@@ -164,7 +164,7 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(40), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
+        new Waypoint(inchesToMeters(100), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
     };
 
     /**
@@ -173,7 +173,7 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveForward() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.5, 0.2, 0.1);
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1);
         trajectory = Pathfinder.generate(driveForward, config);
         return trajectory;
     }

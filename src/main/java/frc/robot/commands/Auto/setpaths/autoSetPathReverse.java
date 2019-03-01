@@ -28,7 +28,9 @@ public class autoSetPathReverse extends Command {
   private double[] pidValues;
   private int segment, wait, linesCrossed;
   private double timeout, finishTime;
+  private double lineDistance = 56000;
   private boolean finished, crossedLine;
+  private boolean lastState = false;
   public static boolean fin;
 
   /**
@@ -81,14 +83,27 @@ public class autoSetPathReverse extends Command {
     }
 
     //Line sensor drive 
-    if(!Robot.Chassis.autoLineSensor.get()) {
-      Robot.Chassis.crossedLine = true;
-    }
-    if(crossedLine && Robot.Chassis.autoLineSensor.get()) {
-      Robot.Chassis.linesCrossed = 1;
-    }
-    if(Robot.Chassis.linesCrossed == 1 && Robot.Chassis.crossedLine && !Robot.Chassis.autoLineSensor.get()) {
-      Robot.Chassis.linesCrossed = 2;
+    
+    if(Math.abs(Robot.Chassis.getLeftPosition()) >= lineDistance) {
+
+      if(lastState && Robot.Chassis.autoLineSensor.get()) {
+        Robot.Chassis.linesCrossed++;
+      }
+      if(!Robot.Chassis.autoLineSensor.get()) {
+        lastState = true;
+      }
+      if(Robot.Chassis.autoLineSensor.get()) {
+        lastState = false;
+      }
+      
+
+      
+      if(crossedLine && Robot.Chassis.autoLineSensor.get()) {
+        Robot.Chassis.linesCrossed = 1;
+      }
+      if(Robot.Chassis.linesCrossed == 1 && Robot.Chassis.crossedLine && !Robot.Chassis.autoLineSensor.get()) {
+        Robot.Chassis.linesCrossed = 2;
+      }
     }
   }
 
@@ -101,7 +116,8 @@ public class autoSetPathReverse extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    // Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    
   }
 
   // Called when another command which requires one or more of the same

@@ -30,6 +30,7 @@ public class autoHatchKickerExtend extends Command {
   @Override
   protected void execute() {
     if(!Robot.Chassis.autoLineSensor.get()) {
+      Robot.AutoHatchKicker.hatchKickerExtend();
       fin = true;
     }
   }
@@ -43,7 +44,7 @@ public class autoHatchKickerExtend extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.AutoHatchKicker.hatchKickerExtend();
+    // Robot.AutoHatchKicker.hatchKickerExtend();
   }
 
   // Called when another command which requires one or more of the same

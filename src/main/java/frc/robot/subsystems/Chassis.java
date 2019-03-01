@@ -40,8 +40,8 @@ public class Chassis extends Subsystem {
 
   public double jumpModifier = 0.8;
 
-  public boolean crossedLine = false;
-  public int linesCrossed = 0;
+  public boolean print = false, crossedLine = false;
+  public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
   public I2C colorSensor;
@@ -363,6 +363,10 @@ public class Chassis extends Subsystem {
     return neoLeftFrontEncoder.getPosition() + neoLeftRearEncoder.getPosition();
   }
 
+  public void neoArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+    neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
+  }
+
   /**
    * Manually set the rotational position of the NEO drive encoders
    * 
@@ -444,6 +448,9 @@ public class Chassis extends Subsystem {
       SmartDashboard.putBoolean("Line Crossed", crossedLine);
       SmartDashboard.putNumber("Auto Lines Crossed", linesCrossed);
       SmartDashboard.putBoolean("Saw Line", autoSetPathReverse.fin);
+
+      SmartDashboard.putBoolean("PRINT", print);
+      SmartDashboard.putNumber("encoderTicks", encoderTicks);
     }
 
     if (neoDebug) {

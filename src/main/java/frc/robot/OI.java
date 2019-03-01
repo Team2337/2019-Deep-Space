@@ -3,6 +3,8 @@ package frc.robot;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.CommandGroups.*;
 import frc.robot.commands.Auto.setpaths.*;
+import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
+import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -48,6 +50,8 @@ public class OI {
 
 		//driverJoystick.start						.whenPressed(new autoSetPathReverse(Robot.driveForwardT, valuesPID[1]));
 		driverJoystick.start	.whenPressed(new CGTwoHatchAutoRight());
+		driverJoystick.blueX	.whileHeld(new hatchKickerExtend());
+		driverJoystick.blueX	.whenReleased(new hatchKickerRetract());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
