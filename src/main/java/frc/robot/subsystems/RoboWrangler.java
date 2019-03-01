@@ -10,12 +10,13 @@ import frc.robot.Robot;
  */
 public class RoboWrangler extends Subsystem {
 
-    // The motor to run the cargo intake
-    private TalonSRX RoboWranglerMotor;
+    private TalonSRX wranglerDriveMotor;
+    private TalonSRX wranglerLassoMotor;
 
     public RoboWrangler() {
-        // Configurations for the cargo intake motor
-        this.RoboWranglerMotor = Robot.Chassis.rightFrontMotor;
+        this.wranglerDriveMotor = Robot.Chassis.rightFrontMotor;
+
+        wranglerLassoMotor = new TalonSRX(Robot.Constants.wranglerLassoID);
     }
 
     public void initDefaultCommand() {
@@ -23,19 +24,30 @@ public class RoboWrangler extends Subsystem {
     }
 
     /**
-     * Run the cargo intake motor at a specified speed
+     * Run the wrangler drive motor at a specified speed
      * 
-     * @param speed A decimal value from -1 to 1 to set the cargo intake motor speed
-     *              to
+     * @param speed A decimal value from -1 to 1 to set the wrangler drive motor
+     *              speed to
      */
     public void drive(double speed) {
-        RoboWranglerMotor.set(ControlMode.PercentOutput, speed);
+        wranglerDriveMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    /**
+     * Run the wrangler lasso motor at a specified speed
+     * 
+     * @param speed A decimal value from -1 to 1 to set the wrangler lasso motor
+     *              speed to
+     */
+    public void lasso(double speed) {
+        wranglerLassoMotor.set(ControlMode.PercentOutput, -speed);
     }
 
     /**
      * Stop the cargo intake motor
      */
     public void stop() {
-        RoboWranglerMotor.set(ControlMode.PercentOutput, 0);
+        wranglerDriveMotor.set(ControlMode.PercentOutput, 0);
+        wranglerLassoMotor.set(ControlMode.PercentOutput, 0);
     }
 }

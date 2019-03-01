@@ -4,6 +4,7 @@ import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
+import frc.robot.commands.RoboWrangler.driveWrangler;
 import frc.robot.commands.Shifter.*;
 import frc.robot.commands.Chassis.*;
 import frc.robot.nerdyfiles.controller.*;
@@ -76,7 +77,7 @@ public class OI {
 
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
-		// operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
+		operatorControls.BlackSwitch				.whenPressed(new driveWrangler());
 	
 		///////////////////////////////////////// 
 	}

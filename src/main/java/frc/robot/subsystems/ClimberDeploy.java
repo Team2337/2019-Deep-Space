@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import frc.robot.Robot;
+
 /**
  * 
  */
@@ -11,7 +13,7 @@ public class ClimberDeploy extends Subsystem {
     private Solenoid pinRelease;
 
     public ClimberDeploy() {
-        pinRelease = new Solenoid(5);
+        pinRelease = new Solenoid(Robot.Constants.climberPort);
     }
 
     @Override

@@ -8,14 +8,14 @@ public class Constants {
     public int canID3 = 3;
     public int liftRightFrontID = 4;
     public int liftRightRearID = 5;
-    public int tRexArmsID = 6;
+    public int wranglerLassoID = 6;
     public int canID7 = 7; // Limelight is plugged into PDP port 7
     public int cargoScoreID = 8;
     public int cargoEscalatorID = 9;
     public int liftLeftFrontID = 10;
     public int liftLeftRearID = 11;
     public int canID12 = 12;
-    public int roboWranglerID = 13;
+    public int wranglerDriveID = 13;
     public int chassisRearLeftID = 14;
     public int chassisFrontLeftID = 15;
 
