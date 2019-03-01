@@ -29,6 +29,7 @@ public class autoHatchKickerExtend extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    //If the line sensor is tripped (false) extend the kicker
     if(!Robot.Chassis.autoLineSensor.get()) {
       Robot.AutoHatchKicker.hatchKickerExtend();
       fin = true;
@@ -44,7 +45,6 @@ public class autoHatchKickerExtend extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    // Robot.AutoHatchKicker.hatchKickerExtend();
   }
 
   // Called when another command which requires one or more of the same

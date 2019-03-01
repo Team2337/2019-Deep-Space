@@ -363,6 +363,12 @@ public class Chassis extends Subsystem {
     return neoLeftFrontEncoder.getPosition() + neoLeftRearEncoder.getPosition();
   }
 
+  /**
+   * Neo arcade drive
+   * @param moveSpeed - forward and reverse speed (positive forward, negative left)
+   * @param turnSpeed - left to right speed (positive right, negative left)
+   * @param squaredInputs - value to set square the inputs
+   */
   public void neoArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
     neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
   }
@@ -449,6 +455,7 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Auto Lines Crossed", linesCrossed);
       SmartDashboard.putBoolean("Saw Line", autoSetPathReverse.fin);
 
+      //TODO: Removed test values
       SmartDashboard.putBoolean("PRINT", print);
       SmartDashboard.putNumber("encoderTicks", encoderTicks);
     }
