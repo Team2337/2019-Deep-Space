@@ -5,14 +5,23 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.hal.HAL;
 
 /**
- * Manages setting up buttons and joysticks for an XBox 360 controller
+ * Manages setting up buttons and joysticks for a Razer Wolverine Ultimate Xbox One Controller
  * 
- * @author Robin B.
+ * @author Robin B. Emily H.
  */
-public class NerdyXbox extends Joystick {
-    public NerdyXbox(int port) {
+public class NerdyUltimateXboxOperator extends Joystick {
+    public NerdyUltimateXboxOperator(int port) {
         super(port);
     }
+
+    /*
+    * (M1) Macro One   = -
+    * (M2) Macro Two   = Back
+    * (M3) Macro Three = -
+    * (M4) Macro Four  = Start
+    * (M5) Macro Five  = -
+    * (M6) Macro Six   = Start
+    */
 
     public JoystickButton           greenA             = new JoystickButton(this, 1);
     public JoystickButton           redB               = new JoystickButton(this, 2);
@@ -26,10 +35,6 @@ public class NerdyXbox extends Joystick {
     public JoystickButton           rightStickButton   = new JoystickButton(this, 10);
     public JoystickAnalogButton     triggerLeft        = new JoystickAnalogButton(this, 2);
     public JoystickAnalogButton     triggerRight       = new JoystickAnalogButton(this, 3);
-    public JoystickAnalogButton     leftStickUp        = new JoystickAnalogButton(this, 1, 0.5);
-    public JoystickAnalogButton     leftStickDown      = new JoystickAnalogButton(this, 1, -0.5);
-    public JoystickAnalogButton     leftStickLeft      = new JoystickAnalogButton(this, 0, 0.5);
-    public JoystickAnalogButton     leftStickRight     = new JoystickAnalogButton(this, 0, -0.5);
     public JoystickPOVButton        povUp              = new JoystickPOVButton(this, 0);
     public JoystickPOVButton        povUpRight         = new JoystickPOVButton(this, 45);
     public JoystickPOVButton        povRight           = new JoystickPOVButton(this, 90);
@@ -38,11 +43,14 @@ public class NerdyXbox extends Joystick {
     public JoystickPOVButton        povDownLeft        = new JoystickPOVButton(this, 225);
     public JoystickPOVButton        povLeft            = new JoystickPOVButton(this, 270);
     public JoystickPOVButton        povUpLeft          = new JoystickPOVButton(this, 315);
-
+ 
     private int m_outputs;
     private short m_leftRumble;
     private short m_rightRumble;
 
+    /**
+     * 
+     */
     public double getTriggerTwist() {
         double leftTriggerValue = this.getRawAxis(2);
         double rightTriggerValue = -1 * this.getRawAxis(3);

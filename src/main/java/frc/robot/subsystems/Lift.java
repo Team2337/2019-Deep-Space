@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
+import frc.robot.commands.Lift.liftWithJoystick;
 
 /**
  * Controls lift movement using PID setpoints
@@ -26,27 +28,40 @@ public class Lift extends Subsystem {
 
   public double targetPosition;
 
+  /* --- Lift Set Positions --- */
   // TODO: Tune these positions for comp bot
   // Position to score cargo low in the rocket
-  public double cargoLowScorePosition = 300; // 201
+  public double cargoLowScorePosition = 95; // 201
   // Position to score cargo mid in the rocket
-  public double cargoMidScorePosition = 703;
+  public double cargoMidScorePosition = 608;// COMP
   // Position to score cargo in the cargo ship
-  public double cargoShipScorePosition = 469;// 225;
+  public double cargoShipScorePosition = 474; // COMP // 469;
   // Position to allow the escalator to feed a ball into the trolley
-  public double cargoIntakePosition = 160;
+  public double cargoIntakePosition = 95;
   // Position to store the cargo after loading, but before scoring
   public double cargoLoadedPosition = cargoIntakePosition; // 208
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
   // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
 
+  // Position to raise the robot to when climbing
+  public double climbPosition = 120;
+
+  // Position to score hatch on the low rocket
+  public double hatchLowScorePosition = 165;
+  // Position to score hatch on the cargo ship
+  public double hatchCargoShipScorePosition = 469;
+  // Position to score hatch on the mid rocket
+  public double hatchMidScorePosition = 676;
+  // Position to intake a hatch panel at
+  public double hatchIntakePosition = 160;
+
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
-  private final static int liftRightFrontID = 4;
-  private final static int liftRightBackID = 5;
-  private final static int liftLeftFrontID = 10;
-  private final static int liftLeftBackID = 11;
+  private final static int liftRightFrontID = Robot.Constants.liftRightFrontID;
+  private final static int liftRightBackID = Robot.Constants.liftRightRearID;
+  private final static int liftLeftFrontID = Robot.Constants.liftLeftFrontID;
+  private final static int liftLeftBackID = Robot.Constants.liftLeftRearID;
 
   /**
    * The front right motor is the master for the other three as they will all
@@ -80,8 +95,8 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 700;
-  public static int reverseLiftSoftLimit = 150;
+  public static int forwardLiftSoftLimit = 680;
+  public static int reverseLiftSoftLimit = 80;
 
   // The boundaries of where the robot should consider the stringpot to be working
   // These are used in Robot to determine whether the sensor is out of bounds.
@@ -90,6 +105,7 @@ public class Lift extends Subsystem {
 
   protected void initDefaultCommand() {
     // setDefaultCommand(new goToPosition(currentPosition));
+    setDefaultCommand(new liftWithJoystick());
   }
 
   public Lift() {
@@ -189,6 +205,17 @@ public class Lift extends Subsystem {
    */
   public boolean atPosition(double tolerance) {
     return Math.abs(getSetpoint() - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of any given
+   * targetPosition
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atTargetPosition(double tolerance) {
+    return Math.abs(targetPosition - getPosition()) <= tolerance;
   }
 
   /**
@@ -352,6 +379,8 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("StringPot", getPosition());
       SmartDashboard.putNumber("SetPoint", getSetpoint());
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
+      SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
     }
   }
 }

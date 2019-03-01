@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 
 /**
  * Controls the escalator/conveyor for cargo
@@ -16,8 +17,11 @@ public class CargoEscalator extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoEscalatorMotorID = 9;
+  private int CargoEscalatorMotorID = Robot.Constants.cargoEscalatorID;
 
+  /**
+   * Susbystem to move the cargo through the robot from the intake to the scoring mechanism
+   */
   public CargoEscalator() {
     // Configurations for the cargo escalator motor
     this.CargoEscalatorMotor = new TalonSRX(CargoEscalatorMotorID);

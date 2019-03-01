@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 
 /**
  * Controls the scoring mechanism for cargo
@@ -19,8 +20,15 @@ public class CargoScore extends Subsystem {
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
-  private int CargoScoreMotorID = 8;
+  private int CargoScoreMotorID = Robot.Constants.cargoScoreID;
 
+  /**
+   * Subsystem to score the cargo into the:
+   * <ul>
+   * <li>Low Rocket</li>
+   * <li>Mid Rocket</li>
+   * <li>Cargo Ship</li>
+   */
   public CargoScore() {
     // Configurations for the scoring mechanism motor
     this.CargoScoreMotor = new VictorSPX(CargoScoreMotorID);

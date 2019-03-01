@@ -11,25 +11,19 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherScore extends Command {
 
+    /**
+     * Runs the scoring system outwards if the ball is in the trolley
+     * <p><br/><strong>NOTE:</strong> the lift does not automatically go to the scoring position, 
+     * the operator must move the lift manually to that position.</p>
+     */
     public cargoBigBrotherScore() {
+        requires(Robot.CargoScore);
         requires(Robot.CargoBigBrother);
-        requires(Robot.Lift);
     }
-
-    double liftTolerance = 5;
 
     @Override
     protected void initialize() {
-        // If the ball is within the trolley and the lift is in position (whatever it is
-        // set to using the buttons)
-        if (Robot.CargoBigBrother.inFireMode && Robot.Lift.atPosition(liftTolerance)) {
-            // Score the ball and consider it scored once the command ends
-            Robot.CargoScore.rollForwards(1);
-            Robot.CargoBigBrother.inFireMode = false;
-        } else {
-            // If the lift isn't in position, tell it to go there
-            Robot.Lift.setSetpoint(Robot.Lift.targetPosition);
-        }
+        Robot.CargoScore.rollForwards(1);
     }
 
     @Override
@@ -51,7 +45,6 @@ public class cargoBigBrotherScore extends Command {
 
     @Override
     protected void interrupted() {
-        // If the trigger is released, stop the cargo system regardless
         this.end();
     }
 }
