@@ -29,15 +29,28 @@ public class autoLineSensorDrive extends Command {
 
 
 	protected void execute() {
-		if(Robot.Chassis.linesCrossed > 0) {
+		/*
+		 * Checks to see if the robot is on the line 
+		 * If it's over the line, back up
+		 * If it hasn't made it to the line yet, go forward
+		 * If it sees the line, end the command
+		 */
+		if(Robot.Chassis.linesCrossed == 2) {
+			//TODO: Fix Neo Arcade drive
+			// Robot.Chassis.neoArcade(-0.2, 0, false);
+			Robot.Chassis.neoLeftFrontMotor.set(0.1);
+			Robot.Chassis.neoRightFrontMotor.set(0.1);
+		}
+		if(Robot.Chassis.linesCrossed == 1) {
+			//TODO: Fix Neo Arcade drive
 			// Robot.Chassis.neoArcade(0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}
 		if(Robot.Chassis.linesCrossed == 0) {
-			// Robot.Chassis.neoArcade(-0.2, 0, false);
-			Robot.Chassis.neoLeftFrontMotor.set(0.1);
-			Robot.Chassis.neoRightFrontMotor.set(0.1);
+			// Robot.Chassis.neoArcade(0.2, 0, false);
+			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
+			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}
 		if(!Robot.Chassis.autoLineSensor.get()) {
 			Robot.Chassis.encoderTicks = (int)Robot.Chassis.getLeftPosition();
