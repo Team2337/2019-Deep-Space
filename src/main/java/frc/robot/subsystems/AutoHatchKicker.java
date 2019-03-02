@@ -34,4 +34,11 @@ public class AutoHatchKicker extends Subsystem {
   public void hatckKickerRetract() {
     hatchkicker.set(false);
   }
+  
+  /**
+   * This hatch kicker status
+   */
+  public boolean status() {
+    return hatchkicker.get();
+  }
 }

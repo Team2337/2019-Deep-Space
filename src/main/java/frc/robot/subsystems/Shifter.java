@@ -40,4 +40,12 @@ public class Shifter extends Subsystem {
   public void shiftLowGear() {
     shifter.set(true);
   }
+  
+  /**
+   * Robot Shifter Status.
+   * In low gear = true.
+   */
+  public boolean status() {
+    return shifter.get();
+  }
 }
