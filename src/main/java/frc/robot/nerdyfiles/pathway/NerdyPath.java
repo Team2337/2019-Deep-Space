@@ -154,13 +154,13 @@ public class NerdyPath {
 
   public void periodic() {
     if (pathfinderDebug) {
-      SmartDashboard.putNumber("Encoder Follower: LEFT error", leftSideFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
-      SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
+      SmartDashboard.putNumber("Encoder_Follower:_LEFT_error", leftSideFollower.error);
+      SmartDashboard.putNumber("Encoder_Follower:_RIGHT_error", rightSideFollower.error);
+      SmartDashboard.putNumber("Encoder_Follower:_seg.position", rightSideFollower.seg.position);
 
       SmartDashboard.putNumber("RightVelocity", Robot.Chassis.rightFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
-      SmartDashboard.putNumber("Turn Value", this.turn);
+      SmartDashboard.putNumber("TurnValue", this.turn);
       SmartDashboard.putNumber("AngleDifferance", this.angleDifference);
       SmartDashboard.putNumber("leftOutput", this.leftOutput);
       SmartDashboard.putNumber("rightOutput", this.rightOutput);

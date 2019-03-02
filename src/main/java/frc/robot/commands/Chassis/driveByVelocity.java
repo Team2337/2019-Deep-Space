@@ -5,8 +5,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.BobDriveHelper;
-import frc.robot.nerdyfiles.DriveSignal;
+//import frc.robot.nerdyfiles.DriveSignal;
 import frc.robot.nerdyfiles.controller.NerdyUltimateXboxDriver;
+import frc.robot.subsystems.Chassis;
 
 import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
@@ -14,7 +15,7 @@ import com.revrobotics.ControlType;
 /**
  * Uses controller joysticks to drive the robot using Cheesy-Bob drive output * maxRPM then input into a velocity pid.
  */
-public class driveByJoystickVelocity extends Command {
+public class driveByVelocity extends Command {
 
   private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;   // Gets the driver joystick from OI.java
 
@@ -26,8 +27,8 @@ public class driveByJoystickVelocity extends Command {
   private double joystickThreshold;
   private boolean quickTurn; 
  
-  private BobDriveHelper helper; // the cheesy class to do cheesy math
-  private DriveSignal driveSignal;
+  //private BobDriveHelper helper; // the cheesy class to do cheesy math
+ // private DriveSignal driveSignal;
  
   private CANPIDController right_pidController, left_pidController;
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
@@ -36,7 +37,7 @@ public class driveByJoystickVelocity extends Command {
    * Uses Cheesy Bob Velocity Drive to drive Neo motors based on velocity
    * 
    */
-  public driveByJoystickVelocity() {
+  public driveByVelocity() {
     requires(Robot.Chassis);
   }
 
@@ -47,15 +48,15 @@ public class driveByJoystickVelocity extends Command {
     joystickThreshold = 0.2;
     quickTurnJoystickThreshold = 0.4;
     lastDirection = 1;
-    helper = new BobDriveHelper();
+    //helper = new BobDriveHelper();
 
     /**
      * In order to use PID functionality for a controller, a CANPIDController object
      * is constructed by calling the getPIDController() method on an existing
      * CANSparkMax object
      */
-   // left_pidController = Robot.Chassis.neoLeftFrontMotor.getPIDController();
-    //right_pidController = Robot.Chassis.neoRightFrontMotor.getPIDController();
+    left_pidController = Robot.Chassis.neoLeftFrontMotor.getPIDController();
+    right_pidController = Robot.Chassis.neoRightFrontMotor.getPIDController();
 
     // PID coefficients
     kP = 5e-5;
@@ -67,7 +68,6 @@ public class driveByJoystickVelocity extends Command {
     kMinOutput = -1;
 
     // set PID coefficients
-    /*
     left_pidController.setP(kP);
     left_pidController.setI(kI);
     left_pidController.setD(kD);
@@ -90,12 +90,11 @@ public class driveByJoystickVelocity extends Command {
     SmartDashboard.putNumber("Feed Forward", kFF);
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
-*/
   }
 
   protected void execute() {
 
-    //checkSmartDashboardPIDValues();
+    checkSmartDashboardPIDValues();
 
     moveSpeed = applyDeadband(driverJoystick.getLeftStickY(), joystickThreshold);
     turnSpeed = applyDeadband(driverJoystick.getRightStickX(), joystickThreshold);
@@ -109,24 +108,25 @@ public class driveByJoystickVelocity extends Command {
     else if (moveSpeed < -quickTurnJoystickThreshold) { lastDirection = -1.0; }
 
     // Do cheesy math to calculate left and right drive values (-1 to 1).
-    driveSignal = helper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, true);
-/*
+    //driveSignal = helper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, true);
+    BobDriveHelper.cheesyDrive(moveSpeed, turnSpeed, quickTurn, true);
+
     if (moveSpeed == 0) {
-      if      (turnSpeed > 0) { leftVelocity  = (lastDirection *  turnSpeed * maxRPM); } 
-      else if (turnSpeed < 0) { rightVelocity = (lastDirection * -turnSpeed * maxRPM); }
+      if      (turnSpeed > 0) { leftVelocity  = (lastDirection *  turnSpeed); } 
+      else if (turnSpeed < 0) { rightVelocity = (lastDirection * -turnSpeed); }
+
+      Chassis.neoDrive.tankDrive(leftVelocity, rightVelocity);
     } 
     else {
-*/
-      leftVelocity  = driveSignal.getLeft();//  * maxRPM;
-      rightVelocity = driveSignal.getRight();// * maxRPM;
-//    }
+
+      leftVelocity  = BobDriveHelper.getLeft() * maxRPM;
+      rightVelocity = BobDriveHelper.getRight() * maxRPM;
+
+      left_pidController.setReference(leftVelocity, ControlType.kVelocity);
+      right_pidController.setReference(rightVelocity, ControlType.kVelocity);
+    }
 
     writeToSmartDashboard();
-
-   // left_pidController.setReference(leftVelocity, ControlType.kVelocity);
-    //right_pidController.setReference(rightVelocity, ControlType.kVelocity);
-
-      Robot.Chassis.neoDrive.tankDrive(leftVelocity, rightVelocity);
 
     /**
      * PIDController objects are commanded to a set point using the SetReference()
@@ -207,9 +207,11 @@ public class driveByJoystickVelocity extends Command {
   }
 
   private void writeToSmartDashboard() {
-    SmartDashboard.putNumber("Target leftVelocity", leftVelocity);
+    SmartDashboard.putNumber("Target_leftVelocity", leftVelocity);
     SmartDashboard.putNumber("leftVelocity", leftEncodersVelocity);
-    SmartDashboard.putNumber("Target rightVelocity", rightVelocity);
+    SmartDashboard.putNumber("Output_Right", Robot.Chassis.getAppliedOutputRight());
+    SmartDashboard.putNumber("Output_Left", Robot.Chassis.getAppliedOutputLeft());
+    SmartDashboard.putNumber("Target_rightVelocity", rightVelocity);
     SmartDashboard.putNumber("rightVelocity", rightEncodersVelocity);
   }
 }

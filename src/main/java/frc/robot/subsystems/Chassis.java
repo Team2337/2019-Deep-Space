@@ -208,7 +208,7 @@ public class Chassis extends Subsystem {
   public void initDefaultCommand() {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
-    setDefaultCommand(new driveByJoystickVelocity());
+    setDefaultCommand(new driveByCheesyJoystick());
   }
 
   /*****************************************/
@@ -434,36 +434,51 @@ public class Chassis extends Subsystem {
     motor.setIdleMode(mode);
   }
 
+  public double getAppliedOutputLeft() {
+    return neoLeftFrontMotor.getAppliedOutput();
+  }
+  public double getAppliedOutputRight() {
+    return neoRightFrontMotor.getAppliedOutput();
+  }
+
+
   /**
    * Runs continuously during runtime. Currently used to display SmartDashboard
    * values
    */
   public void periodic() {
     if (chassisDebug) {
-      SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
-      SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
-      SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
-      SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Right_Chassis_POWER", rightFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("Left_Chassis_POWER", leftFrontMotor.getMotorOutputPercent());
 
-      SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
-      SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
-      SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
-      SmartDashboard.putNumber("Auto A Input", autoSetPath.kP);
-      SmartDashboard.putNumber("Reverse Auto P Input", autoSetPathReverse.kP);
-      SmartDashboard.putNumber("Reverse Auto I Input", autoSetPathReverse.kI);
-      SmartDashboard.putNumber("Reverse Auto D Input", autoSetPathReverse.kD);
-      SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
+      SmartDashboard.putNumber("Drive_Joystick", Robot.oi.driverJoystick.getRawAxis(1));
+
+      SmartDashboard.putNumber("Auto_P_Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Auto_I_Input", autoSetPath.kI);
+      SmartDashboard.putNumber("Auto_D_Input", autoSetPath.kD);
+      SmartDashboard.putNumber("Auto_A_Input", autoSetPath.kP);
+      
+      SmartDashboard.putNumber("Reverse_Auto_P_Input", autoSetPathReverse.kP);
+      SmartDashboard.putNumber("Reverse_Auto_I_Input", autoSetPathReverse.kI);
+      SmartDashboard.putNumber("Reverse_Auto_D_Input", autoSetPathReverse.kD);
+      SmartDashboard.putNumber("Reverse_Auto_A_Input", autoSetPathReverse.kP);
 
       SmartDashboard.putNumber("printX", autoSetPath.printX);
     }
 
     if (neoDebug) {
-      SmartDashboard.putNumber("neoRightEncoder", neoRightFrontEncoder.getPosition());
-      SmartDashboard.putNumber("neoLeftEncoder", neoLeftFrontEncoder.getPosition());
-      SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
-      SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
+      SmartDashboard.putNumber("neo_Right_Encoder", neoRightFrontEncoder.getPosition());
+      SmartDashboard.putNumber("neo_Left_Encoder", neoLeftFrontEncoder.getPosition());
+      SmartDashboard.putNumber("Neo_Right_Percent_Power", neoRightFrontMotor.get());
+      SmartDashboard.putNumber("Neo_Left_Percent_Power", neoLeftFrontMotor.get());
+      SmartDashboard.putNumber("Neo_Right_Temperature", neoRightFrontMotor.getMotorTemperature());
+      SmartDashboard.putNumber("Neo_Left_Temperature", neoLeftFrontMotor.getMotorTemperature());
+      SmartDashboard.putNumber("Neo_Right_Current", neoRightFrontMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Left_Current", neoLeftFrontMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Right_Encoder_Velocity", neoRightFrontEncoder.getVelocity());
+      SmartDashboard.putNumber("Neo_Left_Encoder_Velocity", neoLeftFrontEncoder.getVelocity());
     }
   }
 }

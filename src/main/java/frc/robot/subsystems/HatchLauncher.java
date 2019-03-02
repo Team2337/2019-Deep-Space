@@ -39,6 +39,13 @@ public class HatchLauncher extends Subsystem {
     launcherPiston.set(false);
 
   }
+    
+  /**
+   * Hatch Extender status
+   */
+  public boolean status() {
+    return launcherPiston.get();
+  }
 
   /**
    * Display the status on the smartdashboard

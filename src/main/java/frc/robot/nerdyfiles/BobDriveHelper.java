@@ -41,14 +41,19 @@ public class BobDriveHelper {
 	private static final double kQuickStopWeight = 0.1;
 	private static final double kQuickStopScalar = 1.0;
 	
-	private double mOldWheel = 0.0;
-	private double mQuickStopAccumlator = 0.0;
-	private double mNegInertiaAccumlator = 0.0;
+	private static double mOldWheel = 0.0;
+	private static double mQuickStopAccumlator = 0.0;
+	private static double mNegInertiaAccumlator = 0.0;
 
-	public DriveSignal cheesyDrive(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear) {
+public static double leftPwm, rightPwm;
 
-		wheel = handleDeadband(wheel, kWheelDeadband);
-		throttle = handleDeadband(throttle, kThrottleDeadband);
+//public DriveSignal cheesyDrive(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear) {
+
+	public static void cheesyDrive(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear) {
+		//wheel = handleDeadband(wheel, kWheelDeadband);
+		wheel = (Math.abs(wheel) > Math.abs(kWheelDeadband)) ? wheel : 0.0;
+		//throttle = handleDeadband(throttle, kThrottleDeadband);
+		throttle = (Math.abs(throttle) > Math.abs(kWheelDeadband)) ? throttle : 0.0;
 
 		double negInertia = wheel - mOldWheel;
 		mOldWheel = wheel;
@@ -69,8 +74,8 @@ public class BobDriveHelper {
 			wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
 		}
 
-		double leftPwm, rightPwm, overPower;
-		double sensitivity;
+//double leftPwm, rightPwm;
+		double sensitivity, overPower;
 
 		double angularPower;
 		double linearPower;
@@ -145,7 +150,16 @@ public class BobDriveHelper {
 			leftPwm += overPower * (-1.0 - rightPwm);
 			rightPwm = -1.0;
 		}
-		return new DriveSignal(leftPwm, rightPwm);
+//return new DriveSignal(leftPwm, rightPwm);
+	}
+
+// added getters
+	public static double getLeft() {
+		return leftPwm;
+	}
+
+	public static double getRight() {
+		return rightPwm;
 	}
 
 	public double handleDeadband(double val, double deadband) {
