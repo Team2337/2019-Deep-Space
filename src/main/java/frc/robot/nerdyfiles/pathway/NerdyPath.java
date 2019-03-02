@@ -166,3 +166,81 @@ public class NerdyPath {
     }
   }
 }
+
+/*
+  /**
+   * Sets the trajectory for the robot based off of the waypoints given in the
+   * Pathway.java file
+   * 
+   * @see Pathway.java
+   * @param trajectory - set of waypoints being created in Robot.java
+   * @param kP         - P value in PID, typically is around 1.0
+   * @param kI         - I value in PID, typically is around 0.0
+   * @param kD         - D value in PID, helpful to not overshoot, usually around
+   *                   0.0 - 0.05
+   * @param kA         - Beginning acceloration value, (aka feet forward),
+   *                   typically around 0.0 unless you want a quick start out of
+   *                   the gate
+   */
+  /*
+  public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA) {
+    modifier = new TankModifier(trajectory).modify(wheelBase);
+
+    leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
+    rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
+
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);//pathway.config.max_velocity
+
+    leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
+    rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
+  }
+ */
+
+ 
+ /*
+ /**
+   * Writes a generated trajectory to the deploy folder on the robot
+   * <br/> Only needs to be run one time in order to write the file to the robot
+   * <br/> <p><strong>**NOTE</strong>: Make sure the file permissions on the deploy folder are able to be written to**</p>
+   * @param fileName
+   * @param trajectory
+   */
+  /*
+  public void writeFile(String fileName, Trajectory trajectory) {
+    try {
+      File file = new File(filePath + fileName + csv); // writing to csv
+      file.createNewFile();
+      Pathfinder.writeToCSV(file, trajectory);
+      System.out.println("**************** Info Written To File ****************");
+    } catch (IOException e) {
+      System.out.println("*** ERROR WHEN WRITING TRAJECTORY TO FILE: " + e.getMessage() + " *******************");
+    }
+  }
+
+
+  /**
+   * Reads in a file from the rio deploy folder, then converting it from a data stream to a trajectory
+   * <br/>Filetype is currently set to a csv, if using binary, change to txt
+   * @param fileName - Name of the file you're reading from
+   * @return - returns a trajectory
+   */
+  /*
+  public Trajectory readFile(String fileName) {
+    try {
+      File file = new File(filePath + fileName + csv); // writing to csv
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      file.createNewFile(); //creating new file to read from
+      file.setReadable(true, false);
+      String content;
+      while ((content = br.readLine()) != null) {
+        System.out.println(content);
+      }
+      br.close();
+      return Pathfinder.readFromCSV(file);
+    } catch (IOException e) {
+      System.out.println("********ERROR: CANNOT READ FROM FILE: " + e + " *******************");
+    }
+    return null;
+  }
+  */
