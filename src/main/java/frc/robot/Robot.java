@@ -158,6 +158,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left Distance", (Robot.Chassis.getLeftPosition()  /13988) * 20);
     SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());
     SmartDashboard.putNumber("Left Encoder", Robot.Chassis.getLeftPosition());
+    SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
   }
 
   /**

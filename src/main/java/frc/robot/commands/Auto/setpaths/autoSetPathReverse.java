@@ -75,7 +75,7 @@ public class autoSetPathReverse extends Command {
 
     Robot.NerdyPath.makePathReverse();
     segment++;
-    if (segment >= trajectory.length()) {
+    if (segment >= (trajectory.length() - 50)) {
       finished = true;
     }
     if (finished) {
@@ -110,13 +110,15 @@ public class autoSetPathReverse extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return wait >= finishTime;
+    return finished; //wait >= finishTime;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    // Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    // Robot.Chassis.neoLeftFrontMotor.set(-0.3);
+    // Robot.Chassis.neoRightFrontMotor.set(-0.3);
     
   }
 

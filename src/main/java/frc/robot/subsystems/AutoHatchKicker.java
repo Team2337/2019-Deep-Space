@@ -25,13 +25,13 @@ public class AutoHatchKicker extends Subsystem {
    * This extends the hatch kicker
    */
   public void hatchKickerExtend() {
-    hatchkicker.set(false);
+    hatchkicker.set(true);
   }
 
   /**
    * This retracts the hatch kicker
    */
   public void hatckKickerRetract() {
-    hatchkicker.set(true);
+    hatchkicker.set(false);
   }
 }

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.setpaths.*;
-
+import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
 import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.Auto.autoWaitSensorReset;
 
@@ -17,9 +17,12 @@ public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
   public CGTwoHatchAutoRight() {
       addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[1], 0.1));
-      addParallel(new autoHatchKickerExtend(4));
+      // addParallel(new autoHatchKickerExtend(10));
       addSequential(new autoLineSensorDrive());
       // addSequential(new autoResetEncoders());
+      addSequential(new autoLiftToPosition((Robot.Lift.getPosition() + 30), 2));
+      addSequential(new hatchKickerExtend());
+      addSequential(new autoWait(1));
       addSequential(new hatchKickerRetract());
       // addSequential(new autoWaitSensorReset(1));
       addSequential(new autoWait(1));

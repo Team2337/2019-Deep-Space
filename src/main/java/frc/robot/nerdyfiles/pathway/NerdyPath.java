@@ -24,7 +24,7 @@ public class NerdyPath {
   private double wheelDiameter = 6.375 * inchesToMeters;
   private double wheelBase = 20.5 * inchesToMeters; // old practice bot: 21.5
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
-  private double turnCompensation = 1.0 * (-1.0 / 80.0); 
+  private double turnCompensation = 0.8 * (-1.0 / 80.0); 
 
   private String filePath = "/home/lvuser/deploy/";
   private String csv = ".csv";
@@ -197,7 +197,7 @@ public class NerdyPath {
   }
  */
 
- 
+
  /*
  /**
    * Writes a generated trajectory to the deploy folder on the robot
