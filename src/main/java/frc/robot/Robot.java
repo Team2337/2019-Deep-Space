@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
   public static Pigeon Pigeon;
   public static Shifter Shifter;
   public static Vision Vision;
+  public static Recorder Recorder;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -60,7 +61,7 @@ public class Robot extends TimedRobot {
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
 
-  private boolean logger;
+  public static boolean logger;
   private String selectedAuto;
 
   /**
@@ -90,6 +91,7 @@ public class Robot extends TimedRobot {
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     Vision = new Vision();
+    Recorder = new Recorder();
 
     /* 
      * Keep below other subsystems as these have dependencies for other subsystems
@@ -154,11 +156,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+
     SmartDashboard.putNumber("Right Distance", (Robot.Chassis.getRightPosition()  /13988) * 20);
     SmartDashboard.putNumber("Left Distance", (Robot.Chassis.getLeftPosition()  /13988) * 20);
     SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());
     SmartDashboard.putNumber("Left Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
+    
+    SmartDashboard.putBoolean("is Comp", isComp);
   }
 
   /**

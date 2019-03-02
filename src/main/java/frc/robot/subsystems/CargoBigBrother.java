@@ -80,10 +80,9 @@ public class CargoBigBrother extends Subsystem {
         if (cargoBigBrotherDebug) {
             SmartDashboard.putNumber("Cargo level", cargoLevel());
             SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
-            SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
-            SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
-            SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
-            SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
+            SmartDashboard.putBoolean("In Dead Zone", inDeadzone);
+            SmartDashboard.putBoolean("!Escalator sensor", !cargoEscalatorSensor.get());
+            SmartDashboard.putBoolean("!Trolley sensor", !cargoTrolleySensor.get());
         }
     }
 }
