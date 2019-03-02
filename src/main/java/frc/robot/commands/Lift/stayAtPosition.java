@@ -5,6 +5,7 @@ import frc.robot.Robot;
 
 /**
  * Reads the position of the lift, and sets the setpoint to the current position
+ * 
  * @author Bryce G.
  */
 public class stayAtPosition extends Command {
@@ -19,7 +20,9 @@ public class stayAtPosition extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+        if (Robot.stringPotBroken == false) {
+            Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run

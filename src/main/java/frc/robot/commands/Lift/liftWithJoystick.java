@@ -18,13 +18,16 @@ public class liftWithJoystick extends Command {
     private double joystickForwardModifier = 0.5;
 
     // The value that the joystick must exceed for movement to take effect
-    private double joystickDeadband = 0.25;
+    private double joystickDeadband = 0.2;
 
     // Whether or not the next cycle of execute() needs to set the setpoint
     private boolean positionSet = true;
 
     // Position of the lift the motors should hold
     private double holdPosition;
+
+    // Setup for after the stringpot has broken is finished
+    private boolean setupFinished;
 
     /**
      * <p>
@@ -55,7 +58,15 @@ public class liftWithJoystick extends Command {
         // The value of the driver joystick's left thumbsticks up/down motion
         joy = (Robot.oi.operatorJoystick.getLeftStickY());
 
-        // If the joystick value exceeds a threshold (adjust for noise)
+        // When the stringpot first breaks, set up the robot to handle this
+        if (!setupFinished && Robot.stringPotBroken) {
+            Robot.Lift.disableSoftLimits();
+            Robot.Lift.setMinMaxSpeed(1, -1);
+            // Disable setpoints? Disable the sensor?
+            setupFinished = true;
+        }
+
+        // If the joystick value exceeds a threshold
         if (Math.abs(joy) > joystickDeadband) {
             // Position needs to be overridden, but only once until the joystick is used
             if (positionSet) {
@@ -63,14 +74,17 @@ public class liftWithJoystick extends Command {
             }
             // Set the speed of the lift to the joystick multiplied by a limiter
             Robot.Lift.move(joy * joystickForwardModifier);
-        } else {
+        } else if (Robot.stringPotBroken == false) {
             // Set the position until the joystick is used
-            if (!positionSet) {
+            if (!positionSet && Robot.stringPotBroken == false) {
                 holdPosition = Robot.Lift.getPosition();
+
+                // Set the position of the lift that the motors need to automatically hold
+                Robot.Lift.setSetpoint(holdPosition);
                 positionSet = true;
+            } else {
+                Robot.Lift.move(0);
             }
-            // Set the position of the lift that the motors need to automatically hold
-            Robot.Lift.setSetpoint(holdPosition);
         }
     }
 

@@ -1,7 +1,9 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,6 +26,9 @@ public class Robot extends TimedRobot {
    */
   public static boolean isComp = false;
   public static boolean stringPotBroken = false;
+
+  private static double endTime = 0;
+  private static boolean hasNotifiedOperator = false;
 
   public double[][] valuesPID = pathway.valuesPID;
 
@@ -68,12 +73,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+
     // CONSTRUCTORS
     // Keep above other subsystems, as these have dependencies for other subsystems
     // to be instantiated first.
     Constants = new Constants();
-    
+
     AirCompressor = new AirCompressor();
     AutoHatchKicker = new AutoHatchKicker();
     CargoDrawbridge = new CargoDrawbridge();
@@ -90,7 +95,7 @@ public class Robot extends TimedRobot {
     Shifter = new Shifter();
     Vision = new Vision();
 
-    /* 
+    /*
      * Keep below other subsystems as these have dependencies for other subsystems
      * to be instantiated first.
      */
@@ -140,10 +145,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    //TODO: Determine what should go on the driver dashboard
+    // TODO: Determine what should go on the driver dashboard
     SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
+      // End goal for this code is to add a timeout for the rumble to run for just 1
+      // second at full power
+      if (hasNotifiedOperator == false && endTime != -1) {
+        Robot.oi.operatorJoystick.setRumble(1, 1);
+        endTime = Timer.getFPGATimestamp() + 1; // Sets a one second timeout
+      } else if (Timer.getFPGATimestamp() >= endTime) {
+        Robot.oi.operatorJoystick.setRumble(0, 0);
+        hasNotifiedOperator = true;
+        endTime = -1;
+      }
     } else {
       stringPotBroken = false;
     }
@@ -214,10 +229,9 @@ public class Robot extends TimedRobot {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     /*
-     * This makes sure that the autonomous stops running when
-     * teleop starts running. If you want the autonomous to
-     * continue until interrupted by another command, remove
-     * this line or comment it out.
+     * This makes sure that the autonomous stops running when teleop starts running.
+     * If you want the autonomous to continue until interrupted by another command,
+     * remove this line or comment it out.
      */
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
