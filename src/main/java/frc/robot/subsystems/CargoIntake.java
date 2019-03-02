@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +13,7 @@ import frc.robot.Robot;
 public class CargoIntake extends Subsystem {
 
   // The motor to run the cargo intake
-  private TalonSRX CargoIntakeMotor;
+  public TalonSRX CargoIntakeMotor;
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
@@ -26,6 +27,7 @@ public class CargoIntake extends Subsystem {
     this.CargoIntakeMotor = new TalonSRX(CargoIntakeMotorID);
     CargoIntakeMotor.setInverted(false);
     CargoIntakeMotor.setNeutralMode(NeutralMode.Brake);
+    CargoIntakeMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
   }
 
   public void initDefaultCommand() {

@@ -1,5 +1,10 @@
 package frc.robot;
 
+import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.CommandGroups.*;
+import frc.robot.commands.Auto.setpaths.*;
+import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
+import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -22,6 +27,8 @@ public class OI {
 	public NerdyUltimateXboxOperator	operatorJoystick		= new NerdyUltimateXboxOperator(1);
 	public NerdyOperatorStation			operatorControls		= new NerdyOperatorStation(2);
 
+	public double[][] valuesPID = pathway.valuesPID;
+
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
@@ -41,6 +48,10 @@ public class OI {
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
 
 
+		//driverJoystick.start						.whenPressed(new autoSetPathReverse(Robot.driveForwardT, valuesPID[1]));
+		driverJoystick.start	.whenPressed(new CGTwoHatchAutoRight());
+		driverJoystick.blueX	.whileHeld(new hatchKickerExtend());
+		driverJoystick.blueX	.whenReleased(new hatchKickerRetract());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

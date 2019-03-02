@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.NerdyUltimateXboxDriver;
+import frc.robot.nerdyfiles.controller.NerdyXbox;
 import frc.robot.subsystems.Chassis;
 
 /**
@@ -14,12 +15,7 @@ public class driveByJoystick extends Command {
   // Gets the driver joystick from OI.java
   private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;
   private boolean isNeoDrive;
-
-  // How fast the robot moves overall
-  double moveSpeed;
-
-  // Adjusts the turn intensity
-  double turnSpeed;
+  private double moveSpeed = 0;
 
   /**
    * Uses Arcade Drive to drive either Neo or Talon motor controllers
@@ -34,7 +30,6 @@ public class driveByJoystick extends Command {
 
   // Supplys the correct values to the arcadeDrive command to drive the robot
   protected void execute() {
-
     // Left joystick's front/back movement as a number from -1 to 1
     moveSpeed = driverJoystick.getLeftStickY();
 
@@ -44,7 +39,7 @@ public class driveByJoystick extends Command {
     }
 
     // Right joysticks left/right movement as a number from -1 to 1
-    turnSpeed = driverJoystick.getRightStickX();
+    double turnSpeed = driverJoystick.getRightStickX();
 
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive
