@@ -158,10 +158,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
     SmartDashboard.putBoolean("is Comp", isComp);
-    SmartDashboard.putNumber("Neo_LF_Temperature", Robot.Chassis.neoLeftFrontMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Neo_LR_Temperature", Robot.Chassis.neoLeftRearMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Neo_RF_Temperature", Robot.Chassis.neoRightFrontMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Neo_RR_Temperature", Robot.Chassis.neoRightRearMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Neo_LF_Temperature", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Neo_LR_Temperature", (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Neo_RF_Temperature", (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Neo_RR_Temperature", (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9)/5) + 32));
     SmartDashboard.putNumber("Right_Encoder", Robot.Chassis.getRightPosition());
     SmartDashboard.putNumber("Left_Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Compass_Heading", Robot.Pigeon.getYaw());
