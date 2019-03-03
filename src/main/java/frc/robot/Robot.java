@@ -153,18 +153,19 @@ public class Robot extends TimedRobot {
       stringPotBroken = false;
     }
 
-    /* --- Dashboard Items --- */
-    SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
+    /* --- Driver Dashboard Items --- */
+    SmartDashboard.putBoolean("Driver/String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
-    SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+    SmartDashboard.putNumber("Driver/Air Pressure (PSI)", Robot.AirCompressor.getPressure());
     SmartDashboard.putBoolean("is Comp", isComp);
-    SmartDashboard.putNumber("Neo_LF_Temperature", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Neo_LR_Temperature", (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Neo_RF_Temperature", (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Neo_RR_Temperature", (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Right_Encoder", Robot.Chassis.getRightPosition());
-    SmartDashboard.putNumber("Left_Encoder", Robot.Chassis.getLeftPosition());
-    SmartDashboard.putNumber("Compass_Heading", Robot.Pigeon.getYaw());
+    SmartDashboard.putNumber("Driver/Neo_LF_Temp", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_LR_Temp", (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RF_Temp", (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RR_Temp", (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Right_Encoder", Robot.Chassis.getRightPosition());
+    SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
+    SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());
+    SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
     
   }
 
