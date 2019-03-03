@@ -26,7 +26,9 @@ public class driveWrangler extends Command {
 
         if (joy > joystickDeadband) {
             Robot.RoboWrangler.drive(joy);
+            Robot.RoboWrangler.lasso(0);
         } else if (joy < joystickDeadband) {
+            Robot.RoboWrangler.drive(0);
             Robot.RoboWrangler.lasso(joy);
         } else {
             Robot.RoboWrangler.stop();
