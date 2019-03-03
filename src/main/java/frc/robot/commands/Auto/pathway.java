@@ -10,7 +10,7 @@ import jaci.pathfinder.Waypoint;
  * @author Bryce G.
  */
 public class pathway {
-    public static double metersConversion = 0.0254; 
+    public static double metersConversion = 0.0254; // 17.5 //35.166666666 - Our conversion from our trials, 33.33333
     public static Trajectory.Config config;
     public static Trajectory trajectory;
 
@@ -44,7 +44,7 @@ public class pathway {
         { 1.3, 0, 0, 0 }, // curveFromToHatchRightT
         { 1.0, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
-        { 1, 0, 0, 0 }, // TEST
+        { 1.5, 0, 0, 0 }, // TEST
     };
 
     /**

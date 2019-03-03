@@ -57,4 +57,8 @@ public class LED extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new LEDRuntime());
 	}
+
+	public double status() {
+		return blinkin.get();
+	}
 }
