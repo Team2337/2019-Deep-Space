@@ -285,6 +285,17 @@ public class Lift extends Subsystem {
   }
 
   /**
+   * Determines whether or not the lift is within range of the climb deploy
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbPosition(double tolerance) {
+    return Math.abs(climbPosition - getPosition()) <= tolerance;
+  }
+
+  /**
    * Gets the current position of the lift
    * 
    * @return Analog position that the arm is at
@@ -382,15 +393,15 @@ public class Lift extends Subsystem {
       SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
       SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
 
-      if(true){
-      SmartDashboard.putNumber("Lift_P", kP);
-      SmartDashboard.putNumber("Lift_I", kI);
-      SmartDashboard.putNumber("Lift_D", kD);
-      SmartDashboard.putNumber("Lift_F", kF);
-      SmartDashboard.putNumber("Lift_AllowableError", allowableError);
-      SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
-      SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
-      SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
+      if (true) {
+        SmartDashboard.putNumber("Lift_P", kP);
+        SmartDashboard.putNumber("Lift_I", kI);
+        SmartDashboard.putNumber("Lift_D", kD);
+        SmartDashboard.putNumber("Lift_F", kF);
+        SmartDashboard.putNumber("Lift_AllowableError", allowableError);
+        SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
+        SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
+        SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
       }
     }
   }

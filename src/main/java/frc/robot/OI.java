@@ -4,9 +4,9 @@ import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
-import frc.robot.commands.RoboWrangler.driveWrangler;
 import frc.robot.commands.Shifter.*;
 import frc.robot.commands.Chassis.*;
+import frc.robot.commands.ClimberDeploy.deployClimber;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -77,7 +77,8 @@ public class OI {
 
 		/* ===== DRIVER STATION CONTROLS ===== */
 		
-		operatorControls.BlackSwitch				.whenPressed(new driveWrangler());
+		operatorControls.BlackButton				.whenPressed(new deployClimber());
+		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
 	
 		///////////////////////////////////////// 
 	}

@@ -13,28 +13,34 @@ public class deployClimber extends Command {
    */
   public deployClimber() {
     requires(Robot.ClimberDeploy);
+    requires(Robot.Lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.ClimberDeploy.deployClimber();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (Robot.oi.operatorControls.BlackSwitch.get()) {
+      if (Robot.Lift.atClimbPosition(10)) {
+        Robot.ClimberDeploy.deployClimber();
+      }
+    }
   }
 
-  // This command doesn't need any more than once
+  // Once the climber is deployed, this command no longer needs to run
   @Override
   protected boolean isFinished() {
-    return true;
+    return Robot.ClimberDeploy.status();
   }
 
+  // When the button is released, the lift will hold it's current position
   @Override
   protected void end() {
-
+    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
   }
 
   // Called when another command which requires one or more of the same
