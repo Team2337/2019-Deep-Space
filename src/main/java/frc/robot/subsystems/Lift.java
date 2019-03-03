@@ -381,6 +381,17 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
       SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
+
+      if(true){
+      SmartDashboard.putNumber("Lift_P", kP);
+      SmartDashboard.putNumber("Lift_I", kI);
+      SmartDashboard.putNumber("Lift_D", kD);
+      SmartDashboard.putNumber("Lift_F", kF);
+      SmartDashboard.putNumber("Lift_AllowableError", allowableError);
+      SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
+      SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
+      SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
+      }
     }
   }
 }

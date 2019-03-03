@@ -46,6 +46,13 @@ public class AirCompressor extends Subsystem {
   }
 
   /**
+   * Disables the compressor
+   */
+  public boolean status() {
+    return compressor.enabled();
+  }
+
+  /**
    * Gets the pressure of the air system (PSI)
    * 
    * @return The pressure of the air system (PSI)

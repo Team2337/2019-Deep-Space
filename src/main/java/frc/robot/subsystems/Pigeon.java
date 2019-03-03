@@ -48,6 +48,7 @@ public class Pigeon extends Subsystem {
 		pidgey.getGeneralStatus(gyroGenStatus);
 		pidgey.getYawPitchRoll(ypr_deg);
 		pidgey.getRawGyro(xyz_dps);
+
 		
 		//SmartDashboard.putNumber("FusedHeading", pidgey.getFusedHeading());
 		//SmartDashboard.putNumber("AbsoluteCompass", getThing());
@@ -77,7 +78,7 @@ public class Pigeon extends Subsystem {
 	}
 
 	/**
-	 * Returns the roll value from the gyro
+     * Returns the roll value from the gyro
 	 * @return roll
 	 */
 	public double getRoll() {
@@ -103,7 +104,7 @@ public class Pigeon extends Subsystem {
 
 	/**
 	 * Gets the rate at which the robot is spinning
-	 * @return
+	 * @return angularRate
 	 */
 	public double getAngularRate() {
 		double angularRate;
@@ -119,4 +120,20 @@ public class Pigeon extends Subsystem {
 		pidgey.setYaw(yaw, timeoutMs);
 
 	}
+	 /**
+	 * Returns the FusedHeading value from the gyro
+	 * @return FusedHeading
+	 */
+	public double getFusedHeading() {
+		return pidgey.getFusedHeading();
+	}	
+	
+	/**
+    * Returns the Temperature value from the gyro
+	* @return Temp
+	*/
+   public double getTemp() {
+	   return pidgey.getTemp();
+
+   }
 }
