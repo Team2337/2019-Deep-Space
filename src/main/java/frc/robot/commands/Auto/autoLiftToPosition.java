@@ -41,7 +41,7 @@ public class autoLiftToPosition extends Command {
 
 
 	protected boolean isFinished() {
-        return Robot.Lift.atPosition(5);
+        return Robot.Lift.atPosition(10);
 	}
 
 	protected void end() {

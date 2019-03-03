@@ -1,10 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.Auto.pathway;
-import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
-import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -27,8 +22,6 @@ public class OI {
 	public NerdyUltimateXboxOperator	operatorJoystick		= new NerdyUltimateXboxOperator(1);
 	public NerdyOperatorStation			operatorControls		= new NerdyOperatorStation(2);
 
-	public double[][] valuesPID = pathway.valuesPID;
-
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
@@ -43,7 +36,7 @@ public class OI {
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
 		
-		//TODO: Make a branch for this and finish the camera switching
+		//TODO: Update buttons and create branch for camera switching
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
 
@@ -52,6 +45,8 @@ public class OI {
 		driverJoystick.start	.whenPressed(new CGTwoHatchAutoRight());
 		driverJoystick.blueX	.whileHeld(new hatchKickerExtend());
 		driverJoystick.blueX	.whenReleased(new hatchKickerRetract());
+
+		driverJoystick.greenA	.whenPressed(new PID3DLimelight(0.05, 0, 0, ""));
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
@@ -65,7 +60,6 @@ public class OI {
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
-		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());

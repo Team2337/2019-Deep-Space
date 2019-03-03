@@ -72,7 +72,7 @@ public class autoSetPathWithHold extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Right Motor Percent Output: " + Robot.CargoIntake.CargoIntakeMotor.getMotorOutputPercent());
+    System.out.println("Right Motor Percent Output: " + Robot.Chassis.rightFrontMotor.getMotorOutputPercent());
     System.out.println("Left Motor Percent Output: " + Robot.Chassis.leftFrontMotor.getMotorOutputPercent());
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Vision.setLEDMode(3);

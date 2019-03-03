@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Chassis;
 
 /**
  * Waits a given amount of time until the next command is run
@@ -37,18 +38,18 @@ public class autoLineSensorDrive extends Command {
 		 */
 		if(Robot.Chassis.linesCrossed == 2) {
 			//TODO: Fix Neo Arcade drive
-			// Robot.Chassis.neoArcade(-0.2, 0, false);
+			// Chassis.neoDrive.arcadeDrive(0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(0.1);
 			Robot.Chassis.neoRightFrontMotor.set(0.1);
 		}
 		if(Robot.Chassis.linesCrossed == 1) {
 			//TODO: Fix Neo Arcade drive
-			// Robot.Chassis.neoArcade(0.2, 0, false);
+			// Chassis.neoDrive.arcadeDrive(-0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}
 		if(Robot.Chassis.linesCrossed == 0) {
-			// Robot.Chassis.neoArcade(0.2, 0, false);
+			// Chassis.neoDrive.arcadeDrive(-0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}
@@ -64,9 +65,7 @@ public class autoLineSensorDrive extends Command {
 	}
 
 	protected void end() {
-		Robot.Chassis.neoLeftFrontMotor.set(0);
-		Robot.Chassis.neoRightFrontMotor.set(0);
-		// Robot.Chassis.setSetPoint(0);
+		Chassis.neoDrive.arcadeDrive(0, 0, false);
 		Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
 		Robot.Chassis.print = false;
 	}
