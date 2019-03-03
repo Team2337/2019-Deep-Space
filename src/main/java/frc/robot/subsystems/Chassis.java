@@ -30,8 +30,8 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = false;
-  boolean neoDebug = false;
+  boolean chassisDebug = true;
+  boolean neoDebug = true;
   boolean pathFinderDebug = false;
 
   public double jumpModifier = 0.8;
@@ -76,6 +76,14 @@ public class Chassis extends Subsystem {
   private static int talonRightRearID;
   private static int talonLeftMidID;
   private static int talonLeftRearID;
+
+  /* --- Dashboard Arrays  --- */
+  public static double[] velocities;
+  public static double[] positions;
+  public static double[] ctreEncoders;
+  public static double[] neoEncoders;
+  public static double[] leftPosVelOut;
+  public static double[] rightPosVelOut;
 
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
@@ -195,6 +203,12 @@ public class Chassis extends Subsystem {
     neoRightRearMotor.setIdleMode(IdleMode.kCoast);
 
     ////////////////////////
+
+    // Dashboard arrays
+    velocities = new double[2];
+    positions = new double[2];
+    ctreEncoders = new double[2];
+    neoEncoders = new double[2];
 
     /* --- Talon Nerdy Drive --- */
     talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
@@ -448,6 +462,7 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
+      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};
       SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("Right_Chassis_POWER", rightFrontMotor.getMotorOutputPercent());
@@ -466,9 +481,14 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Reverse_Auto_A_Input", autoSetPathReverse.kP);
 
       SmartDashboard.putNumber("printX", autoSetPath.printX);
+      SmartDashboard.putNumberArray("CTRE_Encoder_Positions", ctreEncoders);
     }
 
     if (neoDebug) {
+      velocities = new double[] {getAverageLeftNeoVelocity(), getAverageRightNeoVelocity()};
+      ctreEncoders = new double[] {getLeftPosition(), getRightPosition()};
+      leftPosVelOut =  new double[] {getLeftPosition(), getAverageLeftNeoVelocity(), neoLeftFrontMotor.getOutputCurrent()};
+      rightPosVelOut =  new double[] {getRightPosition(), getAverageRightNeoVelocity(), neoRightFrontMotor.getOutputCurrent()};
       SmartDashboard.putNumber("neo_Right_Encoder", neoRightFrontEncoder.getPosition());
       SmartDashboard.putNumber("neo_Left_Encoder", neoLeftFrontEncoder.getPosition());
       SmartDashboard.putNumber("Neo_Right_Percent_Power", neoRightFrontMotor.get());
@@ -479,6 +499,12 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Neo_Left_Current", neoLeftFrontMotor.getOutputCurrent());
       SmartDashboard.putNumber("Neo_Right_Encoder_Velocity", neoRightFrontEncoder.getVelocity());
       SmartDashboard.putNumber("Neo_Left_Encoder_Velocity", neoLeftFrontEncoder.getVelocity());
+      SmartDashboard.putNumberArray("Neo_Velocities", velocities);
+      SmartDashboard.putNumberArray("Neo_Positions", neoEncoders);
+
+      SmartDashboard.putNumberArray("Neo_left_graph", leftPosVelOut);
+      SmartDashboard.putNumberArray("Neo_right_graph", rightPosVelOut);
+
     }
   }
 }

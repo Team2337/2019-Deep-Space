@@ -17,9 +17,6 @@ public class CargoBigBrother extends Subsystem {
     public DigitalInput cargoEscalatorSensor;
     public DigitalInput cargoTrolleySensor;
 
-    // TODO: Consider moving all of the other cargo subsystems (motor declarations,
-    // etc.) into this subsystem
-
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
 

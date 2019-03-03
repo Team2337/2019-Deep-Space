@@ -7,7 +7,6 @@
 
 package frc.robot.nerdyfiles;
 
-import frc.robot.nerdyfiles.DriveSignal;
 
 /**
  * Helper class to implement "Cheesy Drive". "Cheesy Drive" simply means that
@@ -19,7 +18,7 @@ import frc.robot.nerdyfiles.DriveSignal;
  */
 public class BobDriveHelper {
 
-	private static final double kThrottleDeadband = 0.0;
+	//private static final double kThrottleDeadband = 0.0;
 	private static final double kWheelDeadband = 0.0;
 
 	// These factor determine how fast the wheel traverses the "non linear" sine

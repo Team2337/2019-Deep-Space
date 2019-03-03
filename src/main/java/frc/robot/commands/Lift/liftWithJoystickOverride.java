@@ -20,7 +20,7 @@ public class liftWithJoystickOverride extends Command {
      * Overrides the lift PID to be controlled by the joystick and not setpoints
      * <p><br/><strong>NOTE:</strong> if the string pot goes out of bounds (or breaks) the 
      * system will automatically disable the PID and change the controls from setpoints to the joystick.
-     * TODO: Impliment this functionality
+     * 
      */
     public liftWithJoystickOverride() {
         requires(Robot.Lift);

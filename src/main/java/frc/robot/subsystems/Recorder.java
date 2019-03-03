@@ -1,10 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableValue;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -14,18 +9,15 @@ import frc.robot.Robot;
  */
 public class Recorder extends Subsystem {
 
-   NetworkTable sd;
-  //edu.wpi.first.networktables.NetworkTable sd;
+
 
   public Recorder(){
-    sd= NetworkTable.getTable("Logger");
-   // sdi= NetworkTableInstance.getTable("Loggeri");
-   //sd.getSubTable("Logger");
+
   }
 
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new MySpecialCommand());
+
   }
     /**
    * Runs continuously during runtime. Currently used to display SmartDashboard
@@ -34,81 +26,67 @@ public class Recorder extends Subsystem {
   public void periodic() {
 
     if (Robot.logger) {
-      SmartDashboard.putNumber("Avg_Neo_Velocity", Robot.Chassis.getAverageNeoVelocity());
-      sd.putNumber("/Logger/Avg_Neo_Velocity", Robot.Chassis.getAverageNeoVelocity());
-      sd.putBoolean("/Logger/Left_Neo_Velocity",false);
       
-      sd.putNumber("Driver_Rt_Stick_X_Axis", Robot.oi.driverJoystick.getRightStickX());
-      sd.putNumber("Driver_Lt_Stick_Y_Axis", Robot.oi.driverJoystick.getLeftStickY());
-      sd.putBoolean("Driver_BumperLeft", Robot.oi.driverJoystick.bumperLeft.get());
-      sd.putBoolean("Driver_BumperRight", Robot.oi.driverJoystick.bumperRight.get());
-      sd.putBoolean("Driver_TriggerLeft", Robot.oi.driverJoystick.triggerLeft.get());
-      sd.putBoolean("Driver_TriggerRight", Robot.oi.driverJoystick.triggerRight.get());
+      SmartDashboard.putNumber("Driver_Rt_Stick_X_Axis", Robot.oi.driverJoystick.getRightStickX());
+      SmartDashboard.putNumber("Driver_Lt_Stick_Y_Axis", Robot.oi.driverJoystick.getLeftStickY());
+      SmartDashboard.putBoolean("Driver_BumperLeft", Robot.oi.driverJoystick.bumperLeft.get());
+      SmartDashboard.putBoolean("Driver_BumperRight", Robot.oi.driverJoystick.bumperRight.get());
+      SmartDashboard.putBoolean("Driver_TriggerLeft", Robot.oi.driverJoystick.triggerLeft.get());
+      SmartDashboard.putBoolean("Driver_TriggerRight", Robot.oi.driverJoystick.triggerRight.get());
 
-      sd.putNumber("Operator_Rt_Stick_X_Axis", Robot.oi.operatorJoystick.getRightStickX());
-      sd.putNumber("Operator_Rt_Stick_Y_Axis", Robot.oi.operatorJoystick.getRightStickY());
-      sd.putNumber("Operator_Lt_Stick_X_Axis", Robot.oi.operatorJoystick.getLeftStickX());
-      sd.putNumber("Operator_Lt_Stick_Y_Axis", Robot.oi.operatorJoystick.getLeftStickY());
-      sd.putBoolean("Operator_GreenA", Robot.oi.operatorJoystick.greenA.get());
-      sd.putBoolean("Operator_RedB", Robot.oi.operatorJoystick.redB.get());
-      sd.putBoolean("Operator_BlueX", Robot.oi.operatorJoystick.blueX.get());
-      sd.putBoolean("Operator_YellowY", Robot.oi.operatorJoystick.yellowY.get());
-      sd.putBoolean("Operator_TriggerLeft", Robot.oi.operatorJoystick.triggerLeft.get());
-      sd.putBoolean("Operator_TriggerRight", Robot.oi.operatorJoystick.triggerRight.get());
-      sd.putBoolean("Operator_BumperLeft", Robot.oi.operatorJoystick.bumperLeft.get());
-      sd.putBoolean("Operator_BumperRight", Robot.oi.operatorJoystick.bumperRight.get());
-      sd.putBoolean("Operator_PovUp", Robot.oi.operatorJoystick.povUp.get());
-      sd.putBoolean("Operator_PovDown", Robot.oi.operatorJoystick.povDown.get());
-      sd.putBoolean("Operator_PovLeft", Robot.oi.operatorJoystick.povLeft.get());
-      sd.putBoolean("Operator_PovRight", Robot.oi.operatorJoystick.povRight.get());
-      sd.putBoolean("Operator_Start", Robot.oi.operatorJoystick.start.get());
-      sd.putBoolean("Operator_Back", Robot.oi.operatorJoystick.back.get());
+      SmartDashboard.putNumber("Operator_Rt_Stick_X_Axis", Robot.oi.operatorJoystick.getRightStickX());
+      SmartDashboard.putNumber("Operator_Rt_Stick_Y_Axis", Robot.oi.operatorJoystick.getRightStickY());
+      SmartDashboard.putNumber("Operator_Lt_Stick_X_Axis", Robot.oi.operatorJoystick.getLeftStickX());
+      SmartDashboard.putNumber("Operator_Lt_Stick_Y_Axis", Robot.oi.operatorJoystick.getLeftStickY());
+      SmartDashboard.putBoolean("Operator_GreenA", Robot.oi.operatorJoystick.greenA.get());
+      SmartDashboard.putBoolean("Operator_RedB", Robot.oi.operatorJoystick.redB.get());
+      SmartDashboard.putBoolean("Operator_BlueX", Robot.oi.operatorJoystick.blueX.get());
+      SmartDashboard.putBoolean("Operator_YellowY", Robot.oi.operatorJoystick.yellowY.get());
+      SmartDashboard.putBoolean("Operator_TriggerLeft", Robot.oi.operatorJoystick.triggerLeft.get());
+      SmartDashboard.putBoolean("Operator_TriggerRight", Robot.oi.operatorJoystick.triggerRight.get());
+      SmartDashboard.putBoolean("Operator_BumperLeft", Robot.oi.operatorJoystick.bumperLeft.get());
+      SmartDashboard.putBoolean("Operator_BumperRight", Robot.oi.operatorJoystick.bumperRight.get());
+      SmartDashboard.putBoolean("Operator_PovUp", Robot.oi.operatorJoystick.povUp.get());
+      SmartDashboard.putBoolean("Operator_PovDown", Robot.oi.operatorJoystick.povDown.get());
+      SmartDashboard.putBoolean("Operator_PovLeft", Robot.oi.operatorJoystick.povLeft.get());
+      SmartDashboard.putBoolean("Operator_PovRight", Robot.oi.operatorJoystick.povRight.get());
+      SmartDashboard.putBoolean("Operator_Start", Robot.oi.operatorJoystick.start.get());
+      SmartDashboard.putBoolean("Operator_Back", Robot.oi.operatorJoystick.back.get());
 
-      sd.putBoolean("DriverStation_YellowButton",Robot.oi.operatorControls.YellowButton.get());
-      sd.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.YellowSwitch.get());
+      SmartDashboard.putBoolean("DriverStation_YellowButton",Robot.oi.operatorControls.YellowButton.get());
+      SmartDashboard.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.YellowSwitch.get());
 
-      sd.putDouble("Air_Pressure", Robot.AirCompressor.getPressure());
-      sd.putBoolean("Air_Compressor", Robot.AirCompressor.status());
-
-      sd.putBoolean("Auton_HatchKicker", Robot.AutoHatchKicker.status());
-
+      SmartDashboard.putNumber("Air_Pressure", Robot.AirCompressor.getPressure());
+      SmartDashboard.putBoolean("Air_Compressor", Robot.AirCompressor.status());
+      SmartDashboard.putBoolean("Auton_HatchKicker", Robot.AutoHatchKicker.status());
       //Cargo_BigBrother (in subsystem)
-
-      sd.putBoolean("Cargo_Drawbridge", Robot.CargoDrawbridge.status());
-
-      sd.putDouble("Cargo_Escalator", Robot.CargoEscalator.status());
-
-      sd.putDouble("Cargo_Intake", Robot.CargoEscalator.status());
-
-      sd.putDouble("Cargo_Intake", Robot.CargoScore.status());
-
+      SmartDashboard.putBoolean("Cargo_Drawbridge", Robot.CargoDrawbridge.status());
+      SmartDashboard.putNumber("Cargo_Escalator", Robot.CargoEscalator.status());
+      SmartDashboard.putNumber("Cargo_Intake", Robot.CargoEscalator.status());
+      SmartDashboard.putNumber("Cargo_Intake", Robot.CargoScore.status());
       //chassis (in subsystem)
-
-      sd.putBoolean("Climber_Release", Robot.ClimberPneumatics.status());
-
-      sd.putBoolean("Hatch_Beak", Robot.HatchBeak.status());
-      
-      sd.putBoolean("Hatch_Extender", Robot.HatchLauncher.status());
-
-      //  LED..........TODO:>?
+      SmartDashboard.putBoolean("Climber_Release", Robot.ClimberPneumatics.status());
+      SmartDashboard.putBoolean("Hatch_Beak", Robot.HatchBeak.status());
+      SmartDashboard.putBoolean("Hatch_Extender", Robot.HatchLauncher.status());
+      SmartDashboard.putNumber("LED_Color", Robot.LED.status());
 
       //Lift (in subsystem)
 
-      sd.putDouble("Pidgeon_FusedHeading", Robot.Pigeon.getFusedHeading());
-      sd.putDouble("Pidgeon_AbsoluteCompass", Robot.Pigeon.getAbsoluteCompassHeading());
-      sd.putDouble("Pidgeon_Roll", Robot.Pigeon.getRoll());
-      sd.putDouble("Pidgeon_Pitch", Robot.Pigeon.getPitch());
-      sd.putDouble("Pidgeon_Yaw", Robot.Pigeon.getYaw());
-      sd.putDouble("Pidgeon_AngularRate", Robot.Pigeon.getAngularRate());
-      sd.putDouble("Pidgeon_Temp", Robot.Pigeon.getTemp());
+      SmartDashboard.putNumber("Pigeon_FusedHeading", Robot.Pigeon.getFusedHeading());
+      SmartDashboard.putNumber("Pigeon_AbsoluteCompass", Robot.Pigeon.getAbsoluteCompassHeading());
+      SmartDashboard.putNumber("Pigeon_Roll", Robot.Pigeon.getRoll());
+      SmartDashboard.putNumber("Pigeon_Pitch", Robot.Pigeon.getPitch());
+      SmartDashboard.putNumber("Pigeon_Yaw", Robot.Pigeon.getYaw());
+      SmartDashboard.putNumber("Pigeon_AngularRate", Robot.Pigeon.getAngularRate());
+      SmartDashboard.putNumber("Pigeon_Temp", Robot.Pigeon.getTemp());
 
-      sd.putBoolean("Shifter_Low", Robot.Shifter.status());
+      SmartDashboard.putBoolean("Shifter_Low", Robot.Shifter.status());
 
-      //PDP ........................TODO:
+      //PDP (in Subsystem)
 
       //NerdyPath (in class)
 
-      //BobDriveHelper ??TODO:??
+      //BobDriveHelper
     }
   }
 }

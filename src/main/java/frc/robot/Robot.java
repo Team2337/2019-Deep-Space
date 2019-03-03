@@ -1,6 +1,8 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
   public static NerdyPath NerdyPath;
   public static OI oi;
   public static Pigeon Pigeon;
+  public static PowerDistributionPanel PDP;
   public static Shifter Shifter;
   public static Vision Vision;
   public static Recorder Recorder;
@@ -88,6 +91,7 @@ public class Robot extends TimedRobot {
     LED = new LED();
     Lift = new Lift();
     Pigeon = new Pigeon();
+    PDP = new PowerDistributionPanel();
     Shifter = new Shifter();
     Vision = new Vision();
     Recorder = new Recorder();
@@ -101,7 +105,7 @@ public class Robot extends TimedRobot {
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
-    Vision.setLEDMode(3);
+    Vision.setLEDMode(1);
 
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
@@ -142,7 +146,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    //TODO: Determine what should go on the driver dashboard
     SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
@@ -155,6 +158,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
     SmartDashboard.putBoolean("is Comp", isComp);
+    SmartDashboard.putNumber("Neo_LF_Temperature", Robot.Chassis.neoLeftFrontMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Neo_LR_Temperature", Robot.Chassis.neoLeftRearMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Neo_RF_Temperature", Robot.Chassis.neoRightFrontMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Neo_RR_Temperature", Robot.Chassis.neoRightRearMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Right_Encoder", Robot.Chassis.getRightPosition());
+    SmartDashboard.putNumber("Left_Encoder", Robot.Chassis.getLeftPosition());
+    SmartDashboard.putNumber("Compass_Heading", Robot.Pigeon.getYaw());
+    
   }
 
   /**
@@ -165,7 +176,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Vision.setLEDMode(3);
+    Robot.Vision.setLEDMode(1);
     logger = false;
   }
 
