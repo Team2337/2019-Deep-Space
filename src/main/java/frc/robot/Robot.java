@@ -1,16 +1,12 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Auto.*;
-import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.commands.Auto.setpaths.*;
+import frc.robot.commands.Auto.pathway;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -49,7 +45,6 @@ public class Robot extends TimedRobot {
   public static NerdyPath NerdyPath;
   public static OI oi;
   public static Pigeon Pigeon;
-  public static PowerDistributionPanel PDP;
   public static Shifter Shifter;
   public static Vision Vision;
 
@@ -63,8 +58,9 @@ public class Robot extends TimedRobot {
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
   public static Trajectory jTurnToCargoShipRightT;
+  public static Trajectory testSCurveT;
 
-  public static boolean logger;
+  private boolean logger;
   private String selectedAuto;
 
   /**
@@ -92,7 +88,6 @@ public class Robot extends TimedRobot {
     LED = new LED();
     Lift = new Lift();
     Pigeon = new Pigeon();
-    PDP = new PowerDistributionPanel();
     Shifter = new Shifter();
     Vision = new Vision();
 
@@ -120,14 +115,14 @@ public class Robot extends TimedRobot {
       jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
       break;
     }
+    // testSCurveT = pathway.testSCurve();
 
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("locations", driveForwardT);
 
     oi = new OI();
 
-    chooser.addOption("My Auto", new CGTwoHatchAutoRight());
-    chooser.addOption("Do Nothing", new autoDoNothing());
+    // chooser.addOption("My Auto", new autoSetPath(driveForwardT, valuesPID[0]));
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -150,6 +145,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    //TODO: Determine what should go on the driver dashboard
     SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
@@ -161,7 +157,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
-
     SmartDashboard.putNumber("Right Distance", (Robot.Chassis.getRightPosition()  /13988) * 20);
     SmartDashboard.putNumber("Left Distance", (Robot.Chassis.getLeftPosition()  /13988) * 20);
     SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());
@@ -169,15 +164,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
     SmartDashboard.putNumber("Right Velocity", Robot.Chassis.neoRightFrontEncoder.getVelocity());
     SmartDashboard.putNumber("Left Velocity", Robot.Chassis.neoLeftFrontEncoder.getVelocity());
-    SmartDashboard.putBoolean("is Comp", isComp);
-    SmartDashboard.putNumber("Neo_LF_Temperature", Robot.Chassis.neoLeftFrontMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Neo_LR_Temperature", Robot.Chassis.neoLeftRearMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Neo_RF_Temperature", Robot.Chassis.neoRightFrontMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Neo_RR_Temperature", Robot.Chassis.neoRightRearMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Right_Encoder", Robot.Chassis.getRightPosition());
-    SmartDashboard.putNumber("Left_Encoder", Robot.Chassis.getLeftPosition());
-    SmartDashboard.putNumber("Compass_Heading", Robot.Pigeon.getYaw());
-    
   }
 
   /**
