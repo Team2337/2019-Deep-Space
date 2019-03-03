@@ -153,19 +153,6 @@ public class Robot extends TimedRobot {
       stringPotBroken = false;
     }
 
-<<<<<<< HEAD
-    /* --- Dashboard Items --- */
-    SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
-    SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
-    SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
-    SmartDashboard.putNumber("Right Distance", (Robot.Chassis.getRightPosition()  /13988) * 20);
-    SmartDashboard.putNumber("Left Distance", (Robot.Chassis.getLeftPosition()  /13988) * 20);
-    SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());
-    SmartDashboard.putNumber("Left Encoder", Robot.Chassis.getLeftPosition());
-    SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
-    SmartDashboard.putNumber("Right Velocity", Robot.Chassis.neoRightFrontEncoder.getVelocity());
-    SmartDashboard.putNumber("Left Velocity", Robot.Chassis.neoLeftFrontEncoder.getVelocity());
-=======
     /* --- Driver Dashboard Items --- */
     SmartDashboard.putBoolean("Driver/String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Driver/Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
@@ -179,7 +166,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());
     SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
->>>>>>> master
   }
 
   /**
