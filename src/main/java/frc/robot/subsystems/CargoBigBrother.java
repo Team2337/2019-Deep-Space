@@ -17,9 +17,6 @@ public class CargoBigBrother extends Subsystem {
     public DigitalInput cargoEscalatorSensor;
     public DigitalInput cargoTrolleySensor;
 
-    // TODO: Consider moving all of the other cargo subsystems (motor declarations,
-    // etc.) into this subsystem
-
     // Determines how the command will run when there is a ball in the trolley
     public boolean inDeadzone;
 
@@ -80,10 +77,9 @@ public class CargoBigBrother extends Subsystem {
         if (cargoBigBrotherDebug) {
             SmartDashboard.putNumber("Cargo level", cargoLevel());
             SmartDashboard.putBoolean("Intake sensor", cargoIntakeSensor.get());
-            SmartDashboard.putBoolean("Escalator sensor", !cargoEscalatorSensor.get());
-            SmartDashboard.putBoolean("Trolley sensor", !cargoTrolleySensor.get());
-            SmartDashboard.putNumber("Lift setpoint", Robot.Lift.getSetpoint());
-            SmartDashboard.putBoolean("Lift is at position", Robot.Lift.atPosition(10));
+            SmartDashboard.putBoolean("In Dead Zone", inDeadzone);
+            SmartDashboard.putBoolean("!Escalator sensor", !cargoEscalatorSensor.get());
+            SmartDashboard.putBoolean("!Trolley sensor", !cargoTrolleySensor.get());
         }
     }
 }
