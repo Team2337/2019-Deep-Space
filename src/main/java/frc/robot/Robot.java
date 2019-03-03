@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
 
     /* --- Driver Dashboard Items --- */
     SmartDashboard.putBoolean("Driver/String Pot Broken", stringPotBroken);
-    SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
+    SmartDashboard.putBoolean("Driver/Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Driver/Air Pressure (PSI)", Robot.AirCompressor.getPressure());
     SmartDashboard.putBoolean("is Comp", isComp);
     SmartDashboard.putNumber("Driver/Neo_LF_Temp", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
@@ -166,7 +166,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());
     SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
-    
   }
 
   /**
