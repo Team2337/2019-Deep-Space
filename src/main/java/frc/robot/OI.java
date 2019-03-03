@@ -52,6 +52,8 @@ public class OI {
 		driverJoystick.start	.whenPressed(new CGTwoHatchAutoRight());
 		driverJoystick.blueX	.whileHeld(new hatchKickerExtend());
 		driverJoystick.blueX	.whenReleased(new hatchKickerRetract());
+
+		driverJoystick.greenA	.whenPressed(new PID3DLimelight(0.05, 0, 0, ""));
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

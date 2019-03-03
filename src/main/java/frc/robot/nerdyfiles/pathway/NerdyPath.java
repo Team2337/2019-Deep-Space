@@ -15,10 +15,10 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
 public class NerdyPath {
-  boolean pathfinderDebug = false;
+  boolean pathfinderDebug = true;
 
   /* --- Pathfinder Variables --- */
-  private int ticksPerRev = 13988;
+  private int ticksPerRev = 13988; //13988
 
   private double inchesToMeters = 0.0254;
   private double wheelDiameter = 6.375 * inchesToMeters;

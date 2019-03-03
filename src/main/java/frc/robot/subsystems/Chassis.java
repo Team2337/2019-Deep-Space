@@ -369,7 +369,7 @@ public class Chassis extends Subsystem {
    * @param turnSpeed - left to right speed (positive right, negative left)
    * @param squaredInputs - value to set square the inputs
    */
-  public void neoArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
+  public static void neoArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
     neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
   }
 

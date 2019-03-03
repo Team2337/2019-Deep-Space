@@ -100,7 +100,7 @@ public class Robot extends TimedRobot {
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
-    Vision.setLEDMode(3);
+    Vision.setLEDMode(1);
 
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
@@ -110,6 +110,9 @@ public class Robot extends TimedRobot {
     switch (selectedAuto) {
     default:
       driveForwardT = pathway.driveForward();
+      curveFromToHatchRightT = pathway.curveFromToHatchRight();
+      fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+      jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
       break;
     }
     // testSCurveT = pathway.testSCurve();
@@ -159,6 +162,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());
     SmartDashboard.putNumber("Left Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
+    SmartDashboard.putNumber("Right Velocity", Robot.Chassis.neoRightFrontEncoder.getVelocity());
+    SmartDashboard.putNumber("Left Velocity", Robot.Chassis.neoLeftFrontEncoder.getVelocity());
   }
 
   /**
@@ -169,7 +174,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Vision.setLEDMode(3);
+    Robot.Vision.setLEDMode(1);
     logger = false;
   }
 
