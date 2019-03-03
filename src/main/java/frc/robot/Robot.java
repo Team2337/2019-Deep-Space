@@ -153,6 +153,7 @@ public class Robot extends TimedRobot {
       stringPotBroken = false;
     }
 
+<<<<<<< HEAD
     /* --- Dashboard Items --- */
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
@@ -164,6 +165,21 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
     SmartDashboard.putNumber("Right Velocity", Robot.Chassis.neoRightFrontEncoder.getVelocity());
     SmartDashboard.putNumber("Left Velocity", Robot.Chassis.neoLeftFrontEncoder.getVelocity());
+=======
+    /* --- Driver Dashboard Items --- */
+    SmartDashboard.putBoolean("Driver/String Pot Broken", stringPotBroken);
+    SmartDashboard.putBoolean("Driver/Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
+    SmartDashboard.putNumber("Driver/Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+    SmartDashboard.putBoolean("is Comp", isComp);
+    SmartDashboard.putNumber("Driver/Neo_LF_Temp", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_LR_Temp", (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RF_Temp", (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RR_Temp", (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Right_Encoder", Robot.Chassis.getRightPosition());
+    SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
+    SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());
+    SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
+>>>>>>> master
   }
 
   /**
