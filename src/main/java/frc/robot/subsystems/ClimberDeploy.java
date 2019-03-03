@@ -6,14 +6,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 
 /**
- * 
+ * Controls the release the climber systems using a pneumatics
  */
 public class ClimberDeploy extends Subsystem {
 
-    private Solenoid pinRelease;
+    private Solenoid climberRelease;
 
+    /**
+     * Controls the release the climber systems using a pneumatics
+     */
     public ClimberDeploy() {
-        pinRelease = new Solenoid(Robot.Constants.climberPort);
+        climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
     }
 
     @Override
@@ -21,11 +24,26 @@ public class ClimberDeploy extends Subsystem {
 
     }
 
+    /**
+     * Releases the climber systems
+     */
     public void deployClimber() {
-        pinRelease.set(true);
+        climberRelease.set(true);
     }
 
+    /**
+     * Releases the climber systems
+     */
     public void retractClimber() {
-        pinRelease.set(false);
+        climberRelease.set(false);
+    }
+
+    /**
+     * Returns whether or not the climber has been deployed
+     * 
+     * @return Whether or not the climber has been deployed
+     */
+    public boolean status() {
+        return climberRelease.get();
     }
 }

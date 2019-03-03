@@ -65,6 +65,7 @@ public class Recorder extends Subsystem {
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoEscalator.status());
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoScore.status());
       //chassis (in subsystem)
+      SmartDashboard.putBoolean("Climber_Deploy", Robot.ClimberDeploy.status());
       SmartDashboard.putBoolean("Hatch_Beak", Robot.HatchBeak.status());
       SmartDashboard.putBoolean("Hatch_Extender", Robot.HatchLauncher.status());
       SmartDashboard.putNumber("LED_Color", Robot.LED.status());
@@ -79,7 +80,13 @@ public class Recorder extends Subsystem {
       SmartDashboard.putNumber("Pigeon_AngularRate", Robot.Pigeon.getAngularRate());
       SmartDashboard.putNumber("Pigeon_Temp", Robot.Pigeon.getTemp());
 
+      SmartDashboard.putNumber("RoboWrangler_DriveSpeed", Robot.RoboWrangler.driveMotorStatus());
+      SmartDashboard.putNumber("RoboWrangler_LassoSpeed", Robot.RoboWrangler.lassoMotorStatus());
+      
+
       SmartDashboard.putBoolean("Shifter_Low", Robot.Shifter.status());
+
+      SmartDashboard.putBoolean("TRexArms", Robot.TRexArms.status());
 
       //PDP (in Subsystem)
 

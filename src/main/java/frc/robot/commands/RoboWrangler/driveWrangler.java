@@ -3,6 +3,10 @@ package frc.robot.commands.RoboWrangler;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+/**
+ * Drive the robot towards the driver station and control the lassoing motor
+ * that secures the buddyclimb robot
+ */
 public class driveWrangler extends Command {
 
     // The value of the driver joystick's left up/down motion
@@ -11,6 +15,10 @@ public class driveWrangler extends Command {
     // The value that the joystick must exceed for movement to take effect
     private double joystickDeadband = 0.25;
 
+    /**
+     * Drive the robot towards the driver station and control the lassoing motor
+     * that secures the buddyclimb robot
+     */
     public driveWrangler() {
         requires(Robot.RoboWrangler);
     }
@@ -24,9 +32,16 @@ public class driveWrangler extends Command {
         // The value of the driver joystick's left thumbsticks up/down motion
         joy = (Robot.oi.operatorJoystick.getRightStickY());
 
+        /*
+         * When the right joystick is moving forward, drive the robot forward using the
+         * robowrangler, and when it is backwards, run the lasso motor. Otherwise, stop
+         * all motors
+         */
         if (joy > joystickDeadband) {
             Robot.RoboWrangler.drive(joy);
+            Robot.RoboWrangler.lasso(0);
         } else if (joy < joystickDeadband) {
+            Robot.RoboWrangler.drive(0);
             Robot.RoboWrangler.lasso(joy);
         } else {
             Robot.RoboWrangler.stop();
@@ -34,6 +49,7 @@ public class driveWrangler extends Command {
 
     }
 
+    // This command does not end until the button is released
     @Override
     protected boolean isFinished() {
         return false;

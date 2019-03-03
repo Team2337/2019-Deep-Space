@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * Retract the climber systems - T-Rex arms and the RoboWrangler
  */
 public class retractClimber extends Command {
 
-  // CONSTRUCTOR
+  /**
+   * Retract the climber systems - T-Rex arms and the RoboWrangler
+   */
   public retractClimber() {
     requires(Robot.ClimberDeploy);
   }
@@ -24,6 +26,7 @@ public class retractClimber extends Command {
   protected void execute() {
   }
 
+  // This command doesn't need any more than once
   @Override
   protected boolean isFinished() {
     return true;
