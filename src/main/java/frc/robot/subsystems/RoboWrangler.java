@@ -46,8 +46,8 @@ public class RoboWrangler extends Subsystem {
      * Stops the RoboWrangler's drive and lasso motors
      */
     public void stop() {
-        wranglerDriveMotor.set(ControlMode.PercentOutput, 0);
         wranglerLassoMotor.set(ControlMode.PercentOutput, 0);
+        wranglerDriveMotor.set(ControlMode.PercentOutput, 0);
     }
 
     /**
