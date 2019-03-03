@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
-import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
@@ -77,13 +76,13 @@ public class Chassis extends Subsystem {
   // Do not update without updating the wiki, too!
   private static int rightFrontID;
   private static int rightRearID;
-  private static int rightEncoderTalonID;
+  // private static int rightEncoderTalonID;
   private static int leftFrontID;
   private static int leftRearID;
   private static int leftEncoderTalonID;
 
-  private static int talonRightMidID;
-  private static int talonRightRearID;
+  // private static int talonRightMidID;
+  // private static int talonRightRearID;
   private static int talonLeftMidID;
   private static int talonLeftRearID;
 
@@ -95,8 +94,8 @@ public class Chassis extends Subsystem {
     leftRearID = Robot.Constants.chassisRearLeftID;
     leftEncoderTalonID = Robot.Constants.roboWranglerID;
 
-    talonRightMidID = Robot.Constants.chassisTalonRightMidID;
-    talonRightRearID = Robot.Constants.chassisTalonRightRearID;
+    // talonRightMidID = Robot.Constants.chassisTalonRightMidID;
+    // talonRightRearID = Robot.Constants.chassisTalonRightRearID;
     talonLeftMidID = Robot.Constants.chassisTalonLeftMidID;
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 

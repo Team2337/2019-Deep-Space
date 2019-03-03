@@ -12,7 +12,6 @@ import frc.robot.commands.HatchBeak.hatchBeakOpen;
 import frc.robot.commands.HatchLauncher.hatchLauncherExtend;
 import frc.robot.commands.HatchLauncher.hatchLauncherRetract;
 import frc.robot.commands.Vision.limeLightLEDOn;
-import frc.robot.commands.Auto.autoWaitSensorReset;
 
 /**
  * Runs reverse off the platform, to the first right side cargo ship spot, scores, and 

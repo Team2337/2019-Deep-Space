@@ -26,7 +26,7 @@ public class autoSetPathReverse extends Command {
 
   public static double kP, kI, kD, kA;
   private double[] pidValues;
-  private int segment, wait, linesCrossed;
+  private int segment, wait;
   private double timeout, finishTime;
   private double lineDistance = 56000;
   private boolean finished, crossedLine;

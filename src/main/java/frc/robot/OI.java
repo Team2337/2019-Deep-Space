@@ -1,10 +1,9 @@
 package frc.robot;
 
-import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.CommandGroups.*;
 import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
-import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
+import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -41,19 +40,16 @@ public class OI {
 
 		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
-		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
+		driverJoystick.triggerLeft					.whenPressed(new PID3DLimelight(0.05, 0, 0, ""));
 		
 		//TODO: Make a branch for this and finish the camera switching
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
 
-
-		//driverJoystick.start						.whenPressed(new autoSetPathReverse(Robot.driveForwardT, valuesPID[1]));
 		driverJoystick.start	.whenPressed(new CGTwoHatchAutoRight());
 		driverJoystick.blueX	.whileHeld(new hatchKickerExtend());
 		driverJoystick.blueX	.whenReleased(new hatchKickerRetract());
-
-		driverJoystick.greenA	.whenPressed(new PID3DLimelight(0.05, 0, 0, ""));
+		driverJoystick.greenA	.whenPressed(new autoEndAuto());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

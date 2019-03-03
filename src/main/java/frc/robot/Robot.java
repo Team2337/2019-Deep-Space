@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static Vision Vision;
 
-  Command autonomousCommand;
+  public static Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
   public static Trajectory curveFromToHatchRightT;
