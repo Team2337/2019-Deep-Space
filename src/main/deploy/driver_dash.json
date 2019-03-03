@@ -1,0 +1,148 @@
+{
+  "tabPane": [
+    {
+      "title": "Driver",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "Driver/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": false,
+        "hgap": 8.0,
+        "vgap": 8.0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Compass_Heading",
+              "_title": "Compass_Heading"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Right_Encoder",
+              "_title": "Right_Encoder"
+            }
+          },
+          "24,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Left_Encoder",
+              "_title": "/Left_Encoder"
+            }
+          },
+          "20,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Air Pressure (PSI)",
+              "_title": "Air Pressure (PSI)"
+            }
+          },
+          "0,9": {
+            "size": [
+              6,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/String Pot Broken",
+              "_title": "String Pot Broken",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "10,0": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Trolley Sensor",
+              "_title": "SmartDashboard/Trolley Sensor",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Lift_Position",
+              "_title": "Lift_Position"
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LF_Temp",
+              "_title": "Neo_LF_Temp"
+            }
+          },
+          "0,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LR_Temp",
+              "_title": "Neo_LR_Temp"
+            }
+          },
+          "24,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RF_Temp",
+              "_title": "Neo_RF_Temp"
+            }
+          },
+          "24,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RR_Temp",
+              "_title": "Neo_RR_Temp"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1936.0,
+    "height": 1056.0
+  }
+}
