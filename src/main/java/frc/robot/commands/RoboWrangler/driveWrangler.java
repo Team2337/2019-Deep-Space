@@ -22,7 +22,7 @@ public class driveWrangler extends Command {
     @Override
     protected void execute() {
         // The value of the driver joystick's left thumbsticks up/down motion
-        joy = (Robot.oi.operatorJoystick.getLeftStickY());
+        joy = (Robot.oi.operatorJoystick.getRightStickY());
 
         if (joy > joystickDeadband) {
             Robot.RoboWrangler.drive(joy);
