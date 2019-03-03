@@ -114,14 +114,10 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
     default:
-<<<<<<< HEAD
       driveForwardT = pathway.driveForward();
       curveFromToHatchRightT = pathway.curveFromToHatchRight();
       fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
       jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
-=======
-      // driveForwardT = pathway.driveForward();
->>>>>>> 86607deb2f7ae4ce62cd5d6821c85d5bdae7cf93
       break;
     }
 
@@ -165,7 +161,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
-<<<<<<< HEAD
 
     SmartDashboard.putNumber("Right Distance", (Robot.Chassis.getRightPosition()  /13988) * 20);
     SmartDashboard.putNumber("Left Distance", (Robot.Chassis.getLeftPosition()  /13988) * 20);
@@ -174,7 +169,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Sting Pot", Robot.Lift.getPosition());
     SmartDashboard.putNumber("Right Velocity", Robot.Chassis.neoRightFrontEncoder.getVelocity());
     SmartDashboard.putNumber("Left Velocity", Robot.Chassis.neoLeftFrontEncoder.getVelocity());
-=======
     SmartDashboard.putBoolean("is Comp", isComp);
     SmartDashboard.putNumber("Neo_LF_Temperature", Robot.Chassis.neoLeftFrontMotor.getMotorTemperature());
     SmartDashboard.putNumber("Neo_LR_Temperature", Robot.Chassis.neoLeftRearMotor.getMotorTemperature());
@@ -184,7 +178,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left_Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Compass_Heading", Robot.Pigeon.getYaw());
     
->>>>>>> 86607deb2f7ae4ce62cd5d6821c85d5bdae7cf93
   }
 
   /**
