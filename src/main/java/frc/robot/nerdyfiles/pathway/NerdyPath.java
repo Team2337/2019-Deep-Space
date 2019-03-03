@@ -18,10 +18,11 @@ public class NerdyPath {
   boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int ticksPerRev = 13988;
+  private int gearRatio = 3;
+  private int ticksPerRev = 4096 * gearRatio;
 
   private double inchesToMeters = 0.0254;
-  private double wheelDiameter = 6.375 * inchesToMeters;
+  private double wheelDiameter = 6.0 * inchesToMeters;
   private double wheelBase = 20.5 * inchesToMeters; // old practice bot: 21.5
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
   private double turnCompensation = 0.8 * (-1.0 / 80.0); 
@@ -157,7 +158,7 @@ public class NerdyPath {
       SmartDashboard.putNumber("Encoder_Follower:_RIGHT_error", rightSideFollower.error);
       SmartDashboard.putNumber("Encoder_Follower:_seg.position", rightSideFollower.seg.position);
 
-      SmartDashboard.putNumber("RightVelocity", Robot.CargoIntake.CargoIntakeMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("RightVelocity", Robot.Chassis.rightFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("TurnValue", this.turn);
       SmartDashboard.putNumber("AngleDifferance", this.angleDifference);
@@ -166,81 +167,3 @@ public class NerdyPath {
     }
   }
 }
-
-/*
-  /**
-   * Sets the trajectory for the robot based off of the waypoints given in the
-   * Pathway.java file
-   * 
-   * @see Pathway.java
-   * @param trajectory - set of waypoints being created in Robot.java
-   * @param kP         - P value in PID, typically is around 1.0
-   * @param kI         - I value in PID, typically is around 0.0
-   * @param kD         - D value in PID, helpful to not overshoot, usually around
-   *                   0.0 - 0.05
-   * @param kA         - Beginning acceloration value, (aka feet forward),
-   *                   typically around 0.0 unless you want a quick start out of
-   *                   the gate
-   */
-  /*
-  public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA) {
-    modifier = new TankModifier(trajectory).modify(wheelBase);
-
-    leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
-    rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
-
-    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);
-    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / pathway.config.max_velocity, kA);//pathway.config.max_velocity
-
-    leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
-    rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
-  }
- */
-
-
- /*
- /**
-   * Writes a generated trajectory to the deploy folder on the robot
-   * <br/> Only needs to be run one time in order to write the file to the robot
-   * <br/> <p><strong>**NOTE</strong>: Make sure the file permissions on the deploy folder are able to be written to**</p>
-   * @param fileName
-   * @param trajectory
-   */
-  /*
-  public void writeFile(String fileName, Trajectory trajectory) {
-    try {
-      File file = new File(filePath + fileName + csv); // writing to csv
-      file.createNewFile();
-      Pathfinder.writeToCSV(file, trajectory);
-      System.out.println("**************** Info Written To File ****************");
-    } catch (IOException e) {
-      System.out.println("*** ERROR WHEN WRITING TRAJECTORY TO FILE: " + e.getMessage() + " *******************");
-    }
-  }
-
-
-  /**
-   * Reads in a file from the rio deploy folder, then converting it from a data stream to a trajectory
-   * <br/>Filetype is currently set to a csv, if using binary, change to txt
-   * @param fileName - Name of the file you're reading from
-   * @return - returns a trajectory
-   */
-  /*
-  public Trajectory readFile(String fileName) {
-    try {
-      File file = new File(filePath + fileName + csv); // writing to csv
-      BufferedReader br = new BufferedReader(new FileReader(file));
-      file.createNewFile(); //creating new file to read from
-      file.setReadable(true, false);
-      String content;
-      while ((content = br.readLine()) != null) {
-        System.out.println(content);
-      }
-      br.close();
-      return Pathfinder.readFromCSV(file);
-    } catch (IOException e) {
-      System.out.println("********ERROR: CANNOT READ FROM FILE: " + e + " *******************");
-    }
-    return null;
-  }
-  */

@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
-import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Chassis.*;
@@ -15,9 +14,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,17 +30,11 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = true;
+  boolean chassisDebug = false;
   boolean neoDebug = false;
   boolean pathFinderDebug = false;
 
   public double jumpModifier = 0.8;
-
-  public boolean print = false, crossedLine = false;
-  public int encoderTicks = 0, linesCrossed = 0;
-
-  public DigitalInput autoLineSensor;
-  public I2C colorSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -90,7 +80,7 @@ public class Chassis extends Subsystem {
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
     rightRearID = Robot.Constants.chassisRightRearID;
-    // rightEncoderTalonID = Robot.Constants.cargoIntakeID;
+    rightEncoderTalonID = Robot.Constants.cargoIntakeID;
     leftFrontID = Robot.Constants.chassisFrontLeftID;
     leftRearID = Robot.Constants.chassisRearLeftID;
     leftEncoderTalonID = Robot.Constants.roboWranglerID;
@@ -99,9 +89,6 @@ public class Chassis extends Subsystem {
     talonRightRearID = Robot.Constants.chassisTalonRightRearID;
     talonLeftMidID = Robot.Constants.chassisTalonLeftMidID;
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
-
-    autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
-    // colorSensor = new I2C
 
     /*****************************************/
     /* ------------------------------------- */
@@ -137,7 +124,7 @@ public class Chassis extends Subsystem {
     ////////////////////////
 
     /* --- Talon Drive Right --- */
-    /*
+
     // Sets up the right front motor as a Talon with a mag encoder that isn't
     // reversed
     rightFrontMotor = new TalonSRX(rightEncoderTalonID);
@@ -236,7 +223,7 @@ public class Chassis extends Subsystem {
    * @param pos Position to set encoders to - in encoder ticks
    */
   public void setEncoders(int pos) {
-    Robot.CargoIntake.CargoIntakeMotor.setSelectedSensorPosition(pos, 0, 0);
+    rightFrontMotor.setSelectedSensorPosition(pos, 0, 0);
     leftFrontMotor.setSelectedSensorPosition(-pos, 0, 0);
   }
 
@@ -246,7 +233,7 @@ public class Chassis extends Subsystem {
    * @return - returns the encoder position on the right encoder
    */
   public double getRightPosition() {
-    return -Robot.CargoIntake.CargoIntakeMotor.getSelectedSensorPosition();
+    return rightFrontMotor.getSelectedSensorPosition();
   }
 
   /**
@@ -306,7 +293,7 @@ public class Chassis extends Subsystem {
    * Manually reset the rotational position of the Talon drive encoders to 0 ticks
    */
   public void resetEncoders() {
-    Robot.CargoIntake.CargoIntakeMotor.setSelectedSensorPosition(0, 0, 0);
+    rightFrontMotor.setSelectedSensorPosition(0, 0, 0);
     leftFrontMotor.setSelectedSensorPosition(0, 0, 0);
   }
 
@@ -323,7 +310,7 @@ public class Chassis extends Subsystem {
    */
   public void setBrakeMode(NeutralMode mode) {
     leftFrontMotor.setNeutralMode(mode);
-    Robot.CargoIntake.CargoIntakeMotor.setNeutralMode(mode);
+    rightFrontMotor.setNeutralMode(mode);
     leftMidMotor.setNeutralMode(mode);
     rightMidMotor.setNeutralMode(mode);
     leftRearMotor.setNeutralMode(mode);
@@ -385,16 +372,6 @@ public class Chassis extends Subsystem {
   }
 
   /**
-   * Neo arcade drive
-   * @param moveSpeed - forward and reverse speed (positive forward, negative left)
-   * @param turnSpeed - left to right speed (positive right, negative left)
-   * @param squaredInputs - value to set square the inputs
-   */
-  public void neoArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
-    neoDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
-  }
-
-   /**
    * Get the average Velocity of all the right side neo drive encoders
    * 
    * @return The average rotational Velocity of the drive's right side (in ticks)
@@ -402,6 +379,7 @@ public class Chassis extends Subsystem {
   public double getAverageLeftNeoVelocity() {
     return (neoLeftFrontEncoder.getVelocity() + neoLeftRearEncoder.getVelocity()) /2;
   }
+
 
   /**
    * Manually set the rotational position of the NEO drive encoders
@@ -470,7 +448,6 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-
       SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
       SmartDashboard.putNumber("Right_Chassis_POWER", rightFrontMotor.getMotorOutputPercent());
@@ -489,15 +466,6 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Reverse_Auto_A_Input", autoSetPathReverse.kP);
 
       SmartDashboard.putNumber("printX", autoSetPath.printX);
-
-      SmartDashboard.putBoolean("Auto Line Sensor", autoLineSensor.get());
-      SmartDashboard.putBoolean("Line Crossed", crossedLine);
-      SmartDashboard.putNumber("Auto Lines Crossed", linesCrossed);
-      SmartDashboard.putBoolean("Saw Line", autoSetPathReverse.fin);
-
-      //TODO: Removed test values
-      SmartDashboard.putBoolean("PRINT", print);
-      SmartDashboard.putNumber("encoderTicks", encoderTicks);
     }
 
     if (neoDebug) {
