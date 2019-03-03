@@ -65,7 +65,6 @@ public class Recorder extends Subsystem {
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoEscalator.status());
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoScore.status());
       //chassis (in subsystem)
-      SmartDashboard.putBoolean("Climber_Release", Robot.ClimberPneumatics.status());
       SmartDashboard.putBoolean("Hatch_Beak", Robot.HatchBeak.status());
       SmartDashboard.putBoolean("Hatch_Extender", Robot.HatchLauncher.status());
       SmartDashboard.putNumber("LED_Color", Robot.LED.status());
