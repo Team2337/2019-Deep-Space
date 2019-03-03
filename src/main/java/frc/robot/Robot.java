@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.CommandGroups.*;
+import frc.robot.commands.Auto.setpaths.*;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -60,7 +62,7 @@ public class Robot extends TimedRobot {
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
 
-  private boolean logger;
+  public static boolean logger;
   private String selectedAuto;
 
   /**
@@ -122,7 +124,8 @@ public class Robot extends TimedRobot {
 
     oi = new OI();
 
-    // chooser.addOption("My Auto", new autoSetPath(driveForwardT, valuesPID[0]));
+    chooser.addOption("My Auto", new CGTwoHatchAutoRight());
+    chooser.addOption("Do Nothing", new autoDoNothing());
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -157,6 +160,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
     SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
     SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+
     SmartDashboard.putNumber("Right Distance", (Robot.Chassis.getRightPosition()  /13988) * 20);
     SmartDashboard.putNumber("Left Distance", (Robot.Chassis.getLeftPosition()  /13988) * 20);
     SmartDashboard.putNumber("Right Encoder", Robot.Chassis.getRightPosition());

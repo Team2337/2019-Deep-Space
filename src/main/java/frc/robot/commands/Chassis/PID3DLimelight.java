@@ -2,7 +2,6 @@ package frc.robot.commands.Chassis;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Vision;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.networktables.NetworkTableInstance;
