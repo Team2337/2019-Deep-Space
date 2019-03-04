@@ -43,7 +43,6 @@ public class Chassis extends Subsystem {
   public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
-  public I2C colorSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -100,7 +99,6 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
-    // colorSensor = new I2C
 
     /*****************************************/
     /* ------------------------------------- */
@@ -260,9 +258,10 @@ public class Chassis extends Subsystem {
   /**
    * Talon Method
    * 
+   * Drives the robot using arcade drive
    * @param moveSpeed     - forward speed (-1.0 - 1.0)
    * @param turnSpeed     - turn speed (-1.0 - 1.0)
-   * @param squaredInputs
+   * @param squaredInputs - boolean value determining if the inputs are squared
    */
   public void driveArcade(double moveSpeed, double turnSpeed, boolean squaredInputs) {
     talonDrive.arcadeDrive(moveSpeed, turnSpeed, squaredInputs);
@@ -271,9 +270,11 @@ public class Chassis extends Subsystem {
   /**
    * Talon Method
    * 
+   * Drives the robot chassis motors using curvature drive
+   * - Does calculations to curve 
    * @param moveSpeed     - forward speed (-1.0 - 1.0)
    * @param turnSpeed     - turn speed (-1.0 - 1.0)
-   * @param squaredInputs
+   * @param squaredInputs - boolean value determining if the inputs are squared
    */
   public void driveCurvature(double moveSpeed, double turnSpeed, boolean isQuickTurn) {
     talonDrive.curvatureDrive(moveSpeed, turnSpeed, isQuickTurn);
@@ -282,9 +283,10 @@ public class Chassis extends Subsystem {
   /**
    * Talon Method
    * 
+   * Drives the robot using tank drive
    * @param moveSpeed     - forward speed (-1.0 - 1.0)
    * @param turnSpeed     - turn speed (-1.0 - 1.0)
-   * @param squaredInputs
+   * @param squaredInputs - boolean value determining if the inputs are squared
    */
   public void driveTank(double leftSpeed, double rightSpeed, boolean squareInputs) {
     talonDrive.tankDrive(leftSpeed, rightSpeed, squareInputs);
@@ -293,9 +295,7 @@ public class Chassis extends Subsystem {
   /**
    * Talon Method
    * 
-   * @param moveSpeed     - forward speed (-1.0 - 1.0)
-   * @param turnSpeed     - turn speed (-1.0 - 1.0)
-   * @param squaredInputs
+   * Stops the drive
    */
   public void stopDrive() {
     talonDrive.arcadeDrive(0, 0, true);
@@ -378,14 +378,16 @@ public class Chassis extends Subsystem {
    * @param pos The position to set the encoder to (in ticks)
    */
   public void setNeoEncoders(int pos) {
-    // As of 1/24/19, no way to set Neo encoder values
+    neoLeftFrontEncoder.setPosition(pos);
+    neoRightFrontEncoder.setPosition(pos);
   }
 
   /**
    * Manually reset the rotational position of the NEO drive encoders to 0 ticks
    */
   public void resetNeoEncoders() {
-    // As of 1/24/19, no way to set Neo encoder values
+    neoLeftFrontEncoder.setPosition(0);
+    neoRightFrontEncoder.setPosition(0);
   }
 
   /**

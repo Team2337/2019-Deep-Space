@@ -24,7 +24,8 @@ import frc.robot.commands.Vision.limeLightLEDOn;
  * <li>Curve from the cargo ship to the right load station</li>
  * <li>Intake a hatch panel</li>
  * <li>J CUrve from load station to the rocket</li>
- * <li></li>
+ * <li>Drives forward to the first cargo bay</li>
+ * </ul>
  * 
  * <p><br/></p>
  * Changes needing to be made:
@@ -38,14 +39,11 @@ public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
   public CGTwoHatchAutoRight() {
       addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0], 0.1));
-      // addParallel(new autoHatchKickerExtend(10));
       addSequential(new autoLineSensorDrive());
-      // addSequential(new autoResetEncoders());
       addSequential(new autoLiftToPosition((Robot.Lift.getPosition() + 30), 2));
       addSequential(new autoResetEncoders());
       addSequential(new hatchKickerExtend());
       addSequential(new autoWait(.5));
-      // addSequential(new autoWaitSensorReset(0.5));
       addSequential(new hatchKickerRetract());
       addSequential(new autoWaitSensorReset(0.5));
       addSequential(new autoLiftToPosition(Robot.Lift.hatchIntakePosition + 40, 2));

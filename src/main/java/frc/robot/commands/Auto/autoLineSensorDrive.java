@@ -7,7 +7,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 
 /**
- * Waits a given amount of time until the next command is run
+ * Drives until the line sensor sees a line
  * 
  * @category AUTO
  * @author Bryce G.
@@ -15,9 +15,14 @@ import frc.robot.subsystems.Chassis;
 public class autoLineSensorDrive extends Command {
 	
 	private boolean finished = false;
+
 	/**
-	 * @param timeout
-	 * Amount of time the command runs for until it is forced to terminate, in seconds
+	 * Drives the robot in a direction, depending on how many lines it has crossed. Once it sees a line, the command ends
+	 * <ul>
+	 * <li>0: Drives forward</li>
+	 * <li>1: Drives forward</li>
+	 * <li>2: Drives reverse</li>
+	 * </ul>
 	 */
 	public autoLineSensorDrive() {
 
@@ -49,6 +54,7 @@ public class autoLineSensorDrive extends Command {
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}
 		if(Robot.Chassis.linesCrossed == 0) {
+			//TODO: Fix Neo Arcade drive
 			// Chassis.neoDrive.arcadeDrive(-0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);

@@ -4,8 +4,10 @@ import frc.robot.commands.HatchLauncher.*;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * 1. Retracts the launcher (in case it's open)
- * 2. Opens the beak to acquire a hatch panel
+ * <ol>
+ * <li>Retracts the launcher (in case it's open)</li>
+ * <li>Opens the beak to acquire a hatch panel</li>
+ * </ol>
  * 
  * @author Hunter B.
  */

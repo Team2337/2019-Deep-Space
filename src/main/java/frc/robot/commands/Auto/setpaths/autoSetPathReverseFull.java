@@ -11,6 +11,8 @@ import jaci.pathfinder.modifiers.TankModifier;
 /**
  * Reads the trajectory to drive to a position given by the waypoints in the
  * reverse direction
+ * <p><br/></p>
+ * This command allows the profile to finish before ending the command
  * 
  * @author Bryce G.
  */
@@ -110,6 +112,7 @@ public class autoSetPathReverseFull extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    //ends the command once the profile has finished
     return finished; //wait >= finishTime;
   }
 
