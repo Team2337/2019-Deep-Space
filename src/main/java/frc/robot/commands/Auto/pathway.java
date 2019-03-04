@@ -85,7 +85,7 @@ public class pathway {
     };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * <p>S-Curves from the cargo ship, to the <strong>RIGHT</strong> load station to grab a hatch
      * 
      * @param points - array of waypoints
      */
@@ -96,7 +96,8 @@ public class pathway {
     }
 
     /**
-     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and points the beak towards the cargo ship
+     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and 
+     * points the beak towards the cargo ship
      */
     private static Waypoint[] fromRightLoadJTurnToCargoShip = new Waypoint[] { 
         new Waypoint(0, 0, 0),
@@ -106,8 +107,8 @@ public class pathway {
         };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
-     * 
+     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and 
+     * points the beak towards the cargo ship
      * @param points - array of waypoints
      */
     public static Trajectory fromRightLoadJTurnToCargoShip() {
@@ -125,7 +126,7 @@ public class pathway {
         };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * Coming out of the <strong>RIGHT</strong> J-Turn and drives to the cargo ship
      * 
      * @param points - array of waypoints
      */
@@ -144,7 +145,8 @@ public class pathway {
     };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * Test S-Curve 
+     * <h1><strong>DON'T USE IN COMP</strong></h1>
      * 
      * @param points - array of waypoints
      */
@@ -168,7 +170,8 @@ public class pathway {
     };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
      * 
      * @param points - array of waypoints
      */
@@ -178,3 +181,6 @@ public class pathway {
         return trajectory;
     }
 }
+
+//5.13x^2, 10.26x, 10.26
+//4.25x^2, 8.5x, 8.5

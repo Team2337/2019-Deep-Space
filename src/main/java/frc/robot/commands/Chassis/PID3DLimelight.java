@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 /**
  * Uses a PID to get us closer to the vision target
  * The drive system uses the limelight to determine the error
+ * <br/>
+ * Using the new 3D mapping system allows us to be more accurate getting to the target
  * @author Bryce G.
  */
 public class PID3DLimelight extends PIDCommand {
@@ -17,12 +19,12 @@ public class PID3DLimelight extends PIDCommand {
   double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, distanceAway;
   double p, i, d;
   double[] limelight3D;
-  double[] def = new double[6];
+  double[] limelightValues = new double[6];
 
   boolean turnInPlace = false;
 
   /**
-   * 
+   * Vision targeting that allows the robot to align to the target
    * @param p - P value (Ex: 0.05 (percent of the stop distance))
    * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
@@ -52,7 +54,8 @@ public class PID3DLimelight extends PIDCommand {
   }
 
   /**
-   * Reads the tx value from the limelight and uses it as our input to the PID Object
+   * Reads the tx value (left and right distance) from the limelight and uses it as our input to the PID Object
+   * The motor power is returned as output
    */
   protected double returnPIDInput() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);//limelight3D[0];
@@ -95,7 +98,7 @@ public class PID3DLimelight extends PIDCommand {
   }
 
   protected void execute() {
-    limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(def);
+    limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);
   }
 
   protected boolean isFinished() {

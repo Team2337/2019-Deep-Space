@@ -15,7 +15,13 @@ import frc.robot.commands.Vision.limeLightLEDOn;
 
 /**
  * Runs reverse off the platform, to the first right side cargo ship spot, scores, and 
- * drives in an s-curve to the right load station
+ * drives in an s-curve to the right load station<p><br/></p>
+ * 
+ * Changes needing to be made:
+ * <ul>
+ * <li>TODO: Speed up the drives</li>
+ * <li>TODO: Fix limelight drive</li>
+ * </ul>
  * @author Bryce G.
  */
 public class CGTwoHatchAutoRight extends CommandGroup {

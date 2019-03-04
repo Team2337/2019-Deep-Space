@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Auto.autoDoNothing;
 import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -122,7 +124,8 @@ public class Robot extends TimedRobot {
 
     oi = new OI();
 
-    // chooser.addOption("My Auto", new autoSetPath(driveForwardT, valuesPID[0]));
+    chooser.addOption("My Auto", new CGTwoHatchAutoRight());
+    chooser.setDefaultOption("Do Nothing", new autoDoNothing());
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
