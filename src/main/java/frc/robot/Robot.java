@@ -107,17 +107,19 @@ public class Robot extends TimedRobot {
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
-    selectedAuto = "";
+    selectedAuto = "twoHatch";
 
     switch (selectedAuto) {
-    default:
-      driveForwardT = pathway.driveForward();
-      curveFromToHatchRightT = pathway.curveFromToHatchRight();
-      fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-      jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
-      break;
+      case "twoHatch":
+        driveForwardT = pathway.driveForward();
+        curveFromToHatchRightT = pathway.curveFromToHatchRight();
+        fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+        jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        break;
+      default:
+      
+        break;
     }
-    // testSCurveT = pathway.testSCurve();
 
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("locations", driveForwardT);

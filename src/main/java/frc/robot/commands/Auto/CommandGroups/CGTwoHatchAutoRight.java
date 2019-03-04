@@ -17,6 +17,16 @@ import frc.robot.commands.Vision.limeLightLEDOn;
  * Runs reverse off the platform, to the first right side cargo ship spot, scores, and 
  * drives in an s-curve to the right load station<p><br/></p>
  * 
+ * Auton Steps: 
+ * <ul>
+ * <li>Drive back off the platform to the second cargo bay</li>
+ * <li>Fire the hatch on the cargo ship</li>
+ * <li>Curve from the cargo ship to the right load station</li>
+ * <li>Intake a hatch panel</li>
+ * <li>J CUrve from load station to the rocket</li>
+ * <li></li>
+ * 
+ * <p><br/></p>
  * Changes needing to be made:
  * <ul>
  * <li>TODO: Speed up the drives</li>
