@@ -115,10 +115,10 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
-        // driveForwardT = pathway.driveForward();
-        // curveFromToHatchRightT = pathway.curveFromToHatchRight();
-        // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-        // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        driveForwardT = pathway.driveForward();
+        curveFromToHatchRightT = pathway.curveFromToHatchRight();
+        fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+        jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
         break;
       default:
       
