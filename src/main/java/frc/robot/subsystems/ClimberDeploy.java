@@ -10,9 +10,9 @@ import frc.robot.Robot;
  */
 public class ClimberDeploy extends Subsystem {
 
-    public boolean readyToClimb = false;
+    public boolean readyToClimb;
 
-    public int climberPhase = 0;
+    public int climberPhase;
     
     private Solenoid climberRelease;
 
@@ -21,6 +21,8 @@ public class ClimberDeploy extends Subsystem {
      */
     public ClimberDeploy() {
         climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
+        this.climberPhase = 5;
+        this.readyToClimb = false;
     }
 
     @Override
@@ -36,17 +38,21 @@ public class ClimberDeploy extends Subsystem {
     }
 
     /**
-     * Releases the climber systems
+     * unReleases the climber systems
      */
-    public void retractClimber() {
+    public void undeployClimber() {
         climberRelease.set(false);
     }
-    
+    /*
+     * Boolean to track Black switch on drivers station, determining if climber is active.
+     */
     public void readyClimber() {
-        readyToClimb = true;
+        this.readyToClimb = true;
+        this.climberPhase = 0;
     }
     public void unreadyClimber() {
-        readyToClimb = false;
+        this.readyToClimb = false;
+        this.climberPhase = 5;
     }
 
     /**

@@ -53,19 +53,31 @@ public class Recorder extends Subsystem {
       SmartDashboard.putBoolean("Operator_Start", Robot.oi.operatorJoystick.start.get());
       SmartDashboard.putBoolean("Operator_Back", Robot.oi.operatorJoystick.back.get());
 
+      SmartDashboard.putBoolean("DriverStation_YellowButton",Robot.oi.operatorControls.BlackSwitch.get());
+      SmartDashboard.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.BlackButton.get());
+      SmartDashboard.putBoolean("DriverStation_YellowButton",Robot.oi.operatorControls.BlueSwitch.get());
+      SmartDashboard.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.BlueButton.get());
       SmartDashboard.putBoolean("DriverStation_YellowButton",Robot.oi.operatorControls.YellowButton.get());
       SmartDashboard.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.YellowSwitch.get());
 
       SmartDashboard.putNumber("Air_Pressure", Robot.AirCompressor.getPressure());
       SmartDashboard.putBoolean("Air_Compressor", Robot.AirCompressor.status());
       SmartDashboard.putBoolean("Auton_HatchKicker", Robot.AutoHatchKicker.status());
-      //Cargo_BigBrother (in subsystem)
+
+      SmartDashboard.putNumber("Cargo_level", Robot.CargoBigBrother.cargoLevel());
+      SmartDashboard.putBoolean("Intake_sensor", Robot.CargoBigBrother.cargoIntakeSensor.get());
+      SmartDashboard.putBoolean("In_Dead_Zone", Robot.CargoBigBrother.inDeadzone);
+      SmartDashboard.putBoolean("Escalator_sensor_NOT", !Robot.CargoBigBrother.cargoEscalatorSensor.get());
+      SmartDashboard.putBoolean("Trolley_sensor_NOT", !Robot.CargoBigBrother.cargoTrolleySensor.get());
+      
       SmartDashboard.putBoolean("Cargo_Drawbridge", Robot.CargoDrawbridge.status());
       SmartDashboard.putNumber("Cargo_Escalator", Robot.CargoEscalator.status());
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoEscalator.status());
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoScore.status());
       //chassis (in subsystem)
+      SmartDashboard.putNumber("climberPhase",Robot.ClimberDeploy.climberPhase);
       SmartDashboard.putBoolean("Climber_Deploy", Robot.ClimberDeploy.status());
+      SmartDashboard.putBoolean("Climber_readyToClimb", Robot.ClimberDeploy.readyToClimb);
       SmartDashboard.putBoolean("Hatch_Beak", Robot.HatchBeak.status());
       SmartDashboard.putBoolean("Hatch_Extender", Robot.HatchLauncher.status());
       SmartDashboard.putNumber("LED_Color", Robot.LED.status());
@@ -83,7 +95,6 @@ public class Recorder extends Subsystem {
       SmartDashboard.putNumber("RoboWrangler_DriveSpeed", Robot.RoboWrangler.driveMotorStatus());
       SmartDashboard.putNumber("RoboWrangler_LassoSpeed", Robot.RoboWrangler.lassoMotorStatus());
       
-
       SmartDashboard.putBoolean("Shifter_Low", Robot.Shifter.status());
 
       SmartDashboard.putBoolean("TRexArms", Robot.TRexArms.status());

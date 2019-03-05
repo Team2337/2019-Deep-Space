@@ -36,18 +36,20 @@ public class driveWranglerBySpeed extends Command {
     // This command does not end until the button is released
     @Override
     protected boolean isFinished() {
-        // Also return true if the line sensor detects the platform
+        // TODO: Also return true if the line sensor detects the platform
         return isTimedOut();
     }
 
     @Override
     protected void end() {
         Robot.RoboWrangler.stop();
+        Robot.ClimberDeploy.climberPhase = 4;
     }
 
     @Override
     protected void interrupted() {
-        this.end();
+        Robot.RoboWrangler.stop();
+        //this.end(); don't want to advance climberphase if interupted..
     }
 
 }

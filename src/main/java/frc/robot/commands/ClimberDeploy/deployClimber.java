@@ -23,20 +23,20 @@ public class deployClimber extends Command {
   protected void initialize() {
     setTimeout(timeout);
     Robot.ClimberDeploy.deployClimber();
-    //Robot.ClimberDeploy.climberPhase = 2;
+    Robot.ClimberDeploy.climberPhase = 2;
   }
-
+  
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
   }
-
+  
   // Once the climber is deployed, this command no longer needs to run
   @Override
   protected boolean isFinished() {
     return isTimedOut();
   }
-
+  
   // When the button is released, the lift will hold it's current position
   @Override
   protected void end() {

@@ -52,13 +52,15 @@ public class goToPositionClimber extends Command {
             Robot.ClimberDeploy.climberPhase = 1;
         } else if (Robot.ClimberDeploy.climberPhase == 2) {
             Robot.ClimberDeploy.climberPhase = 3;
-        }
+        } else if (Robot.ClimberDeploy.climberPhase == 4) {
+            Robot.ClimberDeploy.climberPhase = 5;
+        }    
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        this.end();
+        //this.end();  don't want to advance case if interrupted.
     }
 }
