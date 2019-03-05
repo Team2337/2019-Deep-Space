@@ -1,4 +1,4 @@
-package frc.robot.commands.Lift;
+package frc.robot.commands.ClimberDeploy;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -6,7 +6,7 @@ import frc.robot.Robot;
 /**
  * Go to the specified position on the lift
  */
-public class goToPosition extends Command {
+public class goToPositionClimber extends Command {
 
     // The set position of the lift in stringpot ticks
     double position;
@@ -21,7 +21,7 @@ public class goToPosition extends Command {
      *            Example: {@code goToPosition(95)} //Cargo Intake Position
      *            </p>
      */
-    public goToPosition(double pos) {
+    public goToPositionClimber(double pos) {
         position = pos;
         requires(Robot.Lift);
     }
@@ -48,7 +48,11 @@ public class goToPosition extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-
+        if (Robot.ClimberDeploy.climberPhase == 0) {
+            Robot.ClimberDeploy.climberPhase = 1;
+        } else if (Robot.ClimberDeploy.climberPhase == 2) {
+            Robot.ClimberDeploy.climberPhase = 3;
+        }
     }
 
     // Called when another command which requires one or more of the same

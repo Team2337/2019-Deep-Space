@@ -10,6 +10,10 @@ import frc.robot.Robot;
  */
 public class ClimberDeploy extends Subsystem {
 
+    public boolean readyToClimb = false;
+
+    public int climberPhase = 0;
+    
     private Solenoid climberRelease;
 
     /**
@@ -36,6 +40,13 @@ public class ClimberDeploy extends Subsystem {
      */
     public void retractClimber() {
         climberRelease.set(false);
+    }
+    
+    public void readyClimber() {
+        readyToClimb = true;
+    }
+    public void unreadyClimber() {
+        readyToClimb = false;
     }
 
     /**

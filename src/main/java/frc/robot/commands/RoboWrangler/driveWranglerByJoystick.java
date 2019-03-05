@@ -7,7 +7,7 @@ import frc.robot.Robot;
  * Drive the robot towards the driver station and control the lassoing motor
  * that secures the buddyclimb robot
  */
-public class driveWrangler extends Command {
+public class driveWranglerByJoystick extends Command {
 
     // The value of the driver joystick's left up/down motion
     private double joy;
@@ -19,7 +19,7 @@ public class driveWrangler extends Command {
      * Drive the robot towards the driver station and control the lassoing motor
      * that secures the buddyclimb robot
      */
-    public driveWrangler() {
+    public driveWranglerByJoystick() {
         requires(Robot.RoboWrangler);
     }
 

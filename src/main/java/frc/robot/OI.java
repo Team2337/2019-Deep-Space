@@ -6,7 +6,7 @@ import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
 import frc.robot.commands.Chassis.*;
-import frc.robot.commands.ClimberDeploy.deployClimber;
+import frc.robot.commands.ClimberDeploy.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -37,6 +37,10 @@ public class OI {
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
 		
+		driverJoystick.triggerRight					.whileHeld(new readyClimber());
+		driverJoystick.triggerRight					.whileHeld(new unreadyClimber());
+		driverJoystick.greenA						.whenPressed(new CGClimb());
+		driverJoystick.greenA						.whenReleased(new stayAtPosition());
 		//TODO: Update buttons and create branch for camera switching
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
 		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
@@ -67,8 +71,8 @@ public class OI {
 		operatorJoystick.redB						.whenPressed(new goToPosition(Robot.Lift.cargoShipScorePosition));
 		operatorJoystick.redB						.whenReleased(new stayAtPosition());
 
-		operatorJoystick.blueX						.whenPressed(new goToPosition(Robot.Lift.climbPosition));
-		operatorJoystick.blueX						.whenReleased(new stayAtPosition());
+		//operatorJoystick.blueX						.whenPressed(new goToPosition(Robot.Lift.climbPosition));
+		//operatorJoystick.blueX						.whenReleased(new stayAtPosition());
 
 		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
 		operatorJoystick.yellowY					.whenReleased(new stayAtPosition());
@@ -76,9 +80,12 @@ public class OI {
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
-		
-		operatorControls.BlackButton				.whenPressed(new deployClimber());
+		operatorControls.BlackButton				.whenPressed(new readyClimber());
+		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
+		operatorControls.BlackButton				.whenPressed(new CGClimb());
 		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
+
+		
 	
 		///////////////////////////////////////// 
 	}
