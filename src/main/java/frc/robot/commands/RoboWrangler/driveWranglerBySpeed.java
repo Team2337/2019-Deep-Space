@@ -25,6 +25,7 @@ public class driveWranglerBySpeed extends Command {
 
     @Override
     protected void initialize() {
+        setTimeout(timeout);
     }
 
     @Override

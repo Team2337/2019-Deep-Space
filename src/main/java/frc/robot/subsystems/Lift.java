@@ -58,7 +58,7 @@ public class Lift extends Subsystem {
   // Position to lower the trolley to, which would bring the robot upwards
   public double climbLevel3Position = 120;
   // Position to lower the trolley to, which would bring the robot upwards
-  public double climbWheelsUpPosition = 120;
+  public double climbWheelsUpPosition = 165;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!

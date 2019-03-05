@@ -23,7 +23,7 @@ public class deployClimber extends Command {
   protected void initialize() {
     setTimeout(timeout);
     Robot.ClimberDeploy.deployClimber();
-    Robot.ClimberDeploy.climberPhase = 2;
+    //Robot.ClimberDeploy.climberPhase = 2;
   }
 
   // Called repeatedly when this Command is scheduled to run

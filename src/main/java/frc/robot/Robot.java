@@ -150,6 +150,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    System.out.println(Robot.ClimberDeploy.climberPhase);
     SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;

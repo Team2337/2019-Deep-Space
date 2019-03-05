@@ -37,9 +37,9 @@ public class OI {
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
 		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
 		
-		driverJoystick.triggerRight					.whileHeld(new readyClimber());
-		driverJoystick.triggerRight					.whileHeld(new unreadyClimber());
-		driverJoystick.greenA						.whenPressed(new CGClimb());
+		driverJoystick.triggerRight					.whenPressed(new readyClimber());
+		//driverJoystick.triggerRight					.whenReleased(new unreadyClimber());
+		driverJoystick.greenA						.whileHeld(new CGClimb());
 		driverJoystick.greenA						.whenReleased(new stayAtPosition());
 		//TODO: Update buttons and create branch for camera switching
 		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
@@ -80,8 +80,8 @@ public class OI {
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
-		operatorControls.BlackButton				.whenPressed(new readyClimber());
-		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
+		operatorControls.BlackSwitch				.whenPressed(new readyClimber());
+		//operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
 		operatorControls.BlackButton				.whenPressed(new CGClimb());
 		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
 

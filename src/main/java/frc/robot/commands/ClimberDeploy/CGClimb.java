@@ -10,21 +10,26 @@ import frc.robot.commands.RoboWrangler.driveWranglerBySpeed;
 public class CGClimb extends CommandGroup {
     // CONSTRUCTOR
     public CGClimb() {
-        if (Robot.ClimberDeploy.readyToClimb) {
-            switch (Robot.ClimberDeploy.climberPhase) {
-            case 0:
-                addSequential(new goToPositionClimber(Robot.Lift.climbDeployPosition));
-            case 1:
-                addSequential(new deployClimber(4));
-            case 2:
-                addSequential(new goToPositionClimber(Robot.Lift.climbLevel3Position));
-            case 3:
-                addSequential(new driveWranglerBySpeed(1, 1));
-            case 4:
-                addSequential(new goToPositionClimber(Robot.Lift.climbWheelsUpPosition));
-            }
-        } else {
-            
+        // if (Robot.ClimberDeploy.readyToClimb) {
+        switch (Robot.ClimberDeploy.climberPhase) {
+        case 0:
+            System.out.println("0000000000000000000000000000000");
+            addSequential(new goToPositionClimber(Robot.Lift.climbDeployPosition));
+        case 1:
+            System.out.println("111111111111111111111111111");
+            addSequential(new deployClimber(4));
+        case 2:
+            System.out.println("2222222222222222222222222222222222");
+            addSequential(new goToPositionClimber(Robot.Lift.climbLevel3Position));
+        case 3:
+            System.out.println("33333333333333333333333333333333333333");
+            addSequential(new driveWranglerBySpeed(1, 5));
+        case 4:
+            System.out.println("444444444444444444444444444444444");
+            addSequential(new goToPositionClimber(Robot.Lift.climbWheelsUpPosition));
         }
+        // } else {
+
+        // }
     }
 }
