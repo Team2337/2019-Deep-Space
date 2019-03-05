@@ -28,4 +28,8 @@ public class ClimberPneumatics extends Subsystem {
    public void platformRetract(){
     piston.set(false);
    }
+
+   public boolean status(){
+    return piston.get();
+   }
 }

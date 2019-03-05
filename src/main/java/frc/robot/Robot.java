@@ -1,6 +1,8 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
   public static Lift Lift;
   public static NerdyPath NerdyPath;
   public static OI oi;
+  public static PowerDistributionPanel PDP;
   public static Pigeon Pigeon;
   public static Shifter Shifter;
   public static Vision Vision;
@@ -62,7 +65,7 @@ public class Robot extends TimedRobot {
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
 
-  private boolean logger;
+  public static boolean logger;
   private String selectedAuto;
 
   /**
@@ -89,6 +92,7 @@ public class Robot extends TimedRobot {
     HatchLauncher = new HatchLauncher();
     LED = new LED();
     Lift = new Lift();
+    PDP = new PowerDistributionPanel();
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     Vision = new Vision();

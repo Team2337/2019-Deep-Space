@@ -39,6 +39,13 @@ public class HatchBeak extends Subsystem {
   }
 
   /**
+   * Hatch Beak status
+   */
+  public boolean status() {
+    return hatchBeakSolenoid.get();
+  }
+
+  /**
    * Display the status on the smartdashboard
    */
   public void periodic() {

@@ -362,6 +362,33 @@ public class Chassis extends Subsystem {
     return neoLeftFrontEncoder.getPosition() + neoLeftRearEncoder.getPosition();
   }
 
+    /**
+   * Get the average Velocity value of both NEO drive side's encoder averages
+   * 
+   * @return The average Velocity of both drive side's encoder averages
+   */
+  public double getAverageNeoVelocity() {
+    return (getAverageLeftNeoVelocity() + getAverageRightNeoVelocity()) / 2;
+  }
+
+  /**
+   * Get the average Velocity of all the right side neo drive encoders
+   * 
+   * @return The average rotational Velocity of the drive's right side (in ticks)
+   */
+  public double getAverageRightNeoVelocity() {
+    return (neoRightFrontEncoder.getVelocity() + neoRightRearEncoder.getVelocity()) /2;
+  }
+
+  /**
+   * Get the average Velocity of all the right side neo drive encoders
+   * 
+   * @return The average rotational Velocity of the drive's right side (in ticks)
+   */
+  public double getAverageLeftNeoVelocity() {
+    return (neoLeftFrontEncoder.getVelocity() + neoLeftRearEncoder.getVelocity()) /2;
+  }
+
   /**
    * Neo arcade drive
    * @param moveSpeed - forward and reverse speed (positive forward, negative left)
@@ -425,6 +452,13 @@ public class Chassis extends Subsystem {
    */
   public void setSingleNeoBreakMode(CANSparkMax motor, IdleMode mode) {
     motor.setIdleMode(mode);
+  }
+
+  public double getAppliedOutputLeft() {
+    return neoLeftFrontMotor.getAppliedOutput();
+  }
+  public double getAppliedOutputRight() {
+    return neoRightFrontMotor.getAppliedOutput();
   }
 
   /**
