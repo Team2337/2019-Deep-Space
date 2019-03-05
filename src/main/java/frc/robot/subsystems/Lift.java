@@ -24,7 +24,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = false;
+  boolean liftDebug = true;
 
   public double targetPosition;
 
@@ -45,7 +45,7 @@ public class Lift extends Subsystem {
   public double cargoEjectPosition = 500;
 
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 165;
+  public double hatchLowScorePosition = 110;//165;
   // Position to score hatch on the cargo ship
   public double hatchCargoShipScorePosition = 469;
   // Position to score hatch on the mid rocket
