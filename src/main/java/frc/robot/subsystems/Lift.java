@@ -44,17 +44,21 @@ public class Lift extends Subsystem {
   // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
 
-  // Position to raise the robot to when climbing
-  public double climbPosition = 120;
-
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 165;
+  public double hatchLowScorePosition = 110;// 165;
   // Position to score hatch on the cargo ship
   public double hatchCargoShipScorePosition = 469;
   // Position to score hatch on the mid rocket
   public double hatchMidScorePosition = 676;
   // Position to intake a hatch panel at
   public double hatchIntakePosition = 160;
+
+  // Position to raise the trolley to, allowing the climber to deploy
+  public double climbDeployPosition = 600;
+  // Position to lower the trolley to, which would bring the robot upwards
+  public double climbLevel3Position = 120;
+  // Position to lower the trolley to, which would bring the robot upwards
+  public double climbWheelsUpPosition = 165;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -285,6 +289,39 @@ public class Lift extends Subsystem {
   }
 
   /**
+   * Determines whether or not the lift is within range of the climb deploy
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbDeployPosition(double tolerance) {
+    return Math.abs(climbDeployPosition - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the climb Lvl. 3
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbLevel3Position(double tolerance) {
+    return Math.abs(climbLevel3Position - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the climb wheels up
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbWheelsUpPosition(double tolerance) {
+    return Math.abs(climbWheelsUpPosition - getPosition()) <= tolerance;
+  }
+
+  /**
    * Gets the current position of the lift
    * 
    * @return Analog position that the arm is at
@@ -381,8 +418,6 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
       SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
-
-      if(true){
       SmartDashboard.putNumber("Lift_P", kP);
       SmartDashboard.putNumber("Lift_I", kI);
       SmartDashboard.putNumber("Lift_D", kD);
@@ -391,7 +426,6 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
       SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
       SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
-      }
     }
   }
 }
