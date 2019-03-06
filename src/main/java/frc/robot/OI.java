@@ -7,6 +7,7 @@ import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
 import frc.robot.commands.Chassis.*;
+import frc.robot.commands.ClimberDeploy.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -65,17 +66,18 @@ public class OI {
 		operatorJoystick.redB						.whenPressed(new goToPosition(Robot.Lift.cargoShipScorePosition));
 		operatorJoystick.redB						.whenReleased(new stayAtPosition());
 
-		operatorJoystick.blueX						.whenPressed(new goToPosition(Robot.Lift.climbPosition));
-		operatorJoystick.blueX						.whenReleased(new stayAtPosition());
-
 		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
 		operatorJoystick.yellowY					.whenReleased(new stayAtPosition());
 
 		////////////////////////////////////
 
 		/* ===== DRIVER STATION CONTROLS ===== */
+		operatorControls.BlackSwitch				.whenPressed(new readyClimber());
+		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
+		operatorControls.BlackButton				.whenPressed(new climbBigBrother());
+		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
+
 		
-		// operatorControls.YellowSwitch	.whileHeld(new liftWithJoystickOverride());
 	
 		///////////////////////////////////////// 
 	}
