@@ -83,6 +83,14 @@ public class Chassis extends Subsystem {
   private static int talonLeftMidID;
   private static int talonLeftRearID;
 
+  /* --- Dashboard Arrays  --- */	
+  public static double[] velocities;	
+  public static double[] positions;	
+  public static double[] ctreEncoders;	
+  public static double[] neoEncoders;	
+  public static double[] leftPosVelOut;	
+  public static double[] rightPosVelOut;
+
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
     rightRearID = Robot.Constants.chassisRightRearID;
@@ -465,32 +473,30 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
-      SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
-      SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
-      // SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
-      // SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	      SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); // rightFrontMotor.getSelectedSensorPosition());	      SmartDashboard.putNumber("Left Encoder Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition()); // leftFrontMotor.getSelectedSensorPosition());	      SmartDashboard.putNumber("leftFront", leftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("Right_Chassis_POWER", rightFrontMotor.getMotorOutputPercent());	      SmartDashboard.putNumber("drive Joystick", Robot.oi.driverJoystick.getRawAxis(1));
+      SmartDashboard.putNumber("Left_Chassis_POWER", leftFrontMotor.getMotorOutputPercent());	      // SmartDashboard.putNumber("right Chassis POWER", rightFrontMotor.getMotorOutputPercent());
 
-      SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
-      SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
-      SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
-      SmartDashboard.putNumber("Auto A Input", autoSetPath.kP);
-      SmartDashboard.putNumber("Reverse Auto P Input", autoSetPathReverse.kP);
-      SmartDashboard.putNumber("Reverse Auto I Input", autoSetPathReverse.kI);
-      SmartDashboard.putNumber("Reverse Auto D Input", autoSetPathReverse.kD);
-      SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
+       // SmartDashboard.putNumber("left Chassis POWER", leftFrontMotor.getMotorOutputPercent());
+      SmartDashboard.putNumber("Drive_Joystick", Robot.oi.driverJoystick.getRawAxis(1));	
 
-      SmartDashboard.putNumber("printX", autoSetPath.printX);
+       SmartDashboard.putNumber("Auto P Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Auto_P_Input", autoSetPath.kP);	      SmartDashboard.putNumber("Auto I Input", autoSetPath.kI);
+      SmartDashboard.putNumber("Auto_I_Input", autoSetPath.kI);	      SmartDashboard.putNumber("Auto D Input", autoSetPath.kD);
+      SmartDashboard.putNumber("Auto_D_Input", autoSetPath.kD);	      SmartDashboard.putNumber("Auto A Input", autoSetPath.kP);
+      SmartDashboard.putNumber("Auto_A_Input", autoSetPath.kP);	      SmartDashboard.putNumber("Reverse Auto P Input", autoSetPathReverse.kP);
 
-      SmartDashboard.putBoolean("Auto Line Sensor", autoLineSensor.get());
-      SmartDashboard.putBoolean("Line Crossed", crossedLine);
-      SmartDashboard.putNumber("Auto Lines Crossed", linesCrossed);
-      SmartDashboard.putBoolean("Saw Line", autoSetPathReverse.fin);
+       SmartDashboard.putNumber("Reverse Auto I Input", autoSetPathReverse.kI);
+      SmartDashboard.putNumber("Reverse_Auto_P_Input", autoSetPathReverse.kP);	      SmartDashboard.putNumber("Reverse Auto D Input", autoSetPathReverse.kD);
+      SmartDashboard.putNumber("Reverse_Auto_I_Input", autoSetPathReverse.kI);	      SmartDashboard.putNumber("Reverse Auto A Input", autoSetPathReverse.kP);
+      SmartDashboard.putNumber("Reverse_Auto_D_Input", autoSetPathReverse.kD);	
+      SmartDashboard.putNumber("Reverse_Auto_A_Input", autoSetPathReverse.kP);	
 
-      //TODO: Removed test values
-      SmartDashboard.putBoolean("PRINT", print);
-      SmartDashboard.putNumber("encoderTicks", encoderTicks);
+
+       SmartDashboard.putNumber("printX", autoSetPath.printX);	      SmartDashboard.putNumber("printX", autoSetPath.printX);
+      SmartDashboard.putNumberArray("CTRE_Encoder_Positions", ctreEncoders);
     }
 
     if (neoDebug) {

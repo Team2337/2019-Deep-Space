@@ -28,6 +28,7 @@ public class autoSetPathReverse extends Command {
   private double[] pidValues;
   private int segment, wait;
   private double timeout, finishTime;
+  //TODO: Variablize lineDistance in the constructor
   private double lineDistance = 56000;
   private boolean finished, crossedLine;
   private boolean lastState = false;

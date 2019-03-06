@@ -115,10 +115,10 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
-        // driveForwardT = pathway.driveForward();
-        // curveFromToHatchRightT = pathway.curveFromToHatchRight();
-        // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-        // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        driveForwardT = pathway.driveForward();
+        curveFromToHatchRightT = pathway.curveFromToHatchRight();
+        fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+        jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
         break;
       default:
       
@@ -130,8 +130,8 @@ public class Robot extends TimedRobot {
 
     oi = new OI();
 
-    chooser.addOption("My Auto", new CGTwoHatchAutoRight());
-    chooser.setDefaultOption("Do Nothing", new autoDoNothing());
+    chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
+    chooser.addOption("Do Nothing", new autoDoNothing());
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();

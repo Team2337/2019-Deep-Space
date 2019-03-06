@@ -53,7 +53,6 @@ public class OI {
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
-		operatorJoystick.macroSix					.whileHeld(new cargoBigBrotherScore());
 
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
