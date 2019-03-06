@@ -15,8 +15,11 @@ public class climbBigBrother extends Command {
     }
 
     protected void initialize() {
+        // Set up the timer variables
         i = 0;
         j = 0;
+
+        // This changes to true when the climber has reached its final phase
         finished = false;
     }
 
@@ -25,18 +28,24 @@ public class climbBigBrother extends Command {
         // TODO: if (Robot.ClimberDeploy.readyToClimb) { //or does switching case
         // between 5 and 0 work?
         switch (Robot.ClimberDeploy.climberPhase) {
-        case 0: // move trolley to position to release climber arms(to miss platform) but
-                // legs(still hit bumpers)
+        // Move the trolley into position to release the climber arms - The T-Rex arms
+        // must miss the platform, and the RoboWrangler must hit the bumpers
+        case 0:
             Robot.Lift.setSetpoint(Robot.Lift.climbDeployPosition);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 1;
             }
             break;
-        case 1: // release climber arms and legs
+        // Release the climber arms
+        case 1:
+            // Running the RoboWrangler drive motor backwards will help release the climber
             Robot.ClimberDeploy.deployClimber();
             Robot.RoboWrangler.drive(-0.33);
-            i = i + 1; // TODO: adjust to allow appropaite amount of time for deployment
-            System.out.print(i + "my iiiiiiiiiiiiiiiiiiiiiiiiii"); // TODO: REMOVE PRINT
+            System.out.print("**************** i value: " + i); // TODO: REMOVE PRINT
+            i = i + 1;
+            // TODO: Adjust to allow appropriate amount of time for deployment
+            // Stop running the RoboWrangler drive motor before the end of this phase,
+            // preventing the rope from getting tangled
             if (i > 100) {
                 Robot.RoboWrangler.stop();
             } else if (i > 200) {
@@ -44,35 +53,40 @@ public class climbBigBrother extends Command {
             }
 
             break;
-        case 2: // lower trolley/raise our robot
+
+        // Lower the trolley (raising the robot)
+        case 2:
             Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 3;
             }
             break;
-        case 3: // drive forward, onto level 3 platform, until the line sensor senses platform
+
+        // Drive forward onto level 3 platform until the line sensor senses the platform
+        case 3:
             Robot.RoboWrangler.drive(0.5);
-            j = j + 1; // TODO: remove once line sensor is installed
-            System.out.print(j + "my jjjjjjjjjjjjjjjjjjjjjjjjjjj"); // TODO: REMOVE PRINT
-            // if (Robot.Chassis.linesensor) {
+            // TODO: Remove timer once line sensor is installed
+            j = j + 1;
+            System.out.print("**************** j value: " + j); // TODO: REMOVE PRINT
             if (j > 200) {
                 Robot.ClimberDeploy.climberPhase = 4;
             }
             break;
-        case 4: // raise trolley to lift wrangler wheels off of lower platform
-            // TODO: comment out until wrangler drive set!!!!!?????
+
+        // Raise the trolley (lifting the RoboWrangler wheels off the lvl. 1 platform)
+        case 4:
             Robot.Lift.setSetpoint(Robot.Lift.climbWheelsUpPosition);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 5;
             }
             break;
-        case 5: // done
+
+        // We have finished climbing
+        case 5:
             // TRYING black switch switch from case 5 to 0 (and back).... instead of boolean
             finished = true;
             break;
         }
-
-        // }
     }
 
     @Override
@@ -83,7 +97,6 @@ public class climbBigBrother extends Command {
     protected void end() {
         Robot.RoboWrangler.stop();
         Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-        // Robot.ClimberDeploy.undeployClimber();
     }
 
     protected void interrupted() {
