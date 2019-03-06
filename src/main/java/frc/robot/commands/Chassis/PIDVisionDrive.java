@@ -5,6 +5,7 @@ import frc.robot.subsystems.Chassis;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Uses a PID to get us closer to the vision target
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class PIDVisionDrive extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx;
+  double turnValue, targetAngle, leftJoystick, m_speed, speed, m_timeout, targetDistance, ta, tx;
   double p, i, d;
 
   boolean turnInPlace = false;
@@ -26,25 +27,15 @@ public class PIDVisionDrive extends PIDCommand {
    * @param mode - String value that tells what mode the Vision drive is in
    * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
    */
-  public PIDVisionDrive(double p, double i, double d, String mode) {
+  public PIDVisionDrive(double p, double i, double d) {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
-    getPIDController().setOutputRange(-0.5, 0.5);       // output range for 'turn' input to drive command
+    getPIDController().setOutputRange(-0.4, 0.4);       // output range for 'turn' input to drive command
 
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 6.8;        // not used yet but will be used to drive forward to target based on ta
-    m_timeout = 5;              // time before command will end, even if target not found
 
-    switch(mode) {
-      case "turnInPlace":
-      turnInPlace = true;
-      break;
-      default :
-      turnInPlace = false;
-      break;
-    }
     requires(Robot.Chassis);
   }
 
@@ -62,33 +53,33 @@ public class PIDVisionDrive extends PIDCommand {
    * @param output - the output given by the PID Objects
    */
   protected void usePIDOutput(double output) {
-      ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+    SmartDashboard.putNumber("output", output);
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      m_speed = 0.6;//Robot.oi.driverJoystick.getRawAxis(1);
 
-      if(ta > 0) {
-      m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
-
-        if(m_speed <= -0.5) {
-          m_speed = -0.5;
-        } 
-      } else {
-        m_speed = 0;
-        output = 0;
+      if(tx == 0) {
+        output = -Robot.oi.driverJoystick.getRightStickX();
       }
-      // System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed);
+
+      if(Math.abs(tx) < 8) {
+        this.getPIDController().setPID(0.06, 0, 0); 
+      } else {
+        this.getPIDController().setPID(0.02, 0, 0);
+      }
+
       System.out.println("tx: " + tx + " ***** " + "output: " + output);
 
-      if(turnInPlace) {
-        m_speed = 0;
-        System.out.println("turnInPlace: " + turnInPlace);
+      //Robot.oi.driverJoystick.getLeftStickY()
+      if(Robot.oi.driverJoystick.getLeftStickY() < 0.4) {
+        speed = Robot.oi.driverJoystick.getLeftStickY();
+      } else {
+        speed = 0.4;
       }
-      Chassis.neoArcade(Robot.oi.driverJoystick.getLeftStickY(), -(output), false);
+      Chassis.neoArcade(speed, -(output), false);
   }
 
   protected void initialize() {
-    // Robot.Vision.setLEDMode(3);
-    // setTimeout(m_timeout);
+    Robot.Vision.setLEDMode(3);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     this.setSetpoint(targetAngle);
   }
 
@@ -97,13 +88,11 @@ public class PIDVisionDrive extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   protected void end() {
     Robot.Vision.setLEDMode(1);
-    Robot.Chassis.stopNeoDrive();
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 
   protected void interrupted() {

@@ -30,7 +30,7 @@ public class autoPIDVisionDrive extends PIDCommand {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
-    getPIDController().setOutputRange(-0.5, 0.5);       // output range for 'turn' input to drive command
+    getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
 
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
@@ -80,7 +80,7 @@ public class autoPIDVisionDrive extends PIDCommand {
         m_speed = 0;
         System.out.println("turnInPlace: " + turnInPlace);
       }
-      Chassis.neoArcade(m_speed, 0, false);
+      Chassis.neoArcade(m_speed, -output, false);
   }
 
   protected void initialize() {
