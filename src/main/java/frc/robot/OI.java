@@ -1,15 +1,11 @@
 package frc.robot;
 
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
-import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.Chassis.*;
 import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
@@ -34,24 +30,16 @@ public class OI {
 		/* ====== DRIVER JOYSTICK ===== */
 
 		// Assigned to Quick Turn in Chassis.driveByJoystick - DO NOT USE
-		driverJoystick.bumperRight				.whenPressed(new limeLightLEDOn()); 
 
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
 
+		driverJoystick.bumperRight					.whenPressed(new autoEndAuto());
+
 		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
-		driverJoystick.triggerLeft					.whileHeld(new PID3DLimelight(0.05, 0, 0, ""));
 		driverJoystick.triggerRight					.whileHeld(new PIDVisionDrive(0.025, 0, 0));
 		
-		//TODO: Make a branch for this and finish the camera switching
-		// driverJoystick.macroFour					.whenPressed(new ); // Front Cam
-		// driverJoystick.macroSix					.whenPressed(new ); // Back Cam
-
-		driverJoystick.start	.whenPressed(new CGTwoHatchAutoRight());
-		driverJoystick.blueX	.whileHeld(new hatchKickerExtend());
-		driverJoystick.blueX	.whenReleased(new hatchKickerRetract());
-		driverJoystick.greenA	.whileHeld(new autoPIDVisionDrive(0.025, 0, 0, ""));//.whenPressed(new autoEndAuto());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

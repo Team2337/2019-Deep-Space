@@ -154,7 +154,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    //TODO: Determine what should go on the driver dashboard
     SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
