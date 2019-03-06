@@ -24,7 +24,7 @@ public class Lift extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean liftDebug = true;
+  boolean liftDebug = false;
 
   public double targetPosition;
 
@@ -45,7 +45,7 @@ public class Lift extends Subsystem {
   public double cargoEjectPosition = 500;
 
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 110;//165;
+  public double hatchLowScorePosition = 110;// 165;
   // Position to score hatch on the cargo ship
   public double hatchCargoShipScorePosition = 469;
   // Position to score hatch on the mid rocket
@@ -295,8 +295,30 @@ public class Lift extends Subsystem {
    * @param tolerance An acceptable range the lift can be within of the setpoint
    * @return Whether or not the lift is within a tolerance of its setpoint
    */
-  public boolean atClimbPosition(double tolerance) {
+  public boolean atClimbDeployPosition(double tolerance) {
     return Math.abs(climbDeployPosition - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the climb Lvl. 3
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbLevel3Position(double tolerance) {
+    return Math.abs(climbLevel3Position - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the climb wheels up
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbWheelsUpPosition(double tolerance) {
+    return Math.abs(climbWheelsUpPosition - getPosition()) <= tolerance;
   }
 
   /**
@@ -396,17 +418,14 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
       SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
-
-      if (true) {
-        SmartDashboard.putNumber("Lift_P", kP);
-        SmartDashboard.putNumber("Lift_I", kI);
-        SmartDashboard.putNumber("Lift_D", kD);
-        SmartDashboard.putNumber("Lift_F", kF);
-        SmartDashboard.putNumber("Lift_AllowableError", allowableError);
-        SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
-        SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
-        SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
-      }
+      SmartDashboard.putNumber("Lift_P", kP);
+      SmartDashboard.putNumber("Lift_I", kI);
+      SmartDashboard.putNumber("Lift_D", kD);
+      SmartDashboard.putNumber("Lift_F", kF);
+      SmartDashboard.putNumber("Lift_AllowableError", allowableError);
+      SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
+      SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
+      SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
     }
   }
 }

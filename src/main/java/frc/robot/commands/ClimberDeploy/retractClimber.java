@@ -26,7 +26,7 @@ public class retractClimber extends Command {
   protected void execute() {
   }
 
-  // This command doesn't need any more than once
+  // This command doesn't need to be run any more than once
   @Override
   protected boolean isFinished() {
     return true;

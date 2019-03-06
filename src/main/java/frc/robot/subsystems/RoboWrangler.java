@@ -7,7 +7,7 @@ import frc.robot.Robot;
 import frc.robot.commands.RoboWrangler.*;
 
 /**
- * Controls the intake mechanism for cargo
+ * Controls the motors on the end of the RoboWrangler
  */
 public class RoboWrangler extends Subsystem {
 
