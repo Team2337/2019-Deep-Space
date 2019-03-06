@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Uses a PID to get us closer to the vision target
- * The drive system uses the limelight to determine the error
+ * Runs the limelight turn drive PID in teleop when a button is pressed
+ * The driver is able to drive forward while holding the button and have the code adjust towrds the target
  * @author Bryce G.
  */
 public class PIDVisionDrive extends PIDCommand {
@@ -20,19 +20,17 @@ public class PIDVisionDrive extends PIDCommand {
   boolean turnInPlace = false;
 
   /**
-   * 
+   * Runs the limelight turn drive PID in teleop when a button is pressed
+   * The driver is able to drive forward while holding the button and have the code adjust towrds the target
    * @param p - P value (Ex: 0.05 (percent of the stop distance))
    * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
-   * @param mode - String value that tells what mode the Vision drive is in
-   * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
    */
   public PIDVisionDrive(double p, double i, double d) {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.4, 0.4);       // output range for 'turn' input to drive command
-
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
 
@@ -60,15 +58,17 @@ public class PIDVisionDrive extends PIDCommand {
         output = -Robot.oi.driverJoystick.getRightStickX();
       }
 
+      //If the angle error is close to the target, we want a higher P to have a sharper turn, otherwise it's a small turn
       if(Math.abs(tx) < 8) {
         this.getPIDController().setPID(0.06, 0, 0); 
       } else {
         this.getPIDController().setPID(0.02, 0, 0);
       }
 
-      System.out.println("tx: " + tx + " ***** " + "output: " + output);
+      // Keep for testing 
+      // System.out.println("tx: " + tx + " ***** " + "output: " + output); 
 
-      //Robot.oi.driverJoystick.getLeftStickY()
+      //Limit the forward drive to 40% while this command is active
       if(Robot.oi.driverJoystick.getLeftStickY() < 0.4) {
         speed = Robot.oi.driverJoystick.getLeftStickY();
       } else {

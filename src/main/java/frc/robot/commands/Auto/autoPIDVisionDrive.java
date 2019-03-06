@@ -64,7 +64,7 @@ public class autoPIDVisionDrive extends PIDCommand {
   protected void usePIDOutput(double output) {
       ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      m_speed = 0.6;//Robot.oi.driverJoystick.getRawAxis(1);
+      m_speed = 0.6;
 
       if(ta > 0) {
       m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
