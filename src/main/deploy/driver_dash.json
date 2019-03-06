@@ -51,7 +51,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Driver/Air Pressure (PSI)",
-              "_title": "/SmartDashboard/Air Pressure (PSI)"
+              "_title": "Air Pressure (PSI)"
             }
           },
           "0,9": {
@@ -62,7 +62,7 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Driver/String Pot Broken",
-              "_title": "/SmartDashboard/String Pot Broken",
+              "_title": "String Pot Broken",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -88,7 +88,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Driver/Lift_Position",
-              "_title": "SmartDashboard/Driver/Lift_Position"
+              "_title": "Lift_Position"
             }
           },
           "0,0": {
@@ -99,7 +99,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_LF_Temp",
-              "_title": "SmartDashboard/Driver/Neo_LF_Temp"
+              "_title": "Neo_LF_Temp"
             }
           },
           "0,1": {
@@ -110,7 +110,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_LR_Temp",
-              "_title": "SmartDashboard/Driver/Neo_LR_Temp"
+              "_title": "Neo_LR_Temp"
             }
           },
           "24,0": {
@@ -121,7 +121,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_RF_Temp",
-              "_title": "SmartDashboard/Driver/Neo_RF_Temp"
+              "_title": "Neo_RF_Temp"
             }
           },
           "24,1": {
@@ -132,7 +132,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_RR_Temp",
-              "_title": "SmartDashboard/Driver/Neo_RR_Temp"
+              "_title": "Neo_RR_Temp"
             }
           }
         }
