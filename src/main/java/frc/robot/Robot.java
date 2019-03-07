@@ -179,6 +179,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());
     SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
+    SmartDashboard.putBoolean("Driver/Compressor On?", Robot.AirCompressor.status());
   }
 
   /**

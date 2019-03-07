@@ -46,7 +46,7 @@ public class AirCompressor extends Subsystem {
   }
 
   /**
-   * Disables the compressor
+   * Gets the status of the compressor
    */
   public boolean status() {
     return compressor.enabled();

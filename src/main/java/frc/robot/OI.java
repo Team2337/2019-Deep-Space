@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
@@ -76,6 +77,10 @@ public class OI {
 		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
 		operatorControls.BlackButton				.whenPressed(new climbBigBrother());
 		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
+		
+		operatorControls.YellowSwitch				.whenPressed(new compressorTurnOff());
+		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
+
 
 		
 	

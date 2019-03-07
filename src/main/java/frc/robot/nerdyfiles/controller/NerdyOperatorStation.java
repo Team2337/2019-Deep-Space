@@ -19,17 +19,17 @@ public class NerdyOperatorStation extends Joystick {
      * driver's station is redesigned.
      *
      */
-    public JoystickButton  GreenButton  = new JoystickButton(this, 19);
-    public JoystickButton  RedButton    = new JoystickButton(this, 20);
-    public JoystickButton  WhiteButton  = new JoystickButton(this, 14);
-    public JoystickButton  YellowButton = new JoystickButton(this, 6);
-    public JoystickButton  BlueButton   = new JoystickButton(this, 8);
-    public JoystickButton  BlackButton  = new JoystickButton(this, 7);
+    public JoystickButton  GreenButton  = new JoystickButton(this, 1);
+    public JoystickButton  RedButton    = new JoystickButton(this, 2);
+    public JoystickButton  WhiteButton  = new JoystickButton(this, 7);
+    public JoystickButton  YellowButton = new JoystickButton(this, 8);
+    public JoystickButton  BlueButton   = new JoystickButton(this, 9);
+    public JoystickButton  BlackButton  = new JoystickButton(this, 10);
 
-    public JoystickButton  ClearSwitch  = new JoystickButton(this, 15);
-    public JoystickButton  YellowSwitch = new JoystickButton(this, 2);
+    public JoystickButton  ClearSwitch  = new JoystickButton(this, 3);
+    public JoystickButton  YellowSwitch = new JoystickButton(this, 4);
     public JoystickButton  BlackSwitch  = new JoystickButton(this, 3);
-    public JoystickButton  BlueSwitch   = new JoystickButton(this, 4);
+    public JoystickButton  BlueSwitch   = new JoystickButton(this, 6);
 
     public boolean clearSwitchOn() {
         return this.ClearSwitch.get();
