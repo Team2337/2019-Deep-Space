@@ -28,7 +28,7 @@ public class NerdyOperatorStation extends Joystick {
 
     public JoystickButton  ClearSwitch  = new JoystickButton(this, 3);
     public JoystickButton  YellowSwitch = new JoystickButton(this, 4);
-    public JoystickButton  BlackSwitch  = new JoystickButton(this, 3);
+    public JoystickButton  BlackSwitch  = new JoystickButton(this, 5);
     public JoystickButton  BlueSwitch   = new JoystickButton(this, 6);
 
     public boolean clearSwitchOn() {
