@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Auto.autoDoNothing;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -120,10 +121,10 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
-        driveForwardT = pathway.driveForward();
-        curveFromToHatchRightT = pathway.curveFromToHatchRight();
-        fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-        jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        // driveForwardT = pathway.driveForward();
+        // curveFromToHatchRightT = pathway.curveFromToHatchRight();
+        // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+        // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
         break;
       default:
       
@@ -131,12 +132,16 @@ public class Robot extends TimedRobot {
     }
 
     // Writing a trajectory to a file (keep commented out until needed)
-    // Robot.NerdyPath.writeFile("locations", driveForwardT);
+    // Robot.NerdyPath.writeFile("driveForward", driveForwardT);
+    // Robot.NerdyPath.writeFile("curveFromToHatchRight", curveFromToHatchRightT);
+    // Robot.NerdyPath.writeFile("fromRightLoadJTurnToCargoShip", fromRightLoadJTurnToCargoShipT);
+    // Robot.NerdyPath.writeFile("jTurnToCargoShipRight", jTurnToCargoShipRightT);
 
     oi = new OI();
 
     chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
     chooser.addOption("Do Nothing", new autoDoNothing());
+    chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2));
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();

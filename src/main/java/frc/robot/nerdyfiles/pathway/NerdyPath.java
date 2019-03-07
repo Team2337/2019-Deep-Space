@@ -93,8 +93,8 @@ public class NerdyPath {
     leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
     rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
 
-    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / config.max_velocity, kA);
-    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / config.max_velocity, kA);
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / maxVelocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / maxVelocity, kA);
 
     leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
     rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
@@ -158,10 +158,10 @@ public class NerdyPath {
       BufferedReader br = new BufferedReader(new FileReader(file));
       file.createNewFile(); //creating new file to read from
       file.setReadable(true, false);
-      String content;
-      while ((content = br.readLine()) != null) {
-        System.out.println(content);
-      }
+      // String content;
+      // while ((content = br.readLine()) != null) {
+        // System.out.println(content);
+      // }
       br.close();
       return Pathfinder.readFromCSV(file);
     } catch (IOException e) {
