@@ -39,7 +39,7 @@ public class HatchLauncher extends Subsystem {
     launcherPiston.set(false);
 
   }
-    
+
   /**
    * Hatch Extender status
    */

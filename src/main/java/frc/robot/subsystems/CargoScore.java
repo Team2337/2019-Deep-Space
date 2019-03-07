@@ -66,7 +66,7 @@ public class CargoScore extends Subsystem {
   public void stop() {
     CargoScoreMotor.set(ControlMode.PercentOutput, 0);
   }
-  
+
   /**
    * Cargo scoring motor status
    */

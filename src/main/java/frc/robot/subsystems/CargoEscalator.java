@@ -59,7 +59,7 @@ public class CargoEscalator extends Subsystem {
   public void stop() {
     CargoEscalatorMotor.set(ControlMode.PercentOutput, 0);
   }
-  
+
   /**
    * Cargo escalator motor status
    */

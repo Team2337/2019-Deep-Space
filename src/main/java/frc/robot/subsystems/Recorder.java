@@ -59,6 +59,12 @@ public class Recorder extends Subsystem {
       SmartDashboard.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.BlueButton.get());
       SmartDashboard.putBoolean("DriverStation_YellowButton",Robot.oi.operatorControls.YellowButton.get());
       SmartDashboard.putBoolean("DriverStation_YellowSwitch",Robot.oi.operatorControls.YellowSwitch.get());
+      SmartDashboard.putBoolean("DriverStation_BlackButton",Robot.oi.operatorControls.BlackButton.get());
+      SmartDashboard.putBoolean("DriverStation_BlackSwitch",Robot.oi.operatorControls.BlackSwitch.get());
+      SmartDashboard.putBoolean("DriverStation_BlueButton",Robot.oi.operatorControls.BlueButton.get());
+      SmartDashboard.putBoolean("DriverStation_BlueSwitch",Robot.oi.operatorControls.BlueSwitch.get());
+      SmartDashboard.putBoolean("DriverStation_WhiteButton",Robot.oi.operatorControls.WhiteButton.get());
+      SmartDashboard.putBoolean("DriverStation_SilverSwitch",Robot.oi.operatorControls.ClearSwitch.get());
 
       SmartDashboard.putNumber("Air_Pressure", Robot.AirCompressor.getPressure());
       SmartDashboard.putBoolean("Air_Compressor", Robot.AirCompressor.status());
@@ -72,8 +78,8 @@ public class Recorder extends Subsystem {
       
       SmartDashboard.putBoolean("Cargo_Drawbridge", Robot.CargoDrawbridge.status());
       SmartDashboard.putNumber("Cargo_Escalator", Robot.CargoEscalator.status());
-      SmartDashboard.putNumber("Cargo_Intake", Robot.CargoEscalator.status());
-      SmartDashboard.putNumber("Cargo_Intake", Robot.CargoScore.status());
+      SmartDashboard.putNumber("Cargo_Intake", Robot.CargoIntake.status());
+      SmartDashboard.putNumber("Cargo_Score", Robot.CargoScore.status());
       //chassis (in subsystem)
       SmartDashboard.putNumber("climberPhase",Robot.ClimberDeploy.climberPhase);
       SmartDashboard.putBoolean("Climber_Deploy", Robot.ClimberDeploy.status());

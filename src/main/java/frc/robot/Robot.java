@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Auto.autoDoNothing;
 import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -52,9 +54,8 @@ public class Robot extends TimedRobot {
   public static Shifter Shifter;
   public static TRexArms TRexArms;
   public static Vision Vision;
-  public static Recorder Recorder;
 
-  Command autonomousCommand;
+  public static Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
   public static Trajectory curveFromToHatchRightT;
@@ -64,6 +65,7 @@ public class Robot extends TimedRobot {
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
   public static Trajectory jTurnToCargoShipRightT;
+  public static Trajectory testSCurveT;
 
   public static boolean logger;
   private String selectedAuto;
@@ -95,10 +97,10 @@ public class Robot extends TimedRobot {
     Pigeon = new Pigeon();
     RoboWrangler = new RoboWrangler();
     PDP = new PowerDistributionPanel();
+    Pigeon = new Pigeon();
     Shifter = new Shifter();
     TRexArms = new TRexArms();
     Vision = new Vision();
-    Recorder = new Recorder();
 
     /* 
      * Keep below other subsystems as these have dependencies for other subsystems
@@ -114,12 +116,18 @@ public class Robot extends TimedRobot {
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
-    selectedAuto = "";
+    selectedAuto = "twoHatch";
 
     switch (selectedAuto) {
-    default:
-      // driveForwardT = pathway.driveForward();
-      break;
+      case "twoHatch":
+        driveForwardT = pathway.driveForward();
+        curveFromToHatchRightT = pathway.curveFromToHatchRight();
+        fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+        jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        break;
+      default:
+      
+        break;
     }
 
     // Writing a trajectory to a file (keep commented out until needed)
@@ -127,7 +135,8 @@ public class Robot extends TimedRobot {
 
     oi = new OI();
 
-    // chooser.addOption("My Auto", new autoSetPath(driveForwardT, valuesPID[0]));
+    chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
+    chooser.addOption("Do Nothing", new autoDoNothing());
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();

@@ -12,7 +12,7 @@ import frc.robot.Robot;
 public class CargoIntake extends Subsystem {
 
   // The motor to run the cargo intake
-  private TalonSRX CargoIntakeMotor;
+  public TalonSRX CargoIntakeMotor;
 
   /* ---- CAN ID SETUP ---- */
   // Do not update without updating the wiki, too!
@@ -65,9 +65,9 @@ public class CargoIntake extends Subsystem {
   public void intakeSafety() {
     CargoIntakeMotor.set(ControlMode.PercentOutput, 0.1);
   }
-  
+
   /**
-   * Cargo Intake Motor status
+   * Cargo intake motor status
    */
   public double status() {
     return CargoIntakeMotor.getMotorOutputPercent();

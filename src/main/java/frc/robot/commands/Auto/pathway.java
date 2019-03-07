@@ -10,7 +10,7 @@ import jaci.pathfinder.Waypoint;
  * @author Bryce G.
  */
 public class pathway {
-    public static double metersConversion = 0.0254; // 17.5 //35.166666666 - Our conversion from our trials, 33.33333
+    public static double metersConversion = 0.0254; 
     public static Trajectory.Config config;
     public static Trajectory trajectory;
 
@@ -40,11 +40,11 @@ public class pathway {
      * dimension: column
      */
     public static double valuesPID[][] = new double[][] { 
-        { 1.5, 0, 0.15, 0 }, // autoReverseToShipFromLvl1
-        { 1.2, 0, 0, 0 }, // curveFromToHatchRightT
-        { 2, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
+        { 1, 0, 0, 0 }, // autoReverseToShipFromLvl1
+        { 1.3, 0, 0, 0 }, // curveFromToHatchRightT
+        { 1.0, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
-        { 1.5, 0, 0, 0 }, // TEST
+        { 1, 0, 0, 0 }, // TEST
     };
 
     /**
@@ -80,38 +80,39 @@ public class pathway {
      */
     private static Waypoint[] curveFromToHatchRight = new Waypoint[] { 
         new Waypoint(0, 0, 0),
-        new Waypoint(3.5, 2, 0.42), // 3.5, 2.35
-        new Waypoint(5.5, 2.35, 0) // 5.95
+        new Waypoint(3.5, 2.05, 0.2), // 3.5, 2.35
+        new Waypoint(5, 2.25, 0) // 5.95
     };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * <p>S-Curves from the cargo ship, to the <strong>RIGHT</strong> load station to grab a hatch
      * 
      * @param points - array of waypoints
      */
     public static Trajectory curveFromToHatchRight() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 1.5, 0.35, 0.1); // 2, 1.7, 10
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep,  0.35, 0.05, 0.1); //1.5, 0.35, 0.1); // 2, 1.7, 10
         trajectory = Pathfinder.generate(curveFromToHatchRight, config);
         return trajectory;
     }
 
     /**
-     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and points the beak towards the cargo ship
+     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and 
+     * points the beak towards the cargo ship
      */
     private static Waypoint[] fromRightLoadJTurnToCargoShip = new Waypoint[] { 
         new Waypoint(0, 0, 0),
-        new Waypoint(2, -.8, -0.58), // 33 degrees
-        // new Waypoint(4, -1.2, 0.1),
-        new Waypoint(5.8, -0.6, 1.2) 
+        new Waypoint(3, -1, -0.3), // 33 degrees
+        // new Waypoint(5.5, -0.6, -0.05),
+        new Waypoint(6.5, 0.1, 1) //-0.2 
         };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
-     * 
+     * <p>Drives from the <strong>RIGHT</strong> load station, and J-turns back to the wall and 
+     * points the beak towards the cargo ship
      * @param points - array of waypoints
      */
     public static Trajectory fromRightLoadJTurnToCargoShip() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 2.5, 1.9, 10.0); // 2, 1.7
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.1, 4); // 0.35, 0.05, 0.1
         trajectory = Pathfinder.generate(fromRightLoadJTurnToCargoShip, config);
         return trajectory;
     }
@@ -121,16 +122,16 @@ public class pathway {
      */
     private static Waypoint[] JTurnToCargoShipRight = new Waypoint[] { 
             new Waypoint(0, 0, 0),
-            new Waypoint(2, 0, -0.58) 
+            new Waypoint(1, -0.25, -0.3) 
         };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * Coming out of the <strong>RIGHT</strong> J-Turn and drives to the cargo ship
      * 
      * @param points - array of waypoints
      */
     public static Trajectory jTurnToCargoShipRight() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep,2.5, 1.9, 10.0); // 2, 1.7
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); // 2, 1.7
         trajectory = Pathfinder.generate(JTurnToCargoShipRight, config);
         return trajectory;
     }
@@ -144,7 +145,8 @@ public class pathway {
     };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * Test S-Curve 
+     * <h1><strong>DON'T USE IN COMP</strong></h1>
      * 
      * @param points - array of waypoints
      */
@@ -164,17 +166,21 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(12), 0, degreesToRadians(0)) // NEGATIVE is RIGHT
+        new Waypoint(inchesToMeters(198), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
     };
 
     /**
-     * Converts the waypoints to generate the path into values readable by the code
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
      * 
      * @param points - array of waypoints
      */
     public static Trajectory driveForward() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.5, 0.25, 2.5);
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
         trajectory = Pathfinder.generate(driveForward, config);
         return trajectory;
     }
 }
+
+//5.13x^2, 10.26x, 10.26
+//4.25x^2, 8.5x, 8.5

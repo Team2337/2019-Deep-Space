@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.Auto.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
@@ -23,20 +24,23 @@ public class OI {
 	public NerdyUltimateXboxOperator	operatorJoystick		= new NerdyUltimateXboxOperator(1);
 	public NerdyOperatorStation			operatorControls		= new NerdyOperatorStation(2);
 
+	public double[][] valuesPID = pathway.valuesPID;
+
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
 
 		// Assigned to Quick Turn in Chassis.driveByJoystick - DO NOT USE
-		// driverJoystick.bumperRight				.whenPressed(); 
 
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
 
+		driverJoystick.bumperRight					.whenPressed(new autoEndAuto());
+
 		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
 		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
-		driverJoystick.triggerLeft					.whenPressed(new PIDVisionDrive(1.0, 0.1, 0.1, "false"));
-
+		driverJoystick.triggerRight					.whileHeld(new PIDVisionDrive(0.025, 0, 0));
+		
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */

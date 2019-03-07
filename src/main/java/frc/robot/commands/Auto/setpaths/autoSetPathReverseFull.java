@@ -11,10 +11,12 @@ import jaci.pathfinder.modifiers.TankModifier;
 /**
  * Reads the trajectory to drive to a position given by the waypoints in the
  * reverse direction
+ * <p><br/></p>
+ * This command allows the profile to finish before ending the command
  * 
  * @author Bryce G.
  */
-public class autoSetPathReverse extends Command {
+public class autoSetPathReverseFull extends Command {
 
   /* --- Path Weaver Variables --- */
 
@@ -28,7 +30,6 @@ public class autoSetPathReverse extends Command {
   private double[] pidValues;
   private int segment, wait;
   private double timeout, finishTime;
-  //TODO: Variablize lineDistance in the constructor
   private double lineDistance = 56000;
   private boolean finished, crossedLine;
   private boolean lastState = false;
@@ -42,7 +43,7 @@ public class autoSetPathReverse extends Command {
    *                     array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout) {
+  public autoSetPathReverseFull(Trajectory trajectoryIn, double[] pidValues, double timeout) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
@@ -76,7 +77,7 @@ public class autoSetPathReverse extends Command {
 
     Robot.NerdyPath.makePathReverse();
     segment++;
-    if (segment >= (trajectory.length() - 30)) { //segment >= (trajectory.length() - 50)
+    if (segment >= (trajectory.length())) { //segment >= (trajectory.length() - 50)
       finished = true;
     }
     if (finished) {
@@ -118,10 +119,9 @@ public class autoSetPathReverse extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Chassis.neoLeftFrontMotor.set(-0.3);
-    Robot.Chassis.neoRightFrontMotor.set(-0.3);
-    
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    Robot.Chassis.neoLeftFrontMotor.set(0);
+    Robot.Chassis.neoRightFrontMotor.set(0);
   }
 
   // Called when another command which requires one or more of the same

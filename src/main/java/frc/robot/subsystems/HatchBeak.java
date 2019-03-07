@@ -37,7 +37,7 @@ public class HatchBeak extends Subsystem {
   public void closeHatchBeak() {
     hatchBeakSolenoid.set(true);
   }
-    
+
   /**
    * Hatch Beak status
    */

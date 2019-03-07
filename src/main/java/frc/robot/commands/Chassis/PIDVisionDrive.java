@@ -5,46 +5,35 @@ import frc.robot.subsystems.Chassis;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Uses a PID to get us closer to the vision target
- * The drive system uses the limelight to determine the error
+ * Runs the limelight turn drive PID in teleop when a button is pressed
+ * The driver is able to drive forward while holding the button and have the code adjust towrds the target
  * @author Bryce G.
  */
 public class PIDVisionDrive extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta;
+  double turnValue, targetAngle, leftJoystick, m_speed, speed, m_timeout, targetDistance, ta, tx;
   double p, i, d;
 
   boolean turnInPlace = false;
 
   /**
-   * 
+   * Runs the limelight turn drive PID in teleop when a button is pressed
+   * The driver is able to drive forward while holding the button and have the code adjust towrds the target
    * @param p - P value (Ex: 0.05 (percent of the stop distance))
    * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
-   * @param mode - String value that tells what mode the Vision drive is in
-   * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
    */
-  public PIDVisionDrive(double p, double i, double d, String mode) {
+  public PIDVisionDrive(double p, double i, double d) {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
-    getPIDController().setOutputRange(-1, 1);       // output range for 'turn' input to drive command
-
+    getPIDController().setOutputRange(-0.4, 0.4);       // output range for 'turn' input to drive command
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 6.8;        // not used yet but will be used to drive forward to target based on ta
-    m_timeout = 5;              // time before command will end, even if target not found
 
-    switch(mode) {
-      case "turnInPlace":
-      turnInPlace = true;
-      break;
-      default :
-      turnInPlace = false;
-      break;
-    }
     requires(Robot.Chassis);
   }
 
@@ -52,7 +41,7 @@ public class PIDVisionDrive extends PIDCommand {
    * Reads the tx value from the limelight and uses it as our input to the PID Object
    */
   protected double returnPIDInput() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    return (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0));
   }
 
   /**
@@ -62,31 +51,35 @@ public class PIDVisionDrive extends PIDCommand {
    * @param output - the output given by the PID Objects
    */
   protected void usePIDOutput(double output) {
-      ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
-      m_speed = 0.6;//Robot.oi.driverJoystick.getRawAxis(1);
+    SmartDashboard.putNumber("output", output);
+      tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
-      if(ta > 0) {
-      m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
+      if(tx == 0) {
+        output = -Robot.oi.driverJoystick.getRightStickX();
+      }
 
-        if(m_speed <= -0.5) {
-          m_speed = -0.5;
-        } 
+      //If the angle error is close to the target, we want a higher P to have a sharper turn, otherwise it's a small turn
+      if(Math.abs(tx) < 8) {
+        this.getPIDController().setPID(0.06, 0, 0); 
       } else {
-        m_speed = 0;
-        output = 0;
+        this.getPIDController().setPID(0.02, 0, 0);
       }
-      System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed);
 
-      if(turnInPlace) {
-        m_speed = 0;
-        System.out.println("turnInPlace: " + turnInPlace);
+      // Keep for testing 
+      // System.out.println("tx: " + tx + " ***** " + "output: " + output); 
+
+      //Limit the forward drive to 40% while this command is active
+      if(Robot.oi.driverJoystick.getLeftStickY() < 0.4) {
+        speed = Robot.oi.driverJoystick.getLeftStickY();
+      } else {
+        speed = 0.4;
       }
-      Chassis.neoDrive.arcadeDrive(m_speed, -output, false);
+      Chassis.neoArcade(speed, -(output), false);
   }
 
   protected void initialize() {
     Robot.Vision.setLEDMode(3);
-    setTimeout(m_timeout);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     this.setSetpoint(targetAngle);
   }
 
@@ -95,13 +88,11 @@ public class PIDVisionDrive extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   protected void end() {
     Robot.Vision.setLEDMode(1);
-    Robot.Chassis.stopNeoDrive();
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
   }
 
   protected void interrupted() {
