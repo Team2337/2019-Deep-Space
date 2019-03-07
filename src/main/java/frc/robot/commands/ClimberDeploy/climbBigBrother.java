@@ -69,6 +69,7 @@ public class climbBigBrother extends Command {
             j = j + 1;
             System.out.print("**************** j value: " + j); // TODO: REMOVE PRINT
             if (j > 200) {
+                Robot.RoboWrangler.stop();
                 Robot.ClimberDeploy.climberPhase = 4;
             }
             break;
