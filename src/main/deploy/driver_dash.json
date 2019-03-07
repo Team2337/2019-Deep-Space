@@ -157,6 +157,32 @@
               "_title": "Time_Remaining_Auto"
             }
           },
+          "19,7": {
+            "size": [
+              7,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Compressor On?",
+              "_title": "/SmartDashboard/Driver/Compressor On?",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "12,6": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Auto_Line_Sensor",
+              "_title": "SmartDashboard/Driver/Auto_Line_Sensor",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
           "10,4": {
             "size": [
               2,
@@ -164,8 +190,8 @@
             ],
             "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Driver/Intake Sensor",
-              "_title": "/SmartDashboard/Driver/Intake Sensor",
+              "_source0": "network_table:///SmartDashboard/Driver/Intake sensor",
+              "_title": "Intake sensor",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -177,21 +203,8 @@
             ],
             "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Driver/Escalator Sensor",
-              "_title": "/SmartDashboard/Driver/Escalator Sensor",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "19,7": {
-            "size": [
-              7,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Driver/Compressor On?",
-              "_title": "/SmartDashboard/Driver/Compressor On?",
+              "_source0": "network_table:///SmartDashboard/Driver/Escalator sensor",
+              "_title": "Escalator sensor",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
