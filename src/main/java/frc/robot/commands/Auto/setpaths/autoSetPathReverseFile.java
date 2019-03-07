@@ -9,7 +9,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
- * Reads the trajectory to drive to a position given by the waypoints in the
+ * Reads the trajectory FROM A FILE to drive to a position given by the waypoints in the
  * reverse direction
  * 
  * @author Bryce G.
@@ -36,7 +36,7 @@ public class autoSetPathReverseFile extends Command {
   private double maxVelocity;
 
   /**
-   * Reads the set trajectories into the drive, and sets it in reverse
+   * Reads the set trajectories FROM A FILE into the drive, and sets it in reverse
    * 
    * @param trajectoryIn - desired trajectory
    * @param pidValues    - PID values for the current trajcetory, given in the

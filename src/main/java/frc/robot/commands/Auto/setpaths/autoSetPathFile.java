@@ -9,7 +9,7 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
- * Reads the trajectory to drive to a position given by the waypoints in the
+ * Reads the trajectory FROM A FILE to drive to a position given by the waypoints in the
  * forawrd direction
  * 
  * @author Bryce G.
@@ -29,7 +29,7 @@ public class autoSetPathFile extends Command {
   private double maxVelocity;
 
   /**
-   * Reads the set trajectories into the drive
+   * Reads the set trajectories FROM A FILE into the drive
    * 
    * @param trajectoryIn - desired trajectory
    * @param pidValues    - PID values for the current trajcetory, given in the
