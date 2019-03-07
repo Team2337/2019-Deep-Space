@@ -133,9 +133,6 @@ public class Robot extends TimedRobot {
 
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("driveForward", driveForwardT);
-    // Robot.NerdyPath.writeFile("curveFromToHatchRight", curveFromToHatchRightT);
-    // Robot.NerdyPath.writeFile("fromRightLoadJTurnToCargoShip", fromRightLoadJTurnToCargoShipT);
-    // Robot.NerdyPath.writeFile("jTurnToCargoShipRight", jTurnToCargoShipRightT);
 
     oi = new OI();
 
