@@ -504,7 +504,26 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("neoLeftEncoder", neoLeftFrontEncoder.getPosition());
       SmartDashboard.putNumber("Neo Right Percent Power", neoRightFrontMotor.get());
       SmartDashboard.putNumber("Neo Left Percent Power", neoLeftFrontMotor.get());
+      velocities = new double[] {getAverageLeftNeoVelocity(), getAverageRightNeoVelocity()};
+      ctreEncoders = new double[] {getLeftPosition(), getRightPosition()};
+      leftPosVelOut =  new double[] {getLeftPosition(), getAverageLeftNeoVelocity(), neoLeftFrontMotor.getOutputCurrent()};
+      rightPosVelOut =  new double[] {getRightPosition(), getAverageRightNeoVelocity(), neoRightFrontMotor.getOutputCurrent()};
 
+      SmartDashboard.putNumber("neo_Right_Encoder", neoRightFrontEncoder.getPosition());	
+      SmartDashboard.putNumber("neo_Left_Encoder", neoLeftFrontEncoder.getPosition());	
+      SmartDashboard.putNumber("Neo_Right_Percent_Power", neoRightFrontMotor.get());	
+      SmartDashboard.putNumber("Neo_Left_Percent_Power", neoLeftFrontMotor.get());	
+      SmartDashboard.putNumber("Neo_Right_Temperature", neoRightFrontMotor.getMotorTemperature());	
+      SmartDashboard.putNumber("Neo_Left_Temperature", neoLeftFrontMotor.getMotorTemperature());	
+      SmartDashboard.putNumber("Neo_Right_Current", neoRightFrontMotor.getOutputCurrent());	
+      SmartDashboard.putNumber("Neo_Left_Current", neoLeftFrontMotor.getOutputCurrent());	
+      SmartDashboard.putNumber("Neo_Right_Encoder_Velocity", neoRightFrontEncoder.getVelocity());	
+      SmartDashboard.putNumber("Neo_Left_Encoder_Velocity", neoLeftFrontEncoder.getVelocity());	
+      SmartDashboard.putNumberArray("Neo_Velocities", velocities);	
+      SmartDashboard.putNumberArray("Neo_Positions", neoEncoders);	
+
+      SmartDashboard.putNumberArray("Neo_left_graph", leftPosVelOut);	
+      SmartDashboard.putNumberArray("Neo_right_graph", rightPosVelOut);
     }
   }
 }

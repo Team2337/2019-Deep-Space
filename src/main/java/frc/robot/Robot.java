@@ -51,7 +51,6 @@ public class Robot extends TimedRobot {
   public static Pigeon Pigeon;
   public static RoboWrangler RoboWrangler;
   public static PowerDistributionPanel PDP;
-  public static Pigeon Pigeon;
   public static Shifter Shifter;
   public static TRexArms TRexArms;
   public static Vision Vision;
