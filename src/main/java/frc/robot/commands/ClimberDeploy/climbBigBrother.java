@@ -2,6 +2,7 @@ package frc.robot.commands.ClimberDeploy;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.ClimberDeploy;
 
 public class climbBigBrother extends Command {
     int i, j;
@@ -50,8 +51,9 @@ public class climbBigBrother extends Command {
                 Robot.RoboWrangler.stop();
             } else if (i > 200) {
                 Robot.ClimberDeploy.climberPhase = 2;
+                Robot.ClimberDeploy.undeployClimber();
             }
-
+            Robot.ClimberDeploy.undeployClimber();
             break;
 
         // Lower the trolley (raising the robot)
@@ -65,9 +67,18 @@ public class climbBigBrother extends Command {
         // Drive forward onto level 3 platform until the line sensor senses the platform
         case 3:
             Robot.RoboWrangler.drive(0.5);
+
+            /*
+            if (Robot.ClimberDeploy.climbLineSensor.get() == true) {
+                Robot.RoboWrangler.stop();
+                Robot.ClimberDeploy.climberPhase = 4;
+            }
+            */
+            
             // TODO: Remove timer once line sensor is installed
             j = j + 1;
             System.out.print("**************** j value: " + j); // TODO: REMOVE PRINT
+            
             if (j > 200) {
                 Robot.RoboWrangler.stop();
                 Robot.ClimberDeploy.climberPhase = 4;

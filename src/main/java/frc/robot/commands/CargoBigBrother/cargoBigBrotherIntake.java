@@ -42,6 +42,9 @@ public class cargoBigBrotherIntake extends Command {
 
         // Move the lift into the intake positon
 
+        if (Robot.Lift.atCargoIntakePosition(50)) {
+            Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+        }
         switch (Robot.CargoBigBrother.cargoLevel()) {
         case 0:
             Robot.CargoDrawbridge.lowerTheDrawbridge();
@@ -126,6 +129,9 @@ public class cargoBigBrotherIntake extends Command {
         if (!Robot.oi.operatorJoystick.triggerLeft.get()) {
             Robot.CargoScore.stop();
         }
+        // If the lift is moving (as it would if it was within 50 ticks at the start of
+        // the command), stop it.
+        Robot.Lift.stop();
     }
 
     @Override
