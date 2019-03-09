@@ -90,6 +90,9 @@ public class OI {
 		
 		operatorControls.YellowSwitch				.whenPressed(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
+		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(455));
+
+		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
 
 
 		

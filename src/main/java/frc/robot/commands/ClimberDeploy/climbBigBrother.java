@@ -102,6 +102,7 @@ public class climbBigBrother extends Command {
         case 4:
             Robot.Lift.setSetpoint(Robot.Lift.climbWheelsUpPosition);
             if (Robot.Lift.atPosition(10)) {
+                // Lift.setSoftLimits(455, 91);
                 Robot.ClimberDeploy.climberPhase = 5;
             }
             break;

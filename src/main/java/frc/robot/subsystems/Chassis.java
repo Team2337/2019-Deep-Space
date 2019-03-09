@@ -179,8 +179,8 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
-    neoLeftFrontMotor.setSmartCurrentLimit(currentLimit);
-    neoLeftRearMotor.setSmartCurrentLimit(currentLimit);
+    neoLeftFrontMotor.setSmartCurrentLimit(50, currentLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(50, currentLimit);
 
     // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
@@ -205,8 +205,8 @@ public class Chassis extends Subsystem {
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
-    neoRightFrontMotor.setSmartCurrentLimit(currentLimit);
-    neoRightRearMotor.setSmartCurrentLimit(currentLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(50, currentLimit);
+    neoRightRearMotor.setSmartCurrentLimit(50, currentLimit);
     
 
     // Right side motors aren't currently reversed

@@ -59,6 +59,8 @@ public class Lift extends Subsystem {
   public double climbLevel3Position = 91; //goes below soft limit because of tolerance
   // Position to lower the trolley to, which would bring the robot upwards
   public double climbWheelsUpPosition = 165;
+  // Position to the maximun height while on the level 3
+  public double climbHighPosition = 450;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
