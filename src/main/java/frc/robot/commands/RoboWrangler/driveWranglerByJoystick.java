@@ -30,7 +30,7 @@ public class driveWranglerByJoystick extends Command {
     @Override
     protected void execute() {
         // The value of the driver joystick's left thumbsticks up/down motion
-        joy = (Robot.oi.operatorJoystick.getRightStickY());
+        joy = -(Robot.oi.operatorJoystick.getRightStickY());
 
         /*
          * When the right joystick is moving forward, drive the robot forward using the

@@ -25,7 +25,7 @@ public class ClimberDeploy extends Subsystem {
     public ClimberDeploy() {
         climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
         climbLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
-        this.climberPhase = 5;
+        this.climberPhase = 5; // 5
         this.readyToClimb = false;
     }
 
@@ -54,7 +54,7 @@ public class ClimberDeploy extends Subsystem {
      */
     public void readyClimber() {
         this.readyToClimb = true;
-        this.climberPhase = 0;
+        this.climberPhase = 1; // 0
     }
 
     public void unreadyClimber() {

@@ -3,39 +3,47 @@ package frc.robot.commands.ClimberDeploy;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class readyClimber extends Command {
-  public readyClimber() {
-    // Use requires() here to declare subsystem dependencies
+/**
+ * Deploy the climber systems - T-Rex arms and the RoboWrangler
+ */
+public class deployClimberManual extends Command {
+
+  /**
+   * Deploy the climber systems - T-Rex arms and the RoboWrangler
+   */
+  public deployClimberManual() {
     requires(Robot.ClimberDeploy);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // Robot.ClimberDeploy.readyClimber();
-    Robot.ClimberDeploy.readyToClimb = true;
-    Robot.ClimberDeploy.climberPhase = 0;
+    Robot.ClimberDeploy.deployClimber();
+    setTimeout(1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.RoboWrangler.drive(-0.33);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
+  // This command doesn't need to be run any more than once
   @Override
   protected boolean isFinished() {
-    return true;
+    return isTimedOut();
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.RoboWrangler.stop();
+    Robot.ClimberDeploy.undeployClimber();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

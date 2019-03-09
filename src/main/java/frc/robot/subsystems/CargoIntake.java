@@ -39,7 +39,7 @@ public class CargoIntake extends Subsystem {
    *              to
    */
   public void rollIn(double speed) {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, speed); // Inverted from original
+    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed);
   }
 
   /**
@@ -49,7 +49,7 @@ public class CargoIntake extends Subsystem {
    *              to (going in reverse)
    */
   public void rollOut(double speed) {
-    CargoIntakeMotor.set(ControlMode.PercentOutput, -speed); // Inverted from original
+    CargoIntakeMotor.set(ControlMode.PercentOutput, speed); 
   }
 
   /**

@@ -42,12 +42,14 @@ public class cargoBigBrotherIntake extends Command {
 
         // Move the lift into the intake positon
 
-        if (Robot.Lift.atCargoIntakePosition(50)) {
+        if (Robot.Lift.atCargoIntakePosition(80)) {
             Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
         }
         switch (Robot.CargoBigBrother.cargoLevel()) {
         case 0:
+        if(Robot.oi.operatorJoystick.triggerRight.get()) {
             Robot.CargoDrawbridge.lowerTheDrawbridge();
+        }
             // Start rolling the intake inwards
             Robot.CargoIntake.rollIn(intakeSpeed);
             // Does not break, as the next cases have the same ending
