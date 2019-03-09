@@ -15,7 +15,7 @@ public class cargoBigBrotherIntake extends Command {
     double trolleyIntakeSpeed = 0.3;
 
     // How close the lift needs to be to the intake position
-    double liftTolerance = 5;
+    double liftTolerance = 10;
 
     /**
      * Runs the cargo intake system to get the ball into the score position
@@ -32,6 +32,7 @@ public class cargoBigBrotherIntake extends Command {
         requires(Robot.CargoIntake);
         requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
+        requires(Robot.Lift);
     }
 
     // Check the cargo level and start the command accordingly.

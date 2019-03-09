@@ -22,7 +22,7 @@ public class climbBigBrother extends Command {
         i = 0;
         j = 0;
 
-        if(Robot.ClimberDeploy.climberPhase == 1) {
+        if (Robot.ClimberDeploy.climberPhase == 1) {
             Robot.ClimberDeploy.climberPhase = 2;
         }
 
@@ -46,20 +46,26 @@ public class climbBigBrother extends Command {
         // Release the climber arms
         case 1:
             // Running the RoboWrangler drive motor backwards will help release the climber
-            // Robot.ClimberDeploy.deployClimber();
-            // Robot.RoboWrangler.drive(-1.0);
+            Robot.ClimberDeploy.deployClimber();
+
             // System.out.print("**************** i value: " + i); // TODO: REMOVE PRINT
+            
             i = i + 1;
             // TODO: Adjust to allow appropriate amount of time for deployment
             // Stop running the RoboWrangler drive motor before the end of this phase,
             // preventing the rope from getting tangled
-            if (i > 65 && i < 95) { // 100
+            if (i > 0 && i < 49) { 
+
+            } else if (i > 25 && i < 150) { // 100
+                Robot.RoboWrangler.drive(-1.0);
                 // Robot.RoboWrangler.stop();
-                
-            } else if (i > 96) { // 200
+
+            } else if (i > 96 && i < 110) { // 200
                 // Robot.ClimberDeploy.climberPhase = 2;
                 // Robot.ClimberDeploy.undeployClimber();
                 // System.out.print("**************** i value: " + i); // TODO: REMOVE PRINT
+            } else if (i > 111) {
+                i = 0;
             }
             break;
 
@@ -69,7 +75,7 @@ public class climbBigBrother extends Command {
             Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 3;
-                
+
             }
             break;
 
@@ -115,6 +121,7 @@ public class climbBigBrother extends Command {
 
     protected void end() {
         Robot.RoboWrangler.stop();
+        Robot.ClimberDeploy.undeployClimber();
         Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     }
 

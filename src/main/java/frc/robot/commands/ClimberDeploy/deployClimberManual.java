@@ -25,7 +25,7 @@ public class deployClimberManual extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.RoboWrangler.drive(-0.33);
+    Robot.RoboWrangler.drive(-1.0);
   }
 
   // This command doesn't need to be run any more than once

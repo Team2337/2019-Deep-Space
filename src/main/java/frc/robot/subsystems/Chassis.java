@@ -207,6 +207,7 @@ public class Chassis extends Subsystem {
 
     neoRightFrontMotor.setSmartCurrentLimit(currentLimit);
     neoRightRearMotor.setSmartCurrentLimit(currentLimit);
+    
 
     // Right side motors aren't currently reversed
     neoRightFrontMotor.setInverted(true);

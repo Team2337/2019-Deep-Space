@@ -49,7 +49,7 @@ public class CGTwoHatchAutoRight extends CommandGroup {
       addSequential(new hatchKickerRetract());
       addSequential(new autoWaitSensorReset(0.5));
       addSequential(new autoLiftToPosition(Robot.Lift.hatchIntakePosition + 40, 2));
-      /*
+      
       addSequential(new limeLightLEDOn());
       addSequential(new autoWait(.5));
       // Robot.curveFromToHatchRightT
@@ -57,7 +57,7 @@ public class CGTwoHatchAutoRight extends CommandGroup {
       addSequential(new hatchKickerExtend());
       addSequential(new autoWait(.4));
       addSequential(new hatchKickerRetract());
-      */
+      
       // addSequential(new hatchBeakClose());
       // addSequential(new hatchLauncherExtend());
       // addSequential(new PID3DLimelight(0.05, 0, 0, ""));

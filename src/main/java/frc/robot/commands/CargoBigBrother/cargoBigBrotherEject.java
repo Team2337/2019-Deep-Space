@@ -10,7 +10,7 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
-    double tolerance = 5;
+    double tolerance = 10;
 
     /**
      * Ejects the cargo from the cargo intake insystem
