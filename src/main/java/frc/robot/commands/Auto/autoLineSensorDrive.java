@@ -42,20 +42,14 @@ public class autoLineSensorDrive extends Command {
 		 * If it sees the line, end the command
 		 */
 		if(Robot.Chassis.linesCrossed == 2) {
-			//TODO: Fix Neo Arcade drive
-			// Chassis.neoDrive.arcadeDrive(0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(0.1);
 			Robot.Chassis.neoRightFrontMotor.set(0.1);
 		}
 		if(Robot.Chassis.linesCrossed == 1) {
-			//TODO: Fix Neo Arcade drive
-			// Chassis.neoDrive.arcadeDrive(-0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}
 		if(Robot.Chassis.linesCrossed == 0) {
-			//TODO: Fix Neo Arcade drive
-			// Chassis.neoDrive.arcadeDrive(-0.2, 0, false);
 			Robot.Chassis.neoLeftFrontMotor.set(-0.1);
 			Robot.Chassis.neoRightFrontMotor.set(-0.1);
 		}

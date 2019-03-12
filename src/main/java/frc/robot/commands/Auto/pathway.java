@@ -80,8 +80,8 @@ public class pathway {
      */
     private static Waypoint[] curveFromToHatchRight = new Waypoint[] { 
         new Waypoint(0, 0, 0),
-        new Waypoint(3.5, 2.05, 0.2), // 3.5, 2.35
-        new Waypoint(5, 2.25, 0) // 5.95
+        new Waypoint(3.5, inchesToMeters(80.7), 0.2), //supposed to be 139 // 3.5, 2.05
+        new Waypoint(5, inchesToMeters(89), 0) //supposed to be 147 // 5, 2.25
     };
 
     /**
@@ -166,7 +166,7 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(198), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+        new Waypoint(inchesToMeters(187), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
     };
 
     /**

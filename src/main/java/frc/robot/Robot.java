@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
     Lift = new Lift();
     Pigeon = new Pigeon();
     RoboWrangler = new RoboWrangler();
-    PDP = new PowerDistributionPanel();
+    //PDP = new PowerDistributionPanel();
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     TRexArms = new TRexArms();
@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
-        // driveForwardT = pathway.driveForward();
+        driveForwardT = pathway.driveForward();
         // curveFromToHatchRightT = pathway.curveFromToHatchRight();
         // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
         // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
     }
 
     // Writing a trajectory to a file (keep commented out until needed)
-    // Robot.NerdyPath.writeFile("driveForward", driveForwardT);
+    // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
 
     oi = new OI();
 
@@ -185,6 +185,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
     SmartDashboard.putBoolean("Driver/Compressor On?", Robot.AirCompressor.status());
     SmartDashboard.putBoolean("Driver/Auto_Line_Sensor", Robot.Chassis.autoLineSensor.get());
+    SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climbLineSensor.get());
+
+    SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
+    SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
   }
 
   /**

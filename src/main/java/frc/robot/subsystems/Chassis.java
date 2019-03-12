@@ -69,6 +69,9 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
+  public int stallLimit = 50; //in amps - Used in shifterLowGear
+  public int currentLimit = 80; //in amps
+
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private static int rightFrontID;
@@ -176,6 +179,9 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
+    neoLeftFrontMotor.setSmartCurrentLimit(currentLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(currentLimit);
+
     // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
     neoLeftRearMotor.setInverted(false);
@@ -198,6 +204,10 @@ public class Chassis extends Subsystem {
     // Right side encoders
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
+
+    neoRightFrontMotor.setSmartCurrentLimit(currentLimit);
+    neoRightRearMotor.setSmartCurrentLimit(currentLimit);
+    
 
     // Right side motors aren't currently reversed
     neoRightFrontMotor.setInverted(true);

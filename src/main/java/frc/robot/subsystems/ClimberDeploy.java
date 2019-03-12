@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,15 +14,18 @@ public class ClimberDeploy extends Subsystem {
     public boolean readyToClimb;
 
     public int climberPhase;
-    
+
     private Solenoid climberRelease;
+
+    public DigitalInput climbLineSensor;
 
     /**
      * Controls the release the climber systems using a pneumatics
      */
     public ClimberDeploy() {
         climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
-        this.climberPhase = 5;
+        climbLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
+        this.climberPhase = 5; // 5
         this.readyToClimb = false;
     }
 
@@ -43,13 +47,16 @@ public class ClimberDeploy extends Subsystem {
     public void undeployClimber() {
         climberRelease.set(false);
     }
+
     /*
-     * Boolean to track Black switch on drivers station, determining if climber is active.
+     * Boolean to track Black switch on drivers station, determining if climber is
+     * active.
      */
     public void readyClimber() {
         this.readyToClimb = true;
-        this.climberPhase = 0;
+        this.climberPhase = 1; // 0
     }
+
     public void unreadyClimber() {
         this.readyToClimb = false;
         this.climberPhase = 5;

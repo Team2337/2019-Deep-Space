@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.commands.RoboWrangler.*;
@@ -16,7 +17,6 @@ public class RoboWrangler extends Subsystem {
 
     public RoboWrangler() {
         this.wranglerDriveMotor = new TalonSRX(Robot.Constants.wranglerDriveID);
-
         wranglerLassoMotor = new TalonSRX(Robot.Constants.wranglerLassoID);
     }
 

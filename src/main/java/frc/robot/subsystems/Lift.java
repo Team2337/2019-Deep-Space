@@ -31,13 +31,13 @@ public class Lift extends Subsystem {
   /* --- Lift Set Positions --- */
   // TODO: Tune these positions for comp bot
   // Position to score cargo low in the rocket
-  public double cargoLowScorePosition = 95; // 201
+  public double cargoLowScorePosition = 100; // 201
   // Position to score cargo mid in the rocket
   public double cargoMidScorePosition = 608;// COMP
   // Position to score cargo in the cargo ship
   public double cargoShipScorePosition = 474; // COMP // 469;
   // Position to allow the escalator to feed a ball into the trolley
-  public double cargoIntakePosition = 95;
+  public double cargoIntakePosition = 100;
   // Position to store the cargo after loading, but before scoring
   public double cargoLoadedPosition = cargoIntakePosition; // 208
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
@@ -45,20 +45,22 @@ public class Lift extends Subsystem {
   public double cargoEjectPosition = 500;
 
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 110;// 165;
+  public double hatchLowScorePosition = 155;// 165;
   // Position to score hatch on the cargo ship
   public double hatchCargoShipScorePosition = 469;
   // Position to score hatch on the mid rocket
-  public double hatchMidScorePosition = 676;
+  public double hatchMidScorePosition = 660;
   // Position to intake a hatch panel at
   public double hatchIntakePosition = 160;
 
   // Position to raise the trolley to, allowing the climber to deploy
-  public double climbDeployPosition = 600;
+  public double climbDeployPosition = 540;
   // Position to lower the trolley to, which would bring the robot upwards
-  public double climbLevel3Position = 120;
+  public double climbLevel3Position = 91; //goes below soft limit because of tolerance
   // Position to lower the trolley to, which would bring the robot upwards
   public double climbWheelsUpPosition = 165;
+  // Position to the maximun height while on the level 3
+  public double climbHighPosition = 450;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -99,8 +101,8 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 680;
-  public static int reverseLiftSoftLimit = 80;
+  public static int forwardLiftSoftLimit = 660;
+  public static int reverseLiftSoftLimit = 100;
 
   // The boundaries of where the robot should consider the stringpot to be working
   // These are used in Robot to determine whether the sensor is out of bounds.
