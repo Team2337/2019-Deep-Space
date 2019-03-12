@@ -179,7 +179,6 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
-    //TODO: Look into current limiting and stall limit
     neoLeftFrontMotor.setSmartCurrentLimit(50, currentLimit);
     neoLeftRearMotor.setSmartCurrentLimit(50, currentLimit);
 
@@ -206,7 +205,6 @@ public class Chassis extends Subsystem {
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
-    //TODO: Look into current limiting and stall limit
     neoRightFrontMotor.setSmartCurrentLimit(50, currentLimit);
     neoRightRearMotor.setSmartCurrentLimit(50, currentLimit);
     

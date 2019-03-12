@@ -2,7 +2,6 @@ package frc.robot.commands.ClimberDeploy;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.ClimberDeploy;
 import frc.robot.subsystems.Lift;
 
 public class climbBigBrother extends Command {
@@ -33,8 +32,7 @@ public class climbBigBrother extends Command {
 
     @Override
     protected void execute() {
-        // TODO: if (Robot.ClimberDeploy.readyToClimb) { //or does switching case
-        // between 5 and 0 work?
+
         switch (Robot.ClimberDeploy.climberPhase) {
         // Move the trolley into position to release the climber arms - The T-Rex arms
         // must miss the platform, and the RoboWrangler must hit the bumpers
@@ -49,10 +47,9 @@ public class climbBigBrother extends Command {
             // Running the RoboWrangler drive motor backwards will help release the climber
             Robot.ClimberDeploy.deployClimber();
 
-            // System.out.print("**************** i value: " + i); // TODO: REMOVE PRINT
+           
             
             i = i + 1;
-            // TODO: Adjust to allow appropriate amount of time for deployment
             // Stop running the RoboWrangler drive motor before the end of this phase,
             // preventing the rope from getting tangled
             if (i > 0 && i < 49) { 
@@ -64,7 +61,7 @@ public class climbBigBrother extends Command {
             } else if (i > 96 && i < 110) { // 200
                 // Robot.ClimberDeploy.climberPhase = 2;
                 // Robot.ClimberDeploy.undeployClimber();
-                // System.out.print("**************** i value: " + i); // TODO: REMOVE PRINT
+
             } else if (i > 111) {
                 i = 0;
             }
@@ -91,7 +88,6 @@ public class climbBigBrother extends Command {
 
             // TODO: Remove timer once line sensor is installed
             j = j + 1;
-            // System.out.print("**************** j value: " + j); // TODO: REMOVE PRINT
 
             if (j > 400) {
                 Robot.RoboWrangler.stop();

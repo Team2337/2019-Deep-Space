@@ -2,8 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
-import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
+import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;

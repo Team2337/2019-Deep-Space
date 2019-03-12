@@ -28,7 +28,6 @@ public class cargoBigBrotherEject extends Command {
 
     @Override
     protected void initialize() {
-        // TODO: Determine if launching backwards over the robot is possible
         Robot.CargoEscalator.rollDown(1);
         Robot.CargoIntake.rollOut(1);
     }

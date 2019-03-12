@@ -12,7 +12,6 @@ public class readyClimber extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // Robot.ClimberDeploy.readyClimber();
     Robot.ClimberDeploy.readyToClimb = true;
     Robot.ClimberDeploy.climberPhase = 0;
   }
