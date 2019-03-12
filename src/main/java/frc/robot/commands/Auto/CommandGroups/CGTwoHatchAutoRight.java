@@ -39,7 +39,8 @@ public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
   public CGTwoHatchAutoRight() {
     //Robot.driveForwardT
-    addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0], 0.1)); //last value is the max velocity
+    addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0], 0.1));
+      //use this to read from the file
       // addSequential(new autoSetPathReverseFile(Robot.NerdyPath.readFile("driveForward187"), valuesPID[0], 0.1, 0.35)); //last value is the max velocity
       addSequential(new autoLineSensorDrive());
       addSequential(new autoLiftToPosition((Robot.Lift.getPosition() + 30), 2));
@@ -61,7 +62,8 @@ public class CGTwoHatchAutoRight extends CommandGroup {
       // addSequential(new hatchBeakClose());
       // addSequential(new hatchLauncherExtend());
       // addSequential(new PID3DLimelight(0.05, 0, 0, ""));
-      /*
+      /* 
+      // Needed to fix this 
       addSequential(new hatchBeakOpen());
       addSequential(new autoWait(0.1));
       addSequential(new hatchLauncherRetract());

@@ -1,12 +1,13 @@
 package frc.robot.commands.ClimberDeploy;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.subsystems.ClimberDeploy;
 import frc.robot.subsystems.Lift;
 
 public class climbBigBrother extends Command {
+    //TODO: Change i and j to a variable name that means something
+    // i is a timer, and so is j
     int i, j;
     boolean finished;
 

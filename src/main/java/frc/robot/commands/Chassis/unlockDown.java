@@ -1,10 +1,7 @@
 package frc.robot.commands.Chassis;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
-import frc.robot.nerdyfiles.controller.NerdyUltimateXboxDriver;
 import frc.robot.subsystems.Chassis;
 
 /**
@@ -21,7 +18,7 @@ public class unlockDown extends Command {
     }
 
     protected void initialize() {
-        // Robot.Chassis.driveArcade(0, 0, 0);
+        Chassis.neoArcade(0, 0, false);
     }
 
     // Supplys the correct values to the arcadeDrive command to drive the robot

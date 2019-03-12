@@ -1,6 +1,5 @@
 package frc.robot.commands.Lift;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.Lift;

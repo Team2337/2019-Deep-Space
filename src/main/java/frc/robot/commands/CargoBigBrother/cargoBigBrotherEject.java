@@ -10,6 +10,7 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
+    //tolerance of 10 allows for the cargo to be ejected when the trolley is below the min soft limit
     double tolerance = 10;
 
     /**

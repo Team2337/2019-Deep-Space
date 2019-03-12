@@ -14,7 +14,8 @@ public class cargoBigBrotherIntake extends Command {
     // Speed of the trolley intake. Slower to prevent overshooting the sensor
     double trolleyIntakeSpeed = 0.3;
 
-    // How close the lift needs to be to the intake position
+    // How close the lift needs to be to the intake position 
+    // (10 in order to make sure the cargo can be inatken when the trolley is below the soft limit)
     double liftTolerance = 10;
 
     /**

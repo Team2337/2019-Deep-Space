@@ -1,11 +1,7 @@
 package frc.robot.commands.Chassis;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
-import frc.robot.nerdyfiles.controller.NerdyUltimateXboxDriver;
-import frc.robot.subsystems.Chassis;
 
 /**
  * Uses controller joysticks to drive the robot using ArcadeDrive
@@ -18,10 +14,8 @@ public class lockDown extends PIDCommand {
     double i = 0, d = 0;
 
     /**
-     * Uses Arcade Drive to drive either Neo or Talon motor controllers
-     * 
-     * @param isNeoDrive A boolean representing whether or not the joystick should
-     *                   control Neos to drive
+     * Puts the chassis into lockdown mode
+     * Resets the encoders, and sets the setpoint to 0 and drive the P through the roof in order to keep the chassis from moving
      */
     public lockDown() {
         super(4, 0, 0);
@@ -33,6 +27,7 @@ public class lockDown extends PIDCommand {
     }
 
     protected void initialize() {
+        //Resets all of the encoders to ensure the robot doesn't move
         Robot.Chassis.resetEncoders();
         Robot.Chassis.resetNeoEncoders();
         Robot.Shifter.shiftLowGear();
