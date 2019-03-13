@@ -32,7 +32,7 @@ public class Chassis extends Subsystem {
    * @see #periodic()
    */
   boolean chassisDebug = false;
-  boolean neoDebug = false;
+  boolean neoDebug = true;
   boolean pathFinderDebug = false;
 
   public double jumpModifier = 0.8;
@@ -69,8 +69,8 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
-  public int stallLimit = 50; //in amps - Used in shifterLowGear
-  public int currentLimit = 80; //in amps
+  public int stallLimit = 60; //in amps - Used in shifterLowGear
+  public int currentLimit = 20;//80; //in amps
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -92,7 +92,7 @@ public class Chassis extends Subsystem {
   public static double[] ctreEncoders;	
   public static double[] neoEncoders;	
   public static double[] leftPosVelOut;	
-  public static double[] rightPosVelOut;
+  public static double[] rightPosVelOut, neoCurrentRight, neoCurrentLeft;
 
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
@@ -171,7 +171,7 @@ public class Chassis extends Subsystem {
 
     /* --- Neo Drive Left --- */
 
-    // Sets up the left side motors as CAN SparkMax Brushless Motors
+    // Sets up the left side motors as CAN SparkMax Brushless Motors`
     neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
     neoLeftRearMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
 
@@ -179,8 +179,10 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
-    neoLeftFrontMotor.setSmartCurrentLimit(currentLimit);
-    neoLeftRearMotor.setSmartCurrentLimit(currentLimit);
+    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit);
+
+    neoLeftFrontMotor.setSecondaryCurrentLimit(0, 10);
 
     // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
@@ -205,8 +207,8 @@ public class Chassis extends Subsystem {
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
-    neoRightFrontMotor.setSmartCurrentLimit(currentLimit);
-    neoRightRearMotor.setSmartCurrentLimit(currentLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit);
+    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit);
     
 
     // Right side motors aren't currently reversed
@@ -519,6 +521,8 @@ public class Chassis extends Subsystem {
       leftPosVelOut =  new double[] {getLeftPosition(), getAverageLeftNeoVelocity(), neoLeftFrontMotor.getOutputCurrent()};
       rightPosVelOut =  new double[] {getRightPosition(), getAverageRightNeoVelocity(), neoRightFrontMotor.getOutputCurrent()};
       neoEncoders = new double[] {neoLeftFrontEncoder.getPosition(), neoRightFrontEncoder.getPosition()};
+      neoCurrentRight = new double[] {neoRightFrontMotor.getOutputCurrent(), neoRightRearMotor.getOutputCurrent()};
+      neoCurrentLeft = new double[] {neoLeftFrontMotor.getOutputCurrent(), neoLeftRearMotor.getOutputCurrent()};
       SmartDashboard.putNumber("neo_Right_Encoder", neoRightFrontEncoder.getPosition());	
       SmartDashboard.putNumber("neo_Left_Encoder", neoLeftFrontEncoder.getPosition());	
       SmartDashboard.putNumber("Neo_Right_Percent_Power", neoRightFrontMotor.get());	
@@ -529,6 +533,16 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Neo_Left_Current", neoLeftFrontMotor.getOutputCurrent());	
       SmartDashboard.putNumber("Neo_Right_Encoder_Velocity", neoRightFrontEncoder.getVelocity());	
       SmartDashboard.putNumber("Neo_Left_Encoder_Velocity", neoLeftFrontEncoder.getVelocity());	
+
+      
+      SmartDashboard.putNumberArray("Neo_Current_Left", neoCurrentLeft);
+      SmartDashboard.putNumberArray("Neo_Current_Right", neoCurrentRight);
+      
+      SmartDashboard.putNumber("Neo_Current_Left_Front", neoLeftFrontMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Current_Right_Front", neoRightFrontMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Current_Left_Rear", neoLeftRearMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Current_Right_Rear", neoRightRearMotor.getOutputCurrent());
+
       SmartDashboard.putNumberArray("Neo_Velocities", velocities);	
       SmartDashboard.putNumberArray("Neo_Positions", neoEncoders);	
 
