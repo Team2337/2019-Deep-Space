@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -186,6 +187,16 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Driver/Compressor On?", Robot.AirCompressor.status());
     SmartDashboard.putBoolean("Driver/Auto_Line_Sensor", Robot.Chassis.autoLineSensor.get());
     SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climbLineSensor.get());
+
+    SmartDashboard.putNumber("Sticky Faults", Robot.Chassis.neoLeftRearMotor.getStickyFaults());
+    SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.getFaults());
+
+    // System.out.println(Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChop).get() + " --- " + Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChopCycles).get());
+    // System.out.println(Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChop).get() + " --- " + Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChopCycles).get());
+    // System.out.println(Robot.Chassis.neoRightRearMotor.getParameterInt(ConfigParameter.kCurrentChop).get() + " --- " + Robot.Chassis.neoRightRearMotor.getParameterInt(ConfigParameter.kCurrentChopCycles).get());
+    // SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.get);
+
+    // SmartDashboard.putNumber("FRONT Sticky Faults", Robot.Chassis.neoLeftFrontMotor.getStickyFaults());
 
     SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
     SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);

@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -69,8 +70,9 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
-  public int stallLimit = 60; //in amps - Used in shifterLowGear
-  public int currentLimit = 20;//80; //in amps
+  public int stallLimit = 20; //in amps - Used in shifterLowGear
+  public int currentLimit = 40;//80; //in amps
+  public int rpmLimit = 10;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -179,10 +181,10 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
-    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit);
-    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit);
+    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
 
-    neoLeftFrontMotor.setSecondaryCurrentLimit(0, 10);
+    neoLeftRearMotor.clearFaults();
 
     // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
@@ -207,8 +209,8 @@ public class Chassis extends Subsystem {
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
-    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit);
-    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
     
 
     // Right side motors aren't currently reversed

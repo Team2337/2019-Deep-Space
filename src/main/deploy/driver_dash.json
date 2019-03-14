@@ -246,6 +246,169 @@
           }
         }
       }
+    },
+    {
+      "title": "Tab 2",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "16,0": {
+            "size": [
+              24,
+              9
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Left",
+              "_title": "SmartDashboard/Neo_Current_Left",
+              "Graph/Visible time": 30.0,
+              "Visible data/SmartDashboard/Neo_Current_Left[0]": true,
+              "Visible data/SmartDashboard/Neo_Current_Left[1]": true
+            }
+          },
+          "8,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Left_Front",
+              "_title": "SmartDashboard/Neo_Current_Left_Front"
+            }
+          },
+          "16,9": {
+            "size": [
+              24,
+              9
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Right",
+              "_title": "SmartDashboard/Neo_Current_Right",
+              "Graph/Visible time": 30.0,
+              "Visible data/SmartDashboard/Neo_Current_Right[0]": true,
+              "Visible data/SmartDashboard/Neo_Current_Right[1]": true
+            }
+          },
+          "8,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Left_Rear",
+              "_title": "SmartDashboard/Neo_Current_Left_Rear"
+            }
+          },
+          "11,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Right_Front",
+              "_title": "SmartDashboard/Neo_Current_Right_Front"
+            }
+          },
+          "11,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Right_Rear",
+              "_title": "SmartDashboard/Neo_Current_Right_Rear"
+            }
+          },
+          "4,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RF_Temp",
+              "_title": "SmartDashboard/Driver/Neo_RF_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "0,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LR_Temp",
+              "_title": "SmartDashboard/Driver/Neo_LR_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "0,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LF_Temp",
+              "_title": "SmartDashboard/Driver/Neo_LF_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "4,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RR_Temp",
+              "_title": "SmartDashboard/Driver/Neo_RR_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "10,6": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Faults",
+              "_title": "SmartDashboard/Faults"
+            }
+          },
+          "10,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Sticky Faults",
+              "_title": "SmartDashboard/Sticky Faults"
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
