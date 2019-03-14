@@ -27,7 +27,7 @@ public class AirCompressor extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new compressorTurnOn());
+
   }
 
   /**
