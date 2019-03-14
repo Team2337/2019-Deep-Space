@@ -83,12 +83,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    // Attempt to get the MAC address of the robot
     try {
       NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
 
       byte[] address = network.getHardwareAddress();
-
-      System.out.print("Current MAC address : ");
 
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < address.length; i++) {
@@ -101,15 +101,14 @@ public class Robot extends TimedRobot {
     } catch (SocketException e) {
       System.out.println("Socket Exception - " + e);
     }
-    // Used to get the mac address from the roboRio
 
+    // Determines what robot we are using
     if (mac.equals("00:80:2F:17:89:85")) {
-      System.out.println("TestBoard " + mac);
-      isComp = false;
-    } else if (mac.equals("00:80:2F:19:21:E1")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
-    } else { // 00-80-2F-17-E5-D2
+    } else {
+      // If we are not using PracticeBot, assume we are using CompBot (this also will
+      // cover if there is an error while getting the MAC address)
       System.out.println("CompBot " + mac);
       isComp = true;
     }
