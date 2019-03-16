@@ -70,8 +70,8 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
-  public int stallLimit = 20; //in amps - Used in shifterLowGear
-  public int currentLimit = 40;//80; //in amps
+  public int stallLimit = 40; //in amps - Used in shifterLowGear
+  public int currentLimit = 60;//80; //in amps
   public int rpmLimit = 10;
 
   /* --- CAN ID SETUP --- */
@@ -354,6 +354,13 @@ public class Chassis extends Subsystem {
   /* ------------ Neo Methods ------------ */
   /* ------------------------------------- */
   /*****************************************/
+
+  public void setNeoCurrentLimits(int stallLimit, int currentLimit, int rpmLimit) {
+    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+  }
 
   /**
    * Get the average value of both NEO drive side's encoder averages
