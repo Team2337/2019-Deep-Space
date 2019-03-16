@@ -191,13 +191,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Sticky Faults", Robot.Chassis.neoLeftRearMotor.getStickyFaults());
     SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.getFaults());
 
-    // System.out.println(Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChop).get() + " --- " + Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChopCycles).get());
-    // System.out.println(Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChop).get() + " --- " + Robot.Chassis.neoRightFrontMotor.getParameterInt(ConfigParameter.kCurrentChopCycles).get());
-    // System.out.println(Robot.Chassis.neoRightRearMotor.getParameterInt(ConfigParameter.kCurrentChop).get() + " --- " + Robot.Chassis.neoRightRearMotor.getParameterInt(ConfigParameter.kCurrentChopCycles).get());
-    // SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.get);
-
-    // SmartDashboard.putNumber("FRONT Sticky Faults", Robot.Chassis.neoLeftFrontMotor.getStickyFaults());
-
     SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
     SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
   }
