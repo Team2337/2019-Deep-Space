@@ -70,8 +70,9 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
-  public int stallLimit = 40; //in amps - Used in shifterLowGear
-  public int currentLimit = 60;//80; //in amps
+  //35, 35 doesn't allow for turn in place
+  public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
+  public int currentLimit = 40;//60 //in amps
   public int rpmLimit = 10;
 
   /* --- CAN ID SETUP --- */
