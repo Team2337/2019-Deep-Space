@@ -103,13 +103,20 @@ public class PID3DLimelight extends PIDCommand {
 
       m_speed = 0.5;
 
+      if(noDistance) {
+        m_speed = Robot.oi.driverJoystick.getLeftStickY();
+      }
+
     if (initialDistance == 0 && noDistance) {
       initialDistance = limelight3D[2]; // init distance
     } else if (noDistance) {
       Robot.Chassis.resetEncoders();
-      targetDistance = (Math.abs(initialDistance * ticksPerInch) + distanceModifier/* endDistanceFromTarget */);
+      //TODO: Test Chassis PID subsystem 
+      Robot.Chassis.setSetpoint(10000);
+      // targetDistance = (Math.abs(initialDistance * ticksPerInch) + distanceModifier/* endDistanceFromTarget */);
       noDistance = false;
-    } else {
+    } 
+    /*else {
       distanceAway = Robot.Chassis.getAverageEncoderPosition();
     }
 
@@ -125,14 +132,16 @@ public class PID3DLimelight extends PIDCommand {
       if (!noDistance) {
         m_speed = -(driveP * (m_speed * ((Math.abs(distanceAway) - targetDistance) / Math.abs(targetDistance))));
       }
-
+      */
       if (m_speed < 0) {
         m_speed = 0;
       }
+      /*
     } else {
       m_speed = Robot.oi.driverJoystick.getLeftStickY();
       output = 0;
     }
+    */
     // System.out.println("Yaw: " + -Robot.Pigeon.getYaw() + " ***** " + "output: " + output + "****" + "TX: " + tx);
     // System.out.println("Speed: " + m_speed + " **** " + "Encoder Ticks: " + Robot.Chassis.getAverageEncoderPosition() + " **** " + "Distance Away: " + distanceAway);
 
@@ -142,8 +151,7 @@ public class PID3DLimelight extends PIDCommand {
   }
 
   protected void execute() {
-    limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran")
-        .getDoubleArray(limelightValues);
+    limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);
 
     if (tx == 0 && angleNotSet) {
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
