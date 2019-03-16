@@ -41,6 +41,7 @@ public class Chassis extends Subsystem {
   public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
+  public DigitalInput centerLineSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -108,6 +109,7 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
+    centerLineSensor = new DigitalInput(Robot.Constants.centerLineSensorID);
 
     /*****************************************/
     /* ------------------------------------- */
@@ -483,7 +485,8 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	      
+      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	
+      SmartDashboard.putBoolean("Climber_Alignment", centerLineSensor.get()); 
       SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); 
       SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); 
       SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition());     
