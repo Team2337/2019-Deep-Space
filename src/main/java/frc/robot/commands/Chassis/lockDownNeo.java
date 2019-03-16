@@ -5,9 +5,10 @@ import com.revrobotics.ControlType;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Chassis;
 
 public class lockDownNeo extends Command {
+
+    // PID Values
     double moveSpeed;
     double kP = 4;
     double kI = 0;
@@ -19,9 +20,12 @@ public class lockDownNeo extends Command {
     private CANPIDController rightPIDController, leftPIDController;
 
     public lockDownNeo() {
+
+        // PID Controllers for each Spark MAX
         rightPIDController = Robot.Chassis.neoRightFrontMotor.getPIDController();
         leftPIDController = Robot.Chassis.neoLeftFrontMotor.getPIDController();
 
+        // Set the PID values to those given above
         rightPIDController.setP(kP);
         rightPIDController.setI(kI);
         rightPIDController.setD(kD);
@@ -41,16 +45,17 @@ public class lockDownNeo extends Command {
 
     protected void initialize() {
 
-        // Reset all of the robots encoders to set its current position to 0
+        // Reset all of the robots encoders to set their current position to 0
         Robot.Chassis.resetEncoders();
         Robot.Chassis.resetNeoEncoders();
         Robot.Shifter.shiftLowGear();
 
-        // Sets the NEO Position to zero to hold its current position
+        // Sets the NEO Position to zero to hold the current position
         rightPIDController.setReference(0, ControlType.kPosition);
         leftPIDController.setReference(0, ControlType.kPosition);
     }
 
+    // This command cannot end, or else the Chassis returns to driveByJoystick
     @Override
     protected boolean isFinished() {
         return false;
@@ -58,6 +63,6 @@ public class lockDownNeo extends Command {
 
     @Override
     protected void end() {
-        Chassis.neoArcade(0, 0, false);
+
     }
 }
