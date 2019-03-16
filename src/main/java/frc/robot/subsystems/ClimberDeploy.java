@@ -17,14 +17,14 @@ public class ClimberDeploy extends Subsystem {
 
     private Solenoid climberRelease;
 
-    public DigitalInput climbLineSensor;
+    public DigitalInput climberLineSensor;
 
     /**
      * Controls the release the climber systems using a pneumatics
      */
     public ClimberDeploy() {
         climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
-        climbLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
+        climberLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
         this.climberPhase = 5; // 5
         this.readyToClimb = false;
     }

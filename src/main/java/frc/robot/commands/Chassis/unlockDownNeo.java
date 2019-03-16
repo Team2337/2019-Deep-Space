@@ -5,28 +5,26 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 
 /**
- * Uses controller joysticks to drive the robot using ArcadeDrive
+ * Disable lockdown mode for the Neos
  */
-public class unlockDown extends Command {
-
+public class unlockDownNeo extends Command {
 
     /**
-     * Stops the lockdown by setting the chassis to 0 speed
+     * Disable lockdown mode for the Neos
      */
-    public unlockDown() {
+    public unlockDownNeo() {
         requires(Robot.Chassis);
     }
 
+    // Stops the lockdown by setting the chassis to 0 speed
     protected void initialize() {
         Chassis.neoArcade(0, 0, false);
     }
 
-    // Supplys the correct values to the arcadeDrive command to drive the robot
     protected void execute() {
 
     }
 
-    // This command is not meant to exit
     protected boolean isFinished() {
         return true;
     }

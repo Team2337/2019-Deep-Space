@@ -6,6 +6,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -225,7 +226,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
     SmartDashboard.putBoolean("Driver/Compressor On?", Robot.AirCompressor.status());
     SmartDashboard.putBoolean("Driver/Auto_Line_Sensor", Robot.Chassis.autoLineSensor.get());
-    SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climbLineSensor.get());
+    SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climberLineSensor.get());
+
+    SmartDashboard.putNumber("Sticky Faults", Robot.Chassis.neoLeftRearMotor.getStickyFaults());
+    SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.getFaults());
 
     SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
     SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
