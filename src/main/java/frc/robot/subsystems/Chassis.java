@@ -12,10 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @category CHASSIS
  * @author Jack E.
  */
-public class Chassis extends PIDSubsystem {
+public class Chassis extends Subsystem {
 
   /**
    * Specifies whether or not the Chassis will be in debug mode.
@@ -96,7 +97,6 @@ public class Chassis extends PIDSubsystem {
   public static double[] rightPosVelOut, neoCurrentRight, neoCurrentLeft;
 
   public Chassis() {
-    super(0.00005, 0, 0);
     rightFrontID = Robot.Constants.chassisRightFrontID;
     rightRearID = Robot.Constants.chassisRightRearID;
     // rightEncoderTalonID = Robot.Constants.cargoIntakeID;
@@ -231,17 +231,6 @@ public class Chassis extends PIDSubsystem {
 
     /* --- Neo Nerdy Drive --- */
     neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
-  }
-
-  /* --- PID Methods --- */
-  @Override
-  protected double returnPIDInput() {
-    return getAverageEncoderPosition();
-  }
-
-  @Override
-  protected void usePIDOutput(double output) {
-    // neoArcade(output, 0, false);
   }
 
   // Sets the default drive command to drive using the joysticks on an XBox 360
