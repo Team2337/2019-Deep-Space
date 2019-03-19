@@ -71,8 +71,8 @@ public class Chassis extends Subsystem {
   public static NeoNerdyDrive neoDrive;
 
   //35, 35 doesn't allow for turn in place
-  public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
-  public int currentLimit = 40;//60 //in amps
+  public int stallLimit = 60; //40 //in amps - Used in shifterLowGear
+  public int freeLimit = 40;//60 //in amps
   public int rpmLimit = 10;
 
   /* --- CAN ID SETUP --- */
@@ -182,8 +182,8 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
-    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
-    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, freeLimit, rpmLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, freeLimit, rpmLimit);
 
     neoLeftRearMotor.clearFaults();
 
@@ -210,8 +210,8 @@ public class Chassis extends Subsystem {
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
-    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
-    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, freeLimit, rpmLimit);
+    neoRightRearMotor.setSmartCurrentLimit(stallLimit, freeLimit, rpmLimit);
     
 
     // Right side motors aren't currently reversed
