@@ -22,8 +22,8 @@ public class PID3DLimelight extends PIDCommand {
   double targetDistance;
   double distanceAway = 0;
   double initialDistance;
-  double distanceModifier = 0;// 13000;
-  double driveP = 1.5;
+  double distanceModifier = 10000;// 13000;
+  double driveP = 1.7;
   double ticksPerInch = 686;
   double p, i, d;
   double[] limelight3D;
@@ -47,7 +47,7 @@ public class PID3DLimelight extends PIDCommand {
     super("PID3DLimelight", p, i, d); // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1); // acceptable tx offset to end PID
     getPIDController().setContinuous(false); // not continuous like a compass
-    getPIDController().setOutputRange(-0.6, 0.6); // output range for 'turn' input to drive command
+    getPIDController().setOutputRange(-0.8, 0.8); // output range for 'turn' input to drive command
 
     limelight3D = new double[6];
     targetAngle = 0; // target tx value (limelight horizontal offset from center)
@@ -95,10 +95,10 @@ public class PID3DLimelight extends PIDCommand {
   protected void usePIDOutput(double output) {
     SmartDashboard.putNumber("output", output);
 
-    if (Math.abs(Robot.Pigeon.getYaw()) < 8) {
-      this.getPIDController().setPID(0.08, 0, 0);
+    if (Math.abs(Robot.Pigeon.getYaw()) < 6) {
+      this.getPIDController().setPID(0.1, 0, 0);
     } else {
-      this.getPIDController().setPID(0.02, 0, 0);
+      this.getPIDController().setPID(0.01, 0, 0);
     }
 
       m_speed = 0.5;
@@ -118,7 +118,14 @@ public class PID3DLimelight extends PIDCommand {
         distanceAway = 1;
       }
 
-      System.out.println("Output: " + (m_speed * (Math.abs(distanceAway) - targetDistance) / Math.abs(targetDistance))
+      if(output > 0.2) {
+        output = 0.2;
+      }
+      if(output < -0.2) {
+        output = -0.2;
+      }
+
+      System.out.println("Output: " + output + " *** " + "Error: " + (-Robot.Pigeon.getYaw() - tx) + " *** " + "Output: " + (m_speed * (Math.abs(distanceAway) - targetDistance) / Math.abs(targetDistance))
           + " **** " + "(" + "speed: " + m_speed + "(Math.abs(" + "distanceAway: " + distanceAway + ") - "
           + "targetDistance: " + targetDistance + ")/Math.abs(" + "ditanceAway: " + targetDistance + "))"
           + "*** Encoder Ticks: " + Robot.Chassis.getAverageEncoderPosition());
@@ -126,18 +133,22 @@ public class PID3DLimelight extends PIDCommand {
         m_speed = -(driveP * (m_speed * ((Math.abs(distanceAway) - targetDistance) / Math.abs(targetDistance))));
       }
 
+      if(m_speed > 0.6) {
+        m_speed = 0.6;
+      }
+
+      if(m_speed < 0.20) {
+        m_speed = 0.20;
+      }
+
       if (m_speed < 0) {
         m_speed = 0;
       }
     } else {
       m_speed = Robot.oi.driverJoystick.getLeftStickY();
-      output = 0;
+      // output = 0;
     }
-    // System.out.println("Yaw: " + -Robot.Pigeon.getYaw() + " ***** " + "output: " + output + "****" + "TX: " + tx);
-    // System.out.println("Speed: " + m_speed + " **** " + "Encoder Ticks: " + Robot.Chassis.getAverageEncoderPosition() + " **** " + "Distance Away: " + distanceAway);
-
-    // Chassis.talonDrive.arcadeDrive(m_speed, -output, false);
-    System.out.println("Speed: " + m_speed);
+    
     Chassis.neoDrive.arcadeDrive(m_speed, output, false);
   }
 
@@ -148,6 +159,7 @@ public class PID3DLimelight extends PIDCommand {
     if (tx == 0 && angleNotSet) {
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     } else if (angleNotSet) {
+      Robot.Pigeon.resetPidgey();
       this.setSetpoint(tx);
       angleNotSet = false;
     }
