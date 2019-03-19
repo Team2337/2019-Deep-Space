@@ -2,6 +2,8 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.CommandGroups.CGTwoDrives;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
@@ -48,6 +50,7 @@ public class OI {
 
 		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.025, 0, 0));
+		driverJoystick.start						.whenPressed(new CGTwoDrives());//new autoSetPath(Robot.driveForwardT, valuesPID[0], 0, 0));
 		
 	    ////////////////////////////////// 
 	    

@@ -14,7 +14,7 @@ public class pathway {
     public static Trajectory.Config config;
     public static Trajectory trajectory;
 
-    private static double timeStep = 0.;
+    private static double timeStep = 0.2;
 
     /**
      * Converts inches to meters
@@ -166,7 +166,7 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(187), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+        new Waypoint(inchesToMeters(50), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
     };
 
     /**

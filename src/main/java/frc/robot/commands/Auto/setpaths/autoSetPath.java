@@ -22,7 +22,7 @@ public class autoSetPath extends Command {
   public Trajectory trajectory;
   public static double kP, kI, kD, kA, printX;
   private double[] pidValues;
-  private int segment, wait;
+  private int segment, wait, cut;
   private boolean finished;
   private double timeout, finishTime;
 
@@ -34,10 +34,11 @@ public class autoSetPath extends Command {
    *                     array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPath(Trajectory trajectoryIn, double[] pidValues, double timeout) {
+  public autoSetPath(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
+    this.cut = cut; 
     requires(Robot.Chassis);
   }
 
@@ -65,7 +66,7 @@ public class autoSetPath extends Command {
 
     Robot.NerdyPath.makePathForawrd();
     segment++;
-    if (segment >= (trajectory.length() - 30)) {
+    if (segment >= (trajectory.length() - cut)) {
       finished = true;
     }
     if (finished) {
@@ -84,6 +85,7 @@ public class autoSetPath extends Command {
   @Override
   protected void end() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    Robot.Chassis.stopNeoDrive();
   }
 
   // Called when another command which requires one or more of the same

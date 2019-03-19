@@ -14,7 +14,7 @@ public class CGPostProfileVision extends CommandGroup {
   public CGPostProfileVision() {
     double[][] values = pathway.valuesPID;
     //addParallel(new autoTurnOnLimeLightLED());
-    addSequential(new autoSetPath(Robot.curveFromToHatchRightT, values[1], 2));
+    // addSequential(new autoSetPath(Robot.curveFromToHatchRightT, values[1], 2));
     // addSequential(new limeLightLEDOn());
     //addSequential(new PIDVisionDrive(.02, 0, 0.02, ""));
     

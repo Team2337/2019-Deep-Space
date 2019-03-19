@@ -124,7 +124,7 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
-        driveForwardT = pathway.driveForward();
+        // driveForwardT = pathway.driveForward();
         // curveFromToHatchRightT = pathway.curveFromToHatchRight();
         // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
         // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
@@ -189,6 +189,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Driver/Compressor On?", Robot.AirCompressor.status());
     SmartDashboard.putBoolean("Driver/Auto_Line_Sensor", Robot.Chassis.autoLineSensor.get());
     SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climbLineSensor.get());
+
+    SmartDashboard.putNumber("Right Distance Inch", (Robot.Chassis.getRightPosition() / 13988) * 20);
+    SmartDashboard.putNumber("Left Distance Inch", (Robot.Chassis.getLeftPosition() / 13988) * 20);
 
     SmartDashboard.putNumber("Sticky Faults", Robot.Chassis.neoLeftRearMotor.getStickyFaults());
     SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.getFaults());
