@@ -151,15 +151,15 @@ public class Robot extends TimedRobot {
       stringPotBroken = true;
       // End goal for this code is to add a timeout for the rumble to run for just 1
       // second at full power
-      if (hasNotifiedOperator == false && endTime != -1) {
+      if (hasNotifiedOperator == false) {
         Robot.oi.operatorJoystick.setRumble(1, 1);
         endTime = Timer.getFPGATimestamp() + 1; // Sets a one second timeout
+        hasNotifiedOperator = true;
       } else if (Timer.getFPGATimestamp() >= endTime) {
         Robot.oi.operatorJoystick.setRumble(0, 0);
-        hasNotifiedOperator = true;
-        endTime = -1;
       }
     } else {
+      hasNotifiedOperator = false;
       stringPotBroken = false;
     }
 
