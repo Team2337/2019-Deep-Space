@@ -34,17 +34,8 @@ public class autoPIDVisionDrive extends PIDCommand {
 
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 5;        // not used yet but will be used to drive forward to target based on ta
-    m_timeout = 5;              // time before command will end, even if target not found
-
-    switch(mode) {
-      case "turnInPlace":
-      turnInPlace = true;
-      break;
-      default :
-      turnInPlace = false;
-      break;
-    }
+    targetDistance = 8.5;
+      
     requires(Robot.Chassis);
   }
 
@@ -64,7 +55,14 @@ public class autoPIDVisionDrive extends PIDCommand {
   protected void usePIDOutput(double output) {
       ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      m_speed = 0.6;
+
+      if(Math.abs(tx) < 10) {
+        this.getPIDController().setPID(0.05, 0, 0); 
+      } else {
+        this.getPIDController().setPID(0.025, 0, 0);
+      }
+
+      m_speed = 0.5;
 
       if(ta > 0) {
       m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
@@ -73,12 +71,20 @@ public class autoPIDVisionDrive extends PIDCommand {
         m_speed = 0;
         output = 0;
       }
-      // System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed);
-      System.out.println("tx: " + tx + " ***** " + "output: " + output);
+
+      System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed + " *** " + "tx: " + tx + " ***** " + "output: " + output);
 
       if(turnInPlace) {
         m_speed = 0;
         System.out.println("turnInPlace: " + turnInPlace);
+      }
+
+      if(m_speed < 0.3) {
+        m_speed = 0.3;
+      }
+
+      if(m_speed < 0) {
+        m_speed = 0;
       }
       Chassis.neoArcade(m_speed, -output, false);
   }
@@ -94,7 +100,7 @@ public class autoPIDVisionDrive extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   protected void end() {

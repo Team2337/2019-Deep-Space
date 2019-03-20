@@ -70,6 +70,8 @@ public class Robot extends TimedRobot {
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
 
+  public static Trajectory driveOffRightLvl2ToRightRocketT;
+
   public static boolean logger;
   private String selectedAuto;
 
@@ -124,6 +126,7 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
+      driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
         // driveForwardT = pathway.driveForward();
         // curveFromToHatchRightT = pathway.curveFromToHatchRight();
         // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();

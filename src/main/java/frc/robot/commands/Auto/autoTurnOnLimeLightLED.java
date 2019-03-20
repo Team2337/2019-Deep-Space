@@ -19,15 +19,15 @@ public class autoTurnOnLimeLightLED extends Command {
    // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    Robot.Vision.setLEDMode(3);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(timeSinceInitialized() >= (trajectory.length()-70) / 50) {
-        Robot.Vision.setLEDMode(3);
-      }
+    // if(timeSinceInitialized() >= (trajectory.length()-70) / 50) {
+        // Robot.Vision.setLEDMode(3);
+      // }
   }
 
   // Make this return true when this Command no longer needs to run execute()

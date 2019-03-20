@@ -25,6 +25,7 @@ public class autoSetPath extends Command {
   private int segment, wait, cut;
   private boolean finished;
   private double timeout, finishTime;
+  boolean stopDrive = false;
 
   /**
    * Reads the set trajectories into the drive
@@ -34,11 +35,12 @@ public class autoSetPath extends Command {
    *                     array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPath(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut) {
+  public autoSetPath(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut, boolean stopDrive) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
     this.cut = cut; 
+    this.stopDrive = stopDrive;
     requires(Robot.Chassis);
   }
 
@@ -84,8 +86,10 @@ public class autoSetPath extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
-    Robot.Chassis.stopNeoDrive();
+    if(stopDrive) {
+      Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+      Robot.Chassis.stopNeoDrive();
+    }
   }
 
   // Called when another command which requires one or more of the same
