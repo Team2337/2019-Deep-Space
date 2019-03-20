@@ -2,7 +2,6 @@ package frc.robot.nerdyfiles.pathway;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,11 +17,10 @@ public class NerdyPath {
   boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int gearRatio = 3;
-  private int ticksPerRev = 4096 * gearRatio;
+  private int ticksPerRev = 13988; 
 
   private double inchesToMeters = 0.0254;
-  private double wheelDiameter = 6.0 * inchesToMeters;
+  private double wheelDiameter = 6.375 * inchesToMeters;
   private double wheelBase = 20.5 * inchesToMeters; // old practice bot: 21.5
   private double leftOutput, rightOutput, gyro_heading, desired_heading, turn, angleDifference;
   private double turnCompensation = 0.8 * (-1.0 / 80.0); 
@@ -34,6 +32,7 @@ public class NerdyPath {
   public TankModifier modifier;
   public EncoderFollower rightSideFollower;
   public EncoderFollower leftSideFollower;
+  public Trajectory.Config config;
 
   public static NeoNerdyDrive neoDrive;
   public TalonNerdyDrive nerdyDrive;
@@ -43,7 +42,7 @@ public class NerdyPath {
   }
 
   /**
-   * Use this in execute, if driving forward These variables are constantly being
+   * Use this in execute, if driving forward. These variables are constantly being
    * updated
    */
   public void makePathForawrd() {
@@ -60,10 +59,11 @@ public class NerdyPath {
   }
 
   /**
-   * Use this in execute, if driving in reverse These variables are constantly
+   * Use this in execute, if driving in reverse. These variables are constantly
    * being updated
    */
   public void makePathReverse() {
+    //Made values negative to create a reverse trajectory
     leftOutput = leftSideFollower.calculate(-(int) Robot.Chassis.getLeftPosition());
     rightOutput = rightSideFollower.calculate(-(int) Robot.Chassis.getRightPosition());
 
@@ -73,7 +73,31 @@ public class NerdyPath {
     angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
     turn = turnCompensation * angleDifference;
 
+    //Changed to negative values to make the robot run in the same direction as the calculated values
     neoDrive.tankDrive(-(leftOutput + turn), -(rightOutput - turn), false);
+  }
+
+  /**
+   * Sets the trajectory for the robot to follow
+   * @param trajectory - input the trajectory of the path you want to follow
+   * @param kP - Preportion value of the PID - generally around 1.0
+   * @param kI - Intergral value of the PID - brings the plateu closer to the desired position
+   * @param kD - Derivitive (dampener) value of the PID
+   * @param kA - Starting acceloration value - useful for quick starts
+   * @param maxVelocity - the maximum velocity of the chassis, in meters per second
+   */
+  public void setTrajectory(Trajectory trajectory, double kP, double kI, double kD, double kA, double maxVelocity) {
+    modifier = new TankModifier(trajectory).modify(wheelBase);
+    config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.1, maxVelocity, 0.25, 2.5);
+
+    leftSideFollower = new EncoderFollower(modifier.getLeftTrajectory());
+    rightSideFollower = new EncoderFollower(modifier.getRightTrajectory());
+
+    leftSideFollower.configurePIDVA(kP, kI, kD, 1 / maxVelocity, kA);
+    rightSideFollower.configurePIDVA(kP, kI, kD, 1 / maxVelocity, kA);
+
+    leftSideFollower.configureEncoder((int) Robot.Chassis.getLeftPosition(), ticksPerRev, wheelDiameter);
+    rightSideFollower.configureEncoder((int) Robot.Chassis.getRightPosition(), ticksPerRev, wheelDiameter);
   }
 
   /**
@@ -107,25 +131,20 @@ public class NerdyPath {
    * Writes a generated trajectory to the deploy folder on the robot
    * <br/> Only needs to be run one time in order to write the file to the robot
    * <br/> <p><strong>**NOTE</strong>: Make sure the file permissions on the deploy folder are able to be written to**</p>
-   * @param fileName
-   * @param trajectory
+   * @param fileName - name of the file you want to create and write to
+   * @param trajectory - the desired trajectory to write to the file
    */
   public void writeFile(String fileName, Trajectory trajectory) {
     try {
-      // File file = new File(filePath+fileName+binary); // writing ro binary
       File file = new File(filePath + fileName + csv); // writing to csv
       file.createNewFile();
-      FileOutputStream oFile = new FileOutputStream(file, false);
-      String content = "blahhhhhhh";
-      oFile.write(content.getBytes());
-      oFile.flush();
-      oFile.close();
       Pathfinder.writeToCSV(file, trajectory);
-      System.out.println("****************Info Written To File****************\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!");
+      System.out.println("**************** Info Written To File ****************");
     } catch (IOException e) {
-      System.out.println("*** ERROR: " + e.getMessage() + " *******************\n*******************\n*******************\n*******************\n*******************");
+      System.out.println("*** ERROR WHEN WRITING TRAJECTORY TO FILE: " + e.getMessage() + " *******************");
     }
   }
+
 
   /**
    * Reads in a file from the rio deploy folder, then converting it from a data stream to a trajectory
@@ -139,15 +158,14 @@ public class NerdyPath {
       BufferedReader br = new BufferedReader(new FileReader(file));
       file.createNewFile(); //creating new file to read from
       file.setReadable(true, false);
-      String content;
-      while ((content = br.readLine()) != null) {
-        System.out.println(content);
-      }
+      // String content;
+      // while ((content = br.readLine()) != null) {
+        // System.out.println(content);
+      // }
       br.close();
       return Pathfinder.readFromCSV(file);
     } catch (IOException e) {
-      System.out.println("*****************ERROR: " + e
-          + " *******************\n**********************\n**********************\n**************************\n*********************");
+      System.out.println("********ERROR: CANNOT READ FROM FILE: " + e + " *******************");
     }
     return null;
   }
@@ -158,7 +176,7 @@ public class NerdyPath {
       SmartDashboard.putNumber("Encoder Follower: RIGHT error", rightSideFollower.error);
       SmartDashboard.putNumber("Encoder Follower: seg.position", rightSideFollower.seg.position);
 
-      SmartDashboard.putNumber("RightVelocity", Robot.Chassis.rightFrontMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("RightVelocity", Robot.CargoIntake.CargoIntakeMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("LeftVelocity", Robot.Chassis.leftFrontMotor.getSelectedSensorVelocity());
       SmartDashboard.putNumber("Turn Value", this.turn);
       SmartDashboard.putNumber("AngleDifferance", this.angleDifference);

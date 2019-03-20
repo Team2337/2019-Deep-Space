@@ -8,14 +8,14 @@ public class Constants {
     public int canID3 = 3;
     public int liftRightFrontID = 4;
     public int liftRightRearID = 5;
-    public int tRexArmsID = 6;
+    public int wranglerLassoID = 6;
     public int canID7 = 7; // Limelight is plugged into PDP port 7
     public int cargoScoreID = 8;
     public int cargoEscalatorID = 9;
     public int liftLeftFrontID = 10;
     public int liftLeftRearID = 11;
     public int canID12 = 12;
-    public int roboWranglerID = 13;
+    public int wranglerDriveID = 13;
     public int chassisRearLeftID = 14;
     public int chassisFrontLeftID = 15;
 
@@ -36,8 +36,8 @@ public class Constants {
     public int hatchBeakPort = 2;
     public int hatchLauncherPort = 3;
     public int hatchKickerPort = 4;
-    public int climberPort = 5;
-    public int pcm0Port6 = 6;
+    public int climberReleasePort = 5;
+    public int tRexGrabberPort = 6;
     public int pcm0Port7 = 7;
 
     public int pcm2ID0 = 0;
@@ -55,9 +55,9 @@ public class Constants {
     public int cargoEscalatorSensorID = 2;
     public int cargoTrolleySensorID = 3;
     public int dioPort4 = 4;
-    public int dioPort5 = 5;
-    public int dioPort6 = 6;
-    public int dioPort7 = 7;
+    public int autoLineSensorID = 5;
+    public int climberLineSensor = 6;
+    public int centerLineSensorID = 7;
     public int dioPort8 = 8;
     public int dioPort9 = 9;
 

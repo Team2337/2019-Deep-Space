@@ -27,7 +27,7 @@ public class AirCompressor extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new compressorTurnOn());
+
   }
 
   /**
@@ -43,6 +43,13 @@ public class AirCompressor extends Subsystem {
    */
   public void disable() {
     compressor.stop();
+  }
+
+  /**
+   * Gets the status of the compressor
+   */
+  public boolean status() {
+    return compressor.enabled();
   }
 
   /**

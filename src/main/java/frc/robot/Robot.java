@@ -1,14 +1,19 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Auto.autoDoNothing;
 import frc.robot.commands.Auto.pathway;
+import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
+import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -41,7 +46,7 @@ public class Robot extends TimedRobot {
   public static CargoEscalator CargoEscalator;
   public static CargoScore CargoScore;
   public static Chassis Chassis;
-  public static ClimberPneumatics ClimberPneumatics;
+  public static ClimberDeploy ClimberDeploy;
   public static Constants Constants;
   public static HatchLauncher HatchLauncher;
   public static HatchBeak HatchBeak;
@@ -50,10 +55,13 @@ public class Robot extends TimedRobot {
   public static NerdyPath NerdyPath;
   public static OI oi;
   public static Pigeon Pigeon;
+  public static RoboWrangler RoboWrangler;
+  public static PowerDistributionPanel PDP;
   public static Shifter Shifter;
+  public static TRexArms TRexArms;
   public static Vision Vision;
 
-  Command autonomousCommand;
+  public static Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
   public static Trajectory curveFromToHatchRightT;
@@ -63,8 +71,9 @@ public class Robot extends TimedRobot {
   public static Trajectory initTrajectory;
   public static Trajectory initTrajectory2;
   public static Trajectory jTurnToCargoShipRightT;
+  public static Trajectory testSCurveT;
 
-  private boolean logger;
+  public static boolean logger;
   private String selectedAuto;
 
   /**
@@ -86,13 +95,17 @@ public class Robot extends TimedRobot {
     CargoIntake = new CargoIntake();
     CargoScore = new CargoScore();
     Chassis = new Chassis();
-    ClimberPneumatics = new ClimberPneumatics();
+    ClimberDeploy = new ClimberDeploy();
     HatchBeak = new HatchBeak();
     HatchLauncher = new HatchLauncher();
     LED = new LED();
     Lift = new Lift();
     Pigeon = new Pigeon();
+    RoboWrangler = new RoboWrangler();
+    //PDP = new PowerDistributionPanel();
+    Pigeon = new Pigeon();
     Shifter = new Shifter();
+    TRexArms = new TRexArms();
     Vision = new Vision();
 
     /*
@@ -104,25 +117,33 @@ public class Robot extends TimedRobot {
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
-    Vision.setLEDMode(3);
+    Vision.setLEDMode(1);
 
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
-    selectedAuto = "";
+    selectedAuto = "twoHatch";
 
     switch (selectedAuto) {
-    default:
-      // driveForwardT = pathway.driveForward();
-      break;
+      case "twoHatch":
+        driveForwardT = pathway.driveForward();
+        // curveFromToHatchRightT = pathway.curveFromToHatchRight();
+        // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+        // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        break;
+      default:
+      
+        break;
     }
 
     // Writing a trajectory to a file (keep commented out until needed)
-    // Robot.NerdyPath.writeFile("locations", driveForwardT);
+    // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
 
     oi = new OI();
 
-    // chooser.addOption("My Auto", new autoSetPath(driveForwardT, valuesPID[0]));
+    chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
+    chooser.addOption("Do Nothing", new autoDoNothing());
+    chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2));
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -145,7 +166,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // TODO: Determine what should go on the driver dashboard
     SmartDashboard.putBoolean("Logger", logger);
     if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
       stringPotBroken = true;
@@ -163,10 +183,30 @@ public class Robot extends TimedRobot {
       stringPotBroken = false;
     }
 
-    /* --- Dashboard Items --- */
-    SmartDashboard.putBoolean("String Pot Broken", stringPotBroken);
-    SmartDashboard.putBoolean("Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
-    SmartDashboard.putNumber("Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+    /* --- Driver Dashboard Items --- */
+    SmartDashboard.putBoolean("Driver/String Pot Broken", stringPotBroken);
+    SmartDashboard.putBoolean("Driver/Trolley Sensor", Robot.CargoBigBrother.cargoTrolleySensor.get());
+    SmartDashboard.putBoolean("Driver/Intake sensor", Robot.CargoBigBrother.cargoIntakeSensor.get());
+    SmartDashboard.putBoolean("Driver/Escalator sensor", !Robot.CargoBigBrother.cargoEscalatorSensor.get());
+    SmartDashboard.putNumber("Driver/Air Pressure (PSI)", Robot.AirCompressor.getPressure());
+    SmartDashboard.putBoolean("is Comp", isComp);
+    SmartDashboard.putNumber("Driver/Neo_LF_Temp", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_LR_Temp", (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RF_Temp", (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RR_Temp", (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Right_Encoder", Robot.Chassis.getRightPosition());
+    SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
+    SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());
+    SmartDashboard.putNumber("Driver/Lift_Position", Robot.Lift.getPosition());
+    SmartDashboard.putBoolean("Driver/Compressor On?", Robot.AirCompressor.status());
+    SmartDashboard.putBoolean("Driver/Auto_Line_Sensor", Robot.Chassis.autoLineSensor.get());
+    SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climberLineSensor.get());
+
+    SmartDashboard.putNumber("Sticky Faults", Robot.Chassis.neoLeftRearMotor.getStickyFaults());
+    SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.getFaults());
+
+    SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
+    SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
   }
 
   /**
@@ -177,7 +217,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Vision.setLEDMode(3);
+    Robot.Vision.setLEDMode(1);
     logger = false;
   }
 

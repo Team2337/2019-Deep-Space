@@ -31,30 +31,36 @@ public class Lift extends Subsystem {
   /* --- Lift Set Positions --- */
   // TODO: Tune these positions for comp bot
   // Position to score cargo low in the rocket
-  public double cargoLowScorePosition = 95; // 201
+  public double cargoLowScorePosition = 100; // 201
   // Position to score cargo mid in the rocket
   public double cargoMidScorePosition = 608;// COMP
   // Position to score cargo in the cargo ship
   public double cargoShipScorePosition = 474; // COMP // 469;
   // Position to allow the escalator to feed a ball into the trolley
-  public double cargoIntakePosition = 95;
+  public double cargoIntakePosition = 100;
   // Position to store the cargo after loading, but before scoring
   public double cargoLoadedPosition = cargoIntakePosition; // 208
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
   // and need to eject the ball. This would be faster than to go through the robot
   public double cargoEjectPosition = 500;
 
-  // Position to raise the robot to when climbing
-  public double climbPosition = 120;
-
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 165;
+  public double hatchLowScorePosition = 155;// 165;
   // Position to score hatch on the cargo ship
   public double hatchCargoShipScorePosition = 469;
   // Position to score hatch on the mid rocket
-  public double hatchMidScorePosition = 676;
+  public double hatchMidScorePosition = 660;
   // Position to intake a hatch panel at
   public double hatchIntakePosition = 160;
+
+  // Position to raise the trolley to, allowing the climber to deploy
+  public double climbDeployPosition = 540;
+  // Position to lower the trolley to, which would bring the robot upwards
+  public double climbLevel3Position = 91; //goes below soft limit because of tolerance
+  // Position to lower the trolley to, which would bring the robot upwards
+  public double climbWheelsUpPosition = 165;
+  // Position to the maximun height while on the level 3
+  public double climbHighPosition = 450;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -95,8 +101,8 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 680;
-  public static int reverseLiftSoftLimit = 80;
+  public static int forwardLiftSoftLimit = 660;
+  public static int reverseLiftSoftLimit = 100;
 
   // The boundaries of where the robot should consider the stringpot to be working
   // These are used in Robot to determine whether the sensor is out of bounds.
@@ -285,6 +291,39 @@ public class Lift extends Subsystem {
   }
 
   /**
+   * Determines whether or not the lift is within range of the climb deploy
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbDeployPosition(double tolerance) {
+    return Math.abs(climbDeployPosition - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the climb Lvl. 3
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbLevel3Position(double tolerance) {
+    return Math.abs(climbLevel3Position - getPosition()) <= tolerance;
+  }
+
+  /**
+   * Determines whether or not the lift is within range of the climb wheels up
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atClimbWheelsUpPosition(double tolerance) {
+    return Math.abs(climbWheelsUpPosition - getPosition()) <= tolerance;
+  }
+
+  /**
    * Gets the current position of the lift
    * 
    * @return Analog position that the arm is at
@@ -381,6 +420,14 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("percentoutput", liftLeftFrontMotor.getMotorOutputPercent());
       SmartDashboard.putBoolean("At intake position", atCargoIntakePosition(10));
       SmartDashboard.putBoolean("LiftInPosition?", Robot.Lift.atPosition(10));
+      SmartDashboard.putNumber("Lift_P", kP);
+      SmartDashboard.putNumber("Lift_I", kI);
+      SmartDashboard.putNumber("Lift_D", kD);
+      SmartDashboard.putNumber("Lift_F", kF);
+      SmartDashboard.putNumber("Lift_AllowableError", allowableError);
+      SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
+      SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
+      SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
     }
   }
 }

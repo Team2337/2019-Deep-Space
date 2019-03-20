@@ -14,8 +14,9 @@ public class cargoBigBrotherIntake extends Command {
     // Speed of the trolley intake. Slower to prevent overshooting the sensor
     double trolleyIntakeSpeed = 0.3;
 
-    // How close the lift needs to be to the intake position
-    double liftTolerance = 5;
+    // How close the lift needs to be to the intake position 
+    // (10 in order to make sure the cargo can be inatken when the trolley is below the soft limit)
+    double liftTolerance = 10;
 
     /**
      * Runs the cargo intake system to get the ball into the score position
@@ -32,6 +33,7 @@ public class cargoBigBrotherIntake extends Command {
         requires(Robot.CargoIntake);
         requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
+        requires(Robot.Lift);
     }
 
     // Check the cargo level and start the command accordingly.
@@ -42,9 +44,14 @@ public class cargoBigBrotherIntake extends Command {
 
         // Move the lift into the intake positon
 
+        if (Robot.Lift.atCargoIntakePosition(80)) {
+            Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
+        }
         switch (Robot.CargoBigBrother.cargoLevel()) {
         case 0:
+        if(Robot.oi.operatorJoystick.triggerRight.get()) {
             Robot.CargoDrawbridge.lowerTheDrawbridge();
+        }
             // Start rolling the intake inwards
             Robot.CargoIntake.rollIn(intakeSpeed);
             // Does not break, as the next cases have the same ending
@@ -126,6 +133,9 @@ public class cargoBigBrotherIntake extends Command {
         if (!Robot.oi.operatorJoystick.triggerLeft.get()) {
             Robot.CargoScore.stop();
         }
+        // If the lift is moving (as it would if it was within 50 ticks at the start of
+        // the command), stop it.
+        Robot.Lift.stop();
     }
 
     @Override

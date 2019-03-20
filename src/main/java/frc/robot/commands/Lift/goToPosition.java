@@ -44,7 +44,7 @@ public class goToPosition extends Command {
     // lift will hold its current position
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.Lift.atPosition(10);
     }
 
     // Called once after isFinished returns true

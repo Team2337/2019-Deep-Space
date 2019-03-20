@@ -10,7 +10,8 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
-    double tolerance = 5;
+    //tolerance of 10 allows for the cargo to be ejected when the trolley is below the min soft limit
+    double tolerance = 10;
 
     /**
      * Ejects the cargo from the cargo intake insystem
@@ -27,7 +28,6 @@ public class cargoBigBrotherEject extends Command {
 
     @Override
     protected void initialize() {
-        // TODO: Determine if launching backwards over the robot is possible
         Robot.CargoEscalator.rollDown(1);
         Robot.CargoIntake.rollOut(1);
     }

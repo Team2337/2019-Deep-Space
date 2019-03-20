@@ -1,0 +1,420 @@
+{
+  "tabPane": [
+    {
+      "title": "Driver",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "Driver/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": false,
+        "hgap": 8.0,
+        "vgap": 8.0,
+        "tiles": {
+          "5,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Compass_Heading",
+              "_title": "Compass_Heading"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Right_Encoder",
+              "_title": "Right_Encoder"
+            }
+          },
+          "2,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Left_Encoder",
+              "_title": "Left_Encoder"
+            }
+          },
+          "5,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Air Pressure (PSI)",
+              "_title": "Air Pressure (PSI)"
+            }
+          },
+          "19,3": {
+            "size": [
+              7,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/String Pot Broken",
+              "_title": "String Pot Broken",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,0": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Trolley Sensor",
+              "_title": "Trolley Sensor",
+              "Colors/Color when true": "#00FF00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "5,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Lift_Position",
+              "_title": "Lift_Position"
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LF_Temp",
+              "_title": "Neo_LF_Temp"
+            }
+          },
+          "0,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LR_Temp",
+              "_title": "Neo_LR_Temp"
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RF_Temp",
+              "_title": "Neo_RF_Temp"
+            }
+          },
+          "2,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RR_Temp",
+              "_title": "Neo_RR_Temp"
+            }
+          },
+          "19,0": {
+            "size": [
+              7,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Compressor On?",
+              "_title": "Compressor On?",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Auto_Line_Sensor",
+              "_title": "Auto Line Sensor",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "13,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Intake sensor",
+              "_title": "Intake sensor",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Escalator sensor",
+              "_title": "Escalator sensor",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "12,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driver/Climber Line Sensor",
+              "_title": "Climb Line Sensor",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "11,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber phase",
+              "_title": "SmartDashboard/Climber phase"
+            }
+          },
+          "1,4": {
+            "size": [
+              5,
+              3
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto mode",
+              "_title": "SmartDashboard/Auto mode"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/reverseLIFTSoftLimit",
+              "_title": "SmartDashboard/reverseLIFTSoftLimit"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/forwardLIFTSoftLimit",
+              "_title": "SmartDashboard/forwardLIFTSoftLimit"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 2",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "16,0": {
+            "size": [
+              24,
+              9
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Left",
+              "_title": "SmartDashboard/Neo_Current_Left",
+              "Graph/Visible time": 30.0,
+              "Visible data/SmartDashboard/Neo_Current_Left[0]": true,
+              "Visible data/SmartDashboard/Neo_Current_Left[1]": true
+            }
+          },
+          "8,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Left_Front",
+              "_title": "SmartDashboard/Neo_Current_Left_Front"
+            }
+          },
+          "16,9": {
+            "size": [
+              24,
+              9
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Right",
+              "_title": "SmartDashboard/Neo_Current_Right",
+              "Graph/Visible time": 30.0,
+              "Visible data/SmartDashboard/Neo_Current_Right[0]": true,
+              "Visible data/SmartDashboard/Neo_Current_Right[1]": true
+            }
+          },
+          "8,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Left_Rear",
+              "_title": "SmartDashboard/Neo_Current_Left_Rear"
+            }
+          },
+          "11,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Right_Front",
+              "_title": "SmartDashboard/Neo_Current_Right_Front"
+            }
+          },
+          "11,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Neo_Current_Right_Rear",
+              "_title": "SmartDashboard/Neo_Current_Right_Rear"
+            }
+          },
+          "4,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RF_Temp",
+              "_title": "SmartDashboard/Driver/Neo_RF_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "0,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LR_Temp",
+              "_title": "SmartDashboard/Driver/Neo_LR_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "0,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_LF_Temp",
+              "_title": "SmartDashboard/Driver/Neo_LF_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "4,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Driver/Neo_RR_Temp",
+              "_title": "SmartDashboard/Driver/Neo_RR_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 200.0,
+              "Visuals/Show value": true
+            }
+          },
+          "10,6": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Faults",
+              "_title": "SmartDashboard/Faults"
+            }
+          },
+          "10,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Sticky Faults",
+              "_title": "SmartDashboard/Sticky Faults"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1936.0,
+    "height": 1056.0
+  }
+}

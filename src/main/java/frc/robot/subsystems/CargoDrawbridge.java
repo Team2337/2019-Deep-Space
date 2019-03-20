@@ -32,4 +32,11 @@ public class CargoDrawbridge extends Subsystem {
   public void raiseTheDrawbridge() {
     CargoDrawbridge.set(false);
   }
+
+  /**
+   * Cargo Drawbridge status
+   */
+  public boolean status() {
+    return CargoDrawbridge.get();
+  }
 }

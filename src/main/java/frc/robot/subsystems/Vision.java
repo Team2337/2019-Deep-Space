@@ -69,6 +69,10 @@ public class Vision extends Subsystem {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(mode);
   }
 
+  public void switchPipeLine(int pipeline) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+  }
+
   @Override
   public void periodic() {
 
