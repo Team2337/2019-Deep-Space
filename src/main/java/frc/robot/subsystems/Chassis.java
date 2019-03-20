@@ -71,7 +71,7 @@ public class Chassis extends Subsystem {
   public static NeoNerdyDrive neoDrive;
 
   //35, 35 doesn't allow for turn in place
-  public int stallLimit = 60; //40 //in amps - Used in shifterLowGear
+  public int stallLimit = 55; //40 //in amps - Used in shifterLowGear
   public int freeLimit = 40;//60 //in amps
   public int rpmLimit = 10;
 
