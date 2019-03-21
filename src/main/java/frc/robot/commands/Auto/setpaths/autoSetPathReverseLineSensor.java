@@ -14,7 +14,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  * 
  * @author Bryce G.
  */
-public class autoSetPathReverse extends Command {
+public class autoSetPathReverseLineSensor extends Command {
 
   /* --- Path Weaver Variables --- */
 
@@ -28,7 +28,10 @@ public class autoSetPathReverse extends Command {
   private double[] pidValues;
   private int segment, wait;
   private double timeout, finishTime;
-  private boolean finished;
+  //TODO: Variablize lineDistance in the constructor
+  private double lineDistance = 56000;
+  private boolean finished, crossedLine;
+  private boolean lastState = false;
   public static boolean fin;
   public int cut;
 
@@ -36,11 +39,11 @@ public class autoSetPathReverse extends Command {
    * Reads the set trajectories into the drive, and sets it in reverse
    * 
    * @param trajectoryIn - desired trajectory
-   * @param pidValues    - PID values for the current trajcetory, given in the array
-   * @param cut - Number of segments off of the trajectory (Typically a value of 30 - 50)
+   * @param pidValues    - PID values for the current trajcetory, given in the
+   *                     array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut) {
+  public autoSetPathReverseLineSensor(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
@@ -63,6 +66,9 @@ public class autoSetPathReverse extends Command {
     wait = 0;
     finished = false;
     finishTime = timeout * 50;
+
+    Robot.Chassis.crossedLine = false;
+    Robot.Chassis.linesCrossed = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -77,6 +83,30 @@ public class autoSetPathReverse extends Command {
     if (finished) {
       wait++;
     }
+
+    //Line sensor drive 
+    
+    if(Math.abs(Robot.Chassis.getLeftPosition()) >= lineDistance) {
+
+      if(lastState && Robot.Chassis.autoLineSensor.get()) {
+        Robot.Chassis.linesCrossed++;
+      }
+      if(!Robot.Chassis.autoLineSensor.get()) {
+        lastState = true;
+      }
+      if(Robot.Chassis.autoLineSensor.get()) {
+        lastState = false;
+      }
+      
+
+      
+      if(crossedLine && Robot.Chassis.autoLineSensor.get()) {
+        Robot.Chassis.linesCrossed = 1;
+      }
+      if(Robot.Chassis.linesCrossed == 1 && Robot.Chassis.crossedLine && !Robot.Chassis.autoLineSensor.get()) {
+        Robot.Chassis.linesCrossed = 2;
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -89,7 +119,9 @@ public class autoSetPathReverse extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    // Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Chassis.neoLeftFrontMotor.set(-0.3);
+    Robot.Chassis.neoRightFrontMotor.set(-0.3);
     
   }
 

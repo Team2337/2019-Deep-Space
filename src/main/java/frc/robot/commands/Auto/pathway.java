@@ -201,6 +201,49 @@ public class pathway {
         trajectory = Pathfinder.generate(driveOffRightLvl2ToRightRocket, config);
         return trajectory;
     }
+
+    /**
+     * Drive Reverse to back rocket
+     */
+    private static Waypoint[] driveOffRightLvl2ToBackRightRocket = new Waypoint[] {
+        // Waypoint @ x=0, y=0, exit angle=0 radians
+        new Waypoint(0, 0, 0), 
+        new Waypoint(inchesToMeters(240), inchesToMeters(75), -degreesToRadians(5)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+    };
+
+    /**
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
+     * 
+     * @param points - array of waypoints
+     */
+    public static Trajectory driveOffRightLvl2ToBackRightRocket() {
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
+        trajectory = Pathfinder.generate(driveOffRightLvl2ToBackRightRocket, config);
+        return trajectory;
+    }
+    //driveAwayFromBackRightRocketT
+    /**
+     * Drive Reverse to back rocket
+     */
+    private static Waypoint[] driveAwayFromBackRightRocket = new Waypoint[] {
+        // Waypoint @ x=0, y=0, exit angle=0 radians
+        new Waypoint(0, 0, 0), 
+        new Waypoint(inchesToMeters(30), inchesToMeters(0), degreesToRadians(30)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+    };
+
+    /**
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
+     * 
+     * @param points - array of waypoints
+     */
+    public static Trajectory driveAwayFromBackRightRocket() {
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
+        trajectory = Pathfinder.generate(driveAwayFromBackRightRocket, config);
+        return trajectory;
+    }
+
 }
 
 //5.13x^2, 10.26x, 10.26

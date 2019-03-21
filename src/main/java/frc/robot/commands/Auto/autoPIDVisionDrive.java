@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class autoPIDVisionDrive extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx;
+  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout;
   double p, i, d;
 
   boolean turnInPlace = false;
@@ -26,13 +26,13 @@ public class autoPIDVisionDrive extends PIDCommand {
    * @param mode - String value that tells what mode the Vision drive is in
    * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
    */
-  public autoPIDVisionDrive(double p, double i, double d, String mode) {
+  public autoPIDVisionDrive(double p, double i, double d, String mode, double timeout) {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
 
-
+    this.timeout = timeout;
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
     targetDistance = 8.5;
       
@@ -91,7 +91,7 @@ public class autoPIDVisionDrive extends PIDCommand {
 
   protected void initialize() {
     Robot.Vision.setLEDMode(3);
-    setTimeout(m_timeout);
+    setTimeout(timeout);
     this.setSetpoint(targetAngle);
   }
 
@@ -100,7 +100,7 @@ public class autoPIDVisionDrive extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return false;
+    return isTimedOut();
   }
 
   protected void end() {

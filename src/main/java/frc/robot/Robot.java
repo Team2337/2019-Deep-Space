@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
   public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
 
-  public static Trajectory driveOffRightLvl2ToRightRocketT;
+  public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl2ToBackRightRocketT, driveAwayFromBackRightRocketT;
 
   public static boolean logger;
   private String selectedAuto;
@@ -122,16 +122,19 @@ public class Robot extends TimedRobot {
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
-    selectedAuto = "twoHatch";
+    selectedAuto = "twoHatchRightRocket";
 
     switch (selectedAuto) {
       case "twoHatch":
-      driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
         // driveForwardT = pathway.driveForward();
         // curveFromToHatchRightT = pathway.curveFromToHatchRight();
         // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
         // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
         break;
+      case "twoHatchRightRocket":
+      // driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
+      driveOffRightLvl2ToBackRightRocketT = pathway.driveOffRightLvl2ToBackRightRocket();
+      driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
       default:
       
         break;
@@ -144,7 +147,19 @@ public class Robot extends TimedRobot {
 
     chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
     chooser.addOption("Do Nothing", new autoDoNothing());
-    chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2));
+    chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2, 0));
+
+    //Use this switch statement to load trajectories based on the auton being run
+    /*
+    switch(chooser.getSelected().toString()) {
+      case "Two Hatch Auton Right":
+
+      break;
+      default:
+
+      break;
+    }
+    */
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();

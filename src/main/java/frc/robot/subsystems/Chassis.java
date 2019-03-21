@@ -15,9 +15,12 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 /**
  * The main chassis runtime
@@ -37,11 +40,14 @@ public class Chassis extends Subsystem {
   boolean pathFinderDebug = false;
 
   public double jumpModifier = 0.8;
+  public double curr_world_linear_accel_x, curr_world_linear_accel_y, currentJerkX, currentJerkY, last_world_linear_accel_x, last_world_linear_accel_y;
 
   public boolean print = false, crossedLine = false;
   public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
+
+  public BuiltInAccelerometer accelerometer;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -110,6 +116,8 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
+
+    accelerometer = new BuiltInAccelerometer(Accelerometer.Range.k4G);
 
     /*****************************************/
     /* ------------------------------------- */
@@ -239,6 +247,15 @@ public class Chassis extends Subsystem {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
     setDefaultCommand(new driveByJoystick(true));
+  }
+
+  public void updateAccelerometerValues() {
+    curr_world_linear_accel_x = accelerometer.getX();
+    currentJerkX = curr_world_linear_accel_x - last_world_linear_accel_x;
+    last_world_linear_accel_x = curr_world_linear_accel_x;
+    curr_world_linear_accel_y = accelerometer.getY();
+    currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
+    last_world_linear_accel_y = curr_world_linear_accel_y;
   }
 
   /*****************************************/
@@ -497,6 +514,8 @@ public class Chassis extends Subsystem {
    * values
    */
   public void periodic() {
+    updateAccelerometerValues();
+    
     if (chassisDebug) {
       neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	      
       SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); 
@@ -561,6 +580,16 @@ public class Chassis extends Subsystem {
 
       SmartDashboard.putNumberArray("Neo_left_graph", leftPosVelOut);	
       SmartDashboard.putNumberArray("Neo_right_graph", rightPosVelOut);
+
+      /* --- Accelerometer Values --- */
+      SmartDashboard.putNumber("Accelerameter X", accelerometer.getX());
+      SmartDashboard.putNumber("Accelerameter Y", accelerometer.getY());
+      SmartDashboard.putNumber("Accelerameter Current X", curr_world_linear_accel_x);
+      SmartDashboard.putNumber("Accelerameter Current Y", curr_world_linear_accel_y);
+      SmartDashboard.putNumber("Accelerameter Current X-Jerk", currentJerkX);
+      SmartDashboard.putNumber("Accelerameter Current Y-Jerk", currentJerkY);
+      SmartDashboard.putNumber("Accelerameter Last X", last_world_linear_accel_x);
+      SmartDashboard.putNumber("Accelerameter Last Y", last_world_linear_accel_y);
     }
   }
 }

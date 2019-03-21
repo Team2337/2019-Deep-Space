@@ -17,13 +17,13 @@ public class CGJTurnFromLoadToCargoShipRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
 
   public CGJTurnFromLoadToCargoShipRight() {
-    addSequential(new autoSetPathReverse(Robot.initTrajectory, valuesPID[0], 2));
+    // addSequential(new autoSetPathReverse(Robot.initTrajectory, valuesPID[0], 2));
     addSequential(new autoResetEncoders());
     addSequential(new autoWaitSensorReset(0.3));
     // addSequential(new autoSetPath(Robot.curveFromToHatchRightT, valuesPID[1], 2));
     addSequential(new autoResetEncoders());
     addSequential(new autoWaitSensorReset(0.5));
-    addSequential(new autoSetPathReverse(Robot.fromRightLoadJTurnToCargoShipT, valuesPID[2], 2));
+    // addSequential(new autoSetPathReverse(Robot.fromRightLoadJTurnToCargoShipT, valuesPID[2], 2));
     addSequential(new autoResetEncoders());
     addSequential(new autoWaitSensorReset(0.5));
     // addSequential(new autoSetPath(Robot.jTurnToCargoShipRightT, valuesPID[3], 2));

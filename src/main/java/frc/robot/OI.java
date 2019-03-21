@@ -49,7 +49,7 @@ public class OI {
 		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
 
 		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
-		driverJoystick.triggerLeft                  .whileHeld(new autoPIDVisionDrive(0.05, 0, 0, ""));
+		driverJoystick.triggerLeft                  .whileHeld(new autoPIDVisionDrive(0.05, 0, 0, "", 0));
 		driverJoystick.start						.whenPressed(new CGTwoDrives());//new autoSetPath(Robot.driveForwardT, valuesPID[0], 0, 0));
 		
 	    ////////////////////////////////// 
