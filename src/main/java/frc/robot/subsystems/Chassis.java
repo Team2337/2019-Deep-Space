@@ -35,9 +35,9 @@ public class Chassis extends Subsystem {
    * 
    * @see #periodic()
    */
-  boolean chassisDebug = false;
+  boolean chassisDebug = true;
   boolean neoDebug = true;
-  boolean pathFinderDebug = false;
+  boolean pathFinderDebug = true;
 
   public double jumpModifier = 0.8;
   public double curr_world_linear_accel_x, curr_world_linear_accel_y, currentJerkX, currentJerkY, last_world_linear_accel_x, last_world_linear_accel_y;
