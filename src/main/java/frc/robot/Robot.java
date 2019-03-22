@@ -1,5 +1,10 @@
 package frc.robot;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
@@ -75,6 +80,7 @@ public class Robot extends TimedRobot {
 
   public static boolean logger;
   private String selectedAuto;
+  public String mac;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -82,6 +88,35 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    // Attempt to get the MAC address of the robot
+    try {
+      NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+
+      byte[] address = network.getHardwareAddress();
+
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < address.length; i++) {
+        sb.append(String.format("%02X%s", address[i], (i < address.length - 1) ? ":" : ""));
+      }
+      mac = sb.toString();
+      System.out.println(mac);
+    } catch (UnknownHostException e) {
+      System.out.println("Unknown Host Exception - " + e);
+    } catch (SocketException e) {
+      System.out.println("Socket Exception - " + e);
+    }
+
+    // Determines what robot we are using
+    if (mac.equals("00:80:2F:17:89:85")) {
+      System.out.println("PracticeBot " + mac);
+      isComp = false;
+    } else {
+      // If we are not using PracticeBot, assume we are using CompBot (this also will
+      // cover if there is an error while getting the MAC address)
+      System.out.println("CompBot " + mac);
+      isComp = true;
+    }
 
     // CONSTRUCTORS
     // Keep above other subsystems, as these have dependencies for other subsystems
@@ -102,7 +137,7 @@ public class Robot extends TimedRobot {
     Lift = new Lift();
     Pigeon = new Pigeon();
     RoboWrangler = new RoboWrangler();
-    //PDP = new PowerDistributionPanel();
+    // PDP = new PowerDistributionPanel();
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     TRexArms = new TRexArms();
@@ -125,15 +160,15 @@ public class Robot extends TimedRobot {
     selectedAuto = "twoHatch";
 
     switch (selectedAuto) {
-      case "twoHatch":
-        driveForwardT = pathway.driveForward();
-        // curveFromToHatchRightT = pathway.curveFromToHatchRight();
-        // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-        // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
-        break;
-      default:
-      
-        break;
+    case "twoHatch":
+      driveForwardT = pathway.driveForward();
+      // curveFromToHatchRightT = pathway.curveFromToHatchRight();
+      // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
+      // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+      break;
+    default:
+
+      break;
     }
 
     // Writing a trajectory to a file (keep commented out until needed)
@@ -143,7 +178,8 @@ public class Robot extends TimedRobot {
 
     chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
     chooser.addOption("Do Nothing", new autoDoNothing());
-    chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2));
+    chooser.addOption("driveForward",
+        new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2));
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -190,10 +226,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Driver/Escalator sensor", !Robot.CargoBigBrother.cargoEscalatorSensor.get());
     SmartDashboard.putNumber("Driver/Air Pressure (PSI)", Robot.AirCompressor.getPressure());
     SmartDashboard.putBoolean("is Comp", isComp);
-    SmartDashboard.putNumber("Driver/Neo_LF_Temp", (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Driver/Neo_LR_Temp", (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Driver/Neo_RF_Temp", (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9)/5) + 32));
-    SmartDashboard.putNumber("Driver/Neo_RR_Temp", (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9)/5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_LF_Temp",
+        (((Robot.Chassis.neoLeftFrontMotor.getMotorTemperature() * 9) / 5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_LR_Temp",
+        (((Robot.Chassis.neoLeftRearMotor.getMotorTemperature() * 9) / 5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RF_Temp",
+        (((Robot.Chassis.neoRightFrontMotor.getMotorTemperature() * 9) / 5) + 32));
+    SmartDashboard.putNumber("Driver/Neo_RR_Temp",
+        (((Robot.Chassis.neoRightRearMotor.getMotorTemperature() * 9) / 5) + 32));
     SmartDashboard.putNumber("Driver/Right_Encoder", Robot.Chassis.getRightPosition());
     SmartDashboard.putNumber("Driver/Left_Encoder", Robot.Chassis.getLeftPosition());
     SmartDashboard.putNumber("Driver/Compass_Heading", Robot.Pigeon.getYaw());

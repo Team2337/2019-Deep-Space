@@ -28,39 +28,39 @@ public class Lift extends Subsystem {
 
   public double targetPosition;
 
-  /* --- Lift Set Positions --- */
+  /* --- Lift Set Position Variables --- */
   // TODO: Tune these positions for comp bot
   // Position to score cargo low in the rocket
-  public double cargoLowScorePosition = 100; // 201
+  public double cargoLowScorePosition;
   // Position to score cargo mid in the rocket
-  public double cargoMidScorePosition = 608;// COMP
+  public double cargoMidScorePosition;
   // Position to score cargo in the cargo ship
-  public double cargoShipScorePosition = 474; // COMP // 469;
+  public double cargoShipScorePosition;
   // Position to allow the escalator to feed a ball into the trolley
-  public double cargoIntakePosition = 100;
+  public double cargoIntakePosition;
   // Position to store the cargo after loading, but before scoring
-  public double cargoLoadedPosition = cargoIntakePosition; // 208
+  public double cargoLoadedPosition;
   // Position to eject the cargo ball (if applicable) - to be used if we are mid
   // and need to eject the ball. This would be faster than to go through the robot
-  public double cargoEjectPosition = 500;
+  public double cargoEjectPosition;
 
   // Position to score hatch on the low rocket
-  public double hatchLowScorePosition = 155;// 165;
+  public double hatchLowScorePosition;
   // Position to score hatch on the cargo ship
-  public double hatchCargoShipScorePosition = 469;
+  public double hatchCargoShipScorePosition;
   // Position to score hatch on the mid rocket
-  public double hatchMidScorePosition = 660;
+  public double hatchMidScorePosition;
   // Position to intake a hatch panel at
-  public double hatchIntakePosition = 160;
+  public double hatchIntakePosition;
 
   // Position to raise the trolley to, allowing the climber to deploy
-  public double climbDeployPosition = 540;
+  public double climbDeployPosition;
   // Position to lower the trolley to, which would bring the robot upwards
-  public double climbLevel3Position = 91; // goes below soft limit because of tolerance
+  public double climbLevel3Position;
   // Position to lower the trolley to, which would bring the robot upwards
-  public double climbWheelsUpPosition = 165;
+  public double climbWheelsUpPosition;
   // Position to the maximun height while on the level 3
-  public double climbHighPosition = 450;
+  public double climbHighPosition;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -115,6 +115,45 @@ public class Lift extends Subsystem {
   }
 
   public Lift() {
+    if (Robot.isComp) {
+      /* --- Competition Lift Set Positions --- */
+      // TODO: Tune these positions for comp bot
+      cargoLowScorePosition = 100; // 201
+      cargoMidScorePosition = 608;// COMP
+      cargoShipScorePosition = 474; // COMP // 469;
+      cargoIntakePosition = 100;
+      cargoLoadedPosition = cargoIntakePosition; // 208
+      cargoEjectPosition = 500;
+
+      hatchLowScorePosition = 155;// 165;
+      hatchCargoShipScorePosition = 469;
+      hatchMidScorePosition = 660;
+      hatchIntakePosition = 160;
+
+      climbDeployPosition = 540;
+      climbLevel3Position = 91;
+      climbWheelsUpPosition = 165;
+      climbHighPosition = 450;
+    } else {
+      /* --- Practice Lift Set Positions --- */
+      // TODO: Set these positions for practice bot
+      cargoLowScorePosition = 100;
+      cargoMidScorePosition = 608;
+      cargoShipScorePosition = 474;
+      cargoIntakePosition = 100;
+      cargoLoadedPosition = cargoIntakePosition;
+      cargoEjectPosition = 500;
+
+      hatchLowScorePosition = 155;
+      hatchCargoShipScorePosition = 469;
+      hatchMidScorePosition = 660;
+      hatchIntakePosition = 160;
+
+      climbDeployPosition = 540;
+      climbLevel3Position = 91;
+      climbWheelsUpPosition = 165;
+      climbHighPosition = 450;
+    }
 
     /*
      * Configurations for the left motors, set up to follow the motions of the right
