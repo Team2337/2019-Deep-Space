@@ -3,6 +3,7 @@ package frc.robot.commands.Auto.CommandGroups;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.autoDriveToEncoderTick;
+import frc.robot.commands.Auto.autoLiftToPosition;
 import frc.robot.commands.Auto.autoPIDVisionDrive;
 import frc.robot.commands.Auto.autoResetEncoders;
 import frc.robot.commands.Auto.autoTurnOnLimeLightLED;
@@ -25,6 +26,7 @@ public class CGTwoDrives extends CommandGroup {
     // addSequential(new autoSetPath(Robot.driveOffRightLvl2ToRightRocketT, values[0], 0, 30, false));
     addSequential(new autoSetPathReverse(Robot.driveOffRightLvl2ToBackRightRocketT, values[0], 0, 90));
     addSequential(new autoResetEncoders());
+    // addSequential(new autoLiftToPosition(207, 2));
     addSequential(new autoPIDVisionDrive(0.05, 0, 0, "", 3));
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(1));
@@ -33,6 +35,7 @@ public class CGTwoDrives extends CommandGroup {
     addSequential(new autoWait(1));
     addSequential(new autoDriveToEncoderTick(1, 50)); //drives forward to 50 inches
     addSequential(new autoResetEncoders());
+    // addParallel(new autoLiftToPosition(Robot.Lift.hatchLowScorePosition, 2));
     addSequential(new autoPIDVisionDrive(0.05, 0, 0, "", 7));
 
     /*
