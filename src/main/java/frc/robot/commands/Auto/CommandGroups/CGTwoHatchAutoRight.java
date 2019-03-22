@@ -43,13 +43,13 @@ public class CGTwoHatchAutoRight extends CommandGroup {
       //use this to read from the file
       // addSequential(new autoSetPathReverseFile(Robot.NerdyPath.readFile("driveForward187"), valuesPID[0], 0.1, 0.35)); //last value is the max velocity
       addSequential(new autoLineSensorDrive());
-      addSequential(new autoLiftToPosition((Robot.Lift.getPosition() + 30), 2));
+      addSequential(new autoLiftToPosition((Robot.Lift.getPosition() + 30)));
       addSequential(new autoResetEncoders());
       addSequential(new hatchKickerExtend());
       addSequential(new autoWait(1.0));
       addSequential(new hatchKickerRetract());
       addSequential(new autoWaitSensorReset(0.5));
-      addSequential(new autoLiftToPosition(Robot.Lift.hatchIntakePosition + 40, 2));
+      addSequential(new autoLiftToPosition(Robot.Lift.hatchIntakePosition + 40));
       
       addSequential(new limeLightLEDOn());
       addSequential(new autoWait(.5));

@@ -137,14 +137,14 @@ public class Lift extends Subsystem {
     } else {
       /* --- Practice Lift Set Positions --- */
       // TODO: Set these positions for practice bot
-      cargoLowScorePosition = 100;
+      cargoLowScorePosition = 110;
       cargoMidScorePosition = 608;
       cargoShipScorePosition = 474;
-      cargoIntakePosition = 100;
+      cargoIntakePosition = 110;
       cargoLoadedPosition = cargoIntakePosition;
       cargoEjectPosition = 500;
 
-      hatchLowScorePosition = 155;
+      hatchLowScorePosition = 207;
       hatchCargoShipScorePosition = 469;
       hatchMidScorePosition = 660;
       hatchIntakePosition = 160;

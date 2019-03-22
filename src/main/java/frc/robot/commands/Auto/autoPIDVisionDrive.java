@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class autoPIDVisionDrive extends PIDCommand {
 
   double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout;
-  double p, i, d;
+  double p, i, d, largeAngleP, smallAngleP;
 
   boolean turnInPlace = false;
 
@@ -26,12 +26,14 @@ public class autoPIDVisionDrive extends PIDCommand {
    * @param mode - String value that tells what mode the Vision drive is in
    * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
    */
-  public autoPIDVisionDrive(double p, double i, double d, String mode, double timeout) {
+  public autoPIDVisionDrive(double p, double i, double d, String mode, double timeout, double smallAngleP, double largeAngleP) {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
 
+    this.smallAngleP = smallAngleP;
+    this.largeAngleP = largeAngleP;
     this.timeout = timeout;
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
     targetDistance = 8.5;
@@ -57,9 +59,9 @@ public class autoPIDVisionDrive extends PIDCommand {
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
       if(Math.abs(tx) < 10) {
-        this.getPIDController().setPID(0.05, 0, 0); 
+        this.getPIDController().setPID(smallAngleP, 0, 0); //p was 0.05 
       } else {
-        this.getPIDController().setPID(0.025, 0, 0);
+        this.getPIDController().setPID(largeAngleP, 0, 0); //p was 0.025
       }
 
       m_speed = 0.5;

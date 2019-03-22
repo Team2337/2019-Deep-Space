@@ -11,11 +11,12 @@ import frc.robot.subsystems.Chassis;
  * @category AUTO
  * @author Bryce G.
  */
-public class autoDriveToEncoderTick extends PIDCommand {
+public class autoDriveToEncoderTickWithoutPID extends Command {
     
     int forwardDistance;
     int inchesToTicks = 686;
     int direction;
+    double maxDriveSpeed = 0;
     
     //max speed forward and reverse
     // double maxSpeed = 0.5;
@@ -26,54 +27,27 @@ public class autoDriveToEncoderTick extends PIDCommand {
      * @param direction - use positive or negative value to deterimine the direction of the drive (positive forward, negative backwards)
      * @param forwardDistance - forward/reverse distance in inches - will convert to ticks
      */
-	public autoDriveToEncoderTick(int direction, int forwardDistance, double maxDriveSpeed) {
-        super(0.025, 0, 0);
-        getPIDController().setAbsoluteTolerance(0.1);
-        getPIDController().setInputRange(-maxDriveSpeed, maxDriveSpeed);
-        // this.maxSpeed = maxDriveSpeed;
+	public autoDriveToEncoderTickWithoutPID(int direction, int forwardDistance, double maxDriveSpeed) {
         this.forwardDistance = (forwardDistance * inchesToTicks);
-        this.direction = (direction/Math.abs(direction));
+        this.maxDriveSpeed = maxDriveSpeed;
 		requires(Robot.Chassis);
 	}
 
 	protected void initialize() {
         Robot.Chassis.resetEncoders();
         Robot.Pigeon.resetPidgey();
-        this.setSetpoint(forwardDistance * direction);
     }
-    
-    @Override
-    protected double returnPIDInput() {
-        return Robot.Chassis.getAverageEncoderPosition();
-    }
-
-    @Override
-    protected void usePIDOutput(double output) {
-        /*
-        if(output > maxSpeed) {
-            output = maxSpeed;
-        }
-
-        if(output < -maxSpeed) {
-            output = -maxSpeed;
-        }
-        */
-
-        Chassis.neoArcade(output, 0, false);
-    }
-
 
 	protected void execute() {
-
+        Chassis.neoArcade(maxDriveSpeed, 0, false);
 	}
 
 
 	protected boolean isFinished() {
-        return Math.abs(Robot.Chassis.getAverageEncoderPosition()) > Math.abs(Robot.Chassis.getAverageEncoderPosition()) - 100;
+        return Math.abs(Robot.Chassis.getAverageEncoderPosition()) > Math.abs(forwardDistance);
 	}
 
 	protected void end() {
-        
 	}
 
 

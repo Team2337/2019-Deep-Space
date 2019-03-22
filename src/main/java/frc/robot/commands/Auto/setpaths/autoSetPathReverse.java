@@ -41,6 +41,7 @@ public class autoSetPathReverse extends Command {
    * @see Pathway.java for more info on each row/column of the PID values
    */
   public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut) {
+    this.cut = cut;
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
