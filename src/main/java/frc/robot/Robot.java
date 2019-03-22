@@ -203,18 +203,23 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putBoolean("Logger", logger);
-    if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue) {
+    // If either the stringpot is detected to be out of range OR the black switch is
+    // flipped, determine that the stringpot is broken
+    if (Robot.Lift.getPosition() < Robot.Lift.minValue || Robot.Lift.getPosition() > Robot.Lift.maxValue
+        || Robot.oi.operatorControls.BlackSwitch.get() == true) {
       stringPotBroken = true;
-      // End goal for this code is to add a timeout for the rumble to run for just 1
-      // second at full power
+      // Rumble the operators controller for one second. This indicates that they are
+      // not driving the lift manually
       if (hasNotifiedOperator == false) {
         Robot.oi.operatorJoystick.setRumble(1, 1);
-        endTime = Timer.getFPGATimestamp() + 1; // Sets a one second timeout
+        endTime = Timer.getFPGATimestamp() + 1;
         hasNotifiedOperator = true;
       } else if (Timer.getFPGATimestamp() >= endTime) {
         Robot.oi.operatorJoystick.setRumble(0, 0);
       }
     } else {
+      // If the stringpot fixes itself, the operator needs to be renotified if it
+      // breaks again. Also, tell other commands that the stringpot is not broken
       hasNotifiedOperator = false;
       stringPotBroken = false;
     }

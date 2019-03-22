@@ -93,9 +93,8 @@ public class OI {
 
 		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
 
-
-		
-	
+		// Assigned to manually determine that the stringpot is broken. DO NOT ASSIGN
+		// operatorControls.BlackSwitch				.whenPressed();
 		///////////////////////////////////////// 
 	}
 

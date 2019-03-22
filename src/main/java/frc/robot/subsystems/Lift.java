@@ -467,7 +467,6 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
       SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
       SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
-      SmartDashboard.putNumber("Lift speed", getSetpoint());
     }
   }
 }
