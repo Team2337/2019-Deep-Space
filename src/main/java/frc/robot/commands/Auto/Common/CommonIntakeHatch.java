@@ -13,6 +13,8 @@ import frc.robot.commands.HatchBeak.*;
  *  <li>Raising the lift to 130 ticks above the intake position</li>
  *  <li>Setting the beak to star position</li>
  * </ol>
+ * 
+ * @author Bryce G.
  */
 public class CommonIntakeHatch extends CommandGroup {
   public CommonIntakeHatch() {

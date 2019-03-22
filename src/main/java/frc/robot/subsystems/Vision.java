@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Vision subsystem for the limelight, and any other camera/vision sensors
+ * 
+ * @author Bryce G.
  */
 public class Vision extends Subsystem {
 

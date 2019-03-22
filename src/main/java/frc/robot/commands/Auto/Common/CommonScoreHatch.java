@@ -15,6 +15,8 @@ import frc.robot.commands.HatchLauncher.hatchLauncherRetract;
  *  <li>Setting the beak to beak position</li>
  *  <li>Retracting the launchers</li>
  * </ol>
+ * 
+ * @author Bryce G.
  */
 public class CommonScoreHatch extends CommandGroup {
   public CommonScoreHatch() {

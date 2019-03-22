@@ -8,19 +8,16 @@ import java.net.UnknownHostException;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Auto.autoDoNothing;
-import frc.robot.commands.Auto.pathway;
-import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
-import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
-import frc.robot.nerdyfiles.pathway.NerdyPath;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.CommandGroups.*;
+import frc.robot.commands.Auto.paths.*;
+import frc.robot.commands.Auto.setpaths.*;
+import frc.robot.nerdyfiles.pathway.*;
 import frc.robot.subsystems.*;
-import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -155,15 +152,15 @@ public class Robot extends TimedRobot {
 
     switch (selectedAuto) {
       case "twoHatch":
-        // driveForwardT = pathway.driveForward();
-        // curveFromToHatchRightT = pathway.curveFromToHatchRight();
-        // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-        // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
+        // driveForwardT = PathwayRightCargoShipTwoHatch.driveForward();
+        // curveFromToHatchRightT = PathwayRightCargoShipTwoHatch.curveFromToHatchRight();
+        // fromRightLoadJTurnToCargoShipT = PathwayRightCargoShipTwoHatch.fromRightLoadJTurnToCargoShip();
+        // jTurnToCargoShipRightT = PathwayRightCargoShipTwoHatch.jTurnToCargoShipRight();
         break;
       case "twoHatchRightRocket":
       // driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
-      driveOffRightLvl2ToBackRightRocketT = pathway.driveOffRightLvl2ToBackRightRocket();
-      driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
+      driveOffRightLvl2ToBackRightRocketT = PathwayRightRocketTwoHatch.driveOffRightLvl2ToBackRightRocket();
+      driveAwayFromBackRightRocketT = PathwayRightRocketTwoHatch.driveAwayFromBackRightRocket();
       default:
       
         break;

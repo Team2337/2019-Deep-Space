@@ -13,6 +13,11 @@ import jaci.pathfinder.modifiers.TankModifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
+/**
+ * Stores the code for all of Jaci Pathfinder's autonomous path writer
+ * 
+ * @author Bryce G. 
+ */
 public class NerdyPath {
   boolean pathfinderDebug = false;
 

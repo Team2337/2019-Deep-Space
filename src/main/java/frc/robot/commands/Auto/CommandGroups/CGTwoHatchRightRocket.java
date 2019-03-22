@@ -20,7 +20,7 @@ public class CGTwoHatchRightRocket extends CommandGroup {
     addSequential(new autoTurnOnLimeLightLED());
     // addSequential(new autoSetPath(Robot.driveOffRightLvl2ToRightRocketT, values[0], 0, 30, false));
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoSetPathReverse(Robot.driveOffRightLvl2ToBackRightRocketT, values[5], 0, 15));
+    addSequential(new autoSetPathReverse(Robot.driveOffRightLvl2ToBackRightRocketT, values[0], 0, 15));
     addSequential(new autoResetEncoders());
     addSequential(new autoPIDVisionDrive(0.05, 0, 0, "", 3, 0.05, 0.025));
 
