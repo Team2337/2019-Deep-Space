@@ -48,6 +48,12 @@ public class pathway {
         { 1.5, 0, 0, 0 }, // driveOffRightLvl2ToBackRightRocket
     };
 
+    /********************************************/
+    /* ---------------------------------------- */
+    /* --- Right Two Hatch Cargo Ship Paths --- */
+    /* ---------------------------------------- */
+    /********************************************/
+
     /**
      * Drives backwards starting on the platform
      */
@@ -202,6 +208,12 @@ public class pathway {
         trajectory = Pathfinder.generate(driveOffRightLvl2ToRightRocket, config);
         return trajectory;
     }
+
+    /******************************/
+    /* -------------------------- */
+    /* --- Right Rocket Paths --- */
+    /* -------------------------- */
+    /******************************/
 
     /**
      * Drive Reverse to back rocket

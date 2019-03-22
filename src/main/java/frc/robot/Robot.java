@@ -66,15 +66,9 @@ public class Robot extends TimedRobot {
   public static Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
-  public static Trajectory curveFromToHatchRightT;
+  public static Trajectory driveForwardT, curveFromToHatchRightT, fromRightLoadJTurnToCargoShipT, jTurnToCargoShipRightT;
   public static Trajectory driveForwardFile;
-  public static Trajectory driveForwardT;
-  public static Trajectory fromRightLoadJTurnToCargoShipT;
-  public static Trajectory initTrajectory;
-  public static Trajectory initTrajectory2;
-  public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
-
   public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl2ToBackRightRocketT, driveAwayFromBackRightRocketT;
 
   public static boolean logger;
@@ -185,10 +179,14 @@ public class Robot extends TimedRobot {
     chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2, 0));
 
     //Use this switch statement to load trajectories based on the auton being run
+    //Sets the trajctories equal to the files they read from to keep from changing the CGs
     /*
     switch(chooser.getSelected().toString()) {
       case "Two Hatch Auton Right":
-
+        driveForwardT = Robot.NerdyPath.readFile("driveForward");
+        curveFromToHatchRightT = Robot.NerdyPath.readFile("curveFromToHatchRight");
+        fromRightLoadJTurnToCargoShipT = Robot.NerdyPath.readFile("fromRightLoadJTurnToCargoShip");
+        jTurnToCargoShipRightT = Robot.NerdyPath.readFile("jTurnToCargoShipRight");
       break;
       default:
 

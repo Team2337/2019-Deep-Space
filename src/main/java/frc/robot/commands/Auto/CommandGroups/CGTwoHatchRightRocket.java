@@ -3,9 +3,9 @@ package frc.robot.commands.Auto.CommandGroups;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.Common.CommonScoreHatch;
 import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.HatchBeak.hatchBeakClose;
-import frc.robot.commands.HatchBeak.hatchBeakOpen;
+import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 
 /**
@@ -13,8 +13,8 @@ import frc.robot.commands.HatchLauncher.*;
  * Turns the limelight on before reaching the end of the path
  * @author Bryce G.
  */
-public class CGTwoDrives extends CommandGroup {
-  public CGTwoDrives() {
+public class CGTwoHatchRightRocket extends CommandGroup {
+  public CGTwoHatchRightRocket() {
     double[][] values = pathway.valuesPID;
 
     addSequential(new autoTurnOnLimeLightLED());
@@ -24,12 +24,15 @@ public class CGTwoDrives extends CommandGroup {
     addSequential(new autoResetEncoders());
     addSequential(new autoPIDVisionDrive(0.05, 0, 0, "", 3, 0.05, 0.025));
 
+    addSequential(new CommonScoreHatch());
+    /* Code inside Score Hatch
     addSequential(new hatchLauncherExtend());
     addSequential(new autoWait(0.75));
     addSequential(new hatchBeakClose());
     addSequential(new autoWait(0.25));
     addSequential(new hatchLauncherRetract());
     addSequential(new autoWait(1));
+    */
 
     /*
     addSequential(new autoResetEncoders());
