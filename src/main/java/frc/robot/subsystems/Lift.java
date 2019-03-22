@@ -56,7 +56,7 @@ public class Lift extends Subsystem {
   // Position to raise the trolley to, allowing the climber to deploy
   public double climbDeployPosition = 540;
   // Position to lower the trolley to, which would bring the robot upwards
-  public double climbLevel3Position = 91; //goes below soft limit because of tolerance
+  public double climbLevel3Position = 91; // goes below soft limit because of tolerance
   // Position to lower the trolley to, which would bring the robot upwards
   public double climbWheelsUpPosition = 165;
   // Position to the maximun height while on the level 3
@@ -81,9 +81,9 @@ public class Lift extends Subsystem {
   public static VictorSPX liftLeftBackMotor;
 
   // Configures the maximum/minumum speeds the lift can travel at
-  private double maxSpeedUp = 1.0; // 0.8
-  private double maxSpeedDown = 1.0; // 0.5
-  private double nominalSpeed = 0;
+  public double maxSpeedUp = 1.0; // 0.8
+  public double maxSpeedDown = 1.0; // 0.5
+  public double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
   private double kP = 14;
@@ -355,8 +355,8 @@ public class Lift extends Subsystem {
   public void setMinMaxSpeed(double up, double down, double nominal) {
     liftLeftFrontMotor.configPeakOutputForward(up, 0); // Forwards
     liftLeftFrontMotor.configNominalOutputForward(nominal, 0);
-    liftLeftFrontMotor.configPeakOutputReverse(down, 0); // Reverse
-    liftLeftFrontMotor.configNominalOutputReverse(-nominal, 0);
+    liftLeftFrontMotor.configPeakOutputReverse(-down, 0); // Reverse
+    liftLeftFrontMotor.configNominalOutputReverse(nominal, 0);
   }
 
   /**
@@ -428,6 +428,7 @@ public class Lift extends Subsystem {
       SmartDashboard.putNumber("Lift_MaxSpeedUp", maxSpeedUp);
       SmartDashboard.putNumber("Lift_MaxSpeedDown", maxSpeedDown);
       SmartDashboard.putNumber("Lift_NominalSpeed", nominalSpeed);
+      SmartDashboard.putNumber("Lift speed", getSetpoint());
     }
   }
 }
