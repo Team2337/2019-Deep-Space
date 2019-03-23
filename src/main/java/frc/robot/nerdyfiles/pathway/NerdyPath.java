@@ -22,7 +22,7 @@ public class NerdyPath {
   boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int ticksPerRev = 13988; 
+  private int ticksPerRev = 11878; //13988
 
   private double inchesToMeters = 0.0254;
   private double wheelDiameter = 6.375 * inchesToMeters;

@@ -27,7 +27,7 @@ public class autoSetPathReverse extends Command {
   public static double kP, kI, kD, kA;
   private double[] pidValues;
   private int segment, wait;
-  private double timeout, finishTime;
+  private double timeout, finishTime, maxVelocity;
   private boolean finished;
   public static boolean fin;
   public int cut;
@@ -45,6 +45,7 @@ public class autoSetPathReverse extends Command {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
+    this.maxVelocity = maxVelocity;
     requires(Robot.Chassis);
   }
 

@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
 
   public static Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
-
+ 
   public static Trajectory driveForwardT, curveFromToHatchRightT, fromRightLoadJTurnToCargoShipT, jTurnToCargoShipRightT;
   public static Trajectory driveForwardFile;
   public static Trajectory testSCurveT;
@@ -72,6 +72,8 @@ public class Robot extends TimedRobot {
   public static boolean logger;
   private String selectedAuto;
   public String mac;
+
+  public static double autonAngle = 0;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -145,23 +147,23 @@ public class Robot extends TimedRobot {
 
     // Turn off the Limelight LED if it is on.
     Vision.setLEDMode(1);
-    sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
-    selectedAuto = "sideTwoHatchFromRight";
+    
+    selectedAuto = "twoHatchRightRocket";
     switch (selectedAuto) {
 
       case "twoHatch":
-        // driveForwardT = PathwayRightCargoShipTwoHatch.driveForward();
+        // driveForwardT = pathway.driveForward();
         // curveFromToHatchRightT = PathwayRightCargoShipTwoHatch.curveFromToHatchRight();
         // fromRightLoadJTurnToCargoShipT = PathwayRightCargoShipTwoHatch.fromRightLoadJTurnToCargoShip();
         // jTurnToCargoShipRightT = PathwayRightCargoShipTwoHatch.jTurnToCargoShipRight();
         break;
       case "twoHatchRightRocket":
       // driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
-      driveOffRightLvl2ToBackRightRocketT = PathwayRightRocketTwoHatch.driveOffRightLvl2ToBackRightRocket();
-      driveAwayFromBackRightRocketT = PathwayRightRocketTwoHatch.driveAwayFromBackRightRocket();
+      driveOffRightLvl2ToBackRightRocketT = pathway.driveOffRightLvl2ToBackRightRocket();
+      driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
       break;
       case "sideTwoHatchFromRight":
       // sideTwoHatchFromRightT = PathwaySideTwoHatchFromRight.sideTwoHatchFromRight();
@@ -256,6 +258,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
     SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
+
+    SmartDashboard.putNumber("autonAngle", autonAngle);
   }
 
   /**

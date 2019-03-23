@@ -24,7 +24,7 @@ public class autoSetPath extends Command {
   private double[] pidValues;
   private int segment, wait, cut;
   private boolean finished;
-  private double timeout, finishTime;
+  private double timeout, finishTime, maxVelocity;
   boolean stopDrive = false;
 
   /**
@@ -41,6 +41,7 @@ public class autoSetPath extends Command {
     this.timeout = timeout;
     this.cut = cut; 
     this.stopDrive = stopDrive;
+    this.maxVelocity = maxVelocity;
     requires(Robot.Chassis);
   }
 

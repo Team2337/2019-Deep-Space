@@ -32,13 +32,14 @@ import frc.robot.commands.Vision.limeLightLEDOn;
 public class CGTwoHatchAutoRight extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
   public CGTwoHatchAutoRight() {
+    // addSequential(new autoWait(Robot.delayChooser.getSelected()));
     //Robot.driveForwardT
     addSequential(new autoSetPathReverse(Robot.driveForwardT, valuesPID[0], 0.1, 0));
       //use this to read from the file
       // addSequential(new autoSetPathReverseFile(Robot.NerdyPath.readFile("driveForward187"), valuesPID[0], 0.1, 0.35)); //last value is the max velocity
       addSequential(new autoLineSensorDrive());
       addSequential(new autoLiftToPosition((Robot.Lift.getPosition() + 30)));
-      addSequential(new autoResetEncoders());
+      addSequential(new autoResetSensors());
       addSequential(new hatchKickerExtend());
       addSequential(new autoWait(1.0));
       addSequential(new hatchKickerRetract());

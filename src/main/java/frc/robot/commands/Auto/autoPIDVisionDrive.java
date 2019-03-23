@@ -13,21 +13,22 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class autoPIDVisionDrive extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout;
+  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout, maxSpeed;
   double p, i, d, largeAngleP, smallAngleP;
 
   boolean turnInPlace = false;
 
   /**
-   * 
-   * @param p - P value (Ex: 0.05 (percent of the stop distance))
-   * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
-   * @param d - D value (Ex: 0.05 (dampens the ocilation))
-   * @param mode - String value that tells what mode the Vision drive is in
-   * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
+   * Auton Vision dirve using the limelight
+   * @param p - P value in the PID
+   * @param timeout - how long (in seconds) the command should run for (in the event the command has not ended otherwise)
+   * @param smallAngleP - P value for angles under 10 degree
+   * @param largeAngleP - P value for angles over 10 degree
+   * @param maxSpeed - maximum speed of the robot
+   * @param targetDistance - ta distance away from the target
    */
-  public autoPIDVisionDrive(double p, double i, double d, String mode, double timeout, double smallAngleP, double largeAngleP) {
-    super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
+  public autoPIDVisionDrive(double p, double timeout, double smallAngleP, double largeAngleP, double maxSpeed, double targetDistance) {
+    super("autoPIDVisionDrive", p, 0, 0);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
@@ -35,6 +36,7 @@ public class autoPIDVisionDrive extends PIDCommand {
     this.smallAngleP = smallAngleP;
     this.largeAngleP = largeAngleP;
     this.timeout = timeout;
+    this.maxSpeed = maxSpeed;
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
     targetDistance = 8.5;
       
@@ -64,7 +66,7 @@ public class autoPIDVisionDrive extends PIDCommand {
         this.getPIDController().setPID(largeAngleP, 0, 0); //p was 0.025
       }
 
-      m_speed = 0.5;
+      m_speed = maxSpeed;
 
       if(ta > 0) {
       m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
@@ -102,7 +104,7 @@ public class autoPIDVisionDrive extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return isTimedOut();
+    return isTimedOut() || ta > targetDistance;
   }
 
   protected void end() {

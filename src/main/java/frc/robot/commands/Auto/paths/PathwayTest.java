@@ -8,7 +8,7 @@ import jaci.pathfinder.*;
  */
 public class PathwayTest extends PathwayMain{
     
-    private static Trajectory.Config config;
+    public static Trajectory.Config config;
     private static Trajectory trajectory;
 
     /**

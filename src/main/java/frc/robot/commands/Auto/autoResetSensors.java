@@ -4,19 +4,20 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Resets the chassis encoders
+ * Resets all sensors including the encoders
  * 
  * @category AUTO
  * @author Bryce G.
  */
-public class autoResetEncoders extends Command {
+public class autoResetSensors extends Command {
 	
-	public autoResetEncoders() {
+	public autoResetSensors() {
 		
 	}
 
 	protected void initialize() {
         Robot.Chassis.resetEncoders();
+        Robot.Pigeon.resetPidgey();
 	}
 
 

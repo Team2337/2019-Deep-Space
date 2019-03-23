@@ -45,7 +45,7 @@ public class pathway {
         { 1.0, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
         { 1, 0, 0, 0 }, // TEST
-        { 1.5, 0, 0, 0 }, // driveOffRightLvl2ToBackRightRocket
+        { 2, 0, 0, 0 }, // driveOffRightLvl2ToBackRightRocket
     };
 
 
@@ -243,7 +243,7 @@ public class pathway {
     private static Waypoint[] driveOffRightLvl2ToBackRightRocket = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(225), inchesToMeters(75), -degreesToRadians(5)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+        new Waypoint(inchesToMeters(220), inchesToMeters(65 /*75*/), -degreesToRadians(5)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
     };
 
     /**

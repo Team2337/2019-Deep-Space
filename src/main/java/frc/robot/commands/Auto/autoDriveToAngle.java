@@ -7,13 +7,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- * Uses a PID to get us closer to the vision target
- * The drive system uses the limelight to determine the error
+ * Turns the robot to given angle 
  * @author Bryce G.
  */
-public class autoTurnToDegree extends PIDCommand {
+public class autoDriveToAngle extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, timeout, targetDistance;
+  double turnValue, targetAngle, leftJoystick, timeout, targetDistance, distance, speed;
   double p, i, d;
 
   boolean turnInPlace = false;
@@ -25,15 +24,17 @@ public class autoTurnToDegree extends PIDCommand {
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
    * 
    */
-  public autoTurnToDegree(double p, double i, double d, double targetAngle, double timeout) {
-    super("autoTurnToDegree", 0.05, i, d);        // set name, P, I, D.
+  public autoDriveToAngle(double p, double i, double d, double targetAngle, double timeout, double distance, double speed) {
+    super("autoDriveToAngle", 0.005, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
-    getPIDController().setOutputRange(-0.35, 0.35);       // output range for 'turn' input to drive command
+    getPIDController().setOutputRange(-0.5, 0.5);       // output range for 'turn' input to drive command
 
 
     this.targetAngle = targetAngle;              // target tx value (limelight horizontal offset from center)
     this.timeout = timeout;              // time before command will end, even if target not found
+    this.distance = distance;
+    this.speed = speed;
 
     requires(Robot.Chassis);
   }
@@ -53,11 +54,12 @@ public class autoTurnToDegree extends PIDCommand {
    */
   protected void usePIDOutput(double output) {
       
-      Chassis.neoArcade(0, -output, false);
+      Chassis.neoArcade(speed, -output, false);
   }
 
   protected void initialize() {
     setTimeout(timeout);
+    Robot.Chassis.resetEncoders();
     this.setSetpoint(targetAngle);
   }
 
@@ -66,7 +68,7 @@ public class autoTurnToDegree extends PIDCommand {
   }
 
   protected boolean isFinished() {
-    return isTimedOut();
+    return (Math.abs(Robot.Chassis.getRightPosition()) > distance) || isTimedOut();
   }
 
   protected void end() {
