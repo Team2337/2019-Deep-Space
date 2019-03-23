@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -32,7 +33,7 @@ public class Chassis extends Subsystem {
    * @see #periodic()
    */
   boolean chassisDebug = false;
-  boolean neoDebug = false;
+  boolean neoDebug = true;
   boolean pathFinderDebug = false;
 
   public double jumpModifier = 0.8;
@@ -41,6 +42,7 @@ public class Chassis extends Subsystem {
   public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
+  public DigitalInput centerLineSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -69,8 +71,10 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
-  public int stallLimit = 50; //in amps - Used in shifterLowGear
-  public int currentLimit = 80; //in amps
+  //35, 35 doesn't allow for turn in place
+  public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
+  public int currentLimit = 40;//60 //in amps
+  public int rpmLimit = 10;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
@@ -92,7 +96,7 @@ public class Chassis extends Subsystem {
   public static double[] ctreEncoders;	
   public static double[] neoEncoders;	
   public static double[] leftPosVelOut;	
-  public static double[] rightPosVelOut;
+  public static double[] rightPosVelOut, neoCurrentRight, neoCurrentLeft;
 
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
@@ -108,6 +112,7 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
+    centerLineSensor = new DigitalInput(Robot.Constants.centerLineSensorID);
 
     /*****************************************/
     /* ------------------------------------- */
@@ -171,7 +176,7 @@ public class Chassis extends Subsystem {
 
     /* --- Neo Drive Left --- */
 
-    // Sets up the left side motors as CAN SparkMax Brushless Motors
+    // Sets up the left side motors as CAN SparkMax Brushless Motors`
     neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
     neoLeftRearMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
 
@@ -179,8 +184,10 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
 
-    neoLeftFrontMotor.setSmartCurrentLimit(currentLimit);
-    neoLeftRearMotor.setSmartCurrentLimit(currentLimit);
+    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+
+    neoLeftRearMotor.clearFaults();
 
     // Left side motors are not currently reversed
     neoLeftFrontMotor.setInverted(false);
@@ -205,8 +212,8 @@ public class Chassis extends Subsystem {
     neoRightFrontEncoder = new CANEncoder(neoRightFrontMotor);
     neoRightRearEncoder = new CANEncoder(neoRightRearMotor);
 
-    neoRightFrontMotor.setSmartCurrentLimit(currentLimit);
-    neoRightRearMotor.setSmartCurrentLimit(currentLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
     
 
     // Right side motors aren't currently reversed
@@ -351,6 +358,13 @@ public class Chassis extends Subsystem {
   /* ------------------------------------- */
   /*****************************************/
 
+  public void setNeoCurrentLimits(int stallLimit, int currentLimit, int rpmLimit) {
+    neoLeftFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoLeftRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+    neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+  }
+
   /**
    * Get the average value of both NEO drive side's encoder averages
    * 
@@ -483,7 +497,8 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	      
+      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	
+      SmartDashboard.putBoolean("Climber_Alignment", centerLineSensor.get()); 
       SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); 
       SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); 
       SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition());     
@@ -519,6 +534,8 @@ public class Chassis extends Subsystem {
       leftPosVelOut =  new double[] {getLeftPosition(), getAverageLeftNeoVelocity(), neoLeftFrontMotor.getOutputCurrent()};
       rightPosVelOut =  new double[] {getRightPosition(), getAverageRightNeoVelocity(), neoRightFrontMotor.getOutputCurrent()};
       neoEncoders = new double[] {neoLeftFrontEncoder.getPosition(), neoRightFrontEncoder.getPosition()};
+      neoCurrentRight = new double[] {neoRightFrontMotor.getOutputCurrent(), neoRightRearMotor.getOutputCurrent()};
+      neoCurrentLeft = new double[] {neoLeftFrontMotor.getOutputCurrent(), neoLeftRearMotor.getOutputCurrent()};
       SmartDashboard.putNumber("neo_Right_Encoder", neoRightFrontEncoder.getPosition());	
       SmartDashboard.putNumber("neo_Left_Encoder", neoLeftFrontEncoder.getPosition());	
       SmartDashboard.putNumber("Neo_Right_Percent_Power", neoRightFrontMotor.get());	
@@ -529,6 +546,16 @@ public class Chassis extends Subsystem {
       SmartDashboard.putNumber("Neo_Left_Current", neoLeftFrontMotor.getOutputCurrent());	
       SmartDashboard.putNumber("Neo_Right_Encoder_Velocity", neoRightFrontEncoder.getVelocity());	
       SmartDashboard.putNumber("Neo_Left_Encoder_Velocity", neoLeftFrontEncoder.getVelocity());	
+
+      
+      SmartDashboard.putNumberArray("Neo_Current_Left", neoCurrentLeft);
+      SmartDashboard.putNumberArray("Neo_Current_Right", neoCurrentRight);
+      
+      SmartDashboard.putNumber("Neo_Current_Left_Front", neoLeftFrontMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Current_Right_Front", neoRightFrontMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Current_Left_Rear", neoLeftRearMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Neo_Current_Right_Rear", neoRightRearMotor.getOutputCurrent());
+
       SmartDashboard.putNumberArray("Neo_Velocities", velocities);	
       SmartDashboard.putNumberArray("Neo_Positions", neoEncoders);	
 

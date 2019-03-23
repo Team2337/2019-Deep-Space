@@ -20,7 +20,7 @@ public class ClimberDeploy extends Subsystem {
 
     private Servo climberReleaseServo;
 
-    public DigitalInput climbLineSensor;
+    public DigitalInput climberLineSensor;
 
     /**
      * Controls the release the climber systems using a pneumatics
@@ -28,7 +28,7 @@ public class ClimberDeploy extends Subsystem {
     public ClimberDeploy() {
         climberReleaseServo = new Servo (Robot.Constants.servoPort);
         climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
-        climbLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
+        climberLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
         this.climberPhase = 5; // 5
         this.readyToClimb = false;
 

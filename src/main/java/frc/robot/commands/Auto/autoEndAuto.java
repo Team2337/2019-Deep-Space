@@ -11,7 +11,9 @@ import frc.robot.Robot;
 public class autoEndAuto extends InstantCommand {
 
     protected void initialize() {
-        Robot.autonomousCommand.cancel();
+        if (Robot.autonomousCommand != null) {
+            Robot.autonomousCommand.cancel();
+        }
         System.out.println("Auton Canceled");
     }
 }
