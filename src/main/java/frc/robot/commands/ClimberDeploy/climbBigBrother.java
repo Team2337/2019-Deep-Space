@@ -44,27 +44,28 @@ public class climbBigBrother extends Command {
             break;
         // Release the climber arms
         case 1:
-            // Running the RoboWrangler drive motor backwards will help release the climber
+            // move servo to release T-rex arms and legs.
+            // Operator needs to hit button again to continue to next case.
             Robot.ClimberDeploy.deployClimber();
 
            
             
-            i = i + 1;
+            //i = i + 1;
             // Stop running the RoboWrangler drive motor before the end of this phase,
             // preventing the rope from getting tangled
-            if (i > 0 && i < 49) { 
+            //if (i > 0 && i < 49) { 
 
-            } else if (i > 25 && i < 150) { // 100
-                Robot.RoboWrangler.drive(-1.0);
+            //} else if (i > 25 && i < 150) { // 100
+            //    Robot.RoboWrangler.drive(-1.0);
                 // Robot.RoboWrangler.stop();
 
-            } else if (i > 96 && i < 110) { // 200
+            //} else if (i > 96 && i < 110) { // 200
                 // Robot.ClimberDeploy.climberPhase = 2;
                 // Robot.ClimberDeploy.undeployClimber();
 
-            } else if (i > 111) {
-                i = 0;
-            }
+            //} else if (i > 111) {
+             //   i = 0;
+            //}
             break;
 
         // Lower the trolley (raising the robot)
@@ -73,7 +74,7 @@ public class climbBigBrother extends Command {
             Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 3;
-
+                Robot.ClimberDeploy.undeployClimber();  // reset servo
             }
             break;
 
@@ -106,7 +107,7 @@ public class climbBigBrother extends Command {
 
         // We have finished climbing
         case 5:
-            // TRYING black switch switch from case 5 to 0 (and back).... instead of boolean
+            // TRYING black switch to switch from case 5 to 0 (and back).... instead of boolean
             finished = true;
             break;
         }

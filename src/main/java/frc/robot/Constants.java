@@ -79,7 +79,7 @@ public class Constants {
     public int pwmPort2 = 2;
     public int pwmPort3 = 3;
     public int pwmPort4 = 4;
-    public int pwmPort5 = 5;
+    public int servoPort = 5;
     public int pwmPort6 = 6;
     public int pwmPort7 = 7;
     public int pwmPort8 = 8;
