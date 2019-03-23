@@ -9,10 +9,10 @@ import frc.robot.Robot;
  */
 public class Recorder extends Subsystem {
 
-
+  double currentTime, lastTime, timeStep;
 
   public Recorder(){
-
+    currentTime = System.currentTimeMillis();
   }
 
   @Override
@@ -26,7 +26,12 @@ public class Recorder extends Subsystem {
   public void periodic() {
 
     if (Robot.logger) {
+      lastTime = currentTime;
+      currentTime = System.currentTimeMillis();
+      timeStep = currentTime - lastTime;
       
+      SmartDashboard.putNumber("timeStep", timeStep);
+
       SmartDashboard.putNumber("Driver_Rt_Stick_X_Axis", Robot.oi.driverJoystick.getRightStickX());
       SmartDashboard.putNumber("Driver_Lt_Stick_Y_Axis", Robot.oi.driverJoystick.getLeftStickY());
       SmartDashboard.putBoolean("Driver_BumperLeft", Robot.oi.driverJoystick.bumperLeft.get());
@@ -80,16 +85,14 @@ public class Recorder extends Subsystem {
       SmartDashboard.putNumber("Cargo_Escalator", Robot.CargoEscalator.status());
       SmartDashboard.putNumber("Cargo_Intake", Robot.CargoIntake.status());
       SmartDashboard.putNumber("Cargo_Score", Robot.CargoScore.status());
-      //chassis (in subsystem)
+      
       SmartDashboard.putNumber("climberPhase",Robot.ClimberDeploy.climberPhase);
       SmartDashboard.putBoolean("Climber_Deploy", Robot.ClimberDeploy.status());
       SmartDashboard.putBoolean("Climber_readyToClimb", Robot.ClimberDeploy.readyToClimb);
       SmartDashboard.putBoolean("Hatch_Beak", Robot.HatchBeak.status());
       SmartDashboard.putBoolean("Hatch_Extender", Robot.HatchLauncher.status());
       SmartDashboard.putNumber("LED_Color", Robot.LED.status());
-
-      //Lift (in subsystem)
-
+      
       SmartDashboard.putNumber("Pigeon_FusedHeading", Robot.Pigeon.getFusedHeading());
       SmartDashboard.putNumber("Pigeon_AbsoluteCompass", Robot.Pigeon.getAbsoluteCompassHeading());
       SmartDashboard.putNumber("Pigeon_Roll", Robot.Pigeon.getRoll());
@@ -97,17 +100,21 @@ public class Recorder extends Subsystem {
       SmartDashboard.putNumber("Pigeon_Yaw", Robot.Pigeon.getYaw());
       SmartDashboard.putNumber("Pigeon_AngularRate", Robot.Pigeon.getAngularRate());
       SmartDashboard.putNumber("Pigeon_Temp", Robot.Pigeon.getTemp());
-
+      
       SmartDashboard.putNumber("RoboWrangler_DriveSpeed", Robot.RoboWrangler.driveMotorStatus());
       SmartDashboard.putNumber("RoboWrangler_LassoSpeed", Robot.RoboWrangler.lassoMotorStatus());
       
       SmartDashboard.putBoolean("Shifter_Low", Robot.Shifter.status());
-
+      
       SmartDashboard.putBoolean("TRexArms", Robot.TRexArms.status());
 
-      //PDP (in Subsystem)
-
-      //NerdyPath (in class)
+      //Lift (in subsystem)
+      
+      //chassis (in subsystem)
+      
+      //PDP (in a class in NerdyFiles)
+      
+      //NerdyPath (in a class in NerdyFiles)
 
       //BobDriveHelper
     }
