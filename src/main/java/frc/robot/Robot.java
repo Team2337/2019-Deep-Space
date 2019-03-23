@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
   public static Trajectory driveForwardFile;
   public static Trajectory testSCurveT;
   public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl2ToBackRightRocketT, driveAwayFromBackRightRocketT;
+  public static Trajectory sideTwoHatchFromRightT;
 
   public static boolean logger;
   private String selectedAuto;
@@ -144,13 +145,13 @@ public class Robot extends TimedRobot {
 
     // Turn off the Limelight LED if it is on.
     Vision.setLEDMode(1);
-
+    sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
     // Used to load the points for the auton. These points take a long time to load,
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
-    selectedAuto = "twoHatchRightRocket";
-
+    selectedAuto = "sideTwoHatchFromRight";
     switch (selectedAuto) {
+
       case "twoHatch":
         // driveForwardT = PathwayRightCargoShipTwoHatch.driveForward();
         // curveFromToHatchRightT = PathwayRightCargoShipTwoHatch.curveFromToHatchRight();
@@ -161,6 +162,11 @@ public class Robot extends TimedRobot {
       // driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
       driveOffRightLvl2ToBackRightRocketT = PathwayRightRocketTwoHatch.driveOffRightLvl2ToBackRightRocket();
       driveAwayFromBackRightRocketT = PathwayRightRocketTwoHatch.driveAwayFromBackRightRocket();
+      break;
+      case "sideTwoHatchFromRight":
+      // sideTwoHatchFromRightT = PathwaySideTwoHatchFromRight.sideTwoHatchFromRight();
+      break;
+
       default:
       
         break;
