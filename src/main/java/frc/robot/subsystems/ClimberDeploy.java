@@ -55,13 +55,15 @@ public class ClimberDeploy extends Subsystem {
      */
     public void deployClimber() {
         climberRelease.set(true);
-    }
+        servoSet(0.8);
+        }
 
     /**
      * unReleases the climber systems
      */
     public void undeployClimber() {
         climberRelease.set(false);
+        servoSet(0.4);
     }
 
     /*

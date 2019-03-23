@@ -187,6 +187,7 @@ public class Robot extends TimedRobot {
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     // Disable the air compressor so it doesn't run every time we start the robot.
     // Robot.AirCompressor.disable();
+    Robot.ClimberDeploy.undeployClimber();
   }
 
   /**
