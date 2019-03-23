@@ -30,7 +30,7 @@ public class PIDVisionDrive extends PIDCommand {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
-    getPIDController().setOutputRange(-0.4, 0.4);       // output range for 'turn' input to drive command
+    getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
 
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
 
@@ -60,13 +60,13 @@ public class PIDVisionDrive extends PIDCommand {
 
       //If the angle error is close to the target, we want a higher P to have a sharper turn, otherwise it's a small turn
       if(Math.abs(tx) < 8) {
-        this.getPIDController().setPID(0.06, 0, 0); 
+        this.getPIDController().setPID(0.12, 0, 0); 
       } else {
-        this.getPIDController().setPID(0.02, 0, 0);
+        this.getPIDController().setPID(0.05, 0, 0);
       }
 
       // Keep for testing 
-      // System.out.println("tx: " + tx + " ***** " + "output: " + output); 
+      System.out.println("tx: " + tx + " ***** " + "output: " + output); 
 
       //Limit the forward drive to 40% while this command is active
       if(Robot.oi.driverJoystick.getLeftStickY() < 0.4) {
