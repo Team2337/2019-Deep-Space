@@ -101,8 +101,8 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit = 660;
-  public static int reverseLiftSoftLimit = 100;
+  public static int forwardLiftSoftLimit;
+  public static int reverseLiftSoftLimit;
 
   // The boundaries of where the robot should consider the stringpot to be working
   // These are used in Robot to determine whether the sensor is out of bounds.
@@ -118,6 +118,9 @@ public class Lift extends Subsystem {
     if (Robot.isComp) {
       /* --- Competition Lift Set Positions --- */
       // TODO: Tune these positions for comp bot
+      forwardLiftSoftLimit = 660;
+      reverseLiftSoftLimit = 100;
+
       cargoLowScorePosition = 100; // 201
       cargoMidScorePosition = 608;// COMP
       cargoShipScorePosition = 474; // COMP // 469;
@@ -137,6 +140,9 @@ public class Lift extends Subsystem {
     } else {
       /* --- Practice Lift Set Positions --- */
       // TODO: Set these positions for practice bot
+      forwardLiftSoftLimit = 717;
+      reverseLiftSoftLimit = 100;
+
       cargoLowScorePosition = 100;
       cargoMidScorePosition = 608;
       cargoShipScorePosition = 474;
@@ -146,11 +152,11 @@ public class Lift extends Subsystem {
 
       hatchLowScorePosition = 155;
       hatchCargoShipScorePosition = 469;
-      hatchMidScorePosition = 660;
+      hatchMidScorePosition = 717;
       hatchIntakePosition = 160;
 
       climbDeployPosition = 540;
-      climbLevel3Position = 91;
+      climbLevel3Position = 115;
       climbWheelsUpPosition = 165;
       climbHighPosition = 450;
     }

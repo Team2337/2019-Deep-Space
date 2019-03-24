@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Lift;
 
 public class climbBigBrother extends Command {
-    //TODO: Change i and j to a variable name that means something
+    // TODO: Change i and j to a variable name that means something
     // i is a timer, and so is j
     int i, j;
     boolean finished;
@@ -24,6 +24,10 @@ public class climbBigBrother extends Command {
 
         if (Robot.ClimberDeploy.climberPhase == 1) {
             Robot.ClimberDeploy.climberPhase = 2;
+        }
+
+        if (Robot.ClimberDeploy.climberPhase == 3) {
+            Robot.ClimberDeploy.climberPhase = 4;
         }
 
         // This changes to true when the climber has reached its final phase
@@ -47,25 +51,6 @@ public class climbBigBrother extends Command {
             // move servo to release T-rex arms and legs.
             // Operator needs to hit button again to continue to next case.
             Robot.ClimberDeploy.deployClimber();
-
-           
-            
-            //i = i + 1;
-            // Stop running the RoboWrangler drive motor before the end of this phase,
-            // preventing the rope from getting tangled
-            //if (i > 0 && i < 49) { 
-
-            //} else if (i > 25 && i < 150) { // 100
-            //    Robot.RoboWrangler.drive(-1.0);
-                // Robot.RoboWrangler.stop();
-
-            //} else if (i > 96 && i < 110) { // 200
-                // Robot.ClimberDeploy.climberPhase = 2;
-                // Robot.ClimberDeploy.undeployClimber();
-
-            //} else if (i > 111) {
-             //   i = 0;
-            //}
             break;
 
         // Lower the trolley (raising the robot)
@@ -74,7 +59,7 @@ public class climbBigBrother extends Command {
             Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 3;
-                Robot.ClimberDeploy.undeployClimber();  // reset servo
+                Robot.ClimberDeploy.undeployClimber(); // Reset the servo
             }
             break;
 
@@ -83,16 +68,17 @@ public class climbBigBrother extends Command {
             Robot.RoboWrangler.drive(0.75);
 
             if (!Robot.ClimberDeploy.climberLineSensor.get()) {
+                System.out.println("******************************CLIMBER LINE SENSOR WAS DETECTED");
                 Robot.RoboWrangler.stop();
                 Robot.ClimberDeploy.climberPhase = 4;
             }
 
             // TODO: Remove timer once line sensor is installed
             j = j + 1;
-
-            if (j > 400) {
+            if (j > 100) {
+                System.out.println("******************************J has finished");
                 Robot.RoboWrangler.stop();
-                Robot.ClimberDeploy.climberPhase = 5;
+                // Robot.ClimberDeploy.climberPhase = 5;
             }
             break;
 
@@ -107,7 +93,8 @@ public class climbBigBrother extends Command {
 
         // We have finished climbing
         case 5:
-            // TRYING black switch to switch from case 5 to 0 (and back).... instead of boolean
+            // TRYING black switch to switch from case 5 to 0 (and back).... instead of
+            // boolean
             finished = true;
             break;
         }

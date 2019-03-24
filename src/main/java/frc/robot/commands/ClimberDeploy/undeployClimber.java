@@ -4,22 +4,22 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Deploy the climber systems - T-Rex arms and the RoboWrangler, moving the
- * servo to position
+ * Undeploy the climber systems - T-Rex arms and the RoboWrangler, resetting the
+ * servo position
  */
-public class deployClimber extends Command {
+public class undeployClimber extends Command {
 
   /**
-   * Deploy the climber systems - T-Rex arms and the RoboWrangler
+   * Undeploy the climber systems - T-Rex arms and the RoboWrangler
    */
-  public deployClimber() {
+  public undeployClimber() {
     requires(Robot.ClimberDeploy);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.ClimberDeploy.deployClimber();
+    Robot.ClimberDeploy.undeployClimber();
   }
 
   // Called repeatedly when this Command is scheduled to run
