@@ -23,8 +23,8 @@ public class CommonScoreHatch extends CommandGroup {
     addSequential(new hatchLauncherExtend());
     addSequential(new autoWait(0.75));
     addSequential(new hatchBeakClose());
-    addSequential(new autoWait(0.25));
+    addSequential(new autoWait(0.15));
     addSequential(new hatchLauncherRetract());
-    addSequential(new autoWait(1));
+    addSequential(new autoWait(0.25));
   }
 }

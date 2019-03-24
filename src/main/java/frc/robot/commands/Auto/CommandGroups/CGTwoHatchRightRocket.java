@@ -21,25 +21,30 @@ public class CGTwoHatchRightRocket extends CommandGroup {
     // addSequential(new autoWait(Robot.delayChooser.getSelected()));
     addSequential(new autoTurnOnLimeLightLED());
     // addSequential(new autoSetPath(Robot.driveOffRightLvl2ToRightRocketT, values[0], 0, 30, false));
-    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoSetPathReverse(Robot.driveOffRightLvl2ToBackRightRocketT, values[0], 0, 15));
+    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
+    addSequential(new autoSetPathReverse(Robot.driveOffRightLvl1ToBackRightRocketT, values[5], 0, 10));
     addSequential(new autoReadAngle());
     addSequential(new autoResetSensors());
-    addSequential(new autoPIDVisionDrive(0.05, 3, 0.12, 0.025, 0.6, 8.5));
+    addSequential(new autoPIDVisionDrive(3, 0.11, 0.05, 0.7));
+
     addSequential(new CommonScoreHatch());
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
-    addSequential(new autoDriveToEncoderTick(-1, 20000, 0.5, 0));
-    addSequential(new autoTurnToDegree(0.05, 0, 0, -Robot.autonAngle, 1));
+    addSequential(new autoDriveToEncoderTick(-1, 20000, 0.5, 0, false, 0));
+    addSequential(new autoTurnToDegree(0.05, 0, 0, (-Robot.autonAngle-5), 1.3));
     addSequential(new autoResetEncoders());   
     addSequential(new autoWait(0.05)); 
-    addSequential(new autoDriveToEncoderTick(1, 40000, 0.5, -0.25)); 
+    addSequential(new autoTurnOnLimeLightLED());
+    addSequential(new autoDriveToEncoderTick(1, 50000, 0.7, -0.25, true, 0.5)); 
     addSequential(new autoResetEncoders());
-    addSequential(new autoPIDVisionDrive(0.05, 5.5, 0.09, 0.025, 0.6, 11));
+    addSequential(new autoPIDVisionDrive(6.5, 0.07, 0.015, 0.6));
     addSequential(new autoResetEncoders());
     addSequential(new CommonIntakeHatch());
     // addSequential(new hatchBeakOpen());
     // addSequential(new autoLiftToPosition((Robot.Lift.hatchLowScorePosition + 130)));
-    addSequential(new autoDriveToEncoderTick(-1, 50, 0.5, 0));
+    addSequential(new autoResetEncoders()); 
+    addSequential(new autoWait(0.05));
+    addSequential(new autoDriveToEncoderTick(-1, 30000, 0.5, 0, false, 0));
+    
   }
 }

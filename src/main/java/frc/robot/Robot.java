@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
   public static Trajectory driveForwardT, curveFromToHatchRightT, fromRightLoadJTurnToCargoShipT, jTurnToCargoShipRightT;
   public static Trajectory driveForwardFile;
   public static Trajectory testSCurveT;
-  public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl2ToBackRightRocketT, driveAwayFromBackRightRocketT;
+  public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl1ToBackRightRocketT, driveAwayFromBackRightRocketT;
   public static Trajectory sideTwoHatchFromRightT;
 
   public static boolean logger;
@@ -151,22 +151,22 @@ public class Robot extends TimedRobot {
     // so to reduce time, we only load the ones we need for the current auton we're
     // going to run
     
-    selectedAuto = "twoHatchRightRocket";
+    selectedAuto = "sideTwoHatchFromRight";
     switch (selectedAuto) {
 
       case "twoHatch":
-        // driveForwardT = pathway.driveForward();
+        driveForwardT = pathway.driveForward();
         // curveFromToHatchRightT = PathwayRightCargoShipTwoHatch.curveFromToHatchRight();
         // fromRightLoadJTurnToCargoShipT = PathwayRightCargoShipTwoHatch.fromRightLoadJTurnToCargoShip();
         // jTurnToCargoShipRightT = PathwayRightCargoShipTwoHatch.jTurnToCargoShipRight();
         break;
       case "twoHatchRightRocket":
       // driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
-      driveOffRightLvl2ToBackRightRocketT = pathway.driveOffRightLvl2ToBackRightRocket();
+      driveOffRightLvl1ToBackRightRocketT = pathway.driveOffRightLvl1ToBackRightRocket();
       driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
       break;
       case "sideTwoHatchFromRight":
-      // sideTwoHatchFromRightT = PathwaySideTwoHatchFromRight.sideTwoHatchFromRight();
+      sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
       break;
 
       default:
@@ -182,6 +182,7 @@ public class Robot extends TimedRobot {
     chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
     chooser.addOption("Do Nothing", new autoDoNothing());
     chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2, 0));
+    chooser.addOption("two hatch right rocket", new CGTwoHatchRightRocket());
 
     //Use this switch statement to load trajectories based on the auton being run
     //Sets the trajctories equal to the files they read from to keep from changing the CGs

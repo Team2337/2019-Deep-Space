@@ -18,6 +18,8 @@ public class autoDriveToEncoderTick extends Command {
         int direction = 0;
         double maxDriveSpeed = 0;
         double turnSpeed = 0;
+        double endSpeed = 0;
+        boolean stopDrive;
 
         // max speed forward and reverse
         // double maxSpeed = 0.5;
@@ -31,11 +33,13 @@ public class autoDriveToEncoderTick extends Command {
          * @param maxDriveSpeed - maximum drive speed
          * @param turnSpeed - turn speed
          */
-        public autoDriveToEncoderTick(int direction, int forwardDistance, double maxDriveSpeed, double turnSpeed) {
+        public autoDriveToEncoderTick(int direction, int forwardDistance, double maxDriveSpeed, double turnSpeed, boolean stopDrive, double endSpeed) {
                 this.distanceForward = forwardDistance;
                 this.maxDriveSpeed = maxDriveSpeed;
                 this.turnSpeed = turnSpeed;
                 this.direction = direction;
+                this.stopDrive = stopDrive;
+                this.endSpeed = endSpeed;
                 requires(Robot.Chassis);
         }
 
@@ -52,6 +56,9 @@ public class autoDriveToEncoderTick extends Command {
         }
 
         protected void end() {
+                if(stopDrive) {
+                   Chassis.neoArcade(endSpeed * direction, 0, false);
+                }
         }
 
         protected void interrupted() {

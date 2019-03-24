@@ -20,15 +20,13 @@ public class PathwaySideTwoHatchFromRight extends PathwayMain{
         { 1, 0, 0, 0 }, // TEST
     };
 
-    
-
     /**
      * <strong>TEST</strong> drive forwards path
      */
     private static Waypoint[] sideTwoHatchFromRight = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(100), inchesToMeters(50), degreesToRadians(-90)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //174.8 
+        new Waypoint(inchesToMeters(60), inchesToMeters(20), degreesToRadians(-60)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //174.8 
     };
 
     /**

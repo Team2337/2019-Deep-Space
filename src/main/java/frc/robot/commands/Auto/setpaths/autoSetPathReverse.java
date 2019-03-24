@@ -45,6 +45,22 @@ public class autoSetPathReverse extends Command {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
+    requires(Robot.Chassis);
+  }
+
+  /**
+   * Reads the set trajectories into the drive, and sets it in reverse
+   * 
+   * @param trajectoryIn - desired trajectory
+   * @param pidValues    - PID values for the current trajcetory, given in the array
+   * @param cut - Number of segments off of the trajectory (Typically a value of 30 - 50)
+   * @see Pathway.java for more info on each row/column of the PID values
+   */
+  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut, double maxVelocity) {
+    this.cut = cut;
+    this.trajectory = trajectoryIn;
+    this.pidValues = pidValues;
+    this.timeout = timeout;
     this.maxVelocity = maxVelocity;
     requires(Robot.Chassis);
   }

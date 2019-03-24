@@ -19,6 +19,5 @@ import frc.robot.commands.HatchBeak.*;
 public class CommonIntakeHatch extends CommandGroup {
   public CommonIntakeHatch() {
     addSequential(new hatchBeakOpen());
-    addSequential(new autoLiftToPosition((Robot.Lift.hatchLowScorePosition + 50)));
   }
 }

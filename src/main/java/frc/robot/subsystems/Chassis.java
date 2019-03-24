@@ -451,6 +451,17 @@ public class Chassis extends Subsystem {
   }
 
   /**
+   * 
+   * Neo arcade drive
+   * @param leftSpeed - forward and reverse speed (positive forward, negative left)
+   * @param rightSpeed - left to right speed (positive right, negative left)
+   * @param squaredInputs - value to set square the inputs
+   */
+  public static void neoTank(double leftSpeed, double rightSpeed, boolean squaredInputs) {
+    neoDrive.tankDrive(leftSpeed, rightSpeed, squaredInputs);
+  }
+
+  /**
    * Manually set the rotational position of the NEO drive encoders
    * 
    * @param pos The position to set the encoder to (in ticks)

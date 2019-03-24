@@ -20,15 +20,14 @@ public class autoPIDVisionDrive extends PIDCommand {
 
   /**
    * Auton Vision dirve using the limelight
-   * @param p - P value in the PID
    * @param timeout - how long (in seconds) the command should run for (in the event the command has not ended otherwise)
    * @param smallAngleP - P value for angles under 10 degree
    * @param largeAngleP - P value for angles over 10 degree
    * @param maxSpeed - maximum speed of the robot
    * @param targetDistance - ta distance away from the target
    */
-  public autoPIDVisionDrive(double p, double timeout, double smallAngleP, double largeAngleP, double maxSpeed, double targetDistance) {
-    super("autoPIDVisionDrive", p, 0, 0);        // set name, P, I, D.
+  public autoPIDVisionDrive(double timeout, double smallAngleP, double largeAngleP, double maxSpeed) {
+    super("autoPIDVisionDrive", 0.05, 0, 0);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
@@ -66,7 +65,7 @@ public class autoPIDVisionDrive extends PIDCommand {
         this.getPIDController().setPID(largeAngleP, 0, 0); //p was 0.025
       }
 
-      m_speed = maxSpeed;
+      m_speed = 0.6;
 
       if(ta > 0) {
       m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
@@ -100,11 +99,13 @@ public class autoPIDVisionDrive extends PIDCommand {
   }
 
   protected void execute() {
-      
+      if(timeSinceInitialized() > 1 && Robot.Chassis.getAverageNeoVelocity() <= 10) {
+        System.out.println("************************ Velocity: " + Robot.Chassis.getAverageNeoVelocity());
+      }
   }
 
   protected boolean isFinished() {
-    return isTimedOut() || ta > targetDistance;
+    return isTimedOut() || (timeSinceInitialized() > 1 && Robot.Chassis.getAverageNeoVelocity() <= 10);
   }
 
   protected void end() {
