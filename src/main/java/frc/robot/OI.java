@@ -91,6 +91,9 @@ public class OI {
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
 		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(455));
 
+		operatorControls.ClearSwitch				.whenPressed(new enableCargoSensors());
+		operatorControls.ClearSwitch				.whenPressed(new disableCargoSensors());
+
 		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
 
 

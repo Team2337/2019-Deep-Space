@@ -11,7 +11,10 @@ import frc.robot.Robot;
 public class CargoBigBrother extends Subsystem {
 
     // Enable/disable debug mode for CargoBigBrother
-    boolean cargoBigBrotherDebug = false;
+    private boolean cargoBigBrotherDebug = false;
+
+    // Whether or not the sensors for the cargo systems are broken
+    public boolean cargoSensorsBroken = false;
 
     public DigitalInput cargoIntakeSensor;
     public DigitalInput cargoEscalatorSensor;
@@ -60,16 +63,20 @@ public class CargoBigBrother extends Subsystem {
      *         </ol>
      */
     public int cargoLevel() {
-        if (cargoIntakeSensor.get()) {
-            return 1;
-        } else if (inDeadzone) {
-            return 2;
-        } else if (!cargoEscalatorSensor.get()) {
-            return 3;
-        } else if (!cargoTrolleySensor.get()) {
-            return 4;
+        if (cargoSensorsBroken == false) {
+            if (cargoIntakeSensor.get()) {
+                return 1;
+            } else if (inDeadzone) {
+                return 2;
+            } else if (!cargoEscalatorSensor.get()) {
+                return 3;
+            } else if (!cargoTrolleySensor.get()) {
+                return 4;
+            } else {
+                return 0;
+            }
         } else {
-            return 0;
+            return -1;
         }
     }
 

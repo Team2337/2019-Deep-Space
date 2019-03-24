@@ -10,11 +10,12 @@ import frc.robot.Robot;
  */
 public class cargoBigBrotherEject extends Command {
 
-    //tolerance of 10 allows for the cargo to be ejected when the trolley is below the min soft limit
+    // A tolerance of 10 allows for the cargo to be ejected when the trolley is
+    // below the minimum soft limit
     double tolerance = 10;
 
     /**
-     * Ejects the cargo from the cargo intake insystem
+     * Ejects the cargo from the robot towards the back of the robot
      * <p>
      * <br/>
      * <strong>NOTE:</strong> the lift will not automatically move to the eject
@@ -23,23 +24,33 @@ public class cargoBigBrotherEject extends Command {
      */
     public cargoBigBrotherEject() {
         requires(Robot.CargoBigBrother);
+        requires(Robot.CargoIntake);
+        requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
     }
 
     @Override
     protected void initialize() {
+        // Always run the intake and escalator outwards
         Robot.CargoEscalator.rollDown(1);
         Robot.CargoIntake.rollOut(1);
     }
 
     @Override
     protected void execute() {
-        // Considers the lift position and whether or not the trolley has a ball to
-        // determine whether or not to run the trolley motors
-        if (!Robot.Lift.atCargoIntakePosition(tolerance) && Robot.CargoBigBrother.cargoTrolleySensor.get()) {
-            Robot.CargoScore.rollReverse(1);
-        } else if (!Robot.Lift.atCargoIntakePosition(tolerance) && !Robot.CargoBigBrother.cargoTrolleySensor.get()) {
-            Robot.CargoScore.rollReverse(0);
+        // If the cargo sensors are not broken, automatically determine what to do with
+        // the cargo score motor. Otherwise, run it backwards regardless
+        if (Robot.CargoBigBrother.cargoSensorsBroken == false) {
+            // Considers the lift position and whether or not the trolley has a ball to
+            // determine whether or not to run the trolley motors.
+            if (!Robot.Lift.atCargoIntakePosition(tolerance) && Robot.CargoBigBrother.cargoTrolleySensor.get()) {
+                Robot.CargoScore.rollReverse(1);
+            } else if (!Robot.Lift.atCargoIntakePosition(tolerance)
+                    && !Robot.CargoBigBrother.cargoTrolleySensor.get()) {
+                Robot.CargoScore.rollReverse(0);
+            } else {
+                Robot.CargoScore.rollReverse(1);
+            }
         } else {
             Robot.CargoScore.rollReverse(1);
         }

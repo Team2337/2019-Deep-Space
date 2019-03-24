@@ -14,8 +14,9 @@ public class cargoBigBrotherIntake extends Command {
     // Speed of the trolley intake. Slower to prevent overshooting the sensor
     double trolleyIntakeSpeed = 0.3;
 
-    // How close the lift needs to be to the intake position 
-    // (10 in order to make sure the cargo can be inatken when the trolley is below the soft limit)
+    // How close the lift needs to be to the intake position
+    // (10 in order to make sure the cargo can be inatken when the trolley is below
+    // the soft limit)
     double liftTolerance = 10;
 
     /**
@@ -39,26 +40,30 @@ public class cargoBigBrotherIntake extends Command {
     // Check the cargo level and start the command accordingly.
     @Override
     protected void initialize() {
-        // Assume we dont have a cargo in the deadzone
+        // Assume we dont have a cargo in the deadzone at the start of the command
         Robot.CargoBigBrother.inDeadzone = false;
 
-        // Move the lift into the intake positon
-
-        if (Robot.Lift.atCargoIntakePosition(80)) {
+        // Move the lift into the intake positon if it is near the intake position, and
+        // the string pot isn't broken
+        if (Robot.stringPotBroken == false && Robot.Lift.atCargoIntakePosition(80)) {
             Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
         }
+
         switch (Robot.CargoBigBrother.cargoLevel()) {
+        case -1:
+            // If the cargo sensors are broken, then all 3 cargo systems will start to run,
+            // and nothing in execute will turn them off
         case 0:
-        if(Robot.oi.operatorJoystick.triggerRight.get()) {
-            Robot.CargoDrawbridge.lowerTheDrawbridge();
-        }
+            if (Robot.oi.operatorJoystick.triggerRight.get()) {
+                Robot.CargoDrawbridge.lowerTheDrawbridge();
+            }
             // Start rolling the intake inwards
             Robot.CargoIntake.rollIn(intakeSpeed);
             // Does not break, as the next cases have the same ending
         case 1:
         case 2:
         case 3:
-            // Start rolling the escalator upwards
+            // Start rolling the escalator upwards and allow the trolley to intake from it
             Robot.CargoEscalator.rollUp(escalatorSpeed);
             Robot.CargoScore.rollForwards(trolleyIntakeSpeed);
             break;
@@ -71,10 +76,12 @@ public class cargoBigBrotherIntake extends Command {
     protected void execute() {
 
         switch (Robot.CargoBigBrother.cargoLevel()) {
-
+        case -1:
+            // If manual intaking is active, the cargo level is -1, and the code falls
+            // through to case 0
         case 0: {
             // Nothing needs to happen in execute, as the necessary motors are running
-            // as per initialize
+            // from initialize
             break;
         }
         case 1: {
@@ -82,7 +89,7 @@ public class cargoBigBrotherIntake extends Command {
             Robot.CargoDrawbridge.raiseTheDrawbridge();
             Robot.CargoIntake.stop();
 
-            // Once the ball has passed the intake *sensor*, it is between the two escalator
+            // Once the ball has passed the intake SENSOR, it is between the two escalator
             // sensors, and thus, in position 2.
             if (Robot.CargoBigBrother.cargoIntakeSensor.get() == false) {
                 Robot.CargoBigBrother.inDeadzone = true;
