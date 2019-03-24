@@ -15,22 +15,37 @@ public class hatchLauncherExtend extends Command {
     requires(Robot.HatchLauncher);
   }
 
-  // Propels the hatch panel away from the robot
+  // Moves the hatch panel away from the robot
   @Override
   protected void initialize() {
-    Robot.HatchLauncher.extend();
+    // If the lift is moving to the mid hatch scoring position, it will extend in
+    // execute. Otherwise, extend the hatch launcher
+    if (Robot.Lift.getSetpoint() != Robot.Lift.hatchMidScorePosition) {
+      Robot.HatchLauncher.extend();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    // If the lift is moving to the mid hatch scoring position, wait until it
+    // reaches the correct height before extending
+    if (Robot.Lift.getSetpoint() == Robot.Lift.hatchMidScorePosition) {
+      if (Robot.Lift.atHatchMidPosition(10)) {
+        Robot.HatchLauncher.extend();
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    //If the lift is moving towards the
+    if (Robot.Lift.getSetpoint() == Robot.Lift.hatchMidScorePosition) {
+      return Robot.Lift.atHatchMidPosition(10);
+    } else {
+      return true;
+    }
   }
 
   // Called once after isFinished returns true

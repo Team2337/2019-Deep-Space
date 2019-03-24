@@ -330,6 +330,17 @@ public class Lift extends Subsystem {
   }
 
   /**
+   * Determines whether or not the lift is within range of the mid hatch scoring
+   * position
+   * 
+   * @param tolerance An acceptable range the lift can be within of the setpoint
+   * @return Whether or not the lift is within a tolerance of its setpoint
+   */
+  public boolean atHatchMidPosition(double tolerance) {
+    return Math.abs(hatchMidScorePosition - getPosition()) <= tolerance;
+  }
+
+  /**
    * Determines whether or not the lift is within range of the climb deploy
    * position
    * 
