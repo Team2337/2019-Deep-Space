@@ -18,12 +18,11 @@ import frc.robot.commands.HatchLauncher.hatchLauncherRetract;
  * 
  * @author Bryce G.
  */
-public class CommonScoreHatch extends CommandGroup {
-  public CommonScoreHatch() {
-    addSequential(new hatchLauncherExtend());
-    addSequential(new autoWait(0.75));
+public class CommonScoreHatchWithoutExtend extends CommandGroup {
+  public CommonScoreHatchWithoutExtend() {
     addSequential(new hatchBeakClose());
-    addSequential(new autoWait(0.1));
+    addSequential(new autoWait(0.15));
     addSequential(new hatchLauncherRetract());
+    addSequential(new autoWait(0.25));
   }
 }

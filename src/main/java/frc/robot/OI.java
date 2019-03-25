@@ -2,8 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.Auto.CommandGroups.CGSideToHatchFromRight;
-import frc.robot.commands.Auto.CommandGroups.CGTwoHatchRightRocket;
+import frc.robot.commands.Auto.CommandGroups.*;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
@@ -52,7 +51,7 @@ public class OI {
 
 		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
-		driverJoystick.start						.whenPressed(new CGSideToHatchFromRight()); //CGTwoHatchRightRocket
+		driverJoystick.start						.whenPressed(new CGHatchMiddleShip4RightShip5()); //CGTwoHatchRightRocket
 		
 	    ////////////////////////////////// 
 	    

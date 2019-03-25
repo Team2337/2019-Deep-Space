@@ -65,7 +65,8 @@ public class autoPIDVisionDrive extends PIDCommand {
         this.getPIDController().setPID(largeAngleP, 0, 0); //p was 0.025
       }
 
-      m_speed = 0.6;
+      m_speed = maxSpeed;
+      // m_speed = 0.6;
 
       if(ta > 0) {
       m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
