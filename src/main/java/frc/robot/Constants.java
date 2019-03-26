@@ -57,7 +57,7 @@ public class Constants {
     public int dioPort4 = 4;
     public int autoLineSensorID = 5;
     public int climberLineSensor = 6;
-    public int dioPort7 = 7;
+    public int centerLineSensorID = 7;
     public int dioPort8 = 8;
     public int dioPort9 = 9;
 
@@ -79,7 +79,7 @@ public class Constants {
     public int pwmPort2 = 2;
     public int pwmPort3 = 3;
     public int pwmPort4 = 4;
-    public int pwmPort5 = 5;
+    public int servoPort = 5;
     public int pwmPort6 = 6;
     public int pwmPort7 = 7;
     public int pwmPort8 = 8;

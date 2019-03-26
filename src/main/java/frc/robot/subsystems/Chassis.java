@@ -42,6 +42,7 @@ public class Chassis extends Subsystem {
   public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
+  public DigitalInput centerLineSensor;
 
   /* --- Drive Motor Declaration --- */
   public TalonSRX leftFrontMotor;
@@ -70,8 +71,9 @@ public class Chassis extends Subsystem {
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDrive neoDrive;
 
-  public int stallLimit = 40; //in amps - Used in shifterLowGear
-  public int currentLimit = 60;//80; //in amps
+  //35, 35 doesn't allow for turn in place
+  public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
+  public int currentLimit = 40;//60 //in amps
   public int rpmLimit = 10;
 
   /* --- CAN ID SETUP --- */
@@ -110,6 +112,7 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
+    centerLineSensor = new DigitalInput(Robot.Constants.centerLineSensorID);
 
     /*****************************************/
     /* ------------------------------------- */
@@ -498,7 +501,8 @@ public class Chassis extends Subsystem {
    */
   public void periodic() {
     if (chassisDebug) {
-      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	      
+      neoEncoders = new double[] {getAverageLeftNeoEncoder(), getAverageRightNeoEncoder()};	
+      SmartDashboard.putBoolean("Climber_Alignment", centerLineSensor.get()); 
       SmartDashboard.putNumber("Right Encoder Value", getRightPosition()); 
       SmartDashboard.putNumber("Right_Encoder_Value", getRightPosition()); 
       SmartDashboard.putNumber("Left_Encoder_Value", getLeftPosition());     
