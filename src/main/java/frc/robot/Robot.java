@@ -66,7 +66,9 @@ public class Robot extends TimedRobot {
   public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl1ToBackRightRocketT, driveAwayFromBackRightRocketT;
   public static Trajectory sideTwoHatchFromRightT;
 
+  private boolean pathsLoaded = false;
   public static boolean logger;
+
   private String chosenAuton;
   public String mac;
 
@@ -197,19 +199,23 @@ public class Robot extends TimedRobot {
      */
     if(!autonChooser.getSelected().equals(chosenAuton)) {
       chosenAuton = autonChooser.getSelected();
+      pathsLoaded = false;
       switch(autonChooser.getSelected()) {
         case "Hatch Ship 7 From Right":
           driveForwardT = Robot.NerdyPath.readFile("driveForward");
           curveFromToHatchRightT = Robot.NerdyPath.readFile("curveFromToHatchRight");
           fromRightLoadJTurnToCargoShipT = Robot.NerdyPath.readFile("fromRightLoadJTurnToCargoShip");
           jTurnToCargoShipRightT = Robot.NerdyPath.readFile("jTurnToCargoShipRight");
+          pathsLoaded = true;
         break;
         case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
           driveOffRightLvl1ToBackRightRocketT = pathway.driveOffRightLvl1ToBackRightRocket();
           driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
+          pathsLoaded = true;
         break;
         case "Hatch Lvl1 Mid Ship 4 Ship 5":
           sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
+          pathsLoaded = true;
         break;
         default:
           //Don't put anything in here because we don't want the robot to move if we don't have an auton with a pathway selected
@@ -250,6 +256,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
 
     SmartDashboard.putNumber("autonAngle", autonAngle);
+    SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
   }
 
   /**

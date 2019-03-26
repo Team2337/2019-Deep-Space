@@ -232,8 +232,10 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveOffRightLvl1ToBackRightRocket() {
+        System.out.println("****** Loading Trajectory... *******");
         config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.7, 0.11, 20); //0.35, 0.05, 0.1  
         trajectory = Pathfinder.generate(driveOffRightLvl1ToBackRightRocket, config);
+        System.out.println("****** Trajectory Loaded! *******");
         return trajectory;
     }
     //driveAwayFromBackRightRocketT
@@ -253,8 +255,10 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveAwayFromBackRightRocket() {
+        System.out.println("****** Loading Trajectory... *******");
         config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
         trajectory = Pathfinder.generate(driveAwayFromBackRightRocket, config);
+        System.out.println("****** Trajectory Loaded! *******");
         return trajectory;
     }
 
@@ -280,8 +284,10 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory sideTwoHatchFromRight() {
+        System.out.println("****** Loading Trajectory... *******");
         config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
         trajectory = Pathfinder.generate(sideTwoHatchFromRight, config);
+        System.out.println("****** Trajectory Loaded! *******");
         return trajectory;
     }
 
