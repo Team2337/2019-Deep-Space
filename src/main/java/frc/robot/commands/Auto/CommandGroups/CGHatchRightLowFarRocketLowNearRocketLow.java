@@ -15,8 +15,8 @@ import frc.robot.commands.HatchLauncher.*;
  * Turns the limelight on before reaching the end of the path
  * @author Bryce G.
  */
-public class CGTwoHatchRightRocket extends CommandGroup {
-  public CGTwoHatchRightRocket() {
+public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
+  public CGHatchRightLowFarRocketLowNearRocketLow() {
     double[][] values = pathway.valuesPID;
     // addSequential(new autoWait(Robot.delayChooser.getSelected()));
     addSequential(new autoTurnOnLimeLightLED());
@@ -25,7 +25,7 @@ public class CGTwoHatchRightRocket extends CommandGroup {
     addSequential(new autoSetPathReverse(Robot.driveOffRightLvl1ToBackRightRocketT, values[5], 0, 10));
     addSequential(new autoReadAngle());
     addSequential(new autoResetSensors());
-    addSequential(new autoPIDVisionDrive(3, 0.11, 0.05, 0.7));
+    addSequential(new autoPIDVisionDrive(3, 0.11, 0.05, 0.6));
 
     addSequential(new CommonScoreHatch());
     addSequential(new autoResetEncoders());

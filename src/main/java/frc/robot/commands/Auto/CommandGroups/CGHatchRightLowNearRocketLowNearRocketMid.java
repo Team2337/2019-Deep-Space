@@ -20,16 +20,14 @@ import frc.robot.commands.Auto.autoWaitSensorReset;
  * running a JTurn at the end for the final hatch
  * @author Bryce G.
  */
-public class CGSideToHatchFromRight extends CommandGroup {
+public class CGHatchRightLowNearRocketLowNearRocketMid extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
 
-  public CGSideToHatchFromRight() {
+  public CGHatchRightLowNearRocketLowNearRocketMid() {
     
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
-    addSequential(new driveAtSetSpeed());
-    addSequential(new autoResetSensors());
-    addSequential(new autoPIDVisionDrive(3, 0.11, 0.05, 0.7));
+    addSequential(new autoPIDVisionDrive(3, 0.11, 0.05, 0.6));
     addSequential(new autoResetEncoders());
     addSequential(new CommonScoreHatch());
     
@@ -40,7 +38,7 @@ public class CGSideToHatchFromRight extends CommandGroup {
     addSequential(new autoTankDrive(0.6, 0.1, 16000, 0, "leftVision", IdleMode.kCoast));
     // addSequential(new autoResetSensors());
     addParallel(new hatchBeakClose());
-    addSequential(new autoPIDVisionDrive(4, 0.07, 0.06, 0.7));
+    addSequential(new autoPIDVisionDrive(4, 0.07, 0.06, 0.6));
     addSequential(new CommonIntakeHatch());
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
@@ -51,7 +49,7 @@ public class CGSideToHatchFromRight extends CommandGroup {
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     addSequential(new autoTankDrive(0.1, 0.5, 0, 55000, "rightVision", IdleMode.kCoast));
-    addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.7));
+    addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
     addSequential(new CommonScoreHatch());
   }
 }

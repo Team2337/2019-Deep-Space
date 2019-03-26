@@ -182,7 +182,7 @@ public class Robot extends TimedRobot {
     chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
     chooser.addOption("Do Nothing", new autoDoNothing());
     chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2, 0));
-    chooser.addOption("two hatch right rocket", new CGTwoHatchRightRocket());
+    chooser.addOption("two hatch right rocket", new CGHatchRightLowFarRocketLowNearRocketLow());
 
     //Use this switch statement to load trajectories based on the auton being run
     //Sets the trajctories equal to the files they read from to keep from changing the CGs

@@ -14,8 +14,8 @@ import frc.robot.commands.HatchBeak.hatchBeakClose;
  * Turns the limelight on before reaching the end of the path
  * @author Bryce G.
  */
-public class CGHatchMiddleShip4RightShip5 extends CommandGroup {
-  public CGHatchMiddleShip4RightShip5() {
+public class CGHatchMiddleShip4Ship5 extends CommandGroup {
+  public CGHatchMiddleShip4Ship5() {
     double[][] values = pathway.valuesPID;
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
     /*
