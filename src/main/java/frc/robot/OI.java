@@ -8,6 +8,7 @@ import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
+import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.Chassis.*;
 import frc.robot.commands.ClimberDeploy.*;
 import frc.robot.nerdyfiles.controller.*;
@@ -45,7 +46,8 @@ public class OI {
 		driverJoystick.greenA						.whenPressed(new hatchKickerExtend());
 		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
 
-		driverJoystick.triggerRight					.whileHeld(new PIDVisionDrive(0.025, 0, 0));
+		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
+		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.025, 0, 0));
 		
 	    ////////////////////////////////// 
 	    

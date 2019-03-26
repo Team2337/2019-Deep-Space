@@ -278,6 +278,10 @@ public class Chassis extends Subsystem {
     return leftFrontMotor.getSelectedSensorPosition();
   }
 
+  public double getAverageEncoderPosition() {
+    return (getLeftPosition() + getRightPosition()) /2;
+  }
+
   /**
    * Talon Method
    * 
