@@ -77,11 +77,10 @@ public class autoPIDVisionDrive extends PIDCommand {
         output = 0;
       }
 
-      System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed + " *** " + "tx: " + tx + " ***** " + "output: " + output);
+      // System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed + " *** " + "tx: " + tx + " ***** " + "output: " + output);
 
       if(turnInPlace) {
         m_speed = 0;
-        System.out.println("turnInPlace: " + turnInPlace);
       }
 
       if(m_speed < 0.3) {
@@ -101,9 +100,7 @@ public class autoPIDVisionDrive extends PIDCommand {
   }
 
   protected void execute() {
-      if(timeSinceInitialized() > 1 && Robot.Chassis.getAverageNeoVelocity() <= 10) {
-        System.out.println("************************ Velocity: " + Robot.Chassis.getAverageNeoVelocity());
-      }
+    
   }
 
   protected boolean isFinished() {

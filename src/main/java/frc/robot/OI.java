@@ -47,11 +47,10 @@ public class OI {
 
 		driverJoystick.greenA						.whenPressed(new hatchKickerExtend());
 		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
-		driverJoystick.blueX						.whenPressed(new driveAtSetSpeed());
 
 		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
-		driverJoystick.start						.whenPressed(new CGHatchMiddleShip4Ship5()); //CGTwoHatchRightRocket
+		// driverJoystick.start						.whenPressed(new CGHatchMiddleShip4Ship5()); //CGTwoHatchRightRocket
 		
 	    ////////////////////////////////// 
 	    
