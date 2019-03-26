@@ -13,7 +13,7 @@ public class driveWranglerByJoystick extends Command {
     private double joy;
 
     // The value that the joystick must exceed for movement to take effect
-    private double joystickDeadband = 0.25;
+    private double joystickDeadband = -0.25;
 
     /**
      * Drive the robot towards the driver station and control the lassoing motor
@@ -30,19 +30,18 @@ public class driveWranglerByJoystick extends Command {
     @Override
     protected void execute() {
         // The value of the driver joystick's left thumbsticks up/down motion
-        joy = -(Robot.oi.operatorJoystick.getRightStickY());
+        joy = (Robot.oi.operatorJoystick.getRightStickY());
 
         /*
          * When the right joystick is moving forward, drive the robot forward using the
          * robowrangler, and when it is backwards, run the lasso motor. Otherwise, stop
          * all motors
          */
-        if (joy > joystickDeadband) {
-            Robot.RoboWrangler.drive(joy);
-            Robot.RoboWrangler.lasso(0);
-        } else if (joy < joystickDeadband) {
-            Robot.RoboWrangler.drive(0);
-            Robot.RoboWrangler.lasso(joy);
+        if(joy > 0) {
+            joy = 0;
+        }
+        if (joy < -0.25) {
+            Robot.RoboWrangler.drive(-joy);
         } else {
             Robot.RoboWrangler.stop();
         }

@@ -4,14 +4,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Retract the climber systems - T-Rex arms and the RoboWrangler
+ * Undeploy the climber systems - T-Rex arms and the RoboWrangler, resetting the
+ * servo position
  */
-public class retractClimber extends Command {
+public class undeployClimber extends Command {
 
   /**
-   * Retract the climber systems - T-Rex arms and the RoboWrangler
+   * Undeploy the climber systems - T-Rex arms and the RoboWrangler
    */
-  public retractClimber() {
+  public undeployClimber() {
     requires(Robot.ClimberDeploy);
   }
 

@@ -6,7 +6,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,9 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Auto.autoDoNothing;
 import frc.robot.commands.Auto.pathway;
-import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
-import frc.robot.commands.Auto.setpaths.autoSetPath;
-import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
+import frc.robot.commands.Auto.CommandGroups.*;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -104,8 +101,8 @@ public class Robot extends TimedRobot {
     } catch (SocketException e) {
       System.out.println("Socket Exception - " + e);
     }
-
-    // Determines what robot we are using
+    /// Determines what robot we are using
+    /*
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
@@ -115,6 +112,8 @@ public class Robot extends TimedRobot {
       System.out.println("CompBot " + mac);
       isComp = true;
     }
+    */
+    isComp = true;
 
     // CONSTRUCTORS
     // Keep above other subsystems, as these have dependencies for other subsystems

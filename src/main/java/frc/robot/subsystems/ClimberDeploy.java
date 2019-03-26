@@ -26,7 +26,7 @@ public class ClimberDeploy extends Subsystem {
      * Controls the release the climber systems using a pneumatics
      */
     public ClimberDeploy() {
-        climberReleaseServo = new Servo (Robot.Constants.servoPort);
+        climberReleaseServo = new Servo(Robot.Constants.servoPort);
         climberRelease = new Solenoid(Robot.Constants.climberReleasePort);
         climberLineSensor = new DigitalInput(Robot.Constants.climberLineSensor);
         this.climberPhase = 5; // 5
@@ -35,13 +35,15 @@ public class ClimberDeploy extends Subsystem {
         LiveWindow.addActuator("servo", 1, climberReleaseServo);
     }
 
-    public void servoSet(double pos){
+    public void servoSet(double pos) {
         climberReleaseServo.set(pos);
     }
-    public void servoSetPosition(double pos){
+
+    public void servoSetPosition(double pos) {
         climberReleaseServo.setPosition(pos);
     }
-    public void servoSetAngle(double pos){
+
+    public void servoSetAngle(double pos) {
         climberReleaseServo.setAngle(pos);
     }
 
@@ -54,15 +56,13 @@ public class ClimberDeploy extends Subsystem {
      * Releases the climber systems
      */
     public void deployClimber() {
-        climberRelease.set(true);
         servoSet(0.8);
-        }
+    }
 
     /**
      * unReleases the climber systems
      */
     public void undeployClimber() {
-        climberRelease.set(false);
         servoSet(0.4);
     }
 
