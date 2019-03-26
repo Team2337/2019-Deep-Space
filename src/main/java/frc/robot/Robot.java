@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Auto.autoDoNothing;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.CommandGroups.CGTwoHatchAutoRight;
+import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.nerdyfiles.pathway.NerdyPath;
 import frc.robot.subsystems.*;
@@ -64,7 +65,7 @@ public class Robot extends TimedRobot {
   public static Vision Vision;
 
   public static Command autonomousCommand;
-  SendableChooser<Command> chooser = new SendableChooser<>();
+  SendableChooser<String> autonChooser = new SendableChooser<>();
 
   public static Trajectory curveFromToHatchRightT;
   public static Trajectory driveForwardFile;
@@ -76,7 +77,7 @@ public class Robot extends TimedRobot {
   public static Trajectory testSCurveT;
 
   public static boolean logger;
-  private String selectedAuto;
+  private String chosenAuton;
   public String mac;
 
   /**
@@ -151,37 +152,18 @@ public class Robot extends TimedRobot {
 
     // Turn off the Limelight LED if it is on.
     Vision.setLEDMode(1);
-
-    // Used to load the points for the auton. These points take a long time to load,
-    // so to reduce time, we only load the ones we need for the current auton we're
-    // going to run
-    selectedAuto = "twoHatch";
-
-    switch (selectedAuto) {
-    case "twoHatch":
-      driveForwardT = pathway.driveForward();
-      // curveFromToHatchRightT = pathway.curveFromToHatchRight();
-      // fromRightLoadJTurnToCargoShipT = pathway.fromRightLoadJTurnToCargoShip();
-      // jTurnToCargoShipRightT = pathway.jTurnToCargoShipRight();
-      break;
-    default:
-
-      break;
-    }
-
+    
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
 
     oi = new OI();
 
-    chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
-    chooser.addOption("Do Nothing", new autoDoNothing());
-    chooser.addOption("driveForward",
-        new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2));
+    autonChooser.setDefaultOption("Auton Do Nothing", "Default");
+    autonChooser.addOption("Hatch 7 From Right", "Hatch 7 From Right");
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
-    SmartDashboard.putData("Auto mode", chooser);
+    SmartDashboard.putData("Auto mode", autonChooser);
     Vision.streamMode(2);
     // Hold the current lift position so that the lift doesn't move on startup
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
@@ -206,6 +188,25 @@ public class Robot extends TimedRobot {
       stringPotBroken = true;
     } else {
       stringPotBroken = false;
+    }
+
+    
+    // Used to load the points for the auton. These points take a long time to load,
+    // so to reduce time, we only load the ones we need for the current auton we're
+    // going to run
+    if(!autonChooser.getSelected().equals(chosenAuton)) {
+      chosenAuton = autonChooser.getSelected();
+      switch(autonChooser.getSelected()) {
+        case "Hatch 7 From Right":
+          driveForwardT = Robot.NerdyPath.readFile("driveForward");
+          curveFromToHatchRightT = Robot.NerdyPath.readFile("curveFromToHatchRight");
+          fromRightLoadJTurnToCargoShipT = Robot.NerdyPath.readFile("fromRightLoadJTurnToCargoShip");
+          jTurnToCargoShipRightT = Robot.NerdyPath.readFile("jTurnToCargoShipRight");
+        break;
+        default:
+          //Don't put anything in here because we don't want the robot to move if we don't have an auton with a pathway selected
+        break;
+      }
     }
 
     /* --- Driver Dashboard Items --- */
@@ -269,8 +270,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    switch(autonChooser.getSelected()) {
+      case "Hatch 7 From Right":
+        autonomousCommand = new CGTwoHatchAutoRight();
+      break;
+      default:
+        autonomousCommand = new autoDoNothing();
+      break;
+    }
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-    autonomousCommand = chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
