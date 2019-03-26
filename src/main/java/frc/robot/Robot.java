@@ -7,18 +7,14 @@ import java.net.UnknownHostException;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Auto.autoDoNothing;
-import frc.robot.commands.Auto.pathway;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.nerdyfiles.pathway.NerdyPath;
+import frc.robot.nerdyfiles.pathway.*;
 import frc.robot.subsystems.*;
-import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -63,19 +59,20 @@ public class Robot extends TimedRobot {
 
   public static Command autonomousCommand;
   SendableChooser<String> autonChooser = new SendableChooser<>();
-
-  public static Trajectory curveFromToHatchRightT;
+ 
+  public static Trajectory driveForwardT, curveFromToHatchRightT, fromRightLoadJTurnToCargoShipT, jTurnToCargoShipRightT;
   public static Trajectory driveForwardFile;
-  public static Trajectory driveForwardT;
-  public static Trajectory fromRightLoadJTurnToCargoShipT;
-  public static Trajectory initTrajectory;
-  public static Trajectory initTrajectory2;
-  public static Trajectory jTurnToCargoShipRightT;
   public static Trajectory testSCurveT;
+  public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl1ToBackRightRocketT, driveAwayFromBackRightRocketT;
+  public static Trajectory sideTwoHatchFromRightT;
 
+  private boolean pathsLoaded = false;
   public static boolean logger;
+
   private String chosenAuton;
   public String mac;
+
+  public static double autonAngle = 0;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -158,7 +155,13 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
-    autonChooser.addOption("Hatch 7 From Right", "Hatch 7 From Right");
+    autonChooser.addOption("Hatch Lvl1 Right, Far Rocket Low, Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl2 Right, Far Rocket Low, Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
+    autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid");
+    autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Mid, Ship 4, Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -190,17 +193,29 @@ public class Robot extends TimedRobot {
     }
 
     
-    // Used to load the points for the auton. These points take a long time to load,
-    // so to reduce time, we only load the ones we need for the current auton we're
-    // going to run
+    /*
+     * Using the auton chooser to load trajectories
+     * Only loads trajectories when it detects a change in the auton chooser on the dashboard
+     */
     if(!autonChooser.getSelected().equals(chosenAuton)) {
       chosenAuton = autonChooser.getSelected();
+      pathsLoaded = false;
       switch(autonChooser.getSelected()) {
-        case "Hatch 7 From Right":
+        case "Hatch Ship 7 From Right":
           driveForwardT = Robot.NerdyPath.readFile("driveForward");
           curveFromToHatchRightT = Robot.NerdyPath.readFile("curveFromToHatchRight");
           fromRightLoadJTurnToCargoShipT = Robot.NerdyPath.readFile("fromRightLoadJTurnToCargoShip");
           jTurnToCargoShipRightT = Robot.NerdyPath.readFile("jTurnToCargoShipRight");
+          pathsLoaded = true;
+        break;
+        case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
+          driveOffRightLvl1ToBackRightRocketT = pathway.driveOffRightLvl1ToBackRightRocket();
+          driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
+          pathsLoaded = true;
+        break;
+        case "Hatch Lvl1 Mid Ship 4 Ship 5":
+          sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
+          pathsLoaded = true;
         break;
         default:
           //Don't put anything in here because we don't want the robot to move if we don't have an auton with a pathway selected
@@ -231,11 +246,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Driver/Auto_Line_Sensor", Robot.Chassis.autoLineSensor.get());
     SmartDashboard.putBoolean("Driver/Climber Line Sensor", Robot.ClimberDeploy.climberLineSensor.get());
 
+    SmartDashboard.putNumber("Right Distance Inch", (Robot.Chassis.getRightPosition() / 13988) * 20);
+    SmartDashboard.putNumber("Left Distance Inch", (Robot.Chassis.getLeftPosition() / 13988) * 20);
+
     SmartDashboard.putNumber("Sticky Faults", Robot.Chassis.neoLeftRearMotor.getStickyFaults());
     SmartDashboard.putNumber("Faults", Robot.Chassis.neoLeftRearMotor.getFaults());
 
     SmartDashboard.putNumber("Climber phase", Robot.ClimberDeploy.climberPhase);
     SmartDashboard.putBoolean("Ready to climb", Robot.ClimberDeploy.readyToClimb);
+
+    SmartDashboard.putNumber("autonAngle", autonAngle);
+    SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
   }
 
   /**
@@ -269,9 +290,31 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    //Selects the auton command being run based off of the chosen auton
     switch(autonChooser.getSelected()) {
-      case "Hatch 7 From Right":
+      case "Hatch Ship 7 From Right":
         autonomousCommand = new CGTwoHatchAutoRight();
+      break;
+      case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
+        autonomousCommand = new CGHatchRightLowFarRocketLowNearRocketLow();
+      break;
+      case "Hatch Lvl2 Right Far Rocket Low Near Rocket Low":
+        autonomousCommand = new CGHatchRightHighFarRocketLowNearRocketLow();
+      break;
+      case "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid":
+        autonomousCommand = new CGHatchRightLowNearRocketLowNearRocketMid();
+      break;
+      case "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid":
+        autonomousCommand = new CGHatchRightHighNearRocketLowNearRocketMid();
+      break;
+      case "Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
+        // autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
+      break;
+      case "Hatch Lvl2 Right Near Rocket Low Far Rocket Low":
+        // autonomousCommand = new CGHatchRightHighNearRocketLowFarRocketLow();
+      break;
+      case "Hatch Lvl1 Mid Ship 4 Ship 5":
+        autonomousCommand = new CGHatchMiddleShip4Ship5();
       break;
       default:
         autonomousCommand = new autoDoNothing();

@@ -13,11 +13,16 @@ import jaci.pathfinder.modifiers.TankModifier;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
+/**
+ * Stores the code for all of Jaci Pathfinder's autonomous path writer
+ * 
+ * @author Bryce G. 
+ */
 public class NerdyPath {
   boolean pathfinderDebug = false;
 
   /* --- Pathfinder Variables --- */
-  private int ticksPerRev = 13988; 
+  private int ticksPerRev = 12078; //13988
 
   private double inchesToMeters = 0.0254;
   private double wheelDiameter = 6.375 * inchesToMeters;
@@ -158,10 +163,6 @@ public class NerdyPath {
       BufferedReader br = new BufferedReader(new FileReader(file));
       file.createNewFile(); //creating new file to read from
       file.setReadable(true, false);
-      // String content;
-      // while ((content = br.readLine()) != null) {
-        // System.out.println(content);
-      // }
       br.close();
       return Pathfinder.readFromCSV(file);
     } catch (IOException e) {

@@ -5,14 +5,14 @@ import frc.robot.Robot;
 
 /**
  * Waits a given amount of time until the next command is run
- * 
+ * Resets the sensors while doing so
  * @category AUTO
  * @author Bryce G.
  */
 public class autoWaitSensorReset extends Command {
 	public double timeout;
 	public autoWaitSensorReset(double timeout) {
-		
+		this.timeout = timeout;
 	}
 
 	protected void initialize() {

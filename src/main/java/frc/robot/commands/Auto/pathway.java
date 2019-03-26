@@ -45,7 +45,15 @@ public class pathway {
         { 1.0, 0, 0, 0 }, // fromRightLoadJTurnToCargoShipT
         { 2, 0, 0, 0 }, // jTurnToCargoShipRightT
         { 1, 0, 0, 0 }, // TEST
+        { 2, 0, 0, 0 }, // driveOffRightLvl2ToBackRightRocket
+        { 1, 0, 0, 0 }, //sideTwoHatchFromRight
     };
+
+    /********************************************/
+    /* ---------------------------------------- */
+    /* --- Right Two Hatch Cargo Ship Paths --- */
+    /* ---------------------------------------- */
+    /********************************************/
 
     /**
      * Drives backwards starting on the platform
@@ -166,7 +174,7 @@ public class pathway {
     private static Waypoint[] driveForward = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(187), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+        new Waypoint(inchesToMeters(100), 0, degreesToRadians(0)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
     };
 
     /**
@@ -176,10 +184,113 @@ public class pathway {
      * @param points - array of waypoints
      */
     public static Trajectory driveForward() {
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.5, 0.13, 20); //0.35, 0.05, 0.1  2.8, 1.2, 120
         trajectory = Pathfinder.generate(driveForward, config);
         return trajectory;
     }
+
+     /**
+     * <strong>TEST</strong> drive forwards path
+     */
+    private static Waypoint[] driveOffRightLvl2ToRightRocket = new Waypoint[] {
+        // Waypoint @ x=0, y=0, exit angle=0 radians
+        new Waypoint(0, 0, 0), 
+        new Waypoint(inchesToMeters(110), -inchesToMeters(22), -degreesToRadians(50)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+    };
+
+    /**
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
+     * 
+     * @param points - array of waypoints
+     */
+    public static Trajectory driveOffRightLvl2ToRightRocket() {
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
+        trajectory = Pathfinder.generate(driveOffRightLvl2ToRightRocket, config);
+        return trajectory;
+    }
+
+    /******************************/
+    /* -------------------------- */
+    /* --- Right Rocket Paths --- */
+    /* -------------------------- */
+    /******************************/
+
+    /**
+     * Drive Reverse to back rocket
+     */
+    private static Waypoint[] driveOffRightLvl1ToBackRightRocket = new Waypoint[] {
+        // Waypoint @ x=0, y=0, exit angle=0 radians
+        new Waypoint(0, 0, 0), 
+        new Waypoint(inchesToMeters(215/* 230 */), inchesToMeters(80), -degreesToRadians(8)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+    };
+
+    /**
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
+     * 
+     * @param points - array of waypoints
+     */
+    public static Trajectory driveOffRightLvl1ToBackRightRocket() {
+        System.out.println("****** Loading Trajectory... *******");
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.7, 0.11, 20); //0.35, 0.05, 0.1  
+        trajectory = Pathfinder.generate(driveOffRightLvl1ToBackRightRocket, config);
+        System.out.println("****** Trajectory Loaded! *******");
+        return trajectory;
+    }
+    //driveAwayFromBackRightRocketT
+    /**
+     * Drive Reverse to back rocket
+     */
+    private static Waypoint[] driveAwayFromBackRightRocket = new Waypoint[] {
+        // Waypoint @ x=0, y=0, exit angle=0 radians
+        new Waypoint(0, 0, 0), 
+        new Waypoint(inchesToMeters(30), inchesToMeters(0), degreesToRadians(30)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+    };
+
+    /**
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
+     * 
+     * @param points - array of waypoints
+     */
+    public static Trajectory driveAwayFromBackRightRocket() {
+        System.out.println("****** Loading Trajectory... *******");
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
+        trajectory = Pathfinder.generate(driveAwayFromBackRightRocket, config);
+        System.out.println("****** Trajectory Loaded! *******");
+        return trajectory;
+    }
+
+    /********************************************/
+    /* ---------------------------------------- */
+    /* --- Right Rocket Paths - Off Level 2 --- */
+    /* ---------------------------------------- */
+    /********************************************/
+
+    /**
+     * <strong>TEST</strong> drive forwards path
+     */
+    private static Waypoint[] sideTwoHatchFromRight = new Waypoint[] {
+        // Waypoint @ x=0, y=0, exit angle=0 radians
+        new Waypoint(0, 0, 0), 
+        new Waypoint(inchesToMeters(30), inchesToMeters(40), degreesToRadians(120)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //174.8 
+    };
+
+    /**
+     * <p>The first reverse drive to the cargo ship in auto <br/></p>
+     * After this drive we will fire the autoHatchKicker to score the hatch
+     * 
+     * @param points - array of waypoints
+     */
+    public static Trajectory sideTwoHatchFromRight() {
+        System.out.println("****** Loading Trajectory... *******");
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, timeStep, 0.35, 0.05, 0.1); //0.35, 0.05, 0.1  2.8, 1.2, 120
+        trajectory = Pathfinder.generate(sideTwoHatchFromRight, config);
+        System.out.println("****** Trajectory Loaded! *******");
+        return trajectory;
+    }
+
 }
 
 //5.13x^2, 10.26x, 10.26

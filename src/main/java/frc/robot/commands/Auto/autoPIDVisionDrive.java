@@ -7,44 +7,39 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- * Uses a PID to get us closer to the vision target
+ * Uses a PID to move the robot closer to the vision target
  * The drive system uses the limelight to determine the error
+ * @category AUTO
  * @author Bryce G.
  */
 public class autoPIDVisionDrive extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx;
-  double p, i, d;
+  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout, maxSpeed;
+  double p, i, d, largeAngleP, smallAngleP;
 
   boolean turnInPlace = false;
 
   /**
-   * 
-   * @param p - P value (Ex: 0.05 (percent of the stop distance))
-   * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
-   * @param d - D value (Ex: 0.05 (dampens the ocilation))
-   * @param mode - String value that tells what mode the Vision drive is in
-   * Example: "turnInPlace" - sets the chassis to turn towards the target without driving forward or back
+   * Auton Vision dirve using the limelight
+   * @param timeout - how long (in seconds) the command should run for (in the event the command has not ended otherwise)
+   * @param smallAngleP - P value for angles under 10 degree
+   * @param largeAngleP - P value for angles over 10 degree
+   * @param maxSpeed - maximum speed of the robot
+   * @param targetDistance - ta distance away from the target
    */
-  public autoPIDVisionDrive(double p, double i, double d, String mode) {
-    super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
+  public autoPIDVisionDrive(double timeout, double smallAngleP, double largeAngleP, double maxSpeed) {
+    super("autoPIDVisionDrive", 0.05, 0, 0);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
 
-
+    this.smallAngleP = smallAngleP;
+    this.largeAngleP = largeAngleP;
+    this.timeout = timeout;
+    this.maxSpeed = maxSpeed;
     targetAngle = 0;              // target tx value (limelight horizontal offset from center)
-    targetDistance = 5;        // not used yet but will be used to drive forward to target based on ta
-    m_timeout = 5;              // time before command will end, even if target not found
-
-    switch(mode) {
-      case "turnInPlace":
-      turnInPlace = true;
-      break;
-      default :
-      turnInPlace = false;
-      break;
-    }
+    targetDistance = 8.5;
+      
     requires(Robot.Chassis);
   }
 
@@ -64,7 +59,15 @@ public class autoPIDVisionDrive extends PIDCommand {
   protected void usePIDOutput(double output) {
       ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
       tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      m_speed = 0.6;
+
+      if(Math.abs(tx) < 10) {
+        this.getPIDController().setPID(smallAngleP, 0, 0); //p was 0.05 
+      } else {
+        this.getPIDController().setPID(largeAngleP, 0, 0); //p was 0.025
+      }
+
+      m_speed = maxSpeed;
+      // m_speed = 0.6;
 
       if(ta > 0) {
       m_speed = (m_speed * ((targetDistance - ta)/targetDistance));
@@ -73,28 +76,35 @@ public class autoPIDVisionDrive extends PIDCommand {
         m_speed = 0;
         output = 0;
       }
-      // System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed);
-      System.out.println("tx: " + tx + " ***** " + "output: " + output);
+
+      // System.out.println("ta: " + ta + " ***** " + "Speed: " + m_speed + " *** " + "tx: " + tx + " ***** " + "output: " + output);
 
       if(turnInPlace) {
         m_speed = 0;
-        System.out.println("turnInPlace: " + turnInPlace);
+      }
+
+      if(m_speed < 0.3) {
+        m_speed = 0.3;
+      }
+
+      if(m_speed < 0) {
+        m_speed = 0;
       }
       Chassis.neoArcade(m_speed, -output, false);
   }
 
   protected void initialize() {
     Robot.Vision.setLEDMode(3);
-    setTimeout(m_timeout);
+    setTimeout(timeout);
     this.setSetpoint(targetAngle);
   }
 
   protected void execute() {
-      
+    
   }
 
   protected boolean isFinished() {
-    return isTimedOut();
+    return isTimedOut() || (timeSinceInitialized() > 1 && Robot.Chassis.getAverageNeoVelocity() <= 10);
   }
 
   protected void end() {

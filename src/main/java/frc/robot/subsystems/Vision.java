@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Vision subsystem for the limelight, and any other camera/vision sensors
+ * 
+ * @author Bryce G.
  */
 public class Vision extends Subsystem {
 
@@ -69,13 +71,14 @@ public class Vision extends Subsystem {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(mode);
   }
 
+  /**
+   * Sets the pipeline of the limelight
+   * @param pipeline - desired pipeline number btween 0-9
+   * 0: Default
+   * 9: Driver Cam
+   */
   public void switchPipeLine(int pipeline) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-  }
-
-  @Override
-  public void periodic() {
-
   }
 
 }

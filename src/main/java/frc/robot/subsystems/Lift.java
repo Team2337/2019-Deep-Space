@@ -146,11 +146,11 @@ public class Lift extends Subsystem {
       cargoLowScorePosition = 100;
       cargoMidScorePosition = 608;
       cargoShipScorePosition = 474;
-      cargoIntakePosition = 100;
+      cargoIntakePosition = 110;
       cargoLoadedPosition = cargoIntakePosition;
       cargoEjectPosition = 500;
 
-      hatchLowScorePosition = 155;
+      hatchLowScorePosition = 207;
       hatchCargoShipScorePosition = 469;
       hatchMidScorePosition = 717;
       hatchIntakePosition = 160;

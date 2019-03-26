@@ -27,25 +27,41 @@ public class autoSetPathReverse extends Command {
   public static double kP, kI, kD, kA;
   private double[] pidValues;
   private int segment, wait;
-  private double timeout, finishTime;
-  //TODO: Variablize lineDistance in the constructor
-  private double lineDistance = 56000;
-  private boolean finished, crossedLine;
-  private boolean lastState = false;
+  private double timeout, finishTime, maxVelocity;
+  private boolean finished;
   public static boolean fin;
+  public int cut;
 
   /**
    * Reads the set trajectories into the drive, and sets it in reverse
    * 
    * @param trajectoryIn - desired trajectory
-   * @param pidValues    - PID values for the current trajcetory, given in the
-   *                     array
+   * @param pidValues    - PID values for the current trajcetory, given in the array
+   * @param cut - Number of segments off of the trajectory (Typically a value of 30 - 50)
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout) {
+  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut) {
+    this.cut = cut;
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
+    requires(Robot.Chassis);
+  }
+
+  /**
+   * Reads the set trajectories into the drive, and sets it in reverse
+   * 
+   * @param trajectoryIn - desired trajectory
+   * @param pidValues    - PID values for the current trajcetory, given in the array
+   * @param cut - Number of segments off of the trajectory (Typically a value of 30 - 50)
+   * @see Pathway.java for more info on each row/column of the PID values
+   */
+  public autoSetPathReverse(Trajectory trajectoryIn, double[] pidValues, double timeout, int cut, double maxVelocity) {
+    this.cut = cut;
+    this.trajectory = trajectoryIn;
+    this.pidValues = pidValues;
+    this.timeout = timeout;
+    this.maxVelocity = maxVelocity;
     requires(Robot.Chassis);
   }
 
@@ -65,9 +81,6 @@ public class autoSetPathReverse extends Command {
     wait = 0;
     finished = false;
     finishTime = timeout * 50;
-
-    Robot.Chassis.crossedLine = false;
-    Robot.Chassis.linesCrossed = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -76,35 +89,11 @@ public class autoSetPathReverse extends Command {
 
     Robot.NerdyPath.makePathReverse();
     segment++;
-    if (segment >= (trajectory.length() - 30)) { //segment >= (trajectory.length() - 50)
+    if (segment >= (trajectory.length() - cut)) { //segment >= (trajectory.length() - 50)
       finished = true;
     }
     if (finished) {
       wait++;
-    }
-
-    //Line sensor drive 
-    
-    if(Math.abs(Robot.Chassis.getLeftPosition()) >= lineDistance) {
-
-      if(lastState && Robot.Chassis.autoLineSensor.get()) {
-        Robot.Chassis.linesCrossed++;
-      }
-      if(!Robot.Chassis.autoLineSensor.get()) {
-        lastState = true;
-      }
-      if(Robot.Chassis.autoLineSensor.get()) {
-        lastState = false;
-      }
-      
-
-      
-      if(crossedLine && Robot.Chassis.autoLineSensor.get()) {
-        Robot.Chassis.linesCrossed = 1;
-      }
-      if(Robot.Chassis.linesCrossed == 1 && Robot.Chassis.crossedLine && !Robot.Chassis.autoLineSensor.get()) {
-        Robot.Chassis.linesCrossed = 2;
-      }
     }
   }
 
@@ -118,9 +107,7 @@ public class autoSetPathReverse extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Chassis.neoLeftFrontMotor.set(-0.3);
-    Robot.Chassis.neoRightFrontMotor.set(-0.3);
+    // Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     
   }
 
