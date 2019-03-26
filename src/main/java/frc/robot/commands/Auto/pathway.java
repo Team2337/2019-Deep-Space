@@ -14,7 +14,7 @@ public class pathway {
     public static Trajectory.Config config;
     public static Trajectory trajectory;
 
-    private static double timeStep = 0.;
+    private static double timeStep = 0.2;
 
     /**
      * Converts inches to meters
