@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -75,18 +74,16 @@ public class Chassis extends Subsystem {
   public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
   public int currentLimit = 40;//60 //in amps
   public int rpmLimit = 10;
+  public double openLoopRampRate = 0.2;
 
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private static int rightFrontID;
   private static int rightRearID;
-  // private static int rightEncoderTalonID;
   private static int leftFrontID;
   private static int leftRearID;
   private static int leftEncoderTalonID;
 
-  // private static int talonRightMidID;
-  // private static int talonRightRearID;
   private static int talonLeftMidID;
   private static int talonLeftRearID;
 
@@ -101,13 +98,11 @@ public class Chassis extends Subsystem {
   public Chassis() {
     rightFrontID = Robot.Constants.chassisRightFrontID;
     rightRearID = Robot.Constants.chassisRightRearID;
-    // rightEncoderTalonID = Robot.Constants.cargoIntakeID;
+
     leftFrontID = Robot.Constants.chassisFrontLeftID;
     leftRearID = Robot.Constants.chassisRearLeftID;
     leftEncoderTalonID = Robot.Constants.wranglerDriveID;
 
-    // talonRightMidID = Robot.Constants.chassisTalonRightMidID;
-    // talonRightRearID = Robot.Constants.chassisTalonRightRearID;
     talonLeftMidID = Robot.Constants.chassisTalonLeftMidID;
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
@@ -471,6 +466,19 @@ public class Chassis extends Subsystem {
 
   public void stopNeoDrive() {
     neoDrive.arcadeDrive(0, 0, false);
+  }
+
+  /**
+   * Sets the ramp rate for open loop control modes. This is the maximum rate at which the motor controller's output is allowed to change.
+   * 
+   * @param rampRate  - Time in seconds to go from 0 to full throttle.
+   * 
+   */
+  public void setNeoOpenLoopRampRate(double rampRate) {
+    neoRightFrontMotor.setOpenLoopRampRate(rampRate);
+    neoRightRearMotor.setOpenLoopRampRate(rampRate);
+    neoLeftFrontMotor.setOpenLoopRampRate(rampRate);
+    neoLeftRearMotor.setOpenLoopRampRate(rampRate);
   }
 
   /**
