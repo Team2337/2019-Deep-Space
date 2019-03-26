@@ -29,7 +29,6 @@ public class Lift extends Subsystem {
   public double targetPosition;
 
   /* --- Lift Set Position Variables --- */
-  // TODO: Tune these positions for comp bot
   // Position to score cargo low in the rocket
   public double cargoLowScorePosition;
   // Position to score cargo mid in the rocket
@@ -110,7 +109,6 @@ public class Lift extends Subsystem {
   public int minValue = 40;
 
   protected void initDefaultCommand() {
-    // setDefaultCommand(new goToPosition(currentPosition));
     setDefaultCommand(new liftWithJoystick());
   }
 

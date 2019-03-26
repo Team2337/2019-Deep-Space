@@ -5,9 +5,8 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Lift;
 
 public class climbBigBrother extends Command {
-    // TODO: Change i and j to a variable name that means something
-    // i is a timer, and so is j
-    int i, j;
+
+    int wranglerDriveTimer;
     boolean finished;
 
     // CONSTRUCTOR
@@ -18,14 +17,13 @@ public class climbBigBrother extends Command {
     }
 
     protected void initialize() {
-        // Set up the timer variables
-        i = 0;
-        j = 0;
-
+        // Set up the timer variable
+        wranglerDriveTimer = 0;
+        // Forward from case 1 to case 2 when the button is released and pressed again
         if (Robot.ClimberDeploy.climberPhase == 1) {
             Robot.ClimberDeploy.climberPhase = 2;
         }
-
+        // Forward from case 3 to case 4 when the button is released and pressed again
         if (Robot.ClimberDeploy.climberPhase == 3) {
             Robot.ClimberDeploy.climberPhase = 4;
         }
@@ -68,15 +66,13 @@ public class climbBigBrother extends Command {
             Robot.RoboWrangler.drive(0.75);
 
             if (!Robot.ClimberDeploy.climberLineSensor.get()) {
-                System.out.println("******************************CLIMBER LINE SENSOR WAS DETECTED");
                 Robot.RoboWrangler.stop();
                 Robot.ClimberDeploy.climberPhase = 4;
             }
 
             // TODO: Remove timer once line sensor is installed
-            j = j + 1;
-            if (j > 100) {
-                System.out.println("******************************J has finished");
+            wranglerDriveTimer = wranglerDriveTimer + 1;
+            if (wranglerDriveTimer > 100) {
                 Robot.RoboWrangler.stop();
                 // Robot.ClimberDeploy.climberPhase = 5;
             }
@@ -93,8 +89,7 @@ public class climbBigBrother extends Command {
 
         // We have finished climbing
         case 5:
-            // TRYING black switch to switch from case 5 to 0 (and back).... instead of
-            // boolean
+
             finished = true;
             break;
         }

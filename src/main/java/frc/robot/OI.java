@@ -87,9 +87,9 @@ public class OI {
 		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
 
 		operatorControls.BlueButton					.whenPressed(new deployClimber());
-		operatorControls.BlueButton					.whenReleased(new unreadyClimber()); /////////////////////////////
+		operatorControls.BlueButton					.whenReleased(new unreadyClimber());
 		
-		//TODO: Turn off compressor
+
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
 		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(455));
