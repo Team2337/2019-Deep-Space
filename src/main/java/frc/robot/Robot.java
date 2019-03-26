@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
   public static Vision Vision;
 
   public static Command autonomousCommand;
-  SendableChooser<Command> chooser = new SendableChooser<>();
+  SendableChooser<String> autonChooser = new SendableChooser<>();
  
   public static Trajectory driveForwardT, curveFromToHatchRightT, fromRightLoadJTurnToCargoShipT, jTurnToCargoShipRightT;
   public static Trajectory driveForwardFile;
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
   public static Trajectory sideTwoHatchFromRightT;
 
   public static boolean logger;
-  private String selectedAuto;
+  private String chosenAuton;
   public String mac;
 
   public static double autonAngle = 0;
@@ -147,62 +147,24 @@ public class Robot extends TimedRobot {
 
     // Turn off the Limelight LED if it is on.
     Vision.setLEDMode(1);
-    // Used to load the points for the auton. These points take a long time to load,
-    // so to reduce time, we only load the ones we need for the current auton we're
-    // going to run
     
-    selectedAuto = "sideTwoHatchFromRight";
-    switch (selectedAuto) {
-
-      case "twoHatch":
-        driveForwardT = pathway.driveForward();
-        // curveFromToHatchRightT = PathwayRightCargoShipTwoHatch.curveFromToHatchRight();
-        // fromRightLoadJTurnToCargoShipT = PathwayRightCargoShipTwoHatch.fromRightLoadJTurnToCargoShip();
-        // jTurnToCargoShipRightT = PathwayRightCargoShipTwoHatch.jTurnToCargoShipRight();
-        break;
-      case "twoHatchRightRocket":
-      // driveOffRightLvl2ToRightRocketT = pathway.driveOffRightLvl2ToRightRocket();
-      driveOffRightLvl1ToBackRightRocketT = pathway.driveOffRightLvl1ToBackRightRocket();
-      driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
-      break;
-      case "sideTwoHatchFromRight":
-      sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
-      break;
-
-      default:
-      
-        break;
-    }
-
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
 
     oi = new OI();
 
-    chooser.setDefaultOption("Two Hatch Auton Right", new CGTwoHatchAutoRight());
-    chooser.addOption("Do Nothing", new autoDoNothing());
-    chooser.addOption("driveForward", new autoSetPathReverse(Robot.NerdyPath.readFile("driveForward"), valuesPID[0], 2, 0));
-    chooser.addOption("two hatch right rocket", new CGHatchRightLowFarRocketLowNearRocketLow());
-
-    //Use this switch statement to load trajectories based on the auton being run
-    //Sets the trajctories equal to the files they read from to keep from changing the CGs
-    /*
-    switch(chooser.getSelected().toString()) {
-      case "Two Hatch Auton Right":
-        driveForwardT = Robot.NerdyPath.readFile("driveForward");
-        curveFromToHatchRightT = Robot.NerdyPath.readFile("curveFromToHatchRight");
-        fromRightLoadJTurnToCargoShipT = Robot.NerdyPath.readFile("fromRightLoadJTurnToCargoShip");
-        jTurnToCargoShipRightT = Robot.NerdyPath.readFile("jTurnToCargoShipRight");
-      break;
-      default:
-
-      break;
-    }
-    */
+    autonChooser.setDefaultOption("Auton Do Nothing", "Default");
+    autonChooser.addOption("Hatch Lvl1 Right Far Rocket Low Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl2 Right Far Rocket Low Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Right Near Rocket Low Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
+    autonChooser.addOption("Hatch Lvl2 Right Near Rocket Low Near Rocket Mid", "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid");
+    autonChooser.addOption("Hatch Lvl1 Right Near Rocket Low Far Rocket Low", "Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Hatch Lvl2 Right Near Rocket Low Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Mid Ship 4 Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
-    SmartDashboard.putData("Auto mode", chooser);
+    SmartDashboard.putData("Auto mode", autonChooser);
     Vision.streamMode(2);
     // Hold the current lift position so that the lift doesn't move on startup
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
@@ -227,6 +189,33 @@ public class Robot extends TimedRobot {
       stringPotBroken = true;
     } else {
       stringPotBroken = false;
+    }
+
+    
+    /*
+     * Using the auton chooser to load trajectories
+     * Only loads trajectories when it detects a change in the auton chooser on the dashboard
+     */
+    if(!autonChooser.getSelected().equals(chosenAuton)) {
+      chosenAuton = autonChooser.getSelected();
+      switch(autonChooser.getSelected()) {
+        case "Hatch Ship 7 From Right":
+          driveForwardT = Robot.NerdyPath.readFile("driveForward");
+          curveFromToHatchRightT = Robot.NerdyPath.readFile("curveFromToHatchRight");
+          fromRightLoadJTurnToCargoShipT = Robot.NerdyPath.readFile("fromRightLoadJTurnToCargoShip");
+          jTurnToCargoShipRightT = Robot.NerdyPath.readFile("jTurnToCargoShipRight");
+        break;
+        case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
+          driveOffRightLvl1ToBackRightRocketT = pathway.driveOffRightLvl1ToBackRightRocket();
+          driveAwayFromBackRightRocketT = pathway.driveAwayFromBackRightRocket();
+        break;
+        case "Hatch Lvl1 Mid Ship 4 Ship 5":
+          sideTwoHatchFromRightT = pathway.sideTwoHatchFromRight();
+        break;
+        default:
+          //Don't put anything in here because we don't want the robot to move if we don't have an auton with a pathway selected
+        break;
+      }
     }
 
     /* --- Driver Dashboard Items --- */
@@ -295,8 +284,37 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    //Selects the auton command being run based off of the chosen auton
+    switch(autonChooser.getSelected()) {
+      case "Hatch Ship 7 From Right":
+        autonomousCommand = new CGTwoHatchAutoRight();
+      break;
+      case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
+        autonomousCommand = new CGHatchRightLowFarRocketLowNearRocketLow();
+      break;
+      case "Hatch Lvl2 Right Far Rocket Low Near Rocket Low":
+        autonomousCommand = new CGHatchRightHighFarRocketLowNearRocketLow();
+      break;
+      case "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid":
+        autonomousCommand = new CGHatchRightLowNearRocketLowNearRocketMid();
+      break;
+      case "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid":
+        autonomousCommand = new CGHatchRightHighNearRocketLowNearRocketMid();
+      break;
+      case "Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
+        // autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
+      break;
+      case "Hatch Lvl2 Right Near Rocket Low Far Rocket Low":
+        // autonomousCommand = new CGHatchRightHighNearRocketLowFarRocketLow();
+      break;
+      case "Hatch Lvl1 Mid Ship 4 Ship 5":
+        autonomousCommand = new CGHatchMiddleShip4Ship5();
+      break;
+      default:
+        autonomousCommand = new autoDoNothing();
+      break;
+    }
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-    autonomousCommand = chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
