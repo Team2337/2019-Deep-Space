@@ -9,7 +9,7 @@ public class Constants {
     public int liftRightFrontID = 4;
     public int liftRightRearID = 5;
     //TODO: Wrangler Lasso WAS 13
-    public int wranglerDriveID = 6;
+    public int wranglerDriveID = 13;
     public int canID7 = 7; // Limelight is plugged into PDP port 7
     public int cargoScoreID = 8;
     public int cargoEscalatorID = 9;
@@ -17,7 +17,7 @@ public class Constants {
     public int liftLeftRearID = 11;
     public int canID12 = 12;
     //TODO: Wrangler Drive WAS 13
-    public int wranglerLassoID = 13;
+    public int wranglerLassoID = 6;
     public int chassisRearLeftID = 14;
     public int chassisFrontLeftID = 15;
 

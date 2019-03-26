@@ -117,7 +117,9 @@ public class Lift extends Subsystem {
   public Lift() {
     if (Robot.isComp) {
       /* --- Competition Lift Set Positions --- */
-      // TODO: Tune these positions for comp bot
+      // TODO: Fix soft limit
+      //TODO: Set slower speed for arms point
+      //Bottom point = 62
       forwardLiftSoftLimit = 660;
       reverseLiftSoftLimit = 100;
 
