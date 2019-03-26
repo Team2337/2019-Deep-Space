@@ -1,8 +1,4 @@
 # 2019 Deep Space Code
 
-## Naming Conventions
+https://github.com/Team2337/2019-Deep-Space/wiki
 
-* All Commands should be named using camel case, starting with the subsystem name
-    * Ex: subsystemCommandName
-* All subsystem should be named starting each word with a capital letter
-    * Ex: SubsystemName
