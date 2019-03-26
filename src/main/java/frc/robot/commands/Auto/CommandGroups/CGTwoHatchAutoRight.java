@@ -54,7 +54,7 @@ public class CGTwoHatchAutoRight extends CommandGroup {
       addSequential(new limeLightLEDOn());
       addSequential(new autoWait(.5));
       // Robot.curveFromToHatchRightT
-      addSequential(new autoSetPathFile(Robot.NerdyPath.readFile("curveFromToHatchRight"), valuesPID[1], 2, 0.35)); //last value is the max velocity
+      addSequential(new autoSetPathFile(Robot.NerdyPath.readFile("curveFromToHatchRight"), valuesPID[1], 2, 0.35, 0.35)); //last value is the max velocity
       addSequential(new hatchKickerExtend());
       addSequential(new autoWait(.4));
       addSequential(new hatchKickerRetract());

@@ -40,9 +40,6 @@ public class OI {
 
 		driverJoystick.bumperRight					.whenPressed(new autoEndAuto());
 
-		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
-		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
-
 		driverJoystick.greenA						.whenPressed(new hatchKickerExtend());
 		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
 

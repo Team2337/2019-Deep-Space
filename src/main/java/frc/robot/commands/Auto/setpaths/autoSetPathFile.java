@@ -35,11 +35,16 @@ public class autoSetPathFile extends Command {
    *                     array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPathFile(Trajectory trajectoryIn, double[] pidValues, double timeout, double maxVelocity) {
+  public autoSetPathFile(Trajectory trajectoryIn, double[] pidValues, double timeout, double maxVelocity, double defaultMaxVelocity) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
-    this.maxVelocity = maxVelocity;
+    try {
+      this.maxVelocity = maxVelocity;
+    } catch(NullPointerException e) {
+      System.out.println("No Max Velocity Found: " + e);
+      this.maxVelocity = defaultMaxVelocity;
+    }
     requires(Robot.Chassis);
   }
 
@@ -54,6 +59,7 @@ public class autoSetPathFile extends Command {
 
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Chassis.resetEncoders();
+
     Robot.NerdyPath.setTrajectory(trajectory, kP, kI, kD, kA, maxVelocity);
     segment = 0;
     wait = 0;

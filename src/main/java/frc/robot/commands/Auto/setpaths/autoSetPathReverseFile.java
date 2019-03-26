@@ -43,11 +43,16 @@ public class autoSetPathReverseFile extends Command {
    *                     array
    * @see Pathway.java for more info on each row/column of the PID values
    */
-  public autoSetPathReverseFile(Trajectory trajectoryIn, double[] pidValues, double timeout, double maxVelocity) {
+  public autoSetPathReverseFile(Trajectory trajectoryIn, double[] pidValues, double timeout, double maxVelocity, double defaultMaxVelocity) {
     this.trajectory = trajectoryIn;
     this.pidValues = pidValues;
     this.timeout = timeout;
-    this.maxVelocity = maxVelocity;
+    try {
+      this.maxVelocity = maxVelocity;
+    } catch(NullPointerException e) {
+      System.out.println("No Max Velocity Found: " + e);
+      this.maxVelocity = defaultMaxVelocity;
+    }
     requires(Robot.Chassis);
   }
 
