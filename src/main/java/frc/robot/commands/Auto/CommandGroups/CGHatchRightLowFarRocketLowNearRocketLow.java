@@ -3,12 +3,8 @@ package frc.robot.commands.Auto.CommandGroups;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.Auto.Common.CommonIntakeHatch;
-import frc.robot.commands.Auto.Common.CommonScoreHatch;
-import frc.robot.commands.Auto.paths.PathwayRightRocketTwoHatch;
+import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.HatchBeak.*;
-import frc.robot.commands.HatchLauncher.*;
 
 /**
  * Auton Description:

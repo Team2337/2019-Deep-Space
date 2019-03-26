@@ -4,14 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.AutoHatchKicker.hatchKickerExtend;
-import frc.robot.commands.AutoHatchKicker.hatchKickerRetract;
-import frc.robot.commands.Chassis.PID3DLimelight;
-import frc.robot.commands.HatchBeak.hatchBeakClose;
-import frc.robot.commands.HatchBeak.hatchBeakOpen;
-import frc.robot.commands.HatchLauncher.hatchLauncherExtend;
-import frc.robot.commands.HatchLauncher.hatchLauncherRetract;
-import frc.robot.commands.Vision.limeLightLEDOn;
+import frc.robot.commands.AutoHatchKicker.*;
+import frc.robot.commands.Vision.*;
 
 /**
  * Runs reverse off the platform, to the first right side cargo ship spot, scores, and 

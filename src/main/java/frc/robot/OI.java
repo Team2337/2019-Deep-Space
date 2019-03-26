@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.commands.Auto.setpaths.autoSetPath;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;

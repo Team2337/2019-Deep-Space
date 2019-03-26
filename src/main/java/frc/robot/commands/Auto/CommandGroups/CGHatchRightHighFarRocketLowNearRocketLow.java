@@ -4,10 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.Auto.paths.*;
 import frc.robot.commands.Auto.setpaths.*;
-import frc.robot.commands.HatchBeak.*;
-import frc.robot.commands.HatchLauncher.*;
 
 /**
  * Auton Description:

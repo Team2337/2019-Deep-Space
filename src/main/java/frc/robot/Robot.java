@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.commands.Auto.paths.*;
-import frc.robot.commands.Auto.setpaths.*;
 import frc.robot.nerdyfiles.pathway.*;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.*;

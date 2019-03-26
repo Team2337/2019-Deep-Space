@@ -1,6 +1,5 @@
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;

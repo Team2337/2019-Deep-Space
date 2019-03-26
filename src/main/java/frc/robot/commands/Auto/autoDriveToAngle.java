@@ -3,7 +3,6 @@ package frc.robot.commands.Auto;
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 import com.revrobotics.CANSparkMax.IdleMode;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**

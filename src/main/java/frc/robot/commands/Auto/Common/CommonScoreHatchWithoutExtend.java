@@ -1,10 +1,9 @@
 package frc.robot.commands.Auto.Common;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.Auto.autoWait;
-import frc.robot.commands.HatchBeak.hatchBeakClose;
-import frc.robot.commands.HatchLauncher.hatchLauncherExtend;
-import frc.robot.commands.HatchLauncher.hatchLauncherRetract;
+import frc.robot.commands.Auto.*;
+import frc.robot.commands.HatchBeak.*;
+import frc.robot.commands.HatchLauncher.*;
 
 /**
  * This command scores the hatch by setting the beak to beak position</li>
