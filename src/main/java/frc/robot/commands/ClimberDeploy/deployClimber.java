@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Deploy the climber systems - T-Rex arms and the RoboWrangler
+ * Deploy the climber systems - T-Rex arms and the RoboWrangler, moving the
+ * servo to position
  */
 public class deployClimber extends Command {
 

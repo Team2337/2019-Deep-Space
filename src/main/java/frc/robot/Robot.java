@@ -6,7 +6,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.*;
@@ -99,8 +98,8 @@ public class Robot extends TimedRobot {
     } catch (SocketException e) {
       System.out.println("Socket Exception - " + e);
     }
-
-    // Determines what robot we are using
+    /// Determines what robot we are using
+    /*
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
@@ -110,6 +109,8 @@ public class Robot extends TimedRobot {
       System.out.println("CompBot " + mac);
       isComp = true;
     }
+    */
+    isComp = true;
 
     // CONSTRUCTORS
     // Keep above other subsystems, as these have dependencies for other subsystems
