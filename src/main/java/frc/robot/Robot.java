@@ -153,13 +153,13 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
-    autonChooser.addOption("Hatch Lvl1 Right Far Rocket Low Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
-    autonChooser.addOption("Hatch Lvl2 Right Far Rocket Low Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
-    autonChooser.addOption("Hatch Lvl1 Right Near Rocket Low Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
-    autonChooser.addOption("Hatch Lvl2 Right Near Rocket Low Near Rocket Mid", "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid");
-    autonChooser.addOption("Hatch Lvl1 Right Near Rocket Low Far Rocket Low", "Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
-    autonChooser.addOption("Hatch Lvl2 Right Near Rocket Low Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
-    autonChooser.addOption("Hatch Lvl1 Mid Ship 4 Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
+    autonChooser.addOption("Hatch Lvl1 Right, Far Rocket Low, Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl2 Right, Far Rocket Low, Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
+    autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid");
+    autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Mid, Ship 4, Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
 
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
