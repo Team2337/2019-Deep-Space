@@ -6,6 +6,7 @@ import frc.robot.Robot;
 /**
  * Exits the robot from auton and gives the drivers control of the robot
  * 
+ * @category AUTO
  * @author Bryce G.
  */
 public class autoEndAuto extends InstantCommand {

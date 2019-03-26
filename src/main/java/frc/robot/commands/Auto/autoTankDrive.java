@@ -8,7 +8,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 
 /**
- * Waits a given amount of time until the next command is run
+ * Drives the robot using tank drive to a specified encoder tick
  * 
  * @category AUTO
  * @author Bryce G.
@@ -20,11 +20,12 @@ public class autoTankDrive extends Command {
 
 	/**
 	 * 
-	 * @param leftSpeed
-	 * @param rightSpeed
-	 * @param leftDist
-	 * @param rightDist
-	 * @param side
+	 * @param leftSpeed - speed of the left side of the chassis (value between -1 & 1)
+	 * @param rightSpeed - speed of the right side of the chassis (value between -1 & 1)
+	 * @param leftDist - distance in encoder ticks the left side will drive to
+	 * @param rightDist - distance in encoder ticks the right side will drive to
+	 * @param side - String value determining which side of the chassis to read to end the command 
+	 * ("right" or "left")
 	 */
 	public autoTankDrive(double leftSpeed, double rightSpeed, double leftDist, double rightDist, String side, IdleMode brakeMode) {
 		this.rightSpeed = rightSpeed;

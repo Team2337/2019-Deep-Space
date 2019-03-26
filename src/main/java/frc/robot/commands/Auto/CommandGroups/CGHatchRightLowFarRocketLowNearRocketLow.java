@@ -11,8 +11,16 @@ import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 
 /**
- * Driving with the limelight after the paths have finished
- * Turns the limelight on before reaching the end of the path
+ * Auton Description:
+ * <ol>
+ * <li>Starts with hatch On the right side of the lvl 1 platform</li>
+ * <li>Drives to the far end of the right rocket</li>
+ * <li>Scores the hatch on low</li>
+ * <li>Drives to the right load station</li>
+ * <li>Intakes hatch</li>
+ * <li>Drives to the near right rocket</li>
+ * <li>Scores the hatch on low</li>
+ * </ol>
  * @author Bryce G.
  */
 public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {

@@ -7,8 +7,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- * Uses a PID to get us closer to the vision target
- * The drive system uses the limelight to determine the error
+ * Turns to given degree using a PID
+ * @category AUTO
  * @author Bryce G.
  */
 public class autoTurnToDegree extends PIDCommand {
@@ -19,11 +19,11 @@ public class autoTurnToDegree extends PIDCommand {
   boolean turnInPlace = false;
 
   /**
-   * 
    * @param p - P value (Ex: 0.05 (percent of the stop distance))
    * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
-   * 
+   * @param targetAngle - Desired angle of the robot (right is negative, left is positive)
+   * @param timeout
    */
   public autoTurnToDegree(double p, double i, double d, double targetAngle, double timeout) {
     super("autoTurnToDegree", 0.05, i, d);        // set name, P, I, D.

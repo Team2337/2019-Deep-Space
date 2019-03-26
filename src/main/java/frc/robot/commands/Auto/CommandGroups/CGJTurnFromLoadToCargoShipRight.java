@@ -1,12 +1,8 @@
 package frc.robot.commands.Auto.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
 import frc.robot.commands.Auto.pathway;
 import frc.robot.commands.Auto.autoResetSensors;
-import frc.robot.commands.Auto.autoWait;
-import frc.robot.commands.Auto.setpaths.autoSetPath;
-import frc.robot.commands.Auto.setpaths.autoSetPathReverse;
 import frc.robot.commands.Auto.autoWaitSensorReset;
 
 /**

@@ -7,15 +7,9 @@ import frc.robot.commands.HatchLauncher.hatchLauncherExtend;
 import frc.robot.commands.HatchLauncher.hatchLauncherRetract;
 
 /**
- * @category Common Command Group
- * <p><br/></p>
- * This command scores the hatch by:
- * <ol>
- *  <li>Extending the launcher</li>
- *  <li>Setting the beak to beak position</li>
- *  <li>Retracting the launchers</li>
- * </ol>
+ * This command scores the hatch by setting the beak to beak position</li>
  * 
+ * @category Common Command Group
  * @author Bryce G.
  */
 public class CommonScoreHatchWithoutExtend extends CommandGroup {

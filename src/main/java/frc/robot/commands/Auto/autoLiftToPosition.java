@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Waits a given amount of time until the next command is run
+ * Lifts to specified string pot position
+ * @see Lift.java  
  * 
  * @category AUTO
  * @author Bryce G.

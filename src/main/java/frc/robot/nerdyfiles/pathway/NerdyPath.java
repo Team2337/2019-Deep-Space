@@ -163,10 +163,6 @@ public class NerdyPath {
       BufferedReader br = new BufferedReader(new FileReader(file));
       file.createNewFile(); //creating new file to read from
       file.setReadable(true, false);
-      // String content;
-      // while ((content = br.readLine()) != null) {
-        // System.out.println(content);
-      // }
       br.close();
       return Pathfinder.readFromCSV(file);
     } catch (IOException e) {

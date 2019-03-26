@@ -7,8 +7,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- * Uses a PID to get us closer to the vision target
+ * Uses a PID to move the robot closer to the vision target
  * The drive system uses the limelight to determine the error
+ * @category AUTO
  * @author Bryce G.
  */
 public class autoPIDVisionDrive extends PIDCommand {
