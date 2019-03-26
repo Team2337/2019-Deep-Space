@@ -104,8 +104,7 @@ public class Robot extends TimedRobot {
     } catch (SocketException e) {
       System.out.println("Socket Exception - " + e);
     }
-isComp = true;
-    /* /// Determines what robot we are using
+    /// Determines what robot we are using
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
@@ -114,7 +113,7 @@ isComp = true;
       // cover if there is an error while getting the MAC address)
       System.out.println("CompBot " + mac);
       isComp = true;
-    }*/
+    }
 
     // CONSTRUCTORS
     // Keep above other subsystems, as these have dependencies for other subsystems
