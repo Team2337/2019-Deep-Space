@@ -18,10 +18,9 @@ public class LEDRuntime extends Command {
 	}
 
 	protected void initialize() {
-
+		LED.setColor(LED.off);
 	}
 
-	// LED.setColor(LED.red);
 	protected void execute() {
 		if (DriverStation.getInstance().isAutonomous()) {
 			if(Robot.pathsLoaded) {

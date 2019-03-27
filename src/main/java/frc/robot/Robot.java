@@ -359,6 +359,7 @@ public class Robot extends TimedRobot {
     }
     logger = true;
 
+    //TODO: Does this work?
     Scheduler.getInstance().add(new LEDRuntime());
   }
 
