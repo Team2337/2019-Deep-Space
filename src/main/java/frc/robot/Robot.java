@@ -358,9 +358,6 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
     logger = true;
-
-    //TODO: Does this work?
-    Scheduler.getInstance().add(new LEDRuntime());
   }
 
   /**
