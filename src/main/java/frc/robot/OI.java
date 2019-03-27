@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.CommandGroups.CGHatchMiddleShip4Ship5;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
@@ -48,7 +49,11 @@ public class OI {
 
 		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
-		// driverJoystick.start						.whenPressed(new ); 
+
+		driverJoystick.redB							.whenPressed(new setNeoOpenLoopRampRate(0.2));
+		driverJoystick.blueX						.whenPressed(new setNeoOpenLoopRampRate(0.25));
+		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());
+		driverJoystick.start						.whenPressed(new CGHatchMiddleShip4Ship5()); 
 		
 	    ////////////////////////////////// 
 	    

@@ -183,6 +183,7 @@ public class Chassis extends Subsystem {
     neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
     neoLeftRearMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
 
+
     // Left side Neo encoder
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);
@@ -217,6 +218,8 @@ public class Chassis extends Subsystem {
 
     neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
     neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
+
+    // neoRightFrontMotor.setOpenLoopRampRate(0.2);
     
 
     // Right side motors aren't currently reversed

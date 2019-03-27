@@ -25,7 +25,7 @@ public class autoTurnToDegree extends PIDCommand {
    * @param timeout
    */
   public autoTurnToDegree(double p, double i, double d, double targetAngle, double timeout) {
-    super("autoTurnToDegree", 0.05, i, d);        // set name, P, I, D.
+    super("autoTurnToDegree", 0.04, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.35, 0.35);       // output range for 'turn' input to drive command

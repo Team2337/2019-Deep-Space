@@ -72,6 +72,7 @@ public class Robot extends TimedRobot {
   private String chosenAuton;
   public String mac;
 
+  public static double rampRate = 0.2;
   public static double autonAngle = 0;
 
   /**
@@ -80,7 +81,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
+    mac = "xx:xx:xx:xx:xx:xx";
     // Attempt to get the MAC address of the robot
     try {
       NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
@@ -99,7 +100,7 @@ public class Robot extends TimedRobot {
       System.out.println("Socket Exception - " + e);
     }
     /// Determines what robot we are using
-    /*
+    
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
@@ -109,7 +110,7 @@ public class Robot extends TimedRobot {
       System.out.println("CompBot " + mac);
       isComp = true;
     }
-    */
+    
     isComp = true;
 
     // CONSTRUCTORS
@@ -257,6 +258,11 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("autonAngle", autonAngle);
     SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
+
+    SmartDashboard.putNumber("Chassis Ramp Raterf", Robot.Chassis.neoRightFrontMotor.getOpenLoopRampRate());
+    SmartDashboard.putNumber("Chassis Ramp Ratelf", Robot.Chassis.neoLeftFrontMotor.getOpenLoopRampRate());
+    SmartDashboard.putNumber("Chassis Ramp Raterr", Robot.Chassis.neoRightRearMotor.getOpenLoopRampRate());
+    SmartDashboard.putNumber("Chassis Ramp Ratelr", Robot.Chassis.neoLeftRearMotor.getOpenLoopRampRate());
   }
 
   /**
@@ -346,6 +352,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Chassis.setNeoOpenLoopRampRate(rampRate);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     /*
      * This makes sure that the autonomous stops running when teleop starts running.

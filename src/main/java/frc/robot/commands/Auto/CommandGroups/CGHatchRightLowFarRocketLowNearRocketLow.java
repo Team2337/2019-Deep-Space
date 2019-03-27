@@ -26,10 +26,10 @@ public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
     addSequential(new autoTurnOnLimeLightLED());
     // addSequential(new autoSetPath(Robot.driveOffRightLvl2ToRightRocketT, values[0], 0, 30, false));
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
-    addSequential(new autoSetPathReverse(Robot.driveOffRightLvl1ToBackRightRocketT, values[5], 0, 10));
+    addSequential(new autoSetPathReverse(Robot.driveOffRightLvl1ToBackRightRocketT, values[5], 0, 15));
     addSequential(new autoReadAngle());
     addSequential(new autoResetSensors());
-    addSequential(new autoPIDVisionDrive(3, 0.11, 0.05, 0.6));
+    addSequential(new autoPIDVisionDrive(3, 0.09, 0.035, 0.6));
 
     addSequential(new CommonScoreHatch());
     addSequential(new autoResetEncoders());
@@ -41,7 +41,7 @@ public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoDriveToEncoderTick(1, 50000, 0.7, -0.25, true, 0.5)); 
     addSequential(new autoResetEncoders());
-    addSequential(new autoPIDVisionDrive(6.5, 0.07, 0.015, 0.6));
+    addSequential(new autoPIDVisionDrive(6.5, 0.055, 0.01, 0.6));
     addSequential(new autoResetEncoders());
     addSequential(new CommonIntakeHatch());
     // addSequential(new hatchBeakOpen());
