@@ -218,8 +218,6 @@ public class Chassis extends Subsystem {
 
     neoRightFrontMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
     neoRightRearMotor.setSmartCurrentLimit(stallLimit, currentLimit, rpmLimit);
-
-    // neoRightFrontMotor.setOpenLoopRampRate(0.2);
     
 
     // Right side motors aren't currently reversed

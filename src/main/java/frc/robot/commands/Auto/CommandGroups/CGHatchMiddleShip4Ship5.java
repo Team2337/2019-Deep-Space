@@ -25,11 +25,11 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
   public CGHatchMiddleShip4Ship5() {
     double[][] values = pathway.valuesPID;
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    /*
+    
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoPIDVisionDrive(3.5, 0.07, 0.015, 0.6));
     addSequential(new CommonScoreHatch());
-*/
+
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     //TODO: take out brake when done
