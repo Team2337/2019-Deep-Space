@@ -29,7 +29,7 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoPIDVisionDrive(3.5, 0.07, 0.015, 0.6));
     addSequential(new CommonScoreHatch());
-    
+
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     //TODO: take out brake when done
@@ -40,7 +40,7 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
     addSequential(new autoWait(0.05));
     addParallel(new hatchBeakClose());
     addSequential(new autoTankDrive(0.6, 0.7, 0, 30000, "rightVision", IdleMode.kCoast));
-    addSequential(new autoPIDVisionDrive(5, 0.07, 0.015, 0.65));
+    addSequential(new autoPIDVisionDrive(5, 0.07, 0.015, 0.6));
     addSequential(new CommonIntakeHatch());
     
     addSequential(new autoResetEncoders()); 
@@ -48,8 +48,8 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
     addSequential(new autoTankDrive(-0.6, -0.4, 95000, 0, "left", IdleMode.kCoast));
     addParallel(new autoTurnOnLimeLightLED());
     addSequential(new autoTankDrive(-0.5, -0.15, 145000, 0, "left", IdleMode.kBrake));
-    addSequential(new autoPIDVisionDrive(5, 0.07, 0.015, 0.65));
+    addSequential(new autoPIDVisionDrive(5, 0.07, 0.015, 0.6));
     addSequential(new CommonScoreHatch());
-    
+ 
   }
 }
