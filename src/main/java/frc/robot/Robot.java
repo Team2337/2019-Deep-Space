@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
 
   public static Command autonomousCommand;
   SendableChooser<String> autonChooser = new SendableChooser<>();
+  SendableChooser<Integer> autonDelayChooser = new SendableChooser<>();
  
   public static Trajectory driveForwardT, curveFromToHatchRightT, fromRightLoadJTurnToCargoShipT, jTurnToCargoShipRightT;
   public static Trajectory driveForwardFile;
@@ -165,6 +166,20 @@ public class Robot extends TimedRobot {
    // autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid, Ship 4, Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
     
+
+    autonDelayChooser.setDefaultOption("0", 0);
+    autonDelayChooser.addOption("1", 1);
+    autonDelayChooser.addOption("2", 2);
+    autonDelayChooser.addOption("3", 3);
+    autonDelayChooser.addOption("4", 4);
+    autonDelayChooser.addOption("5", 5);
+    autonDelayChooser.addOption("6", 6);
+    autonDelayChooser.addOption("7", 7);
+    autonDelayChooser.addOption("8", 8);
+    autonDelayChooser.addOption("9", 9);
+    //Put at the beginning of a command in order to run it
+    //addSequential(new autoWait(autonDelayChooser.getSelected()));
+
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", autonChooser);
