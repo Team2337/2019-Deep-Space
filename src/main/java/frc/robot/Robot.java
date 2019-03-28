@@ -162,9 +162,9 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
     autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid");
     autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
-    autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+   // autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid, Ship 4, Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
-
+    
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", autonChooser);
@@ -315,13 +315,16 @@ public class Robot extends TimedRobot {
         autonomousCommand = new CGHatchRightHighNearRocketLowNearRocketMid();
       break;
       case "Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
-        // autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
+        autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
       break;
       case "Hatch Lvl2 Right Near Rocket Low Far Rocket Low":
         // autonomousCommand = new CGHatchRightHighNearRocketLowFarRocketLow();
       break;
       case "Hatch Lvl1 Mid Ship 4 Ship 5":
         autonomousCommand = new CGHatchMiddleShip4Ship5();
+      break;
+      case "CGHatchRightLowNearRocketLowFarRocketLow":
+        autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
       break;
       default:
         autonomousCommand = new autoDoNothing();
