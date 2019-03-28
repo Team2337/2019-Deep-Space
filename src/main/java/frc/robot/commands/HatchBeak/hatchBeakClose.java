@@ -15,9 +15,10 @@ public class hatchBeakClose extends Command {
     requires(Robot.HatchBeak);
   }
 
-  // Collapse the hatch beak to allow the robot to launch the panel
+  // Collapse the hatch beak to allow the  robot to launch the panel
   @Override
   protected void initialize() {
+    Robot.HatchBeak.beakMode = true;
     Robot.HatchBeak.closeHatchBeak();
   }
 
@@ -36,7 +37,7 @@ public class hatchBeakClose extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    Robot.HatchBeak.beakMode = false;
   }
 
   // Called when another command which requires one or more of the same

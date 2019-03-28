@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.CommandGroups.*;
+import frc.robot.commands.LED.LEDRuntime;
 import frc.robot.nerdyfiles.pathway.*;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.*;
@@ -66,7 +67,7 @@ public class Robot extends TimedRobot {
   public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl1ToBackRightRocketT, driveAwayFromBackRightRocketT;
   public static Trajectory sideTwoHatchFromRightT;
 
-  private boolean pathsLoaded = false;
+  public static boolean pathsLoaded = false;
   public static boolean logger;
 
   private String chosenAuton;
@@ -356,6 +357,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+
     /*
      * This makes sure that the autonomous stops running when teleop starts running.
      * If you want the autonomous to continue until interrupted by another command,
