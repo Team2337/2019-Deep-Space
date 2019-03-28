@@ -355,7 +355,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
-    Robot.Chassis.setNeoOpenLoopRampRate(rampRate);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     /*
      * This makes sure that the autonomous stops running when teleop starts running.
