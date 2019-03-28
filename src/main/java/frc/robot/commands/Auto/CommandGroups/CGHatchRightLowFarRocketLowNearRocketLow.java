@@ -22,9 +22,7 @@ import frc.robot.commands.Auto.setpaths.*;
 public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
   public CGHatchRightLowFarRocketLowNearRocketLow() {
     double[][] values = pathway.valuesPID;
-    // addSequential(new autoWait(Robot.delayChooser.getSelected()));
     addSequential(new autoTurnOnLimeLightLED());
-    // addSequential(new autoSetPath(Robot.driveOffRightLvl2ToRightRocketT, values[0], 0, 30, false));
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
     addSequential(new autoSetPathReverse(Robot.driveOffRightLvl1ToBackRightRocketT, values[5], 0, 15));
     addSequential(new autoReadAngle());
@@ -44,8 +42,6 @@ public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
     addSequential(new autoPIDVisionDrive(6.5, 0.055, 0.01, 0.6));
     addSequential(new autoResetEncoders());
     addSequential(new CommonIntakeHatch());
-    // addSequential(new hatchBeakOpen());
-    // addSequential(new autoLiftToPosition((Robot.Lift.hatchLowScorePosition + 130)));
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
     addSequential(new autoDriveToEncoderTick(-1, 30000, 0.5, 0, false, 0));
