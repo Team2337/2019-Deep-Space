@@ -23,15 +23,17 @@ public class autoDriveToEncoderTick extends Command {
         // max speed forward and reverse
         // double maxSpeed = 0.5;
 
-        /**
-         * Drives the robot to a distance in encoder ticks The command ends once the
-         * robot is within 100 ticks of the setpoint
-         * 
-         * @param direction       - use positive or negative value to deterimine the direction of the drive (positive forward, negative backwards)
-         * @param forwardDistance - forward/reverse distance in inches - will convert to ticks
-         * @param maxDriveSpeed - maximum drive speed
-         * @param turnSpeed - turn speed
-         */
+         /**
+          * Drives the robot to a distance in encoder ticks The command ends once the
+          * robot is within 100 ticks of the setpoint
+          * 
+          * @param direction       - use positive or negative value to deterimine the direction of the drive (positive forward, negative backwards)
+          * @param forwardDistance - forward/reverse distance in inches - will convert to ticks
+          * @param maxDriveSpeed - maximum drive speed
+          * @param turnSpeed - turn speed
+          * @param stopDrive
+          * @param endSpeed
+          */
         public autoDriveToEncoderTick(int direction, int forwardDistance, double maxDriveSpeed, double turnSpeed, boolean stopDrive, double endSpeed) {
                 this.distanceForward = forwardDistance;
                 this.maxDriveSpeed = maxDriveSpeed;
