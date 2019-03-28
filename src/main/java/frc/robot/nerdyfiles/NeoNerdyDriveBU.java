@@ -8,7 +8,7 @@ package frc.robot.nerdyfiles;
 
 import com.revrobotics.CANSparkMax;
 
-public class NeoNerdyDrive {
+public class NeoNerdyDriveBU {
 	private CANSparkMax left;
 	private CANSparkMax right;
 
@@ -24,7 +24,7 @@ public class NeoNerdyDrive {
 	 * @param left  Left CANSparkMax Motor Controller
 	 * @param right Right CANSparkMax Motor Controller
 	 */
-	public NeoNerdyDrive(CANSparkMax left, CANSparkMax right) {
+	public NeoNerdyDriveBU(CANSparkMax left, CANSparkMax right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -83,19 +83,12 @@ public class NeoNerdyDrive {
 		double angularPower;
 		boolean overPower;
 		boolean squaredInputs = true;
-		double leftMotorOutput;
-		double rightMotorOutput;
-		double lastDirection = 1;
-
-		if      (speed >  0.1) { lastDirection =  1.0; } 
-		else if (speed < -0.1) { lastDirection = -1.0; }
 
 		if (squaredInputs) {
 			speed = Math.copySign(speed * speed, speed);
 			zRotation = Math.copySign(zRotation * zRotation, zRotation);
 		}
 
-		//squaring speed later...
 		zRotation = applyDeadband(zRotation, 0.1);
 
 		if (isQuickTurn) {
@@ -121,19 +114,8 @@ public class NeoNerdyDrive {
 
 		speed = applyDeadband(speed, 0.05);
 
-		if(speed==0 & !isQuickTurn){
-			if (angularPower>0){
-				leftMotorOutput = angularPower * lastDirection;
-				rightMotorOutput = 0;
-			}
-			else{
-				leftMotorOutput = 0;
-				rightMotorOutput = Math.abs(angularPower) * lastDirection;
-			}
-		}else{
-			leftMotorOutput = speed + angularPower;
-			rightMotorOutput = speed - angularPower;
-		}
+		double leftMotorOutput = speed + angularPower;
+		double rightMotorOutput = speed - angularPower;
 
 		// If rotation is overpowered, reduce both outputs to within acceptable range
 		if (overPower) {

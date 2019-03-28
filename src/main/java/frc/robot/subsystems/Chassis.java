@@ -237,6 +237,7 @@ public class Chassis extends Subsystem {
 
     /* --- Neo Nerdy Drive --- */
     neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
+    rampRateReset();
   }
 
   // Sets the default drive command to drive using the joysticks on an XBox 360
@@ -473,7 +474,12 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder.setPosition(0);
     neoRightFrontEncoder.setPosition(0);
   }
-
+public void rampRateReset() {
+  neoLeftFrontMotor.setOpenLoopRampRate(0.0);
+  neoLeftRearMotor.setOpenLoopRampRate(0.0);
+  neoRightFrontMotor.setOpenLoopRampRate(0.0);
+  neoRightRearMotor.setOpenLoopRampRate(0.0);
+}
   /**
    * Determines what the NEO drive motors will do when no signal is given to them
    * 
