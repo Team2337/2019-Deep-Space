@@ -21,10 +21,10 @@ import frc.robot.commands.HatchBeak.hatchBeakClose;
  * </ol>
  * @author Bryce G.
  */
-public class CGHatchRightLowNearRocketLowNearRocketMid extends CommandGroup {
+public class CGHatchRightLowNearRocketLowFarRocketLow extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
 
-  public CGHatchRightLowNearRocketLowNearRocketMid() {
+  public CGHatchRightLowNearRocketLowFarRocketLow() {
     
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
@@ -44,14 +44,12 @@ public class CGHatchRightLowNearRocketLowNearRocketMid extends CommandGroup {
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
     
-    addSequential(new autoTankDrive(-0.5, -0.4, 55000, 0, "left", IdleMode.kCoast));
-    addParallel(new autoTurnOnLimeLightLED());
-    addSequential(new autoTankDrive(-0.5, -0.1, 80000, 0, "left", IdleMode.kBrake));
-    addSequential(new autoResetEncoders());
-    addSequential(new autoWait(0.05));
-    addSequential(new autoTankDrive(0.1, 0.5, 0, 55000, "rightVision", IdleMode.kCoast));
+    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
+    addSequential(new autoTankDrive(-0.8, -0.74, 65000, 0, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.75, -0.85, 0, 113000, "right", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.45, -0.65, 0, 145000, "right", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.27, 0.32, 170000, 0, "left", IdleMode.kBrake));
     addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
-    //TODO: Take out score
     addSequential(new CommonScoreHatch());
   }
 }

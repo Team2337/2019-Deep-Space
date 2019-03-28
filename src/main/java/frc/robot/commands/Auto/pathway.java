@@ -222,7 +222,7 @@ public class pathway {
     private static Waypoint[] driveOffRightLvl1ToBackRightRocket = new Waypoint[] {
         // Waypoint @ x=0, y=0, exit angle=0 radians
         new Waypoint(0, 0, 0), 
-        new Waypoint(inchesToMeters(215/* 230 */), inchesToMeters(80), -degreesToRadians(8)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
+        new Waypoint(inchesToMeters(207/* 230 */), inchesToMeters(80), -degreesToRadians(8)) // NEGATIVE is RIGHT  ///use 248 from the top platform. //198 
     };
 
     /**

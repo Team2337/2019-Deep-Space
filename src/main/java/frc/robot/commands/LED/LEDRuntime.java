@@ -18,14 +18,30 @@ public class LEDRuntime extends Command {
 	}
 
 	protected void initialize() {
-
+		LED.setColor(LED.off);
 	}
 
 	protected void execute() {
 		if (DriverStation.getInstance().isAutonomous()) {
-			LED.setColor(LED.off);
-		} else if (DriverStation.getInstance().isOperatorControl()) {	
-			LED.setColor(LED.red);
+			if(Robot.pathsLoaded) {
+				LED.setColor(LED.green);
+			} else {
+				LED.setColor(LED.off);
+			}
+		} else if (DriverStation.getInstance().isOperatorControl()) {
+			if(Robot.HatchBeak.beakMode) {
+				LED.setColor(LED.red);
+			} else {
+				if(Robot.ClimberDeploy.climberPhase < 5) {
+					if(!Robot.ClimberDeploy.climberLineSensor.get() || Robot.ClimberDeploy.climberPhase == 3) {
+						LED.setColor(LED.green);
+					} else {
+						LED.setColor(LED.rainbow);
+					}
+				} else {	
+					LED.setColor(LED.off);
+				}
+			}
 		}
 	}
 

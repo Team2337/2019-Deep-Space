@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class HatchBeak extends Subsystem {
 
   private Solenoid hatchBeakSolenoid = new Solenoid(Robot.Constants.PCM0, Robot.Constants.hatchBeakPort);
+  public boolean beakMode = false;
 
   public HatchBeak() {
 

@@ -183,6 +183,7 @@ public class Chassis extends Subsystem {
     neoLeftFrontMotor = new CANSparkMax(leftFrontID, MotorType.kBrushless);
     neoLeftRearMotor = new CANSparkMax(leftRearID, MotorType.kBrushless);
 
+
     // Left side Neo encoder
     neoLeftFrontEncoder = new CANEncoder(neoLeftFrontMotor);
     neoLeftRearEncoder = new CANEncoder(neoLeftRearMotor);

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.CommandGroups.*;
+import frc.robot.commands.LED.LEDRuntime;
 import frc.robot.nerdyfiles.pathway.*;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.*;
@@ -66,12 +67,13 @@ public class Robot extends TimedRobot {
   public static Trajectory driveOffRightLvl2ToRightRocketT, driveOffRightLvl1ToBackRightRocketT, driveAwayFromBackRightRocketT;
   public static Trajectory sideTwoHatchFromRightT;
 
-  private boolean pathsLoaded = false;
+  public static boolean pathsLoaded = false;
   public static boolean logger;
 
   private String chosenAuton;
   public String mac;
 
+  public static double rampRate = 0.2;
   public static double autonAngle = 0;
 
   /**
@@ -80,7 +82,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
+    mac = "xx:xx:xx:xx:xx:xx";
     // Attempt to get the MAC address of the robot
     try {
       NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
@@ -99,7 +101,7 @@ public class Robot extends TimedRobot {
       System.out.println("Socket Exception - " + e);
     }
     /// Determines what robot we are using
-    /*
+    
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
@@ -109,7 +111,7 @@ public class Robot extends TimedRobot {
       System.out.println("CompBot " + mac);
       isComp = true;
     }
-    */
+    
     isComp = true;
 
     // CONSTRUCTORS
@@ -160,9 +162,9 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
     autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Near Rocket Mid", "Hatch Lvl2 Right Near Rocket Low Near Rocket Mid");
     autonChooser.addOption("Hatch Lvl1 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
-    autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+   // autonChooser.addOption("Hatch Lvl2 Right, Near Rocket Low, Far Rocket Low", "Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid, Ship 4, Ship 5", "Hatch Lvl1 Mid Ship 4 Ship 5");
-
+    
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", autonChooser);
@@ -257,6 +259,11 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("autonAngle", autonAngle);
     SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
+
+    SmartDashboard.putNumber("Chassis Ramp Raterf", Robot.Chassis.neoRightFrontMotor.getOpenLoopRampRate());
+    SmartDashboard.putNumber("Chassis Ramp Ratelf", Robot.Chassis.neoLeftFrontMotor.getOpenLoopRampRate());
+    SmartDashboard.putNumber("Chassis Ramp Raterr", Robot.Chassis.neoRightRearMotor.getOpenLoopRampRate());
+    SmartDashboard.putNumber("Chassis Ramp Ratelr", Robot.Chassis.neoLeftRearMotor.getOpenLoopRampRate());
   }
 
   /**
@@ -308,13 +315,16 @@ public class Robot extends TimedRobot {
         autonomousCommand = new CGHatchRightHighNearRocketLowNearRocketMid();
       break;
       case "Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
-        // autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
+        autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
       break;
       case "Hatch Lvl2 Right Near Rocket Low Far Rocket Low":
         // autonomousCommand = new CGHatchRightHighNearRocketLowFarRocketLow();
       break;
       case "Hatch Lvl1 Mid Ship 4 Ship 5":
         autonomousCommand = new CGHatchMiddleShip4Ship5();
+      break;
+      case "CGHatchRightLowNearRocketLowFarRocketLow":
+        autonomousCommand = new CGHatchRightLowNearRocketLowFarRocketLow();
       break;
       default:
         autonomousCommand = new autoDoNothing();
@@ -347,6 +357,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+
     /*
      * This makes sure that the autonomous stops running when teleop starts running.
      * If you want the autonomous to continue until interrupted by another command,

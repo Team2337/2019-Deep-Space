@@ -48,7 +48,10 @@ public class OI {
 
 		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
-		// driverJoystick.start						.whenPressed(new ); 
+
+		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
+		driverJoystick.blueX						.whenPressed(new CGDriveToFarRocketFromLoadLeft());
+		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());
 		
 	    ////////////////////////////////// 
 	    
