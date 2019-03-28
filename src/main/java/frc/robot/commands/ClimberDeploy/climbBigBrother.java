@@ -6,7 +6,7 @@ import frc.robot.subsystems.Lift;
 
 public class climbBigBrother extends Command {
 
-    int wranglerDriveTimer;
+    int wranglerDriveTimer, climbTimer;
     boolean finished;
 
     // CONSTRUCTOR
@@ -53,12 +53,16 @@ public class climbBigBrother extends Command {
 
         // Lower the trolley (raising the robot)
         case 2:
-            Lift.setSoftLimits(Lift.forwardLiftSoftLimit, 91);
-            Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
-            if (Robot.Lift.atPosition(10)) {
-                Robot.ClimberDeploy.climberPhase = 3;
-                Robot.ClimberDeploy.undeployClimber(); // Reset the servo
+            Lift.setSoftLimits(Lift.forwardLiftSoftLimit, 62);
+            Robot.Lift.setSetpoint(Robot.Lift.climbPlatformLocation);
+            if(climbTimer > 13) {
+                Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
+                if (Robot.Lift.atPosition(10)) {
+                    Robot.ClimberDeploy.climberPhase = 3;
+                    Robot.ClimberDeploy.undeployClimber(); // Reset the servo
+                }
             }
+            climbTimer++;
             break;
 
         // Drive forward onto level 3 platform until the line sensor senses the platform

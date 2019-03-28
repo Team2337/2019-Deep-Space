@@ -60,25 +60,26 @@ public class PIDVisionDrive extends PIDCommand {
 
       //If the angle error is close to the target, we want a higher P to have a sharper turn, otherwise it's a small turn
       if(Math.abs(tx) < 8) {
-        this.getPIDController().setPID(0.12, 0, 0); 
+        this.getPIDController().setPID(0.09, 0, 0); 
       } else {
-        this.getPIDController().setPID(0.05, 0, 0);
+        this.getPIDController().setPID(0.04, 0, 0);
       }
 
       // Keep for testing 
       System.out.println("tx: " + tx + " ***** " + "output: " + output); 
 
       //Limit the forward drive to 40% while this command is active
-      if(Robot.oi.driverJoystick.getLeftStickY() < 0.4) {
+      if(Robot.oi.driverJoystick.getLeftStickY() < 0.5) {
         speed = Robot.oi.driverJoystick.getLeftStickY();
       } else {
-        speed = 0.4;
+        speed = 0.5;
       }
       Chassis.neoArcade(speed, -(output), false);
   }
 
   protected void initialize() {
     Robot.Vision.setLEDMode(3);
+    Robot.Chassis.setNeoOpenLoopRampRate(0);
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     this.setSetpoint(targetAngle);
   }
@@ -92,6 +93,7 @@ public class PIDVisionDrive extends PIDCommand {
   }
 
   protected void end() {
+    Robot.Chassis.setNeoOpenLoopRampRate(Robot.rampRate);
     Robot.Vision.setLEDMode(1);
   }
 

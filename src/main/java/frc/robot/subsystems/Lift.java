@@ -54,6 +54,8 @@ public class Lift extends Subsystem {
 
   // Position to raise the trolley to, allowing the climber to deploy
   public double climbDeployPosition;
+  // Position to bring the front climber legs down to the lvl3 platform 
+  public double climbPlatformLocation;
   // Position to lower the trolley to, which would bring the robot upwards
   public double climbLevel3Position;
   // Position to lower the trolley to, which would bring the robot upwards
@@ -119,7 +121,7 @@ public class Lift extends Subsystem {
       //TODO: Set slower speed for arms point
       //Bottom point = 62
       forwardLiftSoftLimit = 660;
-      reverseLiftSoftLimit = 100;
+      reverseLiftSoftLimit = 60;
 
       cargoLowScorePosition = 100; // 201
       cargoMidScorePosition = 608;// COMP
@@ -128,13 +130,14 @@ public class Lift extends Subsystem {
       cargoLoadedPosition = cargoIntakePosition; // 208
       cargoEjectPosition = 500;
 
-      hatchLowScorePosition = 155;// 165;
+      hatchLowScorePosition = 165;// 165;
       hatchCargoShipScorePosition = 469;
       hatchMidScorePosition = 660;
       hatchIntakePosition = 160;
 
       climbDeployPosition = 540;
-      climbLevel3Position = 91;
+      climbPlatformLocation = 445;
+      climbLevel3Position = 70;
       climbWheelsUpPosition = 165;
       climbHighPosition = 450;
     } else {
