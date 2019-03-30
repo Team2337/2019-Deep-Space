@@ -75,10 +75,10 @@ public class NeoNerdyDriveBU {
 				rightMotorOutput = xSpeed - zRotation;
 			}
 		}
-		if (!Robot.oi.driverJoystick.triggerRight.get()) {
-			m_maxOutput = 0.85;
-		} else {
+		if (Robot.oi.driverJoystick.triggerRight.get() || Robot.oi.driverJoystick.bumperLeft.get()) {
 			m_maxOutput = 1.0;
+		} else {
+			m_maxOutput = 0.85;
 		}
 
 		this.left.set(limit(leftMotorOutput) * m_maxOutput);
