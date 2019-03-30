@@ -8,6 +8,8 @@ package frc.robot.nerdyfiles;
 
 import com.revrobotics.CANSparkMax;
 
+import frc.robot.Robot;
+
 public class NeoNerdyDriveBU {
 	private CANSparkMax left;
 	private CANSparkMax right;
@@ -73,6 +75,11 @@ public class NeoNerdyDriveBU {
 				rightMotorOutput = xSpeed - zRotation;
 			}
 		}
+		if (!Robot.oi.driverJoystick.triggerRight.get()) {
+			m_maxOutput = 0.85;
+		} else {
+			m_maxOutput = 1.0;
+		}
 
 		this.left.set(limit(leftMotorOutput) * m_maxOutput);
 		this.right.set(limit(rightMotorOutput) * m_maxOutput);
@@ -100,7 +107,7 @@ public class NeoNerdyDriveBU {
 			angularPower = zRotation;
 		} else {
 			overPower = false;
-			
+
 			angularPower = Math.abs(speed) * zRotation - m_quickStopAccumulator;
 
 			if (m_quickStopAccumulator > 1) {

@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.nerdyfiles.NeoNerdyDrive;
+import frc.robot.nerdyfiles.NeoNerdyDriveBU;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.setpaths.autoSetPath;
@@ -74,7 +75,7 @@ public class Chassis extends Subsystem {
 
   /* --- Drive Declarations --- */
   public static TalonNerdyDrive talonDrive;
-  public static NeoNerdyDrive neoDrive;
+  public static NeoNerdyDriveBU neoDrive;
 
   //35, 35 doesn't allow for turn in place
   public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
@@ -113,7 +114,7 @@ public class Chassis extends Subsystem {
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
     autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
-    centerLineSensor = new DigitalInput(Robot.Constants.centerLineSensorID);
+    // centerLineSensor = new DigitalInput(Robot.Constants.centerLineSensorID);
 
     accelerometer = new BuiltInAccelerometer(Accelerometer.Range.k4G);
 
@@ -237,7 +238,7 @@ public class Chassis extends Subsystem {
     talonDrive = new TalonNerdyDrive(leftFrontMotor, rightFrontMotor);
 
     /* --- Neo Nerdy Drive --- */
-    neoDrive = new NeoNerdyDrive(neoLeftFrontMotor, neoRightFrontMotor);
+    neoDrive = new NeoNerdyDriveBU(neoLeftFrontMotor, neoRightFrontMotor);
     rampRateReset();
   }
 

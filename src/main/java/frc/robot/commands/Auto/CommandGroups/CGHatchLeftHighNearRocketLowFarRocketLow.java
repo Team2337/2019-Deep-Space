@@ -27,31 +27,7 @@ public class CGHatchLeftHighNearRocketLowFarRocketLow extends CommandGroup {
 
   public CGHatchLeftHighNearRocketLowFarRocketLow() {
     
-    addSequential(new autoTurnOnLimeLightLED());
-    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
-    addSequential(new driveAtSetSpeed());
-    addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.6));
-    addSequential(new autoResetEncoders());
-    addSequential(new CommonScoreHatch());
-    
-    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoTankDrive(-0.1, -0.6, 0, -25000, "right", IdleMode.kCoast));
-    addSequential(new autoTurnOnLimeLightLED());
-    addSequential(new autoResetEncoders());
-    addSequential(new autoTankDrive(0.6, 0.1, 16000, 0, "leftVision", IdleMode.kCoast));
-    // addSequential(new autoResetSensors());
-    addParallel(new hatchBeakClose());
-    addSequential(new autoPIDVisionDrive(4, 0.09, 0.06, 0.6));
-    addSequential(new CommonIntakeHatch());
-    addSequential(new autoResetEncoders()); 
-    addSequential(new autoWait(0.05));
-    
-    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition + 15, 0.5));
-    addSequential(new autoTankDrive(-0.8, -0.74, 65000, 0, "left", IdleMode.kCoast));
-    addSequential(new autoTankDrive(-0.75, -0.85, 0, 113000, "right", IdleMode.kCoast));
-    addSequential(new autoTankDrive(-0.45, -0.65, 0, 145000, "right", IdleMode.kCoast));
-    addSequential(new autoTankDrive(-0.27, 0.32, 170000, 0, "left", IdleMode.kBrake));
-    addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
-    addSequential(new CommonScoreHatch());
+    addSequential(new CommonHighLeftToNearRocket());
+    addSequential(new CommonLeftLoadToFarRocketLow());
   }
 }

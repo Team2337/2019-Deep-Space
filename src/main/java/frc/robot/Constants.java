@@ -56,8 +56,8 @@ public class Constants {
     public int cargoTrolleySensorID = 3;
     public int dioPort4 = 4;
     public int autoLineSensorID = 5;
-    public int climberLineSensor = 6;
-    public int centerLineSensorID = 7;
+    public int dioPort6 = 6; //climberLineSensor
+    public int climberLineSensor = 7;
     public int dioPort8 = 8;
     public int dioPort9 = 9;
 
@@ -74,11 +74,11 @@ public class Constants {
     public int relayPort3 = 3;
 
     /* --- PWM Ports --- */
-    public int blinkinPWM = 0;
+    public int pwmPort0 = 0;
     public int pwmPort1 = 1;
     public int pwmPort2 = 2;
     public int pwmPort3 = 3;
-    public int pwmPort4 = 4;
+    public int blinkinPWM = 4;
     public int servoPort = 5;
     public int pwmPort6 = 6;
     public int pwmPort7 = 7;

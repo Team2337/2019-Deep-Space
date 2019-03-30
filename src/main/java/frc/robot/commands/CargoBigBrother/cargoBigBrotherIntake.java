@@ -46,7 +46,7 @@ public class cargoBigBrotherIntake extends Command {
 
         if (Robot.Lift.atCargoIntakePosition(80)) {
             Robot.Lift.setSetpoint(Robot.Lift.cargoIntakePosition);
-        }
+        } 
         switch (Robot.CargoBigBrother.cargoLevel()) {
         case 0:
         if(Robot.oi.operatorJoystick.triggerRight.get()) {
@@ -103,6 +103,12 @@ public class cargoBigBrotherIntake extends Command {
             } else {
                 Robot.CargoEscalator.stop();
             }
+
+            /*
+            if(!Robot.CargoBigBrother.cargoTrolleySensor.get()) {
+                Robot.Lift.setSetpoint(Robot.Lift.hatchIntakePosition);
+            }
+            */
             break;
         }
         case 4: {
@@ -127,6 +133,7 @@ public class cargoBigBrotherIntake extends Command {
         Robot.CargoDrawbridge.raiseTheDrawbridge();
         Robot.CargoEscalator.stop();
         Robot.CargoIntake.stop();
+        
         // Since this command requires cargoBigBrother, when we try to score, it will
         // kick out this command. This condition prevents the scoring motors from
         // locking up due to this fighting
@@ -135,7 +142,7 @@ public class cargoBigBrotherIntake extends Command {
         }
         // If the lift is moving (as it would if it was within 50 ticks at the start of
         // the command), stop it.
-        Robot.Lift.stop();
+        // Robot.Lift.stop();
     }
 
     @Override

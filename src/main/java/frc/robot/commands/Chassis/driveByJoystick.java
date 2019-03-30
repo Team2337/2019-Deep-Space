@@ -44,8 +44,8 @@ public class driveByJoystick extends Command {
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive
     if (this.isNeoDrive) {
-      Chassis.neoDrive.curvatureDrive(moveSpeed, turnSpeed, Robot.oi.driverJoystick.triggerRight.get());
-      //Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
+      // Chassis.neoDrive.curvatureDrive(moveSpeed, turnSpeed, Robot.oi.driverJoystick.triggerRight.get());
+      Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     } else {
       Chassis.talonDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     }

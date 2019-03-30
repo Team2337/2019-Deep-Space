@@ -46,32 +46,32 @@ public class OI {
 		driverJoystick.greenA						.whenPressed(new hatchKickerExtend());
 		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
 
-		driverJoystick.triggerRight					.whileHeld(new limeLightLEDOn());
+		// driverJoystick.triggerRight					DONT ASIGN ANYTHING TO HERE;
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
 
 		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
 		driverJoystick.blueX						.whenPressed(new CGDriveToFarRocketFromLoadLeft());
-		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());
-		
+		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
-		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
-		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.bumperLeft					.whileHeld(new CGScoreHatch());
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
-		operatorJoystick.start						.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.back						.whileHeld(new cargoBigBrotherScore());
+		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake());
 
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
+		operatorJoystick.povRight					.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.povRight					.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
-		operatorJoystick.povLeft					.whenPressed(new cargoBigBrotherIntake());
 
 		operatorJoystick.greenA						.whenPressed(new goToPosition(Robot.Lift.cargoIntakePosition));
 		operatorJoystick.greenA						.whenReleased(new stayAtPosition());
@@ -96,7 +96,7 @@ public class OI {
 
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
-		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(455));
+		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbHighPosition));
 
 		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
 

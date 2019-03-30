@@ -43,8 +43,16 @@ public class ClimberDeploy extends Subsystem {
         climberReleaseServo.setPosition(pos);
     }
 
+    /**
+     * Sets the angle of the servo
+     * @param pos - 0-360 degrees
+     */
     public void servoSetAngle(double pos) {
         climberReleaseServo.setAngle(pos);
+    }
+
+    public double getServo() {
+        return climberReleaseServo.get();
     }
 
     @Override

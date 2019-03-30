@@ -39,6 +39,7 @@ public class climbBigBrother extends Command {
         // Move the trolley into position to release the climber arms - The T-Rex arms
         // must miss the platform, and the RoboWrangler must hit the bumpers
         case 0:
+            Robot.ClimberDeploy.deployClimber();
             Robot.Lift.setSetpoint(Robot.Lift.climbDeployPosition);
             if (Robot.Lift.atPosition(10)) {
                 Robot.ClimberDeploy.climberPhase = 1;
@@ -48,16 +49,16 @@ public class climbBigBrother extends Command {
         case 1:
             // move servo to release T-rex arms and legs.
             // Operator needs to hit button again to continue to next case.
-            Robot.ClimberDeploy.deployClimber();
+            
             break;
 
         // Lower the trolley (raising the robot)
         case 2:
             Lift.setSoftLimits(Lift.forwardLiftSoftLimit, 62);
             Robot.Lift.setSetpoint(Robot.Lift.climbPlatformLocation);
-            if(climbTimer > 13) {
+            if(climbTimer > 8) {
                 Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
-                if (Robot.Lift.atPosition(10)) {
+                if (Robot.Lift.atPosition(10) || Robot.Lift.getPosition() < 75) {
                     Robot.ClimberDeploy.climberPhase = 3;
                     Robot.ClimberDeploy.undeployClimber(); // Reset the servo
                 }
@@ -76,7 +77,7 @@ public class climbBigBrother extends Command {
 
             // TODO: Remove timer once line sensor is installed
             wranglerDriveTimer = wranglerDriveTimer + 1;
-            if (wranglerDriveTimer > 100) {
+            if (wranglerDriveTimer > 80) {
                 Robot.RoboWrangler.stop();
                 // Robot.ClimberDeploy.climberPhase = 5;
             }
