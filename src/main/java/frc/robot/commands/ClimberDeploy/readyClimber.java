@@ -6,6 +6,7 @@ import frc.robot.Robot;
 public class readyClimber extends Command {
   public readyClimber() {
     // Use requires() here to declare subsystem dependencies
+    requires(Robot.AirCompressor);
     requires(Robot.ClimberDeploy);
   }
 
@@ -14,6 +15,7 @@ public class readyClimber extends Command {
   protected void initialize() {
     Robot.ClimberDeploy.readyToClimb = true;
     Robot.ClimberDeploy.climberPhase = 0;
+    Robot.AirCompressor.disable();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -24,7 +26,7 @@ public class readyClimber extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

@@ -10,7 +10,7 @@
         "hgap": 8.0,
         "vgap": 8.0,
         "tiles": {
-          "5,0": {
+          "6,0": {
             "size": [
               3,
               1
@@ -21,9 +21,9 @@
               "_title": "Compass_Heading"
             }
           },
-          "0,2": {
+          "6,3": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
@@ -32,9 +32,9 @@
               "_title": "Right_Encoder"
             }
           },
-          "2,2": {
+          "6,4": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
@@ -43,7 +43,7 @@
               "_title": "Left_Encoder"
             }
           },
-          "5,2": {
+          "6,2": {
             "size": [
               3,
               1
@@ -62,9 +62,9 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Driver/String Pot Broken",
-              "_title": "String Pot Broken",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_title": "String Pot Working",
+              "Colors/Color when true": "#990000FF",
+              "Colors/Color when false": "#00FF00FF"
             }
           },
           "9,0": {
@@ -76,11 +76,11 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Driver/Trolley Sensor",
               "_title": "Trolley Sensor",
-              "Colors/Color when true": "#00FF00FF",
+              "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "5,1": {
+          "6,1": {
             "size": [
               3,
               1
@@ -97,20 +97,26 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_LF_Temp",
-              "_title": "Neo_LF_Temp"
+              "_title": "Neo_LF_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 250.0,
+              "Visuals/Show value": true
             }
           },
-          "0,1": {
+          "0,2": {
             "size": [
               2,
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_LR_Temp",
-              "_title": "Neo_LR_Temp"
+              "_title": "Neo_LR_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 250.0,
+              "Visuals/Show value": true
             }
           },
           "2,0": {
@@ -119,20 +125,26 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_RF_Temp",
-              "_title": "Neo_RF_Temp"
+              "_title": "Neo_RF_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 250.0,
+              "Visuals/Show value": true
             }
           },
-          "2,1": {
+          "2,2": {
             "size": [
               2,
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Driver/Neo_RR_Temp",
-              "_title": "Neo_RR_Temp"
+              "_title": "Neo_RR_Temp",
+              "Range/Min": 0.0,
+              "Range/Max": 250.0,
+              "Visuals/Show value": true
             }
           },
           "19,0": {
@@ -150,20 +162,7 @@
           },
           "9,6": {
             "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Driver/Auto_Line_Sensor",
-              "_title": "Auto Line Sensor",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "13,4": {
-            "size": [
-              2,
+              6,
               2
             ],
             "content": {
@@ -176,20 +175,20 @@
           },
           "9,4": {
             "size": [
-              2,
+              6,
               2
             ],
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Driver/Escalator sensor",
-              "_title": "Escalator sensor",
+              "_title": "Conveyor sensor",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "12,6": {
+          "9,8": {
             "size": [
-              3,
+              6,
               2
             ],
             "content": {
@@ -200,21 +199,10 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "11,4": {
+          "0,6": {
             "size": [
-              2,
+              9,
               2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber phase",
-              "_title": "SmartDashboard/Climber phase"
-            }
-          },
-          "1,4": {
-            "size": [
-              5,
-              3
             ],
             "content": {
               "_type": "ComboBox Chooser",
@@ -222,7 +210,7 @@
               "_title": "SmartDashboard/Auto mode"
             }
           },
-          "4,1": {
+          "5,1": {
             "size": [
               1,
               1
@@ -233,7 +221,7 @@
               "_title": "SmartDashboard/reverseLIFTSoftLimit"
             }
           },
-          "4,0": {
+          "5,0": {
             "size": [
               1,
               1
@@ -242,6 +230,32 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/forwardLIFTSoftLimit",
               "_title": "SmartDashboard/forwardLIFTSoftLimit"
+            }
+          },
+          "0,8": {
+            "size": [
+              9,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Paths Loaded",
+              "_title": "/SmartDashboard/Paths Loaded",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "19,6": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Beaked",
+              "_title": "Beaked",
+              "Colors/Color when true": "#FF0000FF",
+              "Colors/Color when false": "#000000FF"
             }
           }
         }
@@ -257,20 +271,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "16,0": {
-            "size": [
-              24,
-              9
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/Neo_Current_Left",
-              "_title": "SmartDashboard/Neo_Current_Left",
-              "Graph/Visible time": 30.0,
-              "Visible data/SmartDashboard/Neo_Current_Left[0]": true,
-              "Visible data/SmartDashboard/Neo_Current_Left[1]": true
-            }
-          },
           "8,1": {
             "size": [
               3,
@@ -280,20 +280,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Neo_Current_Left_Front",
               "_title": "SmartDashboard/Neo_Current_Left_Front"
-            }
-          },
-          "16,9": {
-            "size": [
-              24,
-              9
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/Neo_Current_Right",
-              "_title": "SmartDashboard/Neo_Current_Right",
-              "Graph/Visible time": 30.0,
-              "Visible data/SmartDashboard/Neo_Current_Right[0]": true,
-              "Visible data/SmartDashboard/Neo_Current_Right[1]": true
             }
           },
           "8,3": {
@@ -450,13 +436,24 @@
               "_source0": "network_table:///SmartDashboard/Left Distance Inch",
               "_title": "/SmartDashboard/Left Distance Inch"
             }
+          },
+          "16,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber phase",
+              "_title": "/SmartDashboard/Climber phase"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -4.0,
+    "x": -7.0,
     "y": 0.0,
     "width": 1932.0,
     "height": 1047.0

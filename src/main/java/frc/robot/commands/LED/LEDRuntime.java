@@ -3,6 +3,7 @@ package frc.robot.commands.LED;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.commands.Auto.autoEndAuto;
 import frc.robot.subsystems.LED;
 
 /**
@@ -22,28 +23,31 @@ public class LEDRuntime extends Command {
 	}
 
 	protected void execute() {
-		if (DriverStation.getInstance().isAutonomous()) {
-			if(Robot.pathsLoaded) {
-				LED.setColor(LED.green);
-			} else {
-				LED.setColor(LED.off);
-			}
-		} else if (DriverStation.getInstance().isOperatorControl()) {
-			if(Robot.HatchBeak.beakMode) {
-				LED.setColor(LED.red);
+			if(Robot.HatchBeak.status()) {
+				LED.setColor(LED.white);
 			} else {
 				if(Robot.ClimberDeploy.climberPhase < 5) {
+					if(autoEndAuto.endedAutoLED) {
+						LED.setColor(LED.red);
+					} 
 					if(!Robot.ClimberDeploy.climberLineSensor.get() || Robot.ClimberDeploy.climberPhase == 3) {
 						LED.setColor(LED.green);
 					} else {
-						LED.setColor(LED.rainbow);
+						if(Robot.ClimberDeploy.getServo() == 0.8) {
+							LED.setColor(LED.darkBlue);
+						} else {
+							LED.setColor(LED.rainbow);
+						}
 					}
-				} else {	
-					LED.setColor(LED.off);
+				} else {
+					if(Robot.ClimberDeploy.getServo() == 0.8) {
+						LED.setColor(LED.blue);
+					} else {
+						LED.setColor(LED.off);
+					}
 				}
 			}
 		}
-	}
 
 	protected boolean isFinished() {
 		return false;

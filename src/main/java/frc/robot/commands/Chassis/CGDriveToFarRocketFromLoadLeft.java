@@ -21,9 +21,9 @@ public class CGDriveToFarRocketFromLoadLeft extends CommandGroup {
   public CGDriveToFarRocketFromLoadLeft() {
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
-    addSequential(new autoTankDrive(-0.65, -0.7, 60000, 0, "right", IdleMode.kCoast));
-    addSequential(new autoTankDrive(-0.75, -0.65, 0, 110000, "left", IdleMode.kCoast));
-    addSequential(new autoTankDrive(-0.65, -0.45, 0, 145000, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.61, -0.7, 60000, 0, "right", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.75, -0.61, 0, 110000, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.65, -0.45, 0, 155000, "left", IdleMode.kCoast));
     addSequential(new autoTankDrive(0.3, -0.25, 165000, 0, "right", IdleMode.kBrake));
     addSequential(new autoWait(135));
   }

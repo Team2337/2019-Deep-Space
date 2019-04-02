@@ -150,6 +150,7 @@ public class Robot extends TimedRobot {
 
     // Turn off the Limelight LED if it is on.
     Vision.setLEDMode(1);
+    LED.setColor(Robot.LED.off);
     
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
@@ -255,10 +256,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("autonAngle", autonAngle);
     SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
 
-    SmartDashboard.putNumber("Chassis Ramp Raterf", Robot.Chassis.neoRightFrontMotor.getOpenLoopRampRate());
-    SmartDashboard.putNumber("Chassis Ramp Ratelf", Robot.Chassis.neoLeftFrontMotor.getOpenLoopRampRate());
-    SmartDashboard.putNumber("Chassis Ramp Raterr", Robot.Chassis.neoRightRearMotor.getOpenLoopRampRate());
-    SmartDashboard.putNumber("Chassis Ramp Ratelr", Robot.Chassis.neoLeftRearMotor.getOpenLoopRampRate());
+    SmartDashboard.putBoolean("Beaked", Robot.HatchBeak.status());
   }
 
   /**

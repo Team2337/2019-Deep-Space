@@ -132,14 +132,14 @@ public class Lift extends Subsystem {
 
       hatchLowScorePosition = 165;// 165;
       hatchCargoShipScorePosition = 469;
-      hatchMidScorePosition = 660;
+      hatchMidScorePosition = 670;
       hatchIntakePosition = 160;
 
       climbDeployPosition = 540;
       climbPlatformLocation = 445;
-      climbLevel3Position = 70;
-      climbWheelsUpPosition = 165;
-      climbHighPosition = 450;
+      climbLevel3Position = 60;
+      climbWheelsUpPosition = 350;
+      climbHighPosition = 447;
     } else {
       /* --- Practice Lift Set Positions --- */
       // TODO: Set these positions for practice bot

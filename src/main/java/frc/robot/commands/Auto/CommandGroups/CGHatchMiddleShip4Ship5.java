@@ -39,7 +39,7 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     addParallel(new hatchBeakClose());
-    addSequential(new autoTankDrive(0.6, 0.7, 0, 30000, "rightVision", IdleMode.kCoast));
+    addSequential(new autoTankDrive(0.6, 0.7, 0, 30000, "rightVision", IdleMode.kBrake));
     addSequential(new autoPIDVisionDrive(5, 0.07, 0.015, 0.6));
     addSequential(new CommonIntakeHatch());
     

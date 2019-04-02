@@ -11,10 +11,17 @@ import frc.robot.Robot;
  */
 public class autoEndAuto extends InstantCommand {
 
+    public static boolean endedAutoLED = false;
     protected void initialize() {
         if (Robot.autonomousCommand != null) {
             Robot.autonomousCommand.cancel();
         }
+        endedAutoLED = true;
         System.out.println("Auton Canceled");
     }
+
+    protected void end() {
+        endedAutoLED = false;
+    }
+    
 }
