@@ -21,7 +21,7 @@ public class CommonHighLeftToNearRocketFast extends CommandGroup {
     addSequential(new CommonScoreHatch());
     
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoTankDrive(-1.0, -0.1, -25000, 0, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-1.0, -0.1, -23000, 0, "left", IdleMode.kCoast));
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoResetEncoders());
     addSequential(new autoTankDrive(0.1, 1.0, 0, 16000, "rightVision", IdleMode.kCoast));

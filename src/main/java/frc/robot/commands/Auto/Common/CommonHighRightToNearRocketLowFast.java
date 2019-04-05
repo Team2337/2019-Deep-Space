@@ -31,10 +31,10 @@ import frc.robot.commands.HatchBeak.*;
         
         //Go to load station$
         addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-        addSequential(new autoTankDrive(-0.1, -1.0, 0, -25000, "right", IdleMode.kCoast));
+        addSequential(new autoTankDrive(-0.1, -1.0, 0, -23000, "right", IdleMode.kCoast));
         addSequential(new autoTurnOnLimeLightLED());
         addSequential(new autoResetEncoders());
-        addSequential(new autoTankDrive(1.0, 0.1, 16000, 0, "leftVision", IdleMode.kCoast));
+        addSequential(new autoTankDrive(1.0, 0.1, 20000, 0, "leftVision", IdleMode.kCoast));
 
         
         addParallel(new hatchBeakClose());
