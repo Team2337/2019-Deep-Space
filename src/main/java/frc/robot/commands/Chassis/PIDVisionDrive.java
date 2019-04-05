@@ -72,7 +72,7 @@ public class PIDVisionDrive extends PIDCommand {
       if(Robot.oi.driverJoystick.getLeftStickY() < 0.5) {
         speed = Robot.oi.driverJoystick.getLeftStickY();
       } else {
-        speed = 0.5;
+        speed = 0.6;
       }
       Chassis.neoArcade(speed, -(output), false);
   }

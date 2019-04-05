@@ -23,8 +23,8 @@ import frc.robot.commands.HatchBeak.*;
     public class CommonHighRightToNearRocketLow extends CommandGroup {
       public CommonHighRightToNearRocketLow() {
         addSequential(new autoTurnOnLimeLightLED());
-        addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-        addSequential(new driveAtSetSpeed());
+        addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
+        addSequential(new driveAtSetSpeed(0.4));
         addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.6));
         addSequential(new autoResetEncoders());
         addSequential(new CommonScoreHatch());

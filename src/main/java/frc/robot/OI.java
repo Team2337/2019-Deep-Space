@@ -51,10 +51,8 @@ public class OI {
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
 
 		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
-		driverJoystick.blueX						.whenPressed(new CGDriveToFarRocketFromLoadLeft());
+		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
-		driverJoystick.start						.whenPressed(new CommonRightLoadToFarRocketLowFast());
-		driverJoystick.back							.whenPressed(new limeLightLEDOn());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
@@ -62,6 +60,7 @@ public class OI {
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.bumperLeft					.whileHeld(new CGScoreHatch());
+		operatorJoystick.bumperLeft					.whenReleased(new CGRetractLaunchers());
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
