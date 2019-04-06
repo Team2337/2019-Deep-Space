@@ -36,7 +36,7 @@ import frc.robot.commands.HatchBeak.*;
         addSequential(new autoTankDrive(0.6, 0.1, 16000, 0, "leftVision", IdleMode.kCoast)); 
         // addSequential(new autoResetSensors());
         addParallel(new hatchBeakClose());
-        addSequential(new autoPIDVisionDrive(4, 0.95, 0.06, 0.7)); //changed speed to 70 from 60
+        addSequential(new autoPIDVisionDrive(4.5, 0.95, 0.06, 0.7)); //changed speed to 70 from 60
         addSequential(new CommonIntakeHatch());
         addSequential(new autoResetEncoders()); 
         addSequential(new autoWait(0.05));

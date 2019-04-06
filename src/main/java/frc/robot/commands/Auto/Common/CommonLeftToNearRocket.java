@@ -25,7 +25,7 @@ public class CommonLeftToNearRocket extends CommandGroup {
     addSequential(new autoTankDrive(0.1, 0.6, 0, 16000, "rightVision", IdleMode.kCoast)); 
     // addSequential(new autoResetSensors());
     addParallel(new hatchBeakClose());
-    addSequential(new autoPIDVisionDrive(4, 0.09, 0.06, 0.7)); //changed speed to 70 from 60
+    addSequential(new autoPIDVisionDrive(4.5, 0.09, 0.06, 0.7)); //changed speed to 70 from 60
     addSequential(new CommonIntakeHatch());
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
