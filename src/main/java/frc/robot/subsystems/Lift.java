@@ -138,7 +138,7 @@ public class Lift extends Subsystem {
       climbDeployPosition = 540;
       climbPlatformLocation = 445;
       climbLevel3Position = 60;
-      climbWheelsUpPosition = 350;
+      climbWheelsUpPosition = 510;
       climbHighPosition = 447;
     } else {
       /* --- Practice Lift Set Positions --- */

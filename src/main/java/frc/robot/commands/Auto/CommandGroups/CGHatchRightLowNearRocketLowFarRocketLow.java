@@ -26,7 +26,7 @@ public class CGHatchRightLowNearRocketLowFarRocketLow extends CommandGroup {
 
   public CGHatchRightLowNearRocketLowFarRocketLow() {
     
-    addSequential(new CommonRightToNearRocketLow());
-    addSequential(new CommonRightLoadToFarRocketLow());
+    addSequential(new CommonRightToNearRocketLowFast());
+    addSequential(new CommonRightLoadToFarRocketLowFast());
   }
 }

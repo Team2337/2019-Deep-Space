@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -257,6 +258,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
 
     SmartDashboard.putBoolean("Beaked", Robot.HatchBeak.status());
+
   }
 
   /**
@@ -324,6 +326,9 @@ public class Robot extends TimedRobot {
       break;
       case "Hatch Lvl1 Mid Ship 5 Ship 4":
         autonomousCommand = new CGHatchMiddleShip5Ship4();
+      break;
+      case "Hatch Lvl2 Left Near Rocket Low Near Rocket Mid":
+        autonomousCommand = new CGHatchLeftHighNearRocketLowNearRocketMid();
       break;
       default:
         autonomousCommand = new autoDoNothing();

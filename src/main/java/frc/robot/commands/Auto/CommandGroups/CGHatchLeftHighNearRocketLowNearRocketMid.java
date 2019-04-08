@@ -21,12 +21,12 @@ import frc.robot.commands.HatchBeak.hatchBeakClose;
  * </ol>
  * @author Bryce G.
  */
-public class CGHatchLeftLowNearRocketLowNearRocketMid extends CommandGroup {
+public class CGHatchLeftHighNearRocketLowNearRocketMid extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
 
-  public CGHatchLeftLowNearRocketLowNearRocketMid() {
+  public CGHatchLeftHighNearRocketLowNearRocketMid() {
     
-    addSequential(new CommonLeftToNearRocketFast());
+    addSequential(new CommonHighLeftToNearRocketFast());
     
     addSequential(new autoTankDrive(-0.4, -0.5, 0, 55000, "right", IdleMode.kCoast));
     addParallel(new autoTurnOnLimeLightLED());

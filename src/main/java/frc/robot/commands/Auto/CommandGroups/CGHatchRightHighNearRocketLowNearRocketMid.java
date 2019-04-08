@@ -27,7 +27,7 @@ public class CGHatchRightHighNearRocketLowNearRocketMid extends CommandGroup {
 
   public CGHatchRightHighNearRocketLowNearRocketMid() {
     
-    addSequential(new CommonHighRightToNearRocketLow());
+    addSequential(new CommonHighRightToNearRocketLowFast());
     
     addSequential(new autoTankDrive(-0.5, -0.4, 55000, 0, "left", IdleMode.kCoast));
     addParallel(new autoTurnOnLimeLightLED());

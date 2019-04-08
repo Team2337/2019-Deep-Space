@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
@@ -50,7 +51,7 @@ public class OI {
 		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
 
 		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
-		driverJoystick.blueX						.whenPressed(new CGDriveToFarRocketFromLoadLeft());
+		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 	    ////////////////////////////////// 
 	    
@@ -59,6 +60,7 @@ public class OI {
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.bumperLeft					.whileHeld(new CGScoreHatch());
+		operatorJoystick.bumperLeft					.whenReleased(new CGRetractLaunchers());
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());

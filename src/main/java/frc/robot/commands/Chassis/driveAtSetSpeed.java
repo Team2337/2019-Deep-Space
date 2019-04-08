@@ -10,13 +10,16 @@ import frc.robot.subsystems.Chassis;
  */
 public class driveAtSetSpeed extends Command {
 
-  public driveAtSetSpeed() {
+  public double turnSpeed;
+
+  public driveAtSetSpeed(double turnSpeed) {
+    this.turnSpeed = turnSpeed;
     setTimeout(0.5);
     requires(Robot.Chassis);
   }
 
   protected void execute() {
-      Chassis.neoDrive.arcadeDrive(0.75, 0.4, false);
+      Chassis.neoDrive.arcadeDrive(0.75, turnSpeed, false);
   }
   
   protected boolean isFinished() {

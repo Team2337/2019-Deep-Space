@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 
-public class CommonHighLeftToNearRocket extends CommandGroup {
-    public CommonHighLeftToNearRocket() {
+public class CommonHighLeftToNearRocketFast extends CommandGroup {
+    public CommonHighLeftToNearRocketFast() {
 
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
@@ -21,13 +21,13 @@ public class CommonHighLeftToNearRocket extends CommandGroup {
     addSequential(new CommonScoreHatch());
     
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoTankDrive(-0.6, -0.1, -23000, 0, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-1.0, -0.1, -23000, 0, "left", IdleMode.kCoast));
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoResetEncoders());
-    addSequential(new autoTankDrive(0.1, 0.6, 0, 16000, "rightVision", IdleMode.kCoast));
+    addSequential(new autoTankDrive(0.1, 1.0, 0, 16000, "rightVision", IdleMode.kCoast));
     // addSequential(new autoResetSensors());
     addParallel(new hatchBeakClose());
-    addSequential(new autoPIDVisionDrive(4, 0.09, 0.06, 0.6));
+    addSequential(new autoPIDVisionDrive(4.5, 0.09, 0.06, 0.75));
     addSequential(new CommonIntakeHatch());
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
