@@ -48,7 +48,8 @@ public class OI {
 		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
 
 		// driverJoystick.triggerRight					DONT ASIGN ANYTHING TO HERE;
-		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDrive(0.05, 0, 0));
+		
+		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDriveWithSlow(0.05, 0, 0)); //PIDVisionDrive
 
 		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
 		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
