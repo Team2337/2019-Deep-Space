@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.Chassis.driveAtSetSpeed;
+import frc.robot.commands.Chassis.*;
 import frc.robot.commands.HatchBeak.*;
     
     /**
@@ -24,8 +24,11 @@ import frc.robot.commands.HatchBeak.*;
     public CommonHighRightToNearRocketLowFast() {
         addSequential(new autoTurnOnLimeLightLED());
         addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
-        addSequential(new driveAtSetSpeed(0.4));
-        addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.6));
+        // addSequential(new driveAtSetSpeed(0.4));
+        addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
+        addSequential(new autoWait(0.25));
+
+        addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.7));
         addSequential(new autoResetEncoders());
         addSequential(new CommonScoreHatch());
         

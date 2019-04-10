@@ -21,7 +21,7 @@ import frc.robot.commands.Auto.*;
 public class CommonRightLoadToFarRocketLowFast extends CommandGroup {
   public CommonRightLoadToFarRocketLowFast() {
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoTankDrive(-0.8, -0.64, 60000, 0, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.8, -0.64, 55000, 0, "left", IdleMode.kCoast));
     addSequential(new autoTankDrive(-0.64, -0.85, 0, 108000, "right", IdleMode.kCoast));
     addParallel(new autoTurnOnLimeLightLED());
     addSequential(new autoTankDrive(-0.51, -0.65, 0, 155000, "right", IdleMode.kCoast));

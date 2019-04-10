@@ -27,16 +27,17 @@ public class CGHatchRightHighNearRocketLowNearRocketMid extends CommandGroup {
 
   public CGHatchRightHighNearRocketLowNearRocketMid() {
     
-    addSequential(new CommonHighRightToNearRocketLowFast());
+    addSequential(new CommonHighRightToNearRocketLow());
     
-    addSequential(new autoTankDrive(-0.5, -0.4, 55000, 0, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-0.6, -0.5, 55000, 0, "left", IdleMode.kCoast));
     addParallel(new autoTurnOnLimeLightLED());
-    addSequential(new autoTankDrive(-0.5, -0.1, 80000, 0, "left", IdleMode.kBrake));
+    addSequential(new autoTankDrive(-0.6, -0.2, 80000, 0, "left", IdleMode.kBrake));
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     addSequential(new autoTankDrive(0.1, 0.5, 0, 55000, "rightVision", IdleMode.kCoast));
-    addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
+    addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.7));
     addSequential(new autoLiftToPosition(Robot.Lift.hatchMidScorePosition));
     // addSequential(new CommonScoreHatch());
+    addSequential(new autoEndAuto());
   }
 }

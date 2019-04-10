@@ -50,6 +50,7 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
     addSequential(new autoTankDrive(-0.5, -0.15, 145000, 0, "left", IdleMode.kBrake));
     addSequential(new autoPIDVisionDrive(5, 0.07, 0.015, 0.6));
     addSequential(new CommonScoreHatch());
+    addSequential(new autoEndAuto());
  
   }
 }
