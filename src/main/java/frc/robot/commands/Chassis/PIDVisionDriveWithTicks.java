@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * The driver is able to drive forward while holding the button and have the code adjust towrds the target
  * @author Bryce G.
  */
-public class PIDVisionDriveWithSlow extends PIDCommand {
+public class PIDVisionDriveWithTicks extends PIDCommand {
 
   double turnValue, targetAngle, leftJoystick, m_speed, speed, m_timeout, ta, tx, speedModifier;
   double p, i, d;
@@ -20,8 +20,10 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
   double distanceModifier = 8000;
   double initialDistance = 0;
   double ticksPerInch = 582;
-  double minSpeed = 0.3;
+  double minSpeed;
   double targetDistance = 1;
+  double maxSpeed = 0.6;
+  double remainingDistance = 0;
 
   double[] limelight3D;
   double[] limelightValues = new double[6];
@@ -36,7 +38,7 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
    * @param i - I value (Ex: 0.05 (lowers/raises the steady coarse rate)) 
    * @param d - D value (Ex: 0.05 (dampens the ocilation))
    */
-  public PIDVisionDriveWithSlow(double p, double i, double d) {
+  public PIDVisionDriveWithTicks(double p, double i, double d) {
     super("PIDLimelightTurn", p, i, d);        // set name, P, I, D.
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
@@ -72,6 +74,7 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
       noDistance = false;
     } else {
       distanceDriven = Math.abs(Robot.Chassis.getAverageEncoderPosition());
+      remainingDistance = targetDistance - distanceDriven;
     }
 
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
@@ -79,8 +82,6 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
     if(tx == 0) {
       output = -Robot.oi.driverJoystick.getRightStickX();
     }
-
-    speedModifier = (1.1 * (targetDistance - distanceDriven)/targetDistance);
 
     //If the angle error is close to the target, we want a higher P to have a sharper turn, otherwise it's a small turn
     if(Math.abs(tx) < 8) {
@@ -92,14 +93,32 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
     // Keep for testing 
     System.out.println("tx: " + tx + " ***** " + "output: " + output); 
 
-    //Limit the forward drive to 60% while this command is active
-    if(Robot.oi.driverJoystick.getLeftStickY() < 0.6) {
-      speed = Robot.oi.driverJoystick.getLeftStickY();
+    if(remainingDistance > 40000) {
+      maxSpeed = 0.55;
+    } else if(remainingDistance > 35000) {
+      maxSpeed = 0.5;
+    } else if(remainingDistance > 30000) {
+      maxSpeed = 0.45;
+    } else if(remainingDistance > 25000) {
+      maxSpeed = 0.4;
+    } else if(remainingDistance > 20000) {
+      maxSpeed = 0.35;
+    } else if(remainingDistance > 15000) {
+      maxSpeed = 0.25;
     } else {
-      speed = 0.6;
+      maxSpeed = 0.25;
     }
 
-    speed *= speedModifier;
+    if(noDistance) {
+      maxSpeed = 0.6;
+    }
+
+    //Limit the forward drive to 60% while this command is active
+    if(Robot.oi.driverJoystick.getLeftStickY() < maxSpeed) {
+      speed = Robot.oi.driverJoystick.getLeftStickY();
+    } else {
+      speed = maxSpeed;
+    }
 
       //Limit the forward drive to the last speed while this command is active
      if(speed < minSpeed) {
@@ -112,10 +131,6 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
   }
 
   protected void initialize() {
-    if (Robot.autonomousCommand != null) {
-      Robot.autonomousCommand.cancel();
-    }
-
     Robot.Vision.setLEDMode(3);
     Robot.Chassis.setNeoOpenLoopRampRate(0);
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
@@ -127,6 +142,8 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
     ticksPerInch = 582;
     targetDistance = 1;
     minSpeed = 0.3;
+    maxSpeed = 0.6;
+    remainingDistance = 0;
   }
 
   protected void execute() {
@@ -139,7 +156,7 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
   }
 
   protected void end() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Chassis.setNeoOpenLoopRampRate(Robot.rampRate);
     Robot.Vision.setLEDMode(1);
   }
 

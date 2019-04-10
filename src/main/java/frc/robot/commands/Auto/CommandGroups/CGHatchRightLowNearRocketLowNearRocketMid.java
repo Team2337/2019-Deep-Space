@@ -37,5 +37,6 @@ public class CGHatchRightLowNearRocketLowNearRocketMid extends CommandGroup {
     addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
     addSequential(new autoLiftToPositionWithWait(Robot.Lift.hatchMidScorePosition, 0));
     // addSequential(new CommonScoreHatch());
+    addSequential(new autoEndAuto());
   }
 }

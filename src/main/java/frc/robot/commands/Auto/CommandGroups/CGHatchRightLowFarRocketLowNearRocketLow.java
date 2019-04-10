@@ -45,6 +45,7 @@ public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));
     addSequential(new autoDriveToEncoderTick(-1, 30000, 0.5, 0, false, 0));
+    addSequential(new autoEndAuto());
     
   }
 }

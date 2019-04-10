@@ -1,7 +1,7 @@
 package frc.robot.commands.Auto.Common;
 
 import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.Chassis.driveAtSetSpeed;
+import frc.robot.commands.Chassis.*;
 import frc.robot.commands.HatchBeak.hatchBeakClose;
 
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -15,8 +15,11 @@ public class CommonHighLeftToNearRocketFast extends CommandGroup {
 
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
-    addSequential(new driveAtSetSpeed(-0.4));
-    addSequential(new autoPIDVisionDrive(3, 0.07, 0.02, 0.6));
+    // addSequential(new driveAtSetSpeed(-0.4));
+    addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
+    addSequential(new autoWait(0.25));
+
+    addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.7));
     addSequential(new autoResetEncoders());
     addSequential(new CommonScoreHatch());
     

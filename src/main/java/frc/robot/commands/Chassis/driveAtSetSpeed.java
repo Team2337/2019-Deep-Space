@@ -1,5 +1,7 @@
 package frc.robot.commands.Chassis;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
@@ -19,7 +21,7 @@ public class driveAtSetSpeed extends Command {
   }
 
   protected void execute() {
-      Chassis.neoDrive.arcadeDrive(0.75, turnSpeed, false);
+      Chassis.neoDrive.arcadeDrive(1.0, turnSpeed, false);
   }
   
   protected boolean isFinished() {
@@ -27,5 +29,6 @@ public class driveAtSetSpeed extends Command {
   }
 
   protected void end() {
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
   }
 }
