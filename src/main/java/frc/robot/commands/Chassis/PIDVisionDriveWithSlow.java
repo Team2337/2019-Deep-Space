@@ -106,6 +106,11 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
         speed = minSpeed;
       }    
 
+      if(Robot.Lift.getPosition() >= Robot.Lift.hatchLowScorePosition + 30) {
+        speed = 0;
+        output = 0.001;
+      }
+
       Chassis.neoArcade(speed, -(output), false);
       System.out.println("Speed: " + speed + "targetDistance: " + targetDistance + "minus DistanceDriven: " + distanceDriven + "divided by " + targetDistance + 
       " = speedModifier: " + speedModifier + " initialDistance: " + initialDistance);
@@ -130,8 +135,7 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
   }
 
   protected void execute() {
-      limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);
-     
+      limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);     
   }
 
   protected boolean isFinished() {
