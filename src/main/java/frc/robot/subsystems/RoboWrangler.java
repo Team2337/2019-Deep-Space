@@ -13,11 +13,11 @@ import frc.robot.commands.RoboWrangler.*;
 public class RoboWrangler extends Subsystem {
 
     private TalonSRX wranglerDriveMotor;
-    private TalonSRX wranglerLassoMotor;
+    // private TalonSRX wranglerLassoMotor;
 
     public RoboWrangler() {
         this.wranglerDriveMotor = new TalonSRX(Robot.Constants.wranglerDriveID);
-        wranglerLassoMotor = new TalonSRX(Robot.Constants.wranglerLassoID);
+        // wranglerLassoMotor = new TalonSRX(Robot.Constants.wranglerLassoID);
     }
 
     public void initDefaultCommand() {
@@ -41,14 +41,14 @@ public class RoboWrangler extends Subsystem {
      *              speed to
      */
     public void lasso(double speed) {
-        wranglerLassoMotor.set(ControlMode.PercentOutput, -speed);
+        // wranglerLassoMotor.set(ControlMode.PercentOutput, -speed);
     }
 
     /**
      * Stops the RoboWrangler's drive and lasso motors
      */
     public void stop() {
-        wranglerLassoMotor.set(ControlMode.PercentOutput, 0);
+        // wranglerLassoMotor.set(ControlMode.PercentOutput, 0);
         wranglerDriveMotor.set(ControlMode.PercentOutput, 0);
     }
 
@@ -67,6 +67,6 @@ public class RoboWrangler extends Subsystem {
      * @return The speed being sent to the wrangler lasso motor
      */
     public double lassoMotorStatus() {
-        return wranglerLassoMotor.getMotorOutputPercent();
+        return 0;//wranglerLassoMotor.getMotorOutputPercent();
     }
 }

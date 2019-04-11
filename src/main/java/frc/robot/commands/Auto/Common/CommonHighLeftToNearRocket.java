@@ -27,7 +27,8 @@ public class CommonHighLeftToNearRocket extends CommandGroup {
     addSequential(new autoTankDrive(-0.6, -0.1, -23000, 0, "left", IdleMode.kCoast));
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoResetEncoders());
-    addSequential(new autoTankDrive(0.1, 0.6, 0, 16000, "rightVision", IdleMode.kCoast));
+    addSequential(new autoTankDrive(0.1, 0.6, 0, 16000, "right", IdleMode.kCoast));
+    addSequential(new autoTankDrive(0.1, 0.6, 0, 20000, "rightVision", IdleMode.kCoast));
     addParallel(new hatchBeakClose());
     addSequential(new autoPIDVisionDrive(4.5, 0.09, 0.06, 0.7));
     addSequential(new CommonIntakeHatch());

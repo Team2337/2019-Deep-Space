@@ -29,7 +29,9 @@ public class goToPosition extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.Lift.setSetpoint(position);
+        if(!Robot.stringPotBroken) {
+            Robot.Lift.setSetpoint(position);
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run

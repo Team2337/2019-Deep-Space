@@ -195,8 +195,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Driver/Climber Line Sensor",
               "_title": "Climb Line Sensor",
-              "Colors/Color when true": "#800000FF",
-              "Colors/Color when false": "#00FF00FF"
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           },
           "0,6": {
