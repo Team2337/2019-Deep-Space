@@ -19,7 +19,7 @@ public class CommonHighLeftToNearRocket extends CommandGroup {
     addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
     addSequential(new autoWait(0.25));
 
-    addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.7));
+    addSequential(new autoPIDVisionDrive(3, 0.09, 0.03, 0.7));
     addSequential(new autoResetEncoders());
     addSequential(new CommonScoreHatch());
     

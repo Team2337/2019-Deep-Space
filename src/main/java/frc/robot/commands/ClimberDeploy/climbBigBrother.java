@@ -70,12 +70,11 @@ public class climbBigBrother extends Command {
         case 3:
             Robot.RoboWrangler.drive(0.75);
 
-            /*
             if (Robot.ClimberDeploy.climberLineSensor.get()) {
                 Robot.RoboWrangler.stop();
                 Robot.ClimberDeploy.climberPhase = 4;
             }
-            */
+            
 
             // TODO: Remove timer once line sensor is installed
             /*

@@ -17,6 +17,7 @@ public class RoboWrangler extends Subsystem {
 
     public RoboWrangler() {
         this.wranglerDriveMotor = new TalonSRX(Robot.Constants.wranglerDriveID);
+        wranglerDriveMotor.configOpenloopRamp(0.4);
         // wranglerLassoMotor = new TalonSRX(Robot.Constants.wranglerLassoID);
     }
 

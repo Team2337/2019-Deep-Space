@@ -28,7 +28,7 @@ import frc.robot.commands.HatchBeak.*;
         addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
         addSequential(new autoWait(0.25));
 
-        addSequential(new autoPIDVisionDrive(3, 0.07, 0.03, 0.7)); //changed high p to 0.025 from 0.03
+        addSequential(new autoPIDVisionDrive(3, 0.09, 0.03, 0.7)); //changed high p to 0.025 from 0.03
         addSequential(new autoResetEncoders());
         addSequential(new CommonScoreHatch());
 
@@ -37,7 +37,7 @@ import frc.robot.commands.HatchBeak.*;
         addSequential(new autoTankDrive(-0.1, -0.6, 0, -23000, "right", IdleMode.kCoast));
         addSequential(new autoTurnOnLimeLightLED());
         addSequential(new autoResetEncoders());
-        addSequential(new autoTankDrive(0.6, 0.1, 16000, 0, "left", IdleMode.kCoast));
+        addSequential(new autoTankDrive(0.6, 0.1, 18000, 0, "left", IdleMode.kCoast));
         addSequential(new autoTankDrive(0.6, 0.1, 20000, 0, "leftVision", IdleMode.kCoast));
         addParallel(new hatchBeakClose());
         addSequential(new autoPIDVisionDrive(4.5, 0.09, 0.06, 0.7)); //p values after practice matches 0.09, 0.06
