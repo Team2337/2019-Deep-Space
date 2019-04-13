@@ -76,8 +76,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Driver/Trolley Sensor",
               "_title": "Trolley Sensor",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "Colors/Color when true": "#800000FF",
+              "Colors/Color when false": "#00FF00FF"
             }
           },
           "6,1": {
@@ -500,6 +500,6 @@
     "x": -7.0,
     "y": 0.0,
     "width": 1932.0,
-    "height": 1048.0
+    "height": 1047.0
   }
 }
