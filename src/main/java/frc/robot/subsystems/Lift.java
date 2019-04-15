@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.commands.Lift.liftWithJoystick;
+import frc.robot.commands.Lift.liftWithJoystickWithBroken;
 
 /**
  * Controls lift movement using PID setpoints
@@ -82,8 +83,8 @@ public class Lift extends Subsystem {
   public static VictorSPX liftLeftBackMotor;
 
   // Configures the maximum/minumum speeds the lift can travel at
-  private double maxSpeedUp = 1.0; // 0.8
-  private double maxSpeedDown = 1.0; // 0.5
+  public double maxSpeedUp = 1.0; // 0.8
+  public double maxSpeedDown = 1.0; // 0.5
   private double nominalSpeed = 0;
 
   // PID Constants - Refer to the Wiki to learn what each of these do
@@ -111,7 +112,7 @@ public class Lift extends Subsystem {
   public int minValue = 40;
 
   protected void initDefaultCommand() {
-    setDefaultCommand(new liftWithJoystick());
+    setDefaultCommand(new liftWithJoystickWithBroken());//liftWithJoystick-ORIGINAL    //liftWithJoystickWithBroken
   }
 
   public Lift() {
@@ -403,8 +404,8 @@ public class Lift extends Subsystem {
   public void setMinMaxSpeed(double up, double down, double nominal) {
     liftLeftFrontMotor.configPeakOutputForward(up, 0); // Forwards
     liftLeftFrontMotor.configNominalOutputForward(nominal, 0);
-    liftLeftFrontMotor.configPeakOutputReverse(down, 0); // Reverse
-    liftLeftFrontMotor.configNominalOutputReverse(-nominal, 0);
+    liftLeftFrontMotor.configPeakOutputReverse(-down, 0); // Reverse
+    liftLeftFrontMotor.configNominalOutputReverse(nominal, 0);
   }
 
   /**

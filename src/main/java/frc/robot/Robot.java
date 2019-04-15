@@ -150,7 +150,6 @@ public class Robot extends TimedRobot {
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
-    Vision.setLEDMode(1);
     LED.setColor(Robot.LED.off);
     
     // Writing a trajectory to a file (keep commented out until needed)
@@ -177,6 +176,7 @@ public class Robot extends TimedRobot {
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", autonChooser);
     Vision.streamMode(2);
+    Vision.setLEDMode(1);
     // Hold the current lift position so that the lift doesn't move on startup
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
     // Disable the air compressor so it doesn't run every time we start the robot.

@@ -58,7 +58,7 @@ public class climbBigBrother extends Command {
             Robot.Lift.setSetpoint(Robot.Lift.climbPlatformLocation);
             if(climbTimer > 8) {
                 Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
-                if (Robot.Lift.atPosition(10) || Robot.Lift.getPosition() < 75) {
+                if (Robot.Lift.atPosition(10) || Robot.Lift.getPosition() < 78) {
                     Robot.ClimberDeploy.climberPhase = 3;
                     Robot.ClimberDeploy.undeployClimber(); // Reset the servo
                 }
@@ -70,17 +70,20 @@ public class climbBigBrother extends Command {
         case 3:
             Robot.RoboWrangler.drive(0.75);
 
-            if (!Robot.ClimberDeploy.climberLineSensor.get()) {
+            if (Robot.ClimberDeploy.climberLineSensor.get()) {
                 Robot.RoboWrangler.stop();
                 Robot.ClimberDeploy.climberPhase = 4;
             }
+            
 
             // TODO: Remove timer once line sensor is installed
+            /*
             wranglerDriveTimer = wranglerDriveTimer + 1;
             if (wranglerDriveTimer > 80) {
                 Robot.RoboWrangler.stop();
                 // Robot.ClimberDeploy.climberPhase = 5;
             }
+            */
             break;
 
         // Raise the trolley (lifting the RoboWrangler wheels off the lvl. 1 platform)

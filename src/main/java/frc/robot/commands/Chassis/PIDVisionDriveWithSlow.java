@@ -17,10 +17,10 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
   double turnValue, targetAngle, leftJoystick, m_speed, speed, m_timeout, ta, tx, speedModifier;
   double p, i, d;
   double distanceDriven = 0;
-  double distanceModifier = 8000;
+  double distanceModifier;
   double initialDistance = 0;
   double ticksPerInch = 582;
-  double minSpeed = 0.3;
+  double minSpeed;
   double targetDistance = 1;
 
   double[] limelight3D;
@@ -55,6 +55,25 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
     return (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0));
   }
 
+  
+  protected void initialize() {
+    if (Robot.autonomousCommand != null) {
+      Robot.autonomousCommand.cancel();
+    }
+
+    Robot.Vision.setLEDMode(3);
+    Robot.Chassis.setNeoOpenLoopRampRate(0);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
+    this.setSetpoint(targetAngle);
+    noDistance = true;
+    distanceModifier = 10000;
+    distanceDriven = 0;
+    initialDistance = 0;
+    ticksPerInch = 582;
+    targetDistance = 1;
+    minSpeed = 0.3;
+  }
+
   /**
    *  The PID object outputs a value here and we then use it in our drive command below
    * (after gathering some other info first)
@@ -63,6 +82,11 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
    */
   protected void usePIDOutput(double output) {
     SmartDashboard.putNumber("output", output);
+
+    if(Robot.HatchBeak.beakMode) {
+      distanceModifier = 14000;
+      minSpeed = 0.4;
+    }
     
     if (initialDistance == 0 && noDistance) {
       initialDistance = limelight3D[2]; // init distance
@@ -106,32 +130,18 @@ public class PIDVisionDriveWithSlow extends PIDCommand {
         speed = minSpeed;
       }    
 
+      if(Robot.Lift.getPosition() >= Robot.Lift.hatchLowScorePosition + 30) {
+        speed = 0;
+        output = 0.001;
+      }
+
       Chassis.neoArcade(speed, -(output), false);
       System.out.println("Speed: " + speed + "targetDistance: " + targetDistance + "minus DistanceDriven: " + distanceDriven + "divided by " + targetDistance + 
       " = speedModifier: " + speedModifier + " initialDistance: " + initialDistance);
   }
 
-  protected void initialize() {
-    if (Robot.autonomousCommand != null) {
-      Robot.autonomousCommand.cancel();
-    }
-
-    Robot.Vision.setLEDMode(3);
-    Robot.Chassis.setNeoOpenLoopRampRate(0);
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
-    this.setSetpoint(targetAngle);
-    noDistance = true;
-    distanceModifier = 8000;
-    distanceDriven = 0;
-    initialDistance = 0;
-    ticksPerInch = 582;
-    targetDistance = 1;
-    minSpeed = 0.3;
-  }
-
   protected void execute() {
-      limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);
-     
+      limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);     
   }
 
   protected boolean isFinished() {
