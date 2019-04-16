@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.CommandGroups.CGHatchMiddleShip5NearRocketLow;
 import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
@@ -55,7 +56,7 @@ public class OI {
 		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
-		driverJoystick.start						.whenPressed(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
+		driverJoystick.start						.whenPressed(new CGHatchMiddleShip5NearRocketLow());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
