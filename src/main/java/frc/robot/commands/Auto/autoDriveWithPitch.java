@@ -2,6 +2,8 @@ package frc.robot.commands.Auto;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import org.opencv.features2d.FastFeatureDetector;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
@@ -22,6 +24,8 @@ public class autoDriveWithPitch extends Command {
     public double m_timeout;
     public double m_rollAngle;
     public boolean level = false;
+    public boolean above3Degrees = false;
+    public double initialRoll = 0;
 
     /**
      * Drive until Timeout or pitch increases
@@ -45,20 +49,34 @@ public class autoDriveWithPitch extends Command {
 
         if (m_target > 0) {
             m_speed = -m_speed;
-        } 
+        }
+
+        initialRoll = Robot.Pigeon.getRoll();
+        m_rollAngle = initialRoll + 3;
+        above3Degrees = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         yaw = -Robot.Pigeon.getYaw();
-        pitch = Robot.Pigeon.getPitch();
+        pitch = Robot.Pigeon.getRoll();
 
+        if (Math.abs(initialRoll - pitch) > 6) {
+            above3Degrees = true;
+        }
         Chassis.neoArcade(m_speed, yaw * Kp, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (pitch < m_rollAngle || isTimedOut());
+
+        if (above3Degrees) {
+            return (pitch < m_rollAngle || isTimedOut());
+        }
+
+        else {
+            return (false);
+        }
     }
 
     // Called once after isFinished returns true

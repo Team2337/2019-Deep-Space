@@ -258,6 +258,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
 
     SmartDashboard.putBoolean("Beaked", Robot.HatchBeak.status());
+    SmartDashboard.putNumber("Pitch", Robot.Pigeon.getRoll());
 
   }
 
