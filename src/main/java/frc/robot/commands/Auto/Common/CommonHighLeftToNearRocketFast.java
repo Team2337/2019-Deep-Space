@@ -1,6 +1,5 @@
 package frc.robot.commands.Auto.Common;
 
-import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.Chassis.*;
 import frc.robot.commands.HatchBeak.hatchBeakClose;
 
@@ -10,6 +9,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 
+/**
+ * @category Common Command Group
+ * Drives off the left lvl2 towards the left near rocket, and then continues back to the left load station to intake the hatch
+ * This is the fast version of the original command
+ * <br/>
+ * <p>Command Steps:</p>
+ * <ol>
+ *  <li>Drive off left lvl2</li>
+ *  <li>Drive to the near left rocket</li>
+ *  <li>Score the hatch on the bottom</li>
+ *  <li>Drive to the left load station with vision</li>
+ *  <li>Intake hatch</li>
+ *  <li>End command</li>
+ * </ol>
+ * 
+ * @author Bryce G.
+ */
 public class CommonHighLeftToNearRocketFast extends CommandGroup {
     public CommonHighLeftToNearRocketFast() {
 

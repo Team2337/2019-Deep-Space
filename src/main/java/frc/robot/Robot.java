@@ -171,6 +171,10 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl2 Left - Near Rocket Low - Far Rocket Low", "Hatch Lvl2 Left Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Ship 4", "Hatch Lvl1 Mid Ship 5 Ship 4");
+    autonChooser.addOption("Hatch Lvl1 Right - Ship 7 - Ship 6", "Hatch Right Low Ship 7 Ship 6");
+    autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
+    autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
     
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -331,9 +335,22 @@ public class Robot extends TimedRobot {
       case "Hatch Lvl2 Left Near Rocket Low Near Rocket Mid":
         autonomousCommand = new CGHatchLeftHighNearRocketLowNearRocketMid();
       break;
+      case "Hatch Right Low Ship 7 Ship 6":
+        autonomousCommand = new CGHatchRightLowShip7Ship6();
+      break;
+      case "Hatch Right High Ship 7 Ship 6":
+        autonomousCommand = new CGHatchRightHighShip7Ship6();
+      break;
+      case "Hatch Middle Ship 5 Near Rocket Low":
+        autonomousCommand = new CGHatchMiddleShip5NearRocketLow();
+      break;
+      case "Hatch Middle Ship 4 Near Rocket Low":
+        autonomousCommand = new CGHatchMiddleShip4NearRocketLow();
+      break;
       default:
         autonomousCommand = new autoDoNothing();
       break;
+     
     }
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
 
@@ -360,7 +377,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
 
     /*

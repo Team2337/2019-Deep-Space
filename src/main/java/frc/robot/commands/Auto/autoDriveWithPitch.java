@@ -1,11 +1,7 @@
 package frc.robot.commands.Auto;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
-import org.opencv.features2d.FastFeatureDetector;
-
 import edu.wpi.first.wpilibj.command.Command;
-
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 

@@ -76,7 +76,6 @@ public class climbBigBrother extends Command {
             }
             
 
-            // TODO: Remove timer once line sensor is installed
             /*
             wranglerDriveTimer = wranglerDriveTimer + 1;
             if (wranglerDriveTimer > 80) {

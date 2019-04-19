@@ -3,10 +3,7 @@ package frc.robot.commands.Auto.CommandGroups;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.HatchBeak.*;
 
 /**
  * Auton Description:
@@ -23,7 +20,6 @@ import frc.robot.commands.HatchBeak.*;
  */
 public class CGHatchRightHighShip7Ship6 extends CommandGroup {
   public CGHatchRightHighShip7Ship6() {
-    double[][] values = pathway.valuesPID;
    
     // addSequential(new autoDriveWithPitch(-.75, 30000, 5, 0));
     /*addSequential(new autoTankDrive(-.6, -.6, 65000, 0, "left", IdleMode.kCoast));

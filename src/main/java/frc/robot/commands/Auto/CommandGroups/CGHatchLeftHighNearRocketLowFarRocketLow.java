@@ -1,13 +1,8 @@
 package frc.robot.commands.Auto.CommandGroups;
 
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
 import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.Chassis.driveAtSetSpeed;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.HatchBeak.hatchBeakClose;
 
 /**
  *  Auton Description:

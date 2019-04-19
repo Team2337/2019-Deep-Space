@@ -23,7 +23,6 @@ import frc.robot.commands.HatchBeak.*;
  */
 public class CGHatchMiddleShip4Ship5 extends CommandGroup {
   public CGHatchMiddleShip4Ship5() {
-    double[][] values = pathway.valuesPID;
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
     
     addSequential(new autoTurnOnLimeLightLED());
@@ -32,7 +31,6 @@ public class CGHatchMiddleShip4Ship5 extends CommandGroup {
 
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
-    //TODO: take out brake when done
     addSequential(new autoTankDrive(-0.6, -0.33, 135000, 0, "left", IdleMode.kCoast));
     
     addParallel(new autoTurnOnLimeLightLED());

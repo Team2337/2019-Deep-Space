@@ -23,7 +23,6 @@ import frc.robot.commands.HatchBeak.*;
  */
 public class CGHatchMiddleShip5Ship4 extends CommandGroup {
   public CGHatchMiddleShip5Ship4() {
-    double[][] values = pathway.valuesPID;
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
     
     addSequential(new autoTurnOnLimeLightLED());

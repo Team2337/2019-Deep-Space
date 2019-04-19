@@ -29,13 +29,10 @@ public class autoTankDriveWithGyro extends Command {
 	 * @param side       - String value determining which side of the chassis to
 	 *                   read to end the command ("right" or "left")
 	 */
-	public autoTankDriveWithGyro(double angle, double leftSpeed, double rightDist, String side,
-			IdleMode brakeMode) {
+	public autoTankDriveWithGyro(double angle, double leftSpeed, double rightSpeed, String side, IdleMode brakeMode) {
 		this.angle = angle;
 		this.rightSpeed = rightSpeed;
 		this.leftSpeed = leftSpeed;
-		this.rightDist = rightDist;
-		this.leftDist = leftDist;
 		this.side = side;
 		this.brakeMode = brakeMode;
 		requires(Robot.Chassis);

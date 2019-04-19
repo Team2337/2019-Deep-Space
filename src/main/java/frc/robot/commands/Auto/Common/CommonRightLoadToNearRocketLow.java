@@ -1,15 +1,26 @@
 package frc.robot.commands.Auto.Common;
 
-import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.Chassis.*;
-import frc.robot.commands.HatchBeak.hatchBeakClose;
-
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 
+
+/**
+ * @category Common Command Group
+ * Drives from the right load station with a hatch to the near side of the rocket to score the second hatch
+ * <br/>
+ * <p>Command Steps:</p>
+ * <ol>
+ *  <li>Drive from right load station backwards</li>
+ *  <li>Turn around to face the near face of the right rocket</li>
+ *  <li>Lift to low hatch position</li>
+ *  <li>End command</li>
+ *  <li>Waits for driver input to score</li>
+ * </ol>
+ * 
+ * @author Bryce G.
+ */
 public class CommonRightLoadToNearRocketLow extends CommandGroup {
     public CommonRightLoadToNearRocketLow() {
        

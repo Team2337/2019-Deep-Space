@@ -118,8 +118,6 @@ public class Lift extends Subsystem {
   public Lift() {
     if (Robot.isComp) {
       /* --- Competition Lift Set Positions --- */
-      // TODO: Fix soft limit
-      //TODO: Set slower speed for arms point
       //Bottom point = 62
       forwardLiftSoftLimit = 660;
       reverseLiftSoftLimit = 60;
@@ -143,7 +141,6 @@ public class Lift extends Subsystem {
       climbHighPosition = 447;
     } else {
       /* --- Practice Lift Set Positions --- */
-      // TODO: Set these positions for practice bot
       forwardLiftSoftLimit = 717;
       reverseLiftSoftLimit = 100;
 

@@ -1,12 +1,8 @@
 package frc.robot.commands.Auto.CommandGroups;
 
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.HatchBeak.*;
 
 /**
  * Auton Description:
@@ -23,7 +19,6 @@ import frc.robot.commands.HatchBeak.*;
  */
 public class CGHatchMiddleShip5NearRocketLow extends CommandGroup {
     public CGHatchMiddleShip5NearRocketLow() {
-    double[][] values = pathway.valuesPID;
    
     addSequential(new CommonMiddleToShip5());
     addSequential(new CommonRightLoadToNearRocketLow());

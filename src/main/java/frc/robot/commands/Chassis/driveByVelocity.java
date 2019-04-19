@@ -103,7 +103,7 @@ public class driveByVelocity extends Command {
     leftEncodersVelocity  = Robot.Chassis.getAverageLeftNeoVelocity();
     rightEncodersVelocity = Robot.Chassis.getAverageRightNeoVelocity();
 
-    // or should we reference last velocity or last joystick(movespeed) to set this??? TODO:
+    // or should we reference last velocity or last joystick(movespeed) to set this??? 
     if      (moveSpeed >  quickTurnJoystickThreshold) { lastDirection =  1.0; } 
     else if (moveSpeed < -quickTurnJoystickThreshold) { lastDirection = -1.0; }
 
