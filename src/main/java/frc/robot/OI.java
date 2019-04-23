@@ -56,7 +56,7 @@ public class OI {
 		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
-		driverJoystick.start						.whenPressed(new CGOmniHatchRightLowShip7Ship6());
+		driverJoystick.start						.whenPressed(new CGOmniHatchRightHighNearRocketLowFarRocketLow());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
