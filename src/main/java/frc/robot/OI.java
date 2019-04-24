@@ -50,13 +50,13 @@ public class OI {
 
 		// driverJoystick.triggerRight					DONT ASIGN ANYTHING TO HERE;
 		
-		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDriveWithSlow(0.05, 0, 0)); //PIDVisionDrive PIDVisionDriveWithTicks
+		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.1, 0.05));//PIDVisionDriveWithSlow(0.05, 0, 0));
 
 		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
 		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
-		driverJoystick.start						.whenPressed(new CGOmniHatchRightHighNearRocketLowFarRocketLow());
+		driverJoystick.start						.whenPressed(new CGOmniHatchRightLowNearRocketLowFarRocketLow());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
@@ -74,8 +74,8 @@ public class OI {
 
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
-		operatorJoystick.povRight					.whenPressed(new hatchLauncherExtend());
-		operatorJoystick.povRight					.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.rightStickButton			.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.rightStickButton			.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
 

@@ -158,6 +158,20 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
+
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Left Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 7 - Ship 6", "Omni Hatch Right Low Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 7 - Ship 6", "Omni Hatch Right High Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 6 - Ship 7", "Omni Hatch Right Low Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 6 - Ship 7", "Omni Hatch Right High Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 7 - Ship 6", "Omni Hatch Left Low Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
+    /*
     autonChooser.addOption("Hatch Lvl1 Right - Far Rocket Low - Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
     // autonChooser.addOption("Hatch Lvl2 Right - Far Rocket Low - Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Right - Near Rocket Low - Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
@@ -175,6 +189,7 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
+    */
     
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -299,6 +314,44 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //Selects the auton command being run based off of the chosen auton
     switch(autonChooser.getSelected()) {
+      /*
+      case "Omni Hatch Right Low Ship 7 Ship 6":
+        autonomousCommand = new CGHatchRightLowShip7Ship6();
+      break;
+      case "Omni Hatch Right High Ship 7 Ship 6":
+        autonomousCommand = new CGHatchRightHighShip7Ship6();
+      break;
+      case "Omni Hatch Right Low Ship 6 Ship 7":
+        autonomousCommand = new CGHatchRightLowShip6Ship7();
+      break;
+      case "Omni Hatch Right High Ship 6 Ship 7":
+        autonomousCommand = new CGHatchRightHighShip6Ship7();
+      break;
+      case "Omni Hatch Left Low Ship 7 Ship 6":
+        autonomousCommand = new CGHatchLeftLowShip7Ship6();
+      break;
+      case "Omni Hatch Left High Ship 7 Ship 6":
+        autonomousCommand = new CGHatchLeftHighShip7Ship6();
+      break;
+      case "Omni Hatch Left Low Ship 6 Ship 7":
+        autonomousCommand = new CGHatchLeftLowShip6Ship7();
+      break;
+      case "Omni Hatch Left High Ship 6 Ship 7":
+        autonomousCommand = new CGHatchLeftHighShip6Ship7();
+      break;
+      case "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchRightLowNearRocketLowFarRocketLow();
+      break;
+      case "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchRightHighNearRocketLowFarRocketLow();
+      break;
+      case "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchLeftLowNearRocketLowFarRocketLow
+      break;
+      case "Omni Hatch Lvl2 Left Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchLeftHighNearRocketLowFarRocketLow
+      break;
+*/
       case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
         autonomousCommand = new CGHatchRightLowFarRocketLowNearRocketLow();
       break;

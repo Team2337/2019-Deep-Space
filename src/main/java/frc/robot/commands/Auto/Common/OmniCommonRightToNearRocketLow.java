@@ -29,7 +29,7 @@ public class OmniCommonRightToNearRocketLow extends CommandGroup {
   public OmniCommonRightToNearRocketLow() {
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoPIDVisionDrive(3.2, 0.1, 0.002, 0.6));
+    addSequential(new autoPIDVisionDriveOmni(3.2, 0.1, 0.002, 0.6));
     addSequential(new autoResetEncoders());
     addSequential(new CommonScoreHatch());
 
@@ -44,7 +44,7 @@ public class OmniCommonRightToNearRocketLow extends CommandGroup {
     addParallel(new hatchBeakClose());
     addSequential(new autoTankDrive(0.45, 0.45, 0, 8000, "right", IdleMode.kCoast)); 
     addSequential(new autoTankDriveWithGyro(144, 0.5, 0.4, "left", IdleMode.kCoast)); //144 low
-    addSequential(new autoPIDVisionDrive(4.5, 0.1, 0.002, 0.7)); //changed speed to 70 from 60
+    addSequential(new autoPIDVisionDriveOmni(4.5, 0.1, 0.002, 0.7)); //changed speed to 70 from 60
     addSequential(new CommonIntakeHatch());
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));

@@ -16,11 +16,11 @@ import frc.robot.commands.HatchBeak.*;
  * 
  * @author Bryce G.
  */
-public class CGRetractLaunchers extends CommandGroup {
-  public CGRetractLaunchers() {
-    addSequential(new hatchBeakClose());
-    addSequential(new autoWait(1));
+public class CGNewRetractLaunchers extends CommandGroup {
+  public CGNewRetractLaunchers() {
     addSequential(new hatchLauncherRetract());
+    addSequential(new autoWait(0.5));
+    addSequential(new hatchBeakOpen());
     addSequential(new autoWait(135));
   }
 }

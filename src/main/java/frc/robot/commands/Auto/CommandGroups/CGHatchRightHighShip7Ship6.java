@@ -22,13 +22,13 @@ public class CGHatchRightHighShip7Ship6 extends CommandGroup {
   public CGHatchRightHighShip7Ship6() {
    
     // addSequential(new autoDriveWithPitch(-.75, 30000, 5, 0));
-    /*addSequential(new autoTankDrive(-.6, -.6, 65000, 0, "left", IdleMode.kCoast));
+    addSequential(new autoTankDrive(-.6, -.6, 65000, 0, "left", IdleMode.kCoast));
     addSequential(new autoTankDrive(-.48, -.7, 0, 145000, "right", IdleMode.kBrake));
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoTurnToDegree(0.04, 0, 0, -85, 1.5));
     addSequential(new autoPIDVisionDrive(3.5, 0.09, 0.03, 0.6));
     addSequential(new autoResetEncoders());
-    addSequential(new autoWait(0.05));*/
+    addSequential(new autoWait(0.05));
     addSequential(new autoTankDrive(-.5, -.5, 25000, 0, "left", IdleMode.kBrake));
     addSequential(new autoTurnToDegree(0.04, 0, 0, 5, 1.5));
     // addSequential(new CommonScoreHatch());

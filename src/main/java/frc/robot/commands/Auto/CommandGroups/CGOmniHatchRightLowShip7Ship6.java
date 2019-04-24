@@ -37,12 +37,12 @@ public class CGOmniHatchRightLowShip7Ship6 extends CommandGroup {
     addSequential(new autoTankDrive(.54, .6, 0, 35000, "right", IdleMode.kCoast));
     addSequential(new autoTankDrive(.6, .53, 60000, 0, "leftVision", IdleMode.kCoast));
     addSequential(new autoPIDVisionDrive(4, 0.05, 0.009, 0.6));
-   /* addSequential(new CommonIntakeHatch());
+    addSequential(new CommonIntakeHatch());
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     addSequential(new autoTankDrive(-.6, -.5, 30000, 0, "left", IdleMode.kCoast));
     addSequential(new autoTankDrive(-.6, -.5, 60000, 0, "left", IdleMode.kBrake));
     // addSequential(new CommonScoreHatch());
-    addSequential(new autoEndAuto());*/
+    addSequential(new autoEndAuto());
   }
 }

@@ -13,7 +13,7 @@ import frc.robot.subsystems.Chassis;
  * @category AUTO
  * @author Bryce G.
  */
-public class autoTankDriveWithGyro extends Command {
+public class autoTankDriveWithGyroAndEncoder extends Command {
 	double rightSpeed, leftSpeed, rightDist, leftDist, ta, angle, initialAngle;
 	String side;
 	IdleMode brakeMode;
@@ -29,10 +29,12 @@ public class autoTankDriveWithGyro extends Command {
 	 * @param side       - String value determining which side of the chassis to
 	 *                   read to end the command ("right" or "left")
 	 */
-	public autoTankDriveWithGyro(double angle, double leftSpeed, double rightSpeed, String side, IdleMode brakeMode) {
+	public autoTankDriveWithGyroAndEncoder(double angle, double leftSpeed, double rightSpeed, double leftDist, double rightDist, String side, IdleMode brakeMode) {
 		this.angle = angle;
 		this.rightSpeed = rightSpeed;
 		this.leftSpeed = leftSpeed;
+		this.leftDist = leftDist;
+		this.rightDist = rightDist;
 		this.side = side;
 		this.brakeMode = brakeMode;
 		requires(Robot.Chassis);
@@ -48,10 +50,21 @@ public class autoTankDriveWithGyro extends Command {
 	}
 
 	protected boolean isFinished() {
-		if(initialAngle > 0) {
-			return ((Robot.Pigeon.getYaw() >= angle + 5) && (Robot.Pigeon.getYaw() <= angle - 5) || ta > 0);
-		} 
-		return ((Robot.Pigeon.getYaw() >= angle - 5) && (Robot.Pigeon.getYaw() <= angle + 5) || ta > 0);
+		switch(side) {
+			case "right":
+				if(Math.abs(Robot.Chassis.getRightPosition()) >= Math.abs(rightDist)) return true;
+			break;
+			case "left":
+				if(Math.abs(Robot.Chassis.getLeftPosition()) >= Math.abs(leftDist)) return true;
+			break;
+			case "rightVision":
+				if(Math.abs(Robot.Chassis.getRightPosition()) >= Math.abs(rightDist) || ta > 0) return true;
+			break;
+			case "leftVision":
+				if(Math.abs(Robot.Chassis.getLeftPosition()) >= Math.abs(leftDist) || ta > 0) return true;
+			break;
+		}
+		return false;
 	}
 
 	protected void end() {

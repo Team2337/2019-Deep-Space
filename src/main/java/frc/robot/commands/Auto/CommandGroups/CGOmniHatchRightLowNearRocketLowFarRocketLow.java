@@ -22,8 +22,8 @@ public class CGOmniHatchRightLowNearRocketLowFarRocketLow extends CommandGroup {
 
   public CGOmniHatchRightLowNearRocketLowFarRocketLow() {
     
-    addSequential(new OmniCommonRightToNearRocketLow());
-    // addSequential(new OmniCommonRightLoadToFarRocketLowFast());
+    // addSequential(new OmniCommonRightToNearRocketLow());
+    addSequential(new OmniCommonRightLoadToFarRocketLowFast());
     addSequential(new autoEndAuto());
   }
 }
