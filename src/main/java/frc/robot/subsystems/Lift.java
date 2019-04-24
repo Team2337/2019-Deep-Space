@@ -129,10 +129,10 @@ public class Lift extends Subsystem {
       cargoLoadedPosition = cargoIntakePosition; // 208
       cargoEjectPosition = 500;
 
-      hatchLowScorePosition = 165;// 165;
+      hatchLowScorePosition = 165; // 165 -before CMP
       hatchCargoShipScorePosition = 469;
       hatchMidScorePosition = 670;
-      hatchIntakePosition = 160;
+      hatchIntakePosition = 160; //160 -before CMP
 
       climbDeployPosition = 540;
       climbPlatformLocation = 445;

@@ -25,8 +25,8 @@ import frc.robot.commands.HatchBeak.*;
  * 
  * @author Bryce G.
  */
-public class OmniCommonRightToNearRocketLow extends CommandGroup {
-  public OmniCommonRightToNearRocketLow() {
+public class CommonOmniRightToNearRocketLow extends CommandGroup {
+  public CommonOmniRightToNearRocketLow() {
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
     addSequential(new autoPIDVisionDriveOmni(3.2, 0.1, 0.002, 0.6));

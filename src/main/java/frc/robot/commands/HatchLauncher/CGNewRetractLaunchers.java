@@ -9,7 +9,7 @@ import frc.robot.commands.HatchBeak.*;
  * <p><br/></p>
  * This command scores the hatch by:
  * <ol>
- *  <li>Extending the launcher</li>
+ *  <li>Retracting the launcher</li>
  *  <li>Setting the beak to beak position</li>
  *  <li>Retracting the launchers</li>
  * </ol>

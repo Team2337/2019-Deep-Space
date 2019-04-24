@@ -2,6 +2,8 @@ package frc.robot.commands.Auto.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.Auto.Common.*;
+import frc.robot.commands.Chassis.driveAtSpeedToAngle;
+import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 
 /**
@@ -17,13 +19,17 @@ import frc.robot.commands.Auto.*;
  * </ol>
  * @author Bryce G.
  */
-public class CGOmniHatchRightLowNearRocketLowFarRocketLow extends CommandGroup {
+public class CGOmniHatchLeftHighNearRocketLowFarRocketLow extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
 
-  public CGOmniHatchRightLowNearRocketLowFarRocketLow() {
+  public CGOmniHatchLeftHighNearRocketLowFarRocketLow() {
     
-    addSequential(new CommonOmniRightToNearRocketLow());
-    addSequential(new CommonOmniRightLoadToFarRocketLow());
+    addSequential(new autoTurnOnLimeLightLED());
+    addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
+    addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
+    addSequential(new autoWait(0.25));
+    addSequential(new CommonOmniLeftToNearRocketLow());
+    addSequential(new CommonOmniLeftLoadToFarRocketLow());
     addSequential(new autoEndAuto());
   }
 }

@@ -17,13 +17,13 @@ import frc.robot.commands.Auto.*;
  * </ol>
  * @author Bryce G.
  */
-public class CGOmniHatchRightLowNearRocketLowFarRocketLow extends CommandGroup {
+public class CGOmniHatchLeftLowNearRocketLowFarRocketLow extends CommandGroup {
   double[][] valuesPID = pathway.valuesPID;
 
-  public CGOmniHatchRightLowNearRocketLowFarRocketLow() {
+  public CGOmniHatchLeftLowNearRocketLowFarRocketLow() {
     
-    addSequential(new CommonOmniRightToNearRocketLow());
-    addSequential(new CommonOmniRightLoadToFarRocketLow());
+    addSequential(new CommonOmniLeftToNearRocketLow());
+    addSequential(new CommonOmniLeftLoadToFarRocketLow());
     addSequential(new autoEndAuto());
   }
 }

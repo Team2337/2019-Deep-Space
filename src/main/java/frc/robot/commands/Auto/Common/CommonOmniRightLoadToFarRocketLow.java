@@ -22,8 +22,8 @@ import frc.robot.commands.Auto.*;
  * 
  * @author Bryce G.
  */
-public class OmniCommonRightLoadToFarRocketLowFast extends CommandGroup {
-  public OmniCommonRightLoadToFarRocketLowFast() {
+public class CommonOmniRightLoadToFarRocketLow extends CommandGroup {
+  public CommonOmniRightLoadToFarRocketLow() {
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));

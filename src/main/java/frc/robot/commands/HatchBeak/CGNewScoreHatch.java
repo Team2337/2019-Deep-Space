@@ -17,5 +17,7 @@ public class CGNewScoreHatch extends CommandGroup {
   // CONSTRUCTOR
   public CGNewScoreHatch() {
     addSequential(new hatchLauncherExtend());
+    addSequential(new autoWait(0.5));
+    addSequential(new hatchBeakClose());
   }
 }

@@ -28,8 +28,8 @@ public class CGOmniHatchRightHighNearRocketLowFarRocketLow extends CommandGroup 
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
     addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
     addSequential(new autoWait(0.25));
-    addSequential(new OmniCommonRightToNearRocketLow());
-    // addSequential(new OmniCommonRightLoadToFarRocketLowFast());
+    addSequential(new CommonOmniRightToNearRocketLow());
+    addSequential(new CommonOmniRightLoadToFarRocketLow());
     addSequential(new autoEndAuto());
   }
 }

@@ -20,14 +20,11 @@ public class autoTankDriveWithGyro extends Command {
 
 	/**
 	 * 
-	 * @param leftSpeed  - speed of the left side of the chassis (value between -1 &
-	 *                   1)
-	 * @param rightSpeed - speed of the right side of the chassis (value between -1
-	 *                   & 1)
-	 * @param leftDist   - distance in encoder ticks the left side will drive to
-	 * @param rightDist  - distance in encoder ticks the right side will drive to
-	 * @param side       - String value determining which side of the chassis to
-	 *                   read to end the command ("right" or "left")
+	 * @param angle
+	 * @param leftSpeed
+	 * @param rightSpeed
+	 * @param side
+	 * @param brakeMode
 	 */
 	public autoTankDriveWithGyro(double angle, double leftSpeed, double rightSpeed, String side, IdleMode brakeMode) {
 		this.angle = angle;

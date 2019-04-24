@@ -63,8 +63,8 @@ public class OI {
 		
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
-		operatorJoystick.bumperLeft					.whileHeld(new CGScoreHatch());
-		operatorJoystick.bumperLeft					.whenReleased(new CGRetractLaunchers());
+		operatorJoystick.bumperLeft					.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
+		operatorJoystick.bumperLeft					.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
@@ -72,6 +72,7 @@ public class OI {
 		operatorJoystick.back						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake());
 
+		//Do not set anything to POV right or left because it cannot run at the same time as other POV buttons
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
 		operatorJoystick.rightStickButton			.whenPressed(new hatchLauncherExtend());
