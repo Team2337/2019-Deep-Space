@@ -117,7 +117,7 @@ public class OmniPIDVisionDriveWithSlow extends PIDCommand {
     }
 
     // Keep for testing 
-    System.out.println("tx: " + tx + " ***** " + "output: " + output); 
+    // System.out.println("tx: " + tx + " ***** " + "output: " + output); 
 
     //Limit the forward drive to 60% while this command is active
     if(Robot.oi.driverJoystick.getLeftStickY() < 0.6) {
@@ -139,8 +139,8 @@ public class OmniPIDVisionDriveWithSlow extends PIDCommand {
       }
 
       Chassis.neoArcade(speed, -(output), false);
-      System.out.println("Speed: " + speed + "targetDistance: " + targetDistance + "minus DistanceDriven: " + distanceDriven + "divided by " + targetDistance + 
-      " = speedModifier: " + speedModifier + " initialDistance: " + initialDistance);
+      // System.out.println("Speed: " + speed + "targetDistance: " + targetDistance + "minus DistanceDriven: " + distanceDriven + "divided by " + targetDistance + 
+      // " = speedModifier: " + speedModifier + " initialDistance: " + initialDistance);
   }
 
   protected void execute() {

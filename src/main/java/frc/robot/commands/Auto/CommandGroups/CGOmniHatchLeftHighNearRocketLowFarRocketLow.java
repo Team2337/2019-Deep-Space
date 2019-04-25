@@ -26,8 +26,9 @@ public class CGOmniHatchLeftHighNearRocketLowFarRocketLow extends CommandGroup {
     
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
-    addSequential(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
-    addSequential(new autoWait(0.25));
+    addSequential(new driveAtSpeedToAngle(0, 0.17, 200000, 1.0));
+    addSequential(new autoWait(0.2));
+    // addSequential(new autoTurnToDegreeOmni(0.1, 0, 0, 0, 0.5));
     addSequential(new CommonOmniLeftToNearRocketLow());
     addSequential(new CommonOmniLeftLoadToFarRocketLow());
     addSequential(new autoEndAuto());

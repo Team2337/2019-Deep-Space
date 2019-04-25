@@ -63,7 +63,7 @@ public class Lift extends Subsystem {
   public double climbWheelsUpPosition;
   // Position to the maximun height while on the level 3
   public double climbHighPosition;
-
+  public double hatchAboveBumpers;
   /* --- CAN ID SETUP --- */
   // Do not update without updating the wiki, too!
   private final static int liftRightFrontID = Robot.Constants.liftRightFrontID;
@@ -129,15 +129,16 @@ public class Lift extends Subsystem {
       cargoLoadedPosition = cargoIntakePosition; // 208
       cargoEjectPosition = 500;
 
-      hatchLowScorePosition = 165; // 165 -before CMP
-      hatchCargoShipScorePosition = 469;
-      hatchMidScorePosition = 670;
+      hatchLowScorePosition = 61; // 165 -before CMP
+      hatchCargoShipScorePosition = 469; //469 -before CMP
+      hatchMidScorePosition = 588; //670 -before CMP
       hatchIntakePosition = 160; //160 -before CMP
+      hatchAboveBumpers = 160;
 
       climbDeployPosition = 540;
       climbPlatformLocation = 445;
       climbLevel3Position = 60;
-      climbWheelsUpPosition = 510;
+      climbWheelsUpPosition = 450; //510
       climbHighPosition = 447;
     } else {
       /* --- Practice Lift Set Positions --- */

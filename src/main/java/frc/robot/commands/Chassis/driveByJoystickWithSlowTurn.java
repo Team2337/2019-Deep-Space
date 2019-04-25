@@ -9,10 +9,10 @@ import frc.robot.subsystems.Chassis;
 /**
  * Uses controller joysticks to drive the robot using ArcadeDrive
  */
-public class driveByJoystick extends Command {
+public class driveByJoystickWithSlowTurn extends Command {
 
   // Gets the driver joystick from OI.java
-  private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;
+  private NerdyUltimateXboxDriver driverJoystick;
   private boolean isNeoDrive;
 
   // How fast the robot moves overall
@@ -27,9 +27,13 @@ public class driveByJoystick extends Command {
    * @param isNeoDrive A boolean representing whether or not the joystick should
    *                   control Neos to drive
    */
-  public driveByJoystick(boolean isNeoDrive) {
+  public driveByJoystickWithSlowTurn(boolean isNeoDrive) {
     this.isNeoDrive = isNeoDrive;
     requires(Robot.Chassis);
+  }
+
+  protected void initialize() {
+    this.driverJoystick = Robot.oi.driverJoystick;
   }
 
   // Supplys the correct values to the arcadeDrive command to drive the robot
@@ -39,11 +43,7 @@ public class driveByJoystick extends Command {
     moveSpeed = driverJoystick.getLeftStickY();
 
     // Right joysticks left/right movement as a number from -1 to 1
-    turnSpeed = driverJoystick.getRightStickX();
-
-    if(Robot.Lift.getPosition() > 300 && moveSpeed > 0.65) {
-      moveSpeed = 0.65;
-    }
+    turnSpeed = 0.5 * driverJoystick.getRightStickX();
 
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive

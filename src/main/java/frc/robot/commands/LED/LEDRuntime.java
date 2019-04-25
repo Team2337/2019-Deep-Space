@@ -24,14 +24,14 @@ public class LEDRuntime extends Command {
 
 	protected void execute() {
 			if(Robot.HatchBeak.status()) {
-				LED.setColor(LED.white);
+				LED.setColor(LED.green);
 			} else {
 				if(Robot.ClimberDeploy.climberPhase < 5) {
 					if(autoEndAuto.endedAutoLED) {
 						LED.setColor(LED.red);
 					} 
 					if(!Robot.ClimberDeploy.climberLineSensor.get() || Robot.ClimberDeploy.climberPhase == 3) {
-						LED.setColor(LED.green);
+						LED.setColor(LED.white);
 					} else {
 						if(Robot.ClimberDeploy.getServo() == 0.8) {
 							LED.setColor(LED.darkBlue);

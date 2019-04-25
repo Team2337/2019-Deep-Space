@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.HatchBeak.*;
+import frc.robot.commands.HatchLauncher.*;
     
 /**
  * @category Common Command Group
@@ -27,24 +28,25 @@ import frc.robot.commands.HatchBeak.*;
  */
 public class CommonOmniRightToNearRocketLow extends CommandGroup {
   public CommonOmniRightToNearRocketLow() {
-    addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoPIDVisionDriveOmni(3.2, 0.1, 0.002, 0.6));
+    addSequential(new autoTurnOnLimeLightLED());
+    addParallel(new hatchLauncherExtend());
+    addSequential(new autoPIDVisionDriveOmni(3.7, 0.1, 0.05, 0.6));
     addSequential(new autoResetEncoders());
-    addSequential(new CommonScoreHatch());
+    addSequential(new hatchBeakClose());
+    addSequential(new autoWait(0.1));
+    addSequential(new autoTankDrive(-0.7, -0.7, -4000, 0, "left", IdleMode.kCoast));
 
     //Go to load station
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    addSequential(new autoTankDrive(-0.05, -0.5, 0, -18000, "right", IdleMode.kCoast)); 
     addSequential(new autoTurnOnLimeLightLED());
-    addSequential(new autoResetEncoders());
-    addSequential(new autoTankDriveWithGyro(130, 0.3, 0.05, "left", IdleMode.kBrake)); //120 low
-    addSequential(new autoResetEncoders());
-    addSequential(new autoWait(0.05));
+    addSequential(new autoTankDrive(-0.05, -0.5, 0, -22000, "right", IdleMode.kCoast)); 
+    addSequential(new autoTankDriveWithGyro(110, 0.3, 0.05, "left", IdleMode.kCoast)); //120 low
     addParallel(new hatchBeakClose());
-    addSequential(new autoTankDrive(0.45, 0.45, 0, 8000, "right", IdleMode.kCoast)); 
-    addSequential(new autoTankDriveWithGyro(144, 0.5, 0.4, "left", IdleMode.kCoast)); //144 low
-    addSequential(new autoPIDVisionDriveOmni(4.5, 0.1, 0.002, 0.7)); //changed speed to 70 from 60
+    // addSequential(new autoTankDrive(0.45, 0.45, 0, 8000, "right", IdleMode.kCoast)); 
+    // addSequential(new autoTankDriveWithGyro(130, 0.5, 0.4, "left", IdleMode.kCoast)); //144 low
+    addSequential(new hatchLauncherExtend());
+    addSequential(new autoPIDVisionDriveOmni(4.5, 0.1, 0.05, 0.7)); //changed speed to 70 from 60
     addSequential(new CommonIntakeHatch());
     addSequential(new autoResetEncoders()); 
     addSequential(new autoWait(0.05));

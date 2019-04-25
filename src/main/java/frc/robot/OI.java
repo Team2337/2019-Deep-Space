@@ -56,15 +56,16 @@ public class OI {
 		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
-		driverJoystick.start						.whenPressed(new CGOmniHatchRightLowNearRocketLowFarRocketLow());
+		driverJoystick.back							.whileHeld(new driveByJoystickWithSlowTurn(true));
+		// driverJoystick.start						.whenPressed(new CGOmniHatchRightLowNearRocketLowFarRocketLow());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
-		operatorJoystick.bumperLeft					.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
-		operatorJoystick.bumperLeft					.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
+		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
+		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
@@ -75,8 +76,8 @@ public class OI {
 		//Do not set anything to POV right or left because it cannot run at the same time as other POV buttons
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
-		operatorJoystick.rightStickButton			.whenPressed(new hatchLauncherExtend());
-		operatorJoystick.rightStickButton			.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
 
@@ -103,7 +104,7 @@ public class OI {
 
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
-		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbHighPosition));
+		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
 
 		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
 

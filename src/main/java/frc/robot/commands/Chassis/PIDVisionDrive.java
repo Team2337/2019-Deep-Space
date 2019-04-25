@@ -66,7 +66,7 @@ public class PIDVisionDrive extends PIDCommand {
       }
 
       // Keep for testing 
-      System.out.println("tx: " + tx + " ***** " + "output: " + output); 
+      // System.out.println("tx: " + tx + " ***** " + "output: " + output); 
 
       //Limit the forward drive to 40% while this command is active
       if(Robot.oi.driverJoystick.getLeftStickY() < 0.5) {
