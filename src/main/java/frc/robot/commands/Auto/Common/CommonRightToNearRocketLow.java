@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.HatchBeak.*;
+import frc.robot.commands.HatchLauncher.*;
     
 /**
  * @category Common Command Group
@@ -27,11 +28,14 @@ import frc.robot.commands.HatchBeak.*;
  */
 public class CommonRightToNearRocketLow extends CommandGroup {
   public CommonRightToNearRocketLow() {
-    addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
+    addSequential(new autoTurnOnLimeLightLED());
+    addParallel(new hatchLauncherExtend());
     addSequential(new autoPIDVisionDrive(3.2, 0.07, 0.03, 0.6));
-    addSequential(new autoResetEncoders());
-    addSequential(new CommonScoreHatch());
+    addParallel(new autoResetEncoders());
+    addSequential(new hatchBeakClose());
+    addSequential(new autoWait(0.1));
+    addSequential(new autoTankDrive(-0.7, -0.7, -4000, 0, "left", IdleMode.kCoast));
 
     //Go to load station
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
@@ -39,7 +43,7 @@ public class CommonRightToNearRocketLow extends CommandGroup {
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoResetEncoders());
     addSequential(new autoTankDrive(0.6, 0.1, 16000, 0, "leftVision", IdleMode.kCoast)); 
-    // addSequential(new autoResetSensors());
+
     addParallel(new hatchBeakClose());
     addSequential(new autoPIDVisionDrive(4.5, 0.95, 0.06, 0.7)); //changed speed to 70 from 60
     addSequential(new CommonIntakeHatch());

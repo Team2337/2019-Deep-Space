@@ -5,6 +5,8 @@ import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.Auto.setpaths.*;
+import frc.robot.commands.HatchBeak.*;
+import frc.robot.commands.HatchLauncher.*;
 
 /**
  * Auton Description:
@@ -17,6 +19,7 @@ import frc.robot.commands.Auto.setpaths.*;
  * <li>Drives to the near right rocket</li>
  * <li>Scores the hatch on low</li>
  * </ol>
+ * 
  * @author Bryce G.
  */
 public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
@@ -27,9 +30,10 @@ public class CGHatchRightLowFarRocketLowNearRocketLow extends CommandGroup {
     addSequential(new autoSetPathReverse(Robot.driveOffRightLvl1ToBackRightRocketT, values[5], 0, 15));
     addSequential(new autoReadAngle());
     addSequential(new autoResetSensors());
+    addSequential(new hatchLauncherExtend());
     addSequential(new autoPIDVisionDrive(3, 0.09, 0.035, 0.6));
-
-    addSequential(new CommonScoreHatch());
+    addSequential(new hatchBeakClose());
+    addSequential(new autoWait(0.1));
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));
     addSequential(new autoDriveToEncoderTick(-1, 20000, 0.5, 0, false, 0));

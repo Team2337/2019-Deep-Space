@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class autoPIDVisionDrive extends PIDCommand {
 
-  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout, maxSpeed;
+  double turnValue, targetAngle, leftJoystick, m_speed, m_timeout, targetDistance, ta, tx, timeout, maxSpeed, maxTurn;
   double p, i, d, largeAngleP, smallAngleP;
 
   boolean turnInPlace = false;
@@ -32,6 +32,31 @@ public class autoPIDVisionDrive extends PIDCommand {
     getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
     getPIDController().setContinuous(false);        // not continuous like a compass
     getPIDController().setOutputRange(-0.3, 0.3);       // output range for 'turn' input to drive command
+
+    this.smallAngleP = smallAngleP;
+    this.largeAngleP = largeAngleP;
+    this.timeout = timeout;
+    this.maxSpeed = maxSpeed;
+    targetAngle = 0;              // target tx value (limelight horizontal offset from center)
+    targetDistance = 8.5;
+      
+    requires(Robot.Chassis);
+  }
+
+  /**
+   * Auton Vision dirve using the limelight
+   * @param timeout - how long (in seconds) the command should run for (in the event the command has not ended otherwise)
+   * @param smallAngleP - P value for angles under 10 degree
+   * @param largeAngleP - P value for angles over 10 degree
+   * @param maxSpeed - maximum speed of the robot
+   * @param targetDistance - ta distance away from the target
+   */
+  public autoPIDVisionDrive(double timeout, double smallAngleP, double largeAngleP, double maxSpeed, double maxTurn) {
+    super("autoPIDVisionDrive", 0.05, 0, 0);        // set name, P, I, D.
+    getPIDController().setAbsoluteTolerance(0.1);   // acceptable tx offset to end PID
+    getPIDController().setContinuous(false);        // not continuous like a compass
+    this.maxTurn = maxTurn;
+    getPIDController().setOutputRange(-maxTurn, maxTurn);       // output range for 'turn' input to drive command
 
     this.smallAngleP = smallAngleP;
     this.largeAngleP = largeAngleP;

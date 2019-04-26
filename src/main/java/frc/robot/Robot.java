@@ -158,7 +158,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
-
+/*
     autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
@@ -174,7 +174,7 @@ public class Robot extends TimedRobot {
     // autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
     // autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
     // autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
-    /*
+    */
     autonChooser.addOption("Hatch Lvl1 Right - Far Rocket Low - Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
     // autonChooser.addOption("Hatch Lvl2 Right - Far Rocket Low - Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Right - Near Rocket Low - Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
@@ -192,7 +192,6 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
-    */
     
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
@@ -440,6 +439,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+    Robot.Chassis.setNeoOpenLoopRampRate(0.1);
 
     /*
      * This makes sure that the autonomous stops running when teleop starts running.

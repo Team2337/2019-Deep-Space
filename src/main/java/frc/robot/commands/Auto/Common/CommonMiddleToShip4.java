@@ -1,6 +1,7 @@
 package frc.robot.commands.Auto.Common;
 
 import frc.robot.commands.HatchBeak.hatchBeakClose;
+import frc.robot.commands.HatchLauncher.hatchLauncherExtend;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -30,10 +31,13 @@ public class CommonMiddleToShip4 extends CommandGroup {
     public CommonMiddleToShip4() {
         
         addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    
         addSequential(new autoTurnOnLimeLightLED());
-        addSequential(new autoPIDVisionDrive(3.5, 0.07, 0.015, 0.6));
-        addSequential(new CommonScoreHatch());
+        addParallel(new hatchLauncherExtend());
+        addSequential(new autoPIDVisionDrive(3.7, 0.09, 0.03, 0.7)); //changed high p to 0.025 from 0.03
+        addParallel(new autoResetEncoders());
+        addSequential(new hatchBeakClose());
+        addSequential(new autoWait(0.1));
+        addSequential(new autoTankDrive(-0.7, -0.7, -4000, 0, "left", IdleMode.kCoast));
     
         addSequential(new autoResetEncoders());
         addSequential(new autoWait(0.05));

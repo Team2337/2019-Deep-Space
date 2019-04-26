@@ -1,6 +1,7 @@
 package frc.robot.commands.Auto.Common;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.Auto.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 
@@ -20,6 +21,7 @@ import frc.robot.commands.HatchLauncher.*;
 public class CommonIntakeHatch extends CommandGroup {
   public CommonIntakeHatch() {
     addSequential(new hatchBeakOpen());
+    addSequential(new autoWait(0.1));
     addSequential(new hatchLauncherRetract());
   }
 }

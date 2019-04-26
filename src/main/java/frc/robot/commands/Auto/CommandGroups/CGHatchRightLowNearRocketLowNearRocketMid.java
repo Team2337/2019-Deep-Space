@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.Common.*;
+import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Auto.*;
 
 /**
@@ -35,6 +36,7 @@ public class CGHatchRightLowNearRocketLowNearRocketMid extends CommandGroup {
     addSequential(new autoTankDrive(0.1, 0.5, 0, 55000, "rightVision", IdleMode.kCoast));
     addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
     addSequential(new autoLiftToPositionWithWait(Robot.Lift.hatchMidScorePosition, 0));
+    addSequential(new hatchLauncherExtend());
     // addSequential(new CommonScoreHatch());
     addSequential(new autoEndAuto());
   }

@@ -24,10 +24,12 @@ import frc.robot.commands.HatchBeak.*;
 public class CGHatchMiddleShip5Ship4 extends CommandGroup {
   public CGHatchMiddleShip5Ship4() {
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-    
     addSequential(new autoTurnOnLimeLightLED());
     addSequential(new autoPIDVisionDrive(3.5, 0.07, 0.015, 0.6));
-    addSequential(new CommonScoreHatch());
+    addParallel(new autoResetEncoders());
+    addSequential(new hatchBeakClose());
+    addSequential(new autoWait(0.1));
+    addSequential(new autoTankDrive(-0.7, -0.7, -4000, 0, "left", IdleMode.kCoast));
 
     addSequential(new autoResetEncoders());
     addSequential(new autoWait(0.05));

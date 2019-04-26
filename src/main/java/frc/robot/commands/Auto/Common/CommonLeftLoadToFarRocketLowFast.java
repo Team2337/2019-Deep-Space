@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.HatchLauncher.*;
 
 /**
  * @category Common Command Group
@@ -25,8 +26,9 @@ public class CommonLeftLoadToFarRocketLowFast extends CommandGroup {
     addSequential(new autoTankDrive(-0.85, -0.64, 108000, 0, "left", IdleMode.kCoast));
     addParallel(new autoTurnOnLimeLightLED());
     addSequential(new autoTankDrive(-0.65, -0.54, 153000, 0, "left", IdleMode.kCoast)); //changed from 0.51 & 155000 forest hills match 1
-    addSequential(new autoTankDrive(0.32, -0.27, 0, 177500, "right", IdleMode.kBrake));
-    // addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
+    addSequential(new autoTankDrive(0.32, -0.27, 0, 170000, "right", IdleMode.kBrake));
+    addSequential(new hatchLauncherExtend());
+    addSequential(new autoPIDVisionDrive(4, 0.09, 0.03, 0.6));
     // addSequential(new CommonScoreHatch());
   }
 }

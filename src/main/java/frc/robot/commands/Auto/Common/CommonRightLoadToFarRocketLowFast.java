@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.HatchLauncher.*;
 
 
 /**
@@ -30,6 +31,7 @@ public class CommonRightLoadToFarRocketLowFast extends CommandGroup {
     addParallel(new autoTurnOnLimeLightLED());
     addSequential(new autoTankDrive(-0.51, -0.65, 0, 155000, "right", IdleMode.kCoast));
     addSequential(new autoTankDrive(-0.27, 0.32, 177500, 0, "left", IdleMode.kBrake));
+    addSequential(new hatchLauncherExtend());
     // addSequential(new autoPIDVisionDrive(4, 0.08, 0.06, 0.6));
     // addSequential(new CommonScoreHatch());
   }
