@@ -491,6 +491,17 @@
               "_source0": "network_table:///limelight/tl",
               "_title": "limelight/tl"
             }
+          },
+          "17,12": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Front Module Position",
+              "_title": "SmartDashboard/Right Front Module Position"
+            }
           }
         }
       }
