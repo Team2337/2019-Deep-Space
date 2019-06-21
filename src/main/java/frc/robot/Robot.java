@@ -161,7 +161,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
-/*
+
     autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
@@ -171,13 +171,12 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Omni Hatch Lvl1 Middle - Front Ship Turn Right", "Omni Hatch Right Low Ship Front Right");
     autonChooser.addOption("Omni Hatch Lvl1 Middle - Front Ship Turn Left", "Omni Hatch Right Low Ship Front Left");
 
-    // autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 7 - Ship 6", "Omni Hatch Right High Ship 7 Ship 6");
-    // autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 6 - Ship 7", "Omni Hatch Right Low Ship 6 Ship 7");
-    // autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 6 - Ship 7", "Omni Hatch Right High Ship 6 Ship 7");
-    // autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
-    // autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
-    // autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
-    */
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 7 - Ship 6", "Omni Hatch Right High Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 6 - Ship 7", "Omni Hatch Right Low Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 6 - Ship 7", "Omni Hatch Right High Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
 
     autonChooser.addOption("Hatch Lvl2 Right - Ship 5", "CGHatchRightHighToShip5");
     autonChooser.addOption("Hatch Lvl2 Left - Ship 4", "CGHatchLeftHighToShip4");

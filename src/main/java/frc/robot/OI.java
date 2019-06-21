@@ -50,7 +50,7 @@ public class OI {
 
 		// driverJoystick.triggerRight					DONT ASIGN ANYTHING TO HERE;
 		
-		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDriveWithSlow(0.05, 0, 0));//PIDVisionDriveWithSlow(0.05, 0, 0));
+		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.1, 0.06));//PIDVisionDriveWithSlow(0.05, 0, 0));
 
 		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
 		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
