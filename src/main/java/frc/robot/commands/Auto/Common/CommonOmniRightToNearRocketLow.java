@@ -45,8 +45,8 @@ public class CommonOmniRightToNearRocketLow extends CommandGroup {
     addSequential(new autoResetEncoders());
     addSequential(new autoTankDriveWithGyro(105, 0.3, 0.05, "left", IdleMode.kCoast)); //120 low
     addParallel(new hatchBeakClose());
-    // addSequential(new autoTankDrive(0.45, 0.45, 0, 8000, "right", IdleMode.kCoast)); 
-    // addSequential(new autoTankDriveWithGyro(130, 0.5, 0.4, "left", IdleMode.kCoast)); //144 low
+    // addSequential(new autoTankDrive(0.45, 0.45, 0, 8000, "right", IdleMode.kCoast)); //was commented out beforehand//not sure why
+    // addSequential(new autoTankDriveWithGyro(130, 0.5, 0.4, "left", IdleMode.kCoast)); //144 low //was commented out beforehand//not sure why
     addSequential(new hatchLauncherExtend());
     addSequential(new autoPIDVisionDriveOmni(4.5, 0.1, 0.05, 0.7)); //changed speed to 70 from 60 //4.5, 0.1, 0.05, 0.7
     addSequential(new CommonIntakeHatch());

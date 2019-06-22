@@ -19,6 +19,9 @@ public class hatchLauncherExtend extends Command {
   @Override
   protected void initialize() {
     Robot.HatchLauncher.extend();
+    if(Robot.Lift.atCargoIntakePosition(20)) {
+      Robot.Lift.setSetpoint(Robot.Lift.hatchLowScorePosition);
+    } 
   }
 
   // Called repeatedly when this Command is scheduled to run

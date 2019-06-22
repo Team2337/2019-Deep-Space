@@ -52,8 +52,8 @@ public class OI {
 		
 		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.1, 0.06));//PIDVisionDriveWithSlow(0.05, 0, 0));
 
-		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
-		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
+		// driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
+		// driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
 		driverJoystick.back							.whileHeld(new driveByJoystickWithSlowTurn(true));

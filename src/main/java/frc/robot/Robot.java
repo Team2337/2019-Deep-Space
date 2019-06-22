@@ -178,6 +178,8 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
     autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
 
+    /* --- Incompatable with Omni wheels --- DO NOT USE --- */
+  /*
     autonChooser.addOption("Hatch Lvl2 Right - Ship 5", "CGHatchRightHighToShip5");
     autonChooser.addOption("Hatch Lvl2 Left - Ship 4", "CGHatchLeftHighToShip4");
 
@@ -198,7 +200,7 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
-    
+   */
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", autonChooser);
