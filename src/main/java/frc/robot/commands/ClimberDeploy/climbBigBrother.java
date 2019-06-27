@@ -76,7 +76,6 @@ public class climbBigBrother extends Command {
             }
             
 
-            // TODO: Remove timer once line sensor is installed
             /*
             wranglerDriveTimer = wranglerDriveTimer + 1;
             if (wranglerDriveTimer > 80) {
@@ -90,7 +89,7 @@ public class climbBigBrother extends Command {
         case 4:
             Robot.Lift.setSetpoint(Robot.Lift.climbWheelsUpPosition);
             if (Robot.Lift.atPosition(10)) {
-                // Lift.setSoftLimits(455, 91);
+                Lift.setSoftLimits(425, 91); //455
                 Robot.ClimberDeploy.climberPhase = 5;
             }
             break;

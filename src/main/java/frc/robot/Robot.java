@@ -77,6 +77,9 @@ public class Robot extends TimedRobot {
   public static double rampRate = 0.2;
   public static double autonAngle = 0;
 
+  public double encoderCalculation;
+  public double valueCalculation;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -158,6 +161,28 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
+
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Left Near Rocket Low Far Rocket Low");
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 7 - Ship 6", "Omni Hatch Right Low Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 2 - Ship 3", "Omni Hatch Left Low Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Middle - Front Ship Turn Right", "Omni Hatch Right Low Ship Front Right");
+    autonChooser.addOption("Omni Hatch Lvl1 Middle - Front Ship Turn Left", "Omni Hatch Right Low Ship Front Left");
+
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 7 - Ship 6", "Omni Hatch Right High Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 6 - Ship 7", "Omni Hatch Right Low Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 6 - Ship 7", "Omni Hatch Right High Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
+    autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
+    autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
+
+    /* --- Incompatable with Omni wheels --- DO NOT USE --- */
+  /*
+    autonChooser.addOption("Hatch Lvl2 Right - Ship 5", "CGHatchRightHighToShip5");
+    autonChooser.addOption("Hatch Lvl2 Left - Ship 4", "CGHatchLeftHighToShip4");
+
     autonChooser.addOption("Hatch Lvl1 Right - Far Rocket Low - Near Rocket Low", "Hatch Lvl1 Right Far Rocket Low Near Rocket Low");
     // autonChooser.addOption("Hatch Lvl2 Right - Far Rocket Low - Near Rocket Low", "Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Right - Near Rocket Low - Near Rocket Mid", "Hatch Lvl1 Right Near Rocket Low Near Rocket Mid");
@@ -171,7 +196,11 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl2 Left - Near Rocket Low - Far Rocket Low", "Hatch Lvl2 Left Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Ship 4", "Hatch Lvl1 Mid Ship 5 Ship 4");
-    
+    autonChooser.addOption("Hatch Lvl1 Right - Ship 7 - Ship 6", "Hatch Right Low Ship 7 Ship 6");
+    autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
+    autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
+    autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
+   */
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
     SmartDashboard.putData("Auto mode", autonChooser);
@@ -258,6 +287,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Paths Loaded", pathsLoaded);
 
     SmartDashboard.putBoolean("Beaked", Robot.HatchBeak.status());
+    SmartDashboard.putNumber("Pitch", Robot.Pigeon.getRoll());
+    valueCalculation = (4060/360);
+    encoderCalculation = (Robot.Chassis.newEncoder.getValue() / (valueCalculation));
+    SmartDashboard.putNumber("newEncoder", Robot.Chassis.newEncoder.getValue());
+    SmartDashboard.putNumber("newEncoder voltage", Robot.Chassis.newEncoder.getVoltage());
+    SmartDashboard.putNumber("newEncoder voltage", (Robot.Chassis.newEncoder.getVoltage()/4.959) * 360);
+    SmartDashboard.putNumber("newEncoder degree", encoderCalculation);
+    SmartDashboard.putNumber("4060/360", encoderCalculation);
 
   }
 
@@ -294,6 +331,49 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //Selects the auton command being run based off of the chosen auton
     switch(autonChooser.getSelected()) {
+      case "Omni Hatch Right Low Ship 7 Ship 6":
+        autonomousCommand = new CGOmniHatchRightLowShip7Ship6();
+      break;
+      case "Omni Hatch Right High Ship 7 Ship 6":
+        // autonomousCommand = new CGOmniHatchRightHighShip7Ship6();
+      break;
+      case "Omni Hatch Right Low Ship 6 Ship 7":
+        // autonomousCommand = new CGOmniHatchRightLowShip6Ship7();
+      break;
+      case "Omni Hatch Right High Ship 6 Ship 7":
+        // autonomousCommand = new CGOmniHatchRightHighShip6Ship7();
+      break;
+      case "Omni Hatch Left Low Ship 7 Ship 6":
+        autonomousCommand = new CGOmniHatchLeftLowShip7Ship6();
+      break;
+      case "Omni Hatch Left High Ship 7 Ship 6":
+        // autonomousCommand = new CGOmniHatchLeftHighShip7Ship6();
+      break;
+      case "Omni Hatch Left Low Ship 6 Ship 7":
+        // autonomousCommand = new CGOmniHatchLeftLowShip6Ship7();
+      break;
+      case "Omni Hatch Left High Ship 6 Ship 7":
+        // autonomousCommand = new CGOmniHatchLeftHighShip6Ship7();
+      break;
+      case "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchRightLowNearRocketLowFarRocketLow();
+      break;
+      case "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchRightHighNearRocketLowFarRocketLow();
+      break;
+      case "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchLeftLowNearRocketLowFarRocketLow();
+      break;
+      case "Omni Hatch Lvl2 Left Near Rocket Low Far Rocket Low":
+        autonomousCommand = new CGOmniHatchLeftHighNearRocketLowFarRocketLow();
+      break;
+      case "Omni Hatch Right Low Ship Front Right":
+        autonomousCommand = new CGOmniHatchMiddleShipFrontTurnRight();
+      break;
+      case "Omni Hatch Right Low Ship Front Left":
+        autonomousCommand = new CGOmniHatchMiddleShipFrontTurnLeft();
+      break;
+
       case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
         autonomousCommand = new CGHatchRightLowFarRocketLowNearRocketLow();
       break;
@@ -330,9 +410,30 @@ public class Robot extends TimedRobot {
       case "Hatch Lvl2 Left Near Rocket Low Near Rocket Mid":
         autonomousCommand = new CGHatchLeftHighNearRocketLowNearRocketMid();
       break;
+      case "Hatch Right Low Ship 7 Ship 6":
+        autonomousCommand = new CGHatchRightLowShip7Ship6();
+      break;
+      case "Hatch Right High Ship 7 Ship 6":
+        autonomousCommand = new CGHatchRightHighShip7Ship6();
+      break;
+      case "Hatch Middle Ship 5 Near Rocket Low":
+        autonomousCommand = new CGHatchMiddleShip5NearRocketLow();
+      break;
+      case "Hatch Middle Ship 4 Near Rocket Low":
+        autonomousCommand = new CGHatchMiddleShip4NearRocketLow();
+      break;
+
+      case "CGHatchRightHighToShip5":
+        autonomousCommand = new CGHatchRightHighToShip5();
+      break;
+      case "CGHatchLeftHighToShip4":
+        autonomousCommand = new CGHatchLeftHighToShip4();
+      break;
+
       default:
         autonomousCommand = new autoDoNothing();
       break;
+     
     }
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
 
@@ -359,8 +460,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
+    Robot.Chassis.setAllNeoBrakeMode(IdleMode.kBrake);
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+    Robot.Chassis.setNeoOpenLoopRampRate(0.1);
 
     /*
      * This makes sure that the autonomous stops running when teleop starts running.

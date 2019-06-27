@@ -44,7 +44,7 @@ public class PIDLimelightDrive extends PIDCommand {
 	protected void usePIDOutput(double output) {
 		limelight3D = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(limelightValues);
 
-		System.out.println("Output: " + output);
+		// System.out.println("Output: " + output);
 		if(output > 0.5) {
 			output = 0.5;
 		}
@@ -72,7 +72,7 @@ public class PIDLimelightDrive extends PIDCommand {
 		}
 		turnSpeed = (turnP * ((yaw - targetAngle) / Math.abs(targetAngle)));
 
-		System.out.println("Output: " + output + " *** " + "TurnSpeed: " + turnSpeed);
+		// System.out.println("Output: " + output + " *** " + "TurnSpeed: " + turnSpeed);
 		Chassis.neoArcade(output, turnSpeed, false);
 	}
 

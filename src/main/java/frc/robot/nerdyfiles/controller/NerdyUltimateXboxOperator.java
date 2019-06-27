@@ -35,7 +35,6 @@ public class NerdyUltimateXboxOperator extends Joystick {
     public JoystickPOVButton        povLeft            = new JoystickPOVButton(this, 270);
     public JoystickPOVButton        povUpLeft          = new JoystickPOVButton(this, 315);
 
-    //TODO: Determine how to assign these to non-existant buttons
     public JoystickButton           macroOne           = null;
     public JoystickButton           macroTwo           = back;
     public JoystickButton           macroThree         = null;

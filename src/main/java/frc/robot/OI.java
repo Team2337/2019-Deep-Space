@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Auto.CommandGroups.*;
 import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
@@ -49,21 +50,22 @@ public class OI {
 
 		// driverJoystick.triggerRight					DONT ASIGN ANYTHING TO HERE;
 		
-		driverJoystick.triggerLeft                  .whileHeld(new PIDVisionDriveWithSlow(0.05, 0, 0)); //PIDVisionDrive PIDVisionDriveWithTicks
+		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.1, 0.06));//PIDVisionDriveWithSlow(0.05, 0, 0));
 
-		driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
-		driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
+		// driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
+		// driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
-		driverJoystick.start						.whenPressed(new driveAtSpeedToAngle(0, 0.5, 200000, 0.7));
+		driverJoystick.back							.whileHeld(new driveByJoystickWithSlowTurn(true));
+		// driverJoystick.start						.whenPressed(new CGOmniHatchRightLowNearRocketLowFarRocketLow());
 	    ////////////////////////////////// 
 	    
 		/* ====== OPERATOR JOYSTICK ===== */
 		
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
-		operatorJoystick.bumperLeft					.whileHeld(new CGScoreHatch());
-		operatorJoystick.bumperLeft					.whenReleased(new CGRetractLaunchers());
+		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
+		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
 
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
@@ -71,10 +73,11 @@ public class OI {
 		operatorJoystick.back						.whileHeld(new cargoBigBrotherScore());
 		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake());
 
+		//Do not set anything to POV right or left because it cannot run at the same time as other POV buttons
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
-		operatorJoystick.povRight					.whenPressed(new hatchLauncherExtend());
-		operatorJoystick.povRight					.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
 
@@ -101,7 +104,7 @@ public class OI {
 
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
-		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbHighPosition));
+		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
 
 		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
 

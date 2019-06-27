@@ -17,7 +17,7 @@ public class autoEndAuto extends InstantCommand {
             Robot.autonomousCommand.cancel();
         }
         endedAutoLED = true;
-        System.out.println("Auton Canceled");
+        // System.out.println("Auton Canceled");
     }
 
     protected void end() {

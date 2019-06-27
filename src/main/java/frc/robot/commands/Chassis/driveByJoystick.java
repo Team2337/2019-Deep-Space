@@ -41,6 +41,10 @@ public class driveByJoystick extends Command {
     // Right joysticks left/right movement as a number from -1 to 1
     turnSpeed = driverJoystick.getRightStickX();
 
+    if(Robot.Lift.getPosition() > 300 && moveSpeed > 0.65) {
+      moveSpeed = 0.65;
+    }
+
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive
     if (this.isNeoDrive) {

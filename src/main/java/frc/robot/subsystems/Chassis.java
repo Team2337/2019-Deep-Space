@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.NeoNerdyDriveBU;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
@@ -16,6 +15,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -47,6 +47,7 @@ public class Chassis extends Subsystem {
 
   public DigitalInput autoLineSensor;
   public DigitalInput centerLineSensor;
+  public AnalogInput newEncoder;
 
   public BuiltInAccelerometer accelerometer;
 
@@ -113,7 +114,9 @@ public class Chassis extends Subsystem {
     talonLeftMidID = Robot.Constants.chassisTalonLeftMidID;
     talonLeftRearID = Robot.Constants.chassisTalonLeftRearID;
 
-    autoLineSensor = new DigitalInput(Robot.Constants.autoLineSensorID);
+    newEncoder = new AnalogInput(2);
+
+    autoLineSensor = new DigitalInput(1);
     // centerLineSensor = new DigitalInput(Robot.Constants.centerLineSensorID);
 
     accelerometer = new BuiltInAccelerometer(Accelerometer.Range.k4G);
