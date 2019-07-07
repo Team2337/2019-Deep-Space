@@ -2,7 +2,6 @@ package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Lift;
 
 /**
  * Go to the specified position on the lift
@@ -30,7 +29,7 @@ public class liftToClimbTop extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Lift.setSoftLimits(455, 91);
+        Robot.Lift.setSoftLimits(455, 91);
         Robot.Lift.setSetpoint(position);
     }
 

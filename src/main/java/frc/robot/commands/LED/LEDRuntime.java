@@ -1,10 +1,8 @@
 package frc.robot.commands.LED;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.autoEndAuto;
-import frc.robot.subsystems.LED;
 
 /**
  * Sets the color according to various factors, such as if the robot was
@@ -19,31 +17,31 @@ public class LEDRuntime extends Command {
 	}
 
 	protected void initialize() {
-		LED.setColor(LED.off);
+		Robot.LED.setColor(Robot.LED.off);
 	}
 
 	protected void execute() {
 			if(Robot.HatchBeak.status()) {
-				LED.setColor(LED.green);
+				Robot.LED.setColor(Robot.LED.green);
 			} else {
 				if(Robot.ClimberDeploy.climberPhase < 5) {
 					if(autoEndAuto.endedAutoLED) {
-						LED.setColor(LED.red);
+						Robot.LED.setColor(Robot.LED.red);
 					} 
 					if(!Robot.ClimberDeploy.climberLineSensor.get() || Robot.ClimberDeploy.climberPhase == 3) {
-						LED.setColor(LED.white);
+						Robot.LED.setColor(Robot.LED.white);
 					} else {
 						if(Robot.ClimberDeploy.getServo() == 0.8) {
-							LED.setColor(LED.darkBlue);
+							Robot.LED.setColor(Robot.LED.darkBlue);
 						} else {
-							LED.setColor(LED.rainbow);
+							Robot.LED.setColor(Robot.LED.rainbow);
 						}
 					}
 				} else {
 					if(Robot.ClimberDeploy.getServo() == 0.8) {
-						LED.setColor(LED.blue);
+						Robot.LED.setColor(Robot.LED.blue);
 					} else {
-						LED.setColor(LED.off);
+						Robot.LED.setColor(Robot.LED.off);
 					}
 				}
 			}

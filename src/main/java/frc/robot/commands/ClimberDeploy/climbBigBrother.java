@@ -2,7 +2,6 @@ package frc.robot.commands.ClimberDeploy;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Lift;
 
 public class climbBigBrother extends Command {
 
@@ -54,7 +53,7 @@ public class climbBigBrother extends Command {
 
         // Lower the trolley (raising the robot)
         case 2:
-            Lift.setSoftLimits(Lift.forwardLiftSoftLimit, 62);
+            Robot.Lift.setSoftLimits(Robot.Lift.forwardLiftSoftLimit, 62);
             Robot.Lift.setSetpoint(Robot.Lift.climbPlatformLocation);
             if(climbTimer > 8) {
                 Robot.Lift.setSetpoint(Robot.Lift.climbLevel3Position);
@@ -89,7 +88,7 @@ public class climbBigBrother extends Command {
         case 4:
             Robot.Lift.setSetpoint(Robot.Lift.climbWheelsUpPosition);
             if (Robot.Lift.atPosition(10)) {
-                Lift.setSoftLimits(425, 91); //455
+                Robot.Lift.setSoftLimits(425, 91); //455
                 Robot.ClimberDeploy.climberPhase = 5;
             }
             break;

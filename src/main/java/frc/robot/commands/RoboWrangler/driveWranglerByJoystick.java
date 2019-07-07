@@ -40,7 +40,7 @@ public class driveWranglerByJoystick extends Command {
         if(joy > 0) {
             joy = 0;
         }
-        if (joy < -0.25) {
+        if (joy < joystickDeadband) {
             Robot.RoboWrangler.drive(-joy);
         } else {
             Robot.RoboWrangler.stop();

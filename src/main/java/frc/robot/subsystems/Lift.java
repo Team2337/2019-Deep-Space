@@ -1,16 +1,11 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
+import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.motorcontrol.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.commands.Lift.liftWithJoystick;
-import frc.robot.commands.Lift.liftWithJoystickWithBroken;
+import frc.robot.commands.Lift.*;
 
 /**
  * Controls lift movement using PID setpoints
@@ -103,8 +98,8 @@ public class Lift extends Subsystem {
    * 
    * @see #setSoftLimits()
    */
-  public static int forwardLiftSoftLimit;
-  public static int reverseLiftSoftLimit;
+  public int forwardLiftSoftLimit;
+  public int reverseLiftSoftLimit;
 
   // The boundaries of where the robot should consider the stringpot to be working
   // These are used in Robot to determine whether the sensor is out of bounds.
@@ -430,7 +425,7 @@ public class Lift extends Subsystem {
    * @param forward The soft limit for when the motor is going forwards
    * @param reverse The soft limit for when the motor is going backwards
    */
-  public static void setSoftLimits(int forward, int reverse) {
+  public void setSoftLimits(int forward, int reverse) {
     forwardLiftSoftLimit = forward;
     reverseLiftSoftLimit = reverse;
 
