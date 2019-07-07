@@ -36,7 +36,6 @@ public class Robot extends TimedRobot {
 
   // DECLARATIONS
   public static AirCompressor AirCompressor;
-  public static AutoHatchKicker AutoHatchKicker;
   public static CargoBigBrother CargoBigBrother;
   public static CargoDrawbridge CargoDrawbridge;
   public static CargoIntake CargoIntake;
@@ -118,13 +117,11 @@ public class Robot extends TimedRobot {
     
     isComp = true;
 
-    // CONSTRUCTORS
-    // Keep above other subsystems, as these have dependencies for other subsystems
-    // to be instantiated first.
+    /* --- Dependencies --- */
     Constants = new Constants();
 
+    /* --- Subsystems --- */
     AirCompressor = new AirCompressor();
-    AutoHatchKicker = new AutoHatchKicker();
     CargoDrawbridge = new CargoDrawbridge();
     CargoEscalator = new CargoEscalator();
     CargoIntake = new CargoIntake();
@@ -138,30 +135,23 @@ public class Robot extends TimedRobot {
     Pigeon = new Pigeon();
     Recorder = new Recorder();
     RoboWrangler = new RoboWrangler();
-    // PDP = new PowerDistributionPanel();
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     TRexArms = new TRexArms();
     Vision = new Vision();
 
-    /*
-     * Keep below other subsystems as these have dependencies for other subsystems
-     * to be instantiated first.
-     */
-
+    /* --- Dependent Systems --- */
     NerdyPath = new NerdyPath();
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
     LED.setColor(Robot.LED.off);
-    
-    // Writing a trajectory to a file (keep commented out until needed)
-    // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
 
     oi = new OI();
 
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
 
+    /* --- Omni Autons --- */
     autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
@@ -201,15 +191,19 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
    */
+
+    // TODO: write new autons for IRI due to the change in traction wheels
+    SmartDashboard.putData("Auto mode", autonChooser);
+
+    // Reset sensors
     Robot.Chassis.resetEncoders();
     Robot.Pigeon.resetPidgey();
-    SmartDashboard.putData("Auto mode", autonChooser);
+    // Configure the limelight to turn off the LEDs
     Vision.streamMode(2);
     Vision.setLEDMode(1);
     // Hold the current lift position so that the lift doesn't move on startup
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-    // Disable the air compressor so it doesn't run every time we start the robot.
-    // Robot.AirCompressor.disable();
+    // Takes robot out of climb mode
     Robot.ClimberDeploy.undeployClimber();
   }
 
@@ -331,29 +325,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //Selects the auton command being run based off of the chosen auton
     switch(autonChooser.getSelected()) {
+      /* --- Omni Autons --- */
       case "Omni Hatch Right Low Ship 7 Ship 6":
         autonomousCommand = new CGOmniHatchRightLowShip7Ship6();
       break;
-      case "Omni Hatch Right High Ship 7 Ship 6":
-        // autonomousCommand = new CGOmniHatchRightHighShip7Ship6();
-      break;
-      case "Omni Hatch Right Low Ship 6 Ship 7":
-        // autonomousCommand = new CGOmniHatchRightLowShip6Ship7();
-      break;
-      case "Omni Hatch Right High Ship 6 Ship 7":
-        // autonomousCommand = new CGOmniHatchRightHighShip6Ship7();
-      break;
       case "Omni Hatch Left Low Ship 7 Ship 6":
         autonomousCommand = new CGOmniHatchLeftLowShip7Ship6();
-      break;
-      case "Omni Hatch Left High Ship 7 Ship 6":
-        // autonomousCommand = new CGOmniHatchLeftHighShip7Ship6();
-      break;
-      case "Omni Hatch Left Low Ship 6 Ship 7":
-        // autonomousCommand = new CGOmniHatchLeftLowShip6Ship7();
-      break;
-      case "Omni Hatch Left High Ship 6 Ship 7":
-        // autonomousCommand = new CGOmniHatchLeftHighShip6Ship7();
       break;
       case "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low":
         autonomousCommand = new CGOmniHatchRightLowNearRocketLowFarRocketLow();
@@ -374,6 +351,7 @@ public class Robot extends TimedRobot {
         autonomousCommand = new CGOmniHatchMiddleShipFrontTurnLeft();
       break;
 
+      /* --- Traction Autons --- */
       case "Hatch Lvl1 Right Far Rocket Low Near Rocket Low":
         autonomousCommand = new CGHatchRightLowFarRocketLowNearRocketLow();
       break;
@@ -435,14 +413,9 @@ public class Robot extends TimedRobot {
       break;
      
     }
-    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     * switch(autoSelected) { case "My Auto": autonomousCommand = new
-     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-     * ExampleCommand(); break; }
-     */
+    //Keep lift from moving out of position when auton is initialized 
+    Robot.Lift.setSetpoint(Robot.Lift.getPosition());
 
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {

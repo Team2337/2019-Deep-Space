@@ -2,15 +2,12 @@ package frc.robot;
 
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
-import frc.robot.commands.Auto.CommandGroups.*;
-import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.AutoHatchKicker.*;
 import frc.robot.commands.CargoBigBrother.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Shifter.*;
-import frc.robot.commands.Vision.limeLightLEDOn;
+import frc.robot.commands.Vision.*;
 import frc.robot.commands.Chassis.*;
 import frc.robot.commands.ClimberDeploy.*;
 import frc.robot.nerdyfiles.controller.*;
@@ -31,6 +28,20 @@ public class OI {
 
 	public double[][] valuesPID = pathway.valuesPID;
 
+	/**
+	 * Maps out the commands to the buttons on the controllers
+	 * 
+	 * <h3> Unusable Buttons: </h3>
+	 * <ul>
+	 * <li>Driver Joystick</li>
+	 * 	<ul>
+	 * 	<li>Right Trigger</li>
+	 * 		<ul>
+	 * 		<li>Toggles the max speed of the chassis when "yeeting"</li>
+	 * 		</ul>
+	 * 	</ul>
+	 * </ul>
+	 */
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
@@ -42,15 +53,11 @@ public class OI {
 
 		driverJoystick.bumperRight					.whenPressed(new autoEndAuto());
 
-		// Assigned to Adjust Yeet Speed in Chassis.driveByJoystick - DO NOT USE
-		// driverJoystick.triggerRight				.whenPressed(); // Level2SuperCoolRampJump Do not assign
-
-		driverJoystick.greenA						.whenPressed(new hatchKickerExtend());
-		driverJoystick.greenA						.whenReleased(new hatchKickerRetract());
-
-		// driverJoystick.triggerRight					DONT ASIGN ANYTHING TO HERE;
+		
+		// driverJoystick.triggerRight				.whenPressed(); //Do not assign
 		
 		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.1, 0.06));//PIDVisionDriveWithSlow(0.05, 0, 0));
+		driverJoystick.rightStickButton				.whenPressed(new limeLightLEDOn());
 
 		// driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
 		// driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());

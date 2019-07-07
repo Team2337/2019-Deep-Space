@@ -505,6 +505,85 @@
           }
         }
       }
+    },
+    {
+      "title": "Tab 3",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "12,4": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Front Module Position",
+              "_title": "/SmartDashboard/Left Front Module Position"
+            }
+          },
+          "12,6": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Rear Module Position",
+              "_title": "/SmartDashboard/Left Rear Module Position"
+            }
+          },
+          "19,4": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Front Module Position",
+              "_title": "/SmartDashboard/Right Front Module Position"
+            }
+          },
+          "19,6": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right front module angle in degrees",
+              "_title": "/SmartDashboard/Right front module angle in degrees"
+            }
+          },
+          "19,8": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right front module angle motor speed",
+              "_title": "/SmartDashboard/Right front module angle motor speed"
+            }
+          },
+          "19,10": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right front module drive speed",
+              "_title": "/SmartDashboard/Right front module drive speed"
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {

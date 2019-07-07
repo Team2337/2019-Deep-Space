@@ -75,6 +75,7 @@ public class NeoNerdyDriveBU {
 				rightMotorOutput = xSpeed - zRotation;
 			}
 		}
+		// Changes the maximum speed of the robot
 		if (Robot.oi.driverJoystick.triggerRight.get() || Robot.oi.driverJoystick.bumperLeft.get()) {
 			m_maxOutput = 1.0;
 		} else {

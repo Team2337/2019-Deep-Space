@@ -73,7 +73,6 @@ public class Recorder extends Subsystem {
 
       SmartDashboard.putNumber("Air_Pressure", Robot.AirCompressor.getPressure());
       SmartDashboard.putBoolean("Air_Compressor", Robot.AirCompressor.status());
-      SmartDashboard.putBoolean("Auton_HatchKicker", Robot.AutoHatchKicker.status());
 
       SmartDashboard.putNumber("Cargo_level", Robot.CargoBigBrother.cargoLevel());
       SmartDashboard.putBoolean("Intake_sensor", Robot.CargoBigBrother.cargoIntakeSensor.get());
