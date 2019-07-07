@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Auto.Common.*;
-import frc.robot.commands.HatchBeak.*;
 
 /**
  * Auton Description:

@@ -1,7 +1,6 @@
 package frc.robot.commands.Auto.CommandGroups;
 
 import frc.robot.commands.Chassis.*;
-import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 
 import com.revrobotics.CANSparkMax.IdleMode;

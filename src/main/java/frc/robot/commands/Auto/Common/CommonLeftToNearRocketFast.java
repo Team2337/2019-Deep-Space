@@ -1,6 +1,5 @@
 package frc.robot.commands.Auto.Common;
 
-import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.HatchBeak.hatchBeakClose;
 
 import com.revrobotics.CANSparkMax.IdleMode;

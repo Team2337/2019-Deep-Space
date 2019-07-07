@@ -1,6 +1,5 @@
 package frc.robot.commands.Auto.Common;
 
-import frc.robot.commands.Auto.Common.*;
 import frc.robot.commands.HatchBeak.*;
 import frc.robot.commands.HatchLauncher.*;
 
