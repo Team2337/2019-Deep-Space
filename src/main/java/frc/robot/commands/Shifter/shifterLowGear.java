@@ -20,6 +20,7 @@ public class shifterLowGear extends Command {
   @Override
   protected void initialize() {
     Robot.Shifter.shiftLowGear();
+    Robot.Chassis.setMaxOutput(1.0);
     Robot.Chassis.setNeoCurrentLimits(55, 40, 0);
   }
 

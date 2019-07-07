@@ -74,7 +74,15 @@ public class NerdyUltimateXboxDriver extends Joystick {
         return -this.getRawAxis(5);
     }
 
-    public void setRumble(double leftValue, double rightValue) {
+    /**
+     * Individually sets the Rumble Speeds on the left and right side of the controller
+     * @param leftValue - left rumble speed
+     * @param rightValue - right rumble speed
+     * <br/>
+     * <br/>
+     * <strong>NOTE:</strong> Right rumble is more intense than left due to the motors inside the controller
+     */
+    public void setRumbleSpeed(double leftValue, double rightValue) {
         setRumble(RumbleType.kLeftRumble, leftValue);
         setRumble(RumbleType.kRightRumble, rightValue);
     }

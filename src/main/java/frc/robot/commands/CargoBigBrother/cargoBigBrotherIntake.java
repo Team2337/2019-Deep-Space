@@ -18,22 +18,26 @@ public class cargoBigBrotherIntake extends Command {
     // (10 in order to make sure the cargo can be inatken when the trolley is below the soft limit)
     double liftTolerance = 10;
 
+    boolean isDefensive = false;
+
     /**
      * Runs the cargo intake system to get the ball into the score position
-     * <p>
+     * @param isDefencive - tells whether the cargo system should be in defensive mode 
+     * True: defensive mode active, False: drawbridge mode active
+     * <br/>
      * <br/>
      * <strong>NOTE:</strong> the lift will not automatically move to the intake
      * position, so it must be set manually. When the ball reaches the top of the
      * conveyor, and the lift is not at intake position, the conveyor and intake
      * will stop until then.
-     * </p>
      */
-    public cargoBigBrotherIntake() {
+    public cargoBigBrotherIntake(boolean isDefencive) {
         requires(Robot.CargoBigBrother);
         requires(Robot.CargoIntake);
         requires(Robot.CargoEscalator);
         requires(Robot.CargoScore);
         requires(Robot.Lift);
+        this.isDefensive = isDefencive;
     }
 
     // Check the cargo level and start the command accordingly.
@@ -49,7 +53,7 @@ public class cargoBigBrotherIntake extends Command {
         } 
         switch (Robot.CargoBigBrother.cargoLevel()) {
         case 0:
-        if(Robot.oi.operatorJoystick.triggerRight.get()) {
+        if(!isDefensive) {
             Robot.CargoDrawbridge.lowerTheDrawbridge();
         }
             // Start rolling the intake inwards

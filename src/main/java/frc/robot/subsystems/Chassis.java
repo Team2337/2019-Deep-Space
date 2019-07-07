@@ -479,12 +479,12 @@ public class Chassis extends Subsystem {
     neoLeftFrontEncoder.setPosition(0);
     neoRightFrontEncoder.setPosition(0);
   }
-public void rampRateReset() {
-  neoLeftFrontMotor.setOpenLoopRampRate(0.0);
-  neoLeftRearMotor.setOpenLoopRampRate(0.0);
-  neoRightFrontMotor.setOpenLoopRampRate(0.0);
-  neoRightRearMotor.setOpenLoopRampRate(0.0);
-}
+  public void rampRateReset() {
+    neoLeftFrontMotor.setOpenLoopRampRate(0.0);
+    neoLeftRearMotor.setOpenLoopRampRate(0.0);
+    neoRightFrontMotor.setOpenLoopRampRate(0.0);
+    neoRightRearMotor.setOpenLoopRampRate(0.0);
+  }
   /**
    * Determines what the NEO drive motors will do when no signal is given to them
    * 
@@ -501,6 +501,10 @@ public void rampRateReset() {
 
     neoRightFrontMotor.setIdleMode(mode);
     neoRightRearMotor.setIdleMode(mode);
+  }
+
+  public void setMaxOutput(double yeetSpeed) {
+    neoDrive.m_maxOutput = yeetSpeed;
   }
 
   public void stopNeoDrive() {

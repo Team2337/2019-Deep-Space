@@ -31,7 +31,7 @@ public class OI {
 	/**
 	 * Maps out the commands to the buttons on the controllers
 	 * 
-	 * <h3> Unusable Buttons: </h3>
+	 * <h3>Button Map</h3>
 	 * <ul>
 	 * <li>Driver Joystick</li>
 	 * 	<ul>
@@ -41,12 +41,11 @@ public class OI {
 	 * 		</ul>
 	 * 	</ul>
 	 * </ul>
+	 * <p><strong style="font-size: larger">NOTE:</strong> More than one POV button on the controllers <strong>cannot</strong> be used at once</p>
 	 */
 	public OI() {
 
 		/* ====== DRIVER JOYSTICK ===== */
-
-		// Assigned to Quick Turn in Chassis.driveByJoystick - DO NOT USE
 
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
@@ -54,37 +53,40 @@ public class OI {
 		driverJoystick.bumperRight					.whenPressed(new autoEndAuto());
 
 		
-		// driverJoystick.triggerRight				.whenPressed(); //Do not assign
+		driverJoystick.triggerRight					.whenPressed(new setYeetSpeed(1.0)); 
+		driverJoystick.triggerRight					.whenReleased(new setYeetSpeed(0.85));
+		driverJoystick.triggerRight					.whenInactive(new setYeetSpeed(0.85)); //TODO: test to make sure this actually works :)
 		
-		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.1, 0.06));//PIDVisionDriveWithSlow(0.05, 0, 0));
+		driverJoystick.triggerLeft                  .whileHeld(new UltraSonicPIDVisionDriveWithSlow(0.05, 0, 0));//PIDVisionDriveWithSlow(0.05, 0, 0)); //OmniPIDVisionDriveWithSlow(0.1, 0.06)
 		driverJoystick.rightStickButton				.whenPressed(new limeLightLEDOn());
 
-		// driverJoystick.redB							.whileHeld(new CGDriveToFarRocketFromLoadRight());
-		// driverJoystick.blueX						.whileHeld(new CGDriveToFarRocketFromLoadLeft());
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
 		driverJoystick.back							.whileHeld(new driveByJoystickWithSlowTurn(true));
-		// driverJoystick.start						.whenPressed(new CGOmniHatchRightLowNearRocketLowFarRocketLow());
 	    ////////////////////////////////// 
 	    
-		/* ====== OPERATOR JOYSTICK ===== */
+		/* ====== OPERATOR JOYSTICK ===== */ 
 		
+		/* --- Hatch Mechanism Buttons --- */
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
 		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
 		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
+		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
+		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
+		operatorJoystick.leftStickButton			.whileHeld(new hatchBeakWithUltraSonic());
+		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen());
 
-		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake());
+		/* --- Cargo System Buttons --- */
+		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake(false));
 		operatorJoystick.bumperRight				.whileHeld(new cargoBigBrotherEject());
 
 		operatorJoystick.back						.whileHeld(new cargoBigBrotherScore());
-		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake());
+		operatorJoystick.start						.whileHeld(new cargoBigBrotherIntake(true));	//toggles defensive intake
 
-		//Do not set anything to POV right or left because it cannot run at the same time as other POV buttons
+		/* --- Lift Position Buttons --- */
 		operatorJoystick.povUp						.whenPressed(new goToPosition(Robot.Lift.hatchMidScorePosition));
 		operatorJoystick.povUp						.whenReleased(new stayAtPosition());
-		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
-		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.povDown					.whenPressed(new goToPosition(Robot.Lift.hatchLowScorePosition));
 		operatorJoystick.povDown					.whenReleased(new stayAtPosition());
 

@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 
 /**
  * Vision subsystem for the limelight, and any other camera/vision sensors
@@ -10,10 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Vision extends Subsystem {
 
+  private Ultrasonic ultrasonic; 
   public double voltsToInch = 0.4;
+  public boolean ultrasonicMode = false; 
 
   public Vision() {
-
+    ultrasonic = new Ultrasonic(0, 0, Ultrasonic.Unit.kInches);
   }
 
   @Override
@@ -79,6 +83,24 @@ public class Vision extends Subsystem {
    */
   public void switchPipeLine(int pipeline) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+  }
+
+  /* --- Ultra Sonic Code --- */
+
+  /**
+   * Returns the range of the object in Inches
+   * @return - double value = range of object in inches
+   */
+  public double getUltraSonicDistance() {
+    return ultrasonic.getRangeInches();
+  }
+
+  /**
+   * Returns a boolean value to determine whether or not the alliance wall is at the right distance for hatch intaking
+   * @return - true = at correct distance for intaking; false = not close enough to the wall for hatch intaking
+   */
+  public boolean isAtDistance() {
+    return getUltraSonicDistance() > Robot.HatchBeak.hatchIntakeDistance ? true : false;
   }
 
 }
