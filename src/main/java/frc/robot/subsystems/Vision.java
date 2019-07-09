@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogOutput;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
@@ -12,12 +14,12 @@ import frc.robot.Robot;
  */
 public class Vision extends Subsystem {
 
-  private Ultrasonic ultrasonic; 
+  public AnalogInput ultrasonic; 
   public double voltsToInch = 0.4;
   public boolean ultrasonicMode = false; 
 
   public Vision() {
-    ultrasonic = new Ultrasonic(0, 0, Ultrasonic.Unit.kInches);
+    ultrasonic = new AnalogInput(3);
   }
 
   @Override
@@ -92,7 +94,7 @@ public class Vision extends Subsystem {
    * @return - double value = range of object in inches
    */
   public double getUltraSonicDistance() {
-    return ultrasonic.getRangeInches();
+    return ultrasonic.getVoltage();
   }
 
   /**
@@ -100,7 +102,7 @@ public class Vision extends Subsystem {
    * @return - true = at correct distance for intaking; false = not close enough to the wall for hatch intaking
    */
   public boolean isAtDistance() {
-    return getUltraSonicDistance() > Robot.HatchBeak.hatchIntakeDistance ? true : false;
+    return getUltraSonicDistance() < Robot.HatchBeak.hatchIntakeDistance ? true : false;
   }
 
 }

@@ -288,6 +288,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("newEncoder degree", encoderCalculation);
     SmartDashboard.putNumber("4060/360", encoderCalculation);
 
+    SmartDashboard.putNumber("UltraSonic", Robot.Vision.ultrasonic.getVoltage());
+    SmartDashboard.putBoolean("At Distance", Robot.Vision.isAtDistance());
+    SmartDashboard.putBoolean("Robot.Vision.ultrasonicMode", Robot.Vision.ultrasonicMode);
+
   }
 
   /**

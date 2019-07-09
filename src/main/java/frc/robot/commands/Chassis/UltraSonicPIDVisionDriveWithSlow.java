@@ -137,11 +137,7 @@ public class UltraSonicPIDVisionDriveWithSlow extends PIDCommand {
         output = 0.001;
       }
 
-      if(Robot.Vision.ultrasonicMode) {
-        if(Robot.Vision.isAtDistance()) {
-          Robot.oi.driverJoystick.setRumbleSpeed(0, 0.5);
-        }
-      }
+      
 
       Chassis.neoArcade(speed, -(output), false);
       // System.out.println("Speed: " + speed + "targetDistance: " + targetDistance + "minus DistanceDriven: " + distanceDriven + "divided by " + targetDistance + 

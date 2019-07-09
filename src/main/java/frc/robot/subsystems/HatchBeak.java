@@ -14,7 +14,7 @@ public class HatchBeak extends Subsystem {
   private Solenoid hatchBeakSolenoid;
   private boolean isAtDistanceUS = false;
   public boolean beakMode = false;
-  public double hatchIntakeDistance = 1.0;
+  public double hatchIntakeDistance = 0.4;
   
   public HatchBeak() {
     hatchBeakSolenoid = new Solenoid(Robot.Constants.PCM0, Robot.Constants.hatchBeakPort);

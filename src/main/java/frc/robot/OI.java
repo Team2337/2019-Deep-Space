@@ -45,7 +45,11 @@ public class OI {
 	 */
 	public OI() {
 
-		/* ====== DRIVER JOYSTICK ===== */
+		/***************************/
+		/* ----------------------- */
+		/* --- DRIVER JOYSTICK --- */
+		/* ----------------------- */
+		/***************************/
 
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
@@ -63,19 +67,22 @@ public class OI {
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
 		driverJoystick.back							.whileHeld(new driveByJoystickWithSlowTurn(true));
-	    ////////////////////////////////// 
 	    
-		/* ====== OPERATOR JOYSTICK ===== */ 
+		/*****************************/
+		/* ------------------------- */
+		/* --- OPERATOR JOYSTICK --- */
+		/* ------------------------- */
+		/*****************************/
 		
 		/* --- Hatch Mechanism Buttons --- */
-		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());
-		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());
+		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());		//runs periodically to controll controller vibration
+		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());		//runs periodically to controll controller vibration
 		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
 		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.leftStickButton			.whileHeld(new hatchBeakWithUltraSonic());
-		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen());
+		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen());		//un-beak mode
 
 		/* --- Cargo System Buttons --- */
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake(false));
@@ -99,9 +106,12 @@ public class OI {
 		operatorJoystick.yellowY					.whenPressed(new goToPosition(Robot.Lift.cargoMidScorePosition));
 		operatorJoystick.yellowY					.whenReleased(new stayAtPosition());
 
-		////////////////////////////////////
+		/***********************************/
+		/* ------------------------------- */
+		/* --- DRIVER STATION CONTROLS --- */
+		/* ------------------------------- */
+		/***********************************/
 
-		/* ===== DRIVER STATION CONTROLS ===== */
 		operatorControls.BlackSwitch				.whenPressed(new readyClimber());
 		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
 		operatorControls.BlackButton				.whenPressed(new climbBigBrother());
@@ -116,21 +126,28 @@ public class OI {
 		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
 
 		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
-
-
-		
-	
-		///////////////////////////////////////// 
 	}
 
+	/**
+	 * Returns the Driver Joystick object
+	 * @return - Joysick Object = Driver Joystick
+	 */
 	public Joystick getDriverJoystick() {
 		return driverJoystick;
 	}
 
+	/**
+	 * Returns the Operator Joystick object
+	 * @return - Joysick Object = Operator Joystick
+	 */
 	public Joystick getOperatorJoystick() {
 		return operatorJoystick;
 	}
 
+	/**
+	 * Returns the Operator Controlls object
+	 * @return - Joysick Object = Operator Controlls
+	 */
 	public Joystick getOperatorControls() {
 		return operatorControls;
 	}

@@ -10,6 +10,7 @@ import frc.robot.Robot;
  */
 public class hatchBeakClose extends Command {
 
+  double timer = 0;
   // CONSTRUCTOR
   public hatchBeakClose() {
     requires(Robot.HatchBeak);
@@ -25,13 +26,18 @@ public class hatchBeakClose extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    if(timer > 0 && timer < 100) {
+      Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
+    } else {
+      Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
+      timer++;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
