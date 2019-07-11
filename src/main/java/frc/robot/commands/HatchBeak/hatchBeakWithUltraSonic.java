@@ -22,6 +22,7 @@ public class hatchBeakWithUltraSonic extends Command {
   protected void initialize() {
     Robot.Vision.ultrasonicMode = true;
     Robot.HatchBeak.beakMode = true;
+    timer = 0;
     Robot.HatchBeak.closeHatchBeak();
   }
 
@@ -33,10 +34,12 @@ public class hatchBeakWithUltraSonic extends Command {
       rumble = true;
     }
     if(rumble) {
-      if(timer > 0 && timer < 100) {
-      Robot.oi.operatorJoystick.setRumble(0, 1.0);
-      Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
+      if(timer < 20) {
+        Robot.oi.operatorJoystick.setRumble(0, 1.0);
+        Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
       } else {
+        Robot.oi.operatorJoystick.setRumble(0, 0);
+        Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
         timer ++;
       }
     }

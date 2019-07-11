@@ -75,14 +75,14 @@ public class OI {
 		/*****************************/
 		
 		/* --- Hatch Mechanism Buttons --- */
-		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose());		//runs periodically to controll controller vibration
-		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());		//runs periodically to controll controller vibration
+		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose(0));		//runs periodically to controll controller vibration
+		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen(0));		//runs periodically to controll controller vibration
 		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
 		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
 		operatorJoystick.leftStickButton			.whileHeld(new hatchBeakWithUltraSonic());
-		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen());		//un-beak mode
+		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen(0));		//un-beak mode
 
 		/* --- Cargo System Buttons --- */
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake(false));
@@ -114,18 +114,22 @@ public class OI {
 
 		operatorControls.BlackSwitch				.whenPressed(new readyClimber());
 		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
+
 		operatorControls.BlackButton				.whenPressed(new climbBigBrother());
 		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
 
 		operatorControls.BlueButton					.whenPressed(new deployClimber());
 		operatorControls.BlueButton					.whenReleased(new unreadyClimber());
 		
+		operatorControls.BlueSwitch					.whileHeld(new stopLift());
 
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
+
 		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
 
-		operatorControls.WhiteButton				.whenPressed(new restoreSoftLimits());
+		operatorControls.WhiteButton				.whileHeld(new restoreSoftLimits());
+
 	}
 
 	/**

@@ -415,7 +415,11 @@ public class Lift extends Subsystem {
    */
   public void stop() {
     liftLeftFrontMotor.set(ControlMode.PercentOutput, 0);
+    liftLeftBackMotor.set(ControlMode.PercentOutput, 0);
+    liftRightFrontMotor.set(ControlMode.PercentOutput, 0);
+    liftRightBackMotor.set(ControlMode.PercentOutput, 0);
   }
+
 
   /**
    * Sets soft limits within the code, defining a range of motion for the motors.
