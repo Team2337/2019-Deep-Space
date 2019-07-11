@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Reads the position of the lift, and sets the setpoint to the current position
+ * Stops the lift motors from being able to move, by chaning the PID status to false (disabled)
  * @author Bryce G.
  */
 public class stopLift extends Command {
 
     /**
-     * Reads the position of the lift, and sets the setpoint to the current position
+     * Stops the Lift from moving 
      */
     public stopLift() {
         requires(Robot.Lift);
@@ -25,6 +25,8 @@ public class stopLift extends Command {
     @Override
     protected void execute() {
        Robot.Lift.stop();
+       Robot.Lift.setDisabledMode();
+       Robot.Lift.setPIDStatus(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

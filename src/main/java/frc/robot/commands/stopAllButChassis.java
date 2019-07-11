@@ -4,14 +4,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Reads the position of the lift, and sets the setpoint to the current position
+ * Stops all subsytems
  * @author Bryce G.
  */
 public class stopAllButChassis extends Command {
 
-    /**
-     * Reads the position of the lift, and sets the setpoint to the current position
-     */
     public stopAllButChassis() {
         requires(Robot.ClimberDeploy);
         requires(Robot.CargoScore);
@@ -29,6 +26,7 @@ public class stopAllButChassis extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        
     }
 
     // Called repeatedly when this Command is scheduled to run

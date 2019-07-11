@@ -4,31 +4,29 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Reads the position of the lift, and sets the setpoint to the current position
+ * Resets the lift motors to be active once again. 
  * @author Bryce G.
  */
-public class stayAtPosition extends Command {
+public class resetLift extends Command {
 
     /**
-     * Reads the position of the lift, and sets the setpoint to the current position
+     * Stops the Lift from moving
      */
-    public stayAtPosition() {
+    public resetLift() {
         requires(Robot.Lift);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if(!Robot.stringPotBroken && Robot.Lift.getPIDStatus()) {
-            Robot.Lift.setSetpoint(Robot.Lift.getPosition());
-        }
-       
+        Robot.Lift.move(0);
+        Robot.Lift.setPIDStatus(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-
+      
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +38,7 @@ public class stayAtPosition extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-
+        
     }
 
     // Called when another command which requires one or more of the same

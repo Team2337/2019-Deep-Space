@@ -29,7 +29,7 @@ public class goToPosition extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if(!Robot.stringPotBroken) {
+        if(!Robot.stringPotBroken && Robot.Lift.getPIDStatus()) {
             Robot.Lift.setSetpoint(position);
         }
     }
@@ -44,7 +44,7 @@ public class goToPosition extends Command {
     // lift will hold its current position
     @Override
     protected boolean isFinished() {
-        return Robot.Lift.atPosition(10);
+        return Robot.Lift.atPosition(10) || !Robot.Lift.getPIDStatus();
     }
 
     // Called once after isFinished returns true

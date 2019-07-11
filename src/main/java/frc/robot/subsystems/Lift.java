@@ -22,6 +22,8 @@ public class Lift extends Subsystem {
    */
   boolean liftDebug = false;
 
+  public boolean pidEnabled = true;
+
   public double targetPosition;
 
   /* --- Lift Set Position Variables --- */
@@ -420,6 +422,29 @@ public class Lift extends Subsystem {
     liftRightBackMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  /**
+   * Disables the lift motors.  
+   * All other motors will be set in disabled mode since they are followers
+   */
+  public void setDisabledMode() {
+    liftLeftFrontMotor.set(ControlMode.Disabled, 0);
+  }
+
+  /**
+   * Sets the status of the PID: enable or disable
+   * @param isEnabled - boolean value; true = enable, false = disable
+   */
+  public void setPIDStatus(boolean isEnabled) {
+    pidEnabled = isEnabled;
+  }
+
+  /**
+   * Returns the value of the status of the Lift PID
+   * @return - boolean value: true = enabled, false = disabled
+   */
+  public boolean getPIDStatus() {
+    return pidEnabled;
+  }
 
   /**
    * Sets soft limits within the code, defining a range of motion for the motors.

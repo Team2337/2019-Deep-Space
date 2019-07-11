@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.stopAllButChassis;
 import frc.robot.commands.AirCompressor.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.CargoBigBrother.*;
@@ -77,10 +78,14 @@ public class OI {
 		/* --- Hatch Mechanism Buttons --- */
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose(0));		//runs periodically to controll controller vibration
 		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen(0));		//runs periodically to controll controller vibration
-		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); //CGScoreHatch
-		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); //CGRetractLaunchers
+		
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
+		
+		// Macros //
+		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); 
+		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); 
+		
 		operatorJoystick.leftStickButton			.whileHeld(new hatchBeakWithUltraSonic());
 		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen(0));		//un-beak mode
 
@@ -112,23 +117,30 @@ public class OI {
 		/* ------------------------------- */
 		/***********************************/
 
+		/* --- Black Buttons --- */
 		operatorControls.BlackSwitch				.whenPressed(new readyClimber());
 		operatorControls.BlackSwitch				.whenReleased(new unreadyClimber());
 
 		operatorControls.BlackButton				.whenPressed(new climbBigBrother());
 		operatorControls.BlackButton				.whenReleased(new stayAtPosition());
 
+		/* --- Blue Buttons --- */
 		operatorControls.BlueButton					.whenPressed(new deployClimber());
 		operatorControls.BlueButton					.whenReleased(new unreadyClimber());
 		
 		operatorControls.BlueSwitch					.whileHeld(new stopLift());
+		operatorControls.BlueSwitch					.whenReleased(new resetLift());
 
+		/* --- Yellow Buttons --- */
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
 
 		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
 
+		/* --- White/Clear Buttons --- */
 		operatorControls.WhiteButton				.whileHeld(new restoreSoftLimits());
+
+		operatorControls.ClearSwitch				.whileHeld(new stopAllButChassis());
 
 	}
 
