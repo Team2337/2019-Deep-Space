@@ -14,34 +14,27 @@ public class hatchBeakWithUltraSonic extends Command {
   boolean rumble = false;
   int timer = 0;
     // CONSTRUCTOR
-    public hatchBeakWithUltraSonic() {
+    public hatchBeakWithUltraSonic(int timer) {
     requires(Robot.HatchBeak);
+    this.timer = timer;
   }
 
   @Override
   protected void initialize() {
-    Robot.Vision.ultrasonicMode = true;
     Robot.HatchBeak.beakMode = true;
-    timer = 0;
     Robot.HatchBeak.closeHatchBeak();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.Vision.isAtDistance()) {
-      Robot.HatchBeak.openHatchBeak();
-      rumble = true;
-    }
-    if(rumble) {
-      if(timer < 20) {
-        Robot.oi.operatorJoystick.setRumble(0, 1.0);
-        Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
-      } else {
-        Robot.oi.operatorJoystick.setRumble(0, 0);
-        Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
-        timer ++;
-      }
+    if(timer < 100) {
+      Robot.oi.operatorJoystick.setRumble(0, 1.0);
+      Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
+    } else {
+      Robot.oi.operatorJoystick.setRumble(0, 0);
+      Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
+      timer ++;
     }
   }
 
@@ -54,7 +47,7 @@ public class hatchBeakWithUltraSonic extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.HatchBeak.beakMode = false;
+    
   }
 
   // Called when another command which requires one or more of the same

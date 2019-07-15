@@ -10,12 +10,7 @@ import frc.robot.Robot;
  */
 public class hatchBeakOpen extends Command {
 
-  double timer = 0;
-  // CONSTRUCTOR
-  public hatchBeakOpen(double timer) {
-    requires(Robot.HatchBeak);
-    this.timer = timer;
-  }
+  int timer = 0;
 
   public hatchBeakOpen() {
     requires(Robot.HatchBeak);
@@ -26,30 +21,25 @@ public class hatchBeakOpen extends Command {
   protected void initialize() {
     Robot.HatchBeak.openHatchBeak();
     Robot.Vision.ultrasonicMode = false;
+    Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
-    if(timer < 100) {
-      Robot.oi.driverJoystick.setRumbleSpeed(0, 1.0);
-    } else {
-      Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
-      timer++;
-    }
+    // Robot.oi.driverJoystick.setRumbleSpeed(0, Robot.oi.driverJoystick.setRumbleTimer(timer, 1.0));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+    Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
   }
 
   // Called when another command which requires one or more of the same

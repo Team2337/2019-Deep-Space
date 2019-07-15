@@ -54,16 +54,20 @@ public class OI {
 
 		driverJoystick.bumperLeft					.whenPressed(new shifterLowGear());
 		driverJoystick.bumperLeft					.whenReleased(new shifterHighGear());
-
+		
 		driverJoystick.bumperRight					.whenPressed(new autoEndAuto());
-
+		
 		
 		driverJoystick.triggerRight					.whenPressed(new setYeetSpeed(1.0)); 
 		driverJoystick.triggerRight					.whenReleased(new setYeetSpeed(0.85));
 		driverJoystick.triggerRight					.whenInactive(new setYeetSpeed(0.85)); //TODO: test to make sure this actually works :)
 		
 		driverJoystick.triggerLeft                  .whileHeld(new UltraSonicPIDVisionDriveWithSlow(0.05, 0, 0));//PIDVisionDriveWithSlow(0.05, 0, 0)); //OmniPIDVisionDriveWithSlow(0.1, 0.06)
-		driverJoystick.rightStickButton				.whenPressed(new limeLightLEDOn());
+		driverJoystick.leftStickButton				.whenPressed(new limeLightLEDOn());
+		
+		driverJoystick.rightStickButton				.whileHeld(new driveByJoystickCurvQuickTurn(true));
+		driverJoystick.rightStickButton				.whenPressed(new shifterLowGear());
+		driverJoystick.rightStickButton				.whenReleased(new shifterHighGear());
 
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
@@ -77,7 +81,7 @@ public class OI {
 		
 		/* --- Hatch Mechanism Buttons --- */
 		operatorJoystick.triggerLeft				.whenPressed(new hatchBeakClose(0));		//runs periodically to controll controller vibration
-		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen(0));		//runs periodically to controll controller vibration
+		operatorJoystick.triggerLeft				.whenReleased(new hatchBeakOpen());		//runs periodically to controll controller vibration
 		
 		operatorJoystick.bumperLeft					.whenPressed(new hatchLauncherExtend());
 		operatorJoystick.bumperLeft					.whenReleased(new hatchLauncherRetract());
@@ -86,8 +90,8 @@ public class OI {
 		operatorJoystick.rightStickButton			.whileHeld(new CGNewScoreHatch()); 
 		operatorJoystick.rightStickButton			.whenReleased(new CGNewRetractLaunchers()); 
 		
-		operatorJoystick.leftStickButton			.whileHeld(new hatchBeakWithUltraSonic());
-		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen(0));		//un-beak mode
+		operatorJoystick.leftStickButton			.whileHeld(new hatchBeakWithUltraSonic(0));
+		operatorJoystick.leftStickButton			.whenReleased(new hatchBeakOpen());		//un-beak mode
 
 		/* --- Cargo System Buttons --- */
 		operatorJoystick.triggerRight				.whileHeld(new cargoBigBrotherIntake(false));
@@ -135,11 +139,13 @@ public class OI {
 		operatorControls.YellowSwitch				.whileHeld(new compressorTurnOff());
 		operatorControls.YellowSwitch				.whenReleased(new compressorTurnOn());
 
-		operatorControls.YellowButton				.whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
+		operatorControls.YellowButton				.whileActive(new autoButtonDelay(true));		//whileHeld(new liftToClimbTop(Robot.Lift.climbWheelsUpPosition));
+		operatorControls.YellowButton				.whenInactive(new autoButtonDelay(false));
 
 		/* --- White/Clear Buttons --- */
-		operatorControls.WhiteButton				.whileHeld(new restoreSoftLimits());
-
+		operatorControls.WhiteButton				.whileActive(new autoButtonDelay(true));
+		operatorControls.WhiteButton				.whenInactive(new autoButtonDelay(false));
+		
 		operatorControls.ClearSwitch				.whileHeld(new stopAllButChassis());
 
 	}

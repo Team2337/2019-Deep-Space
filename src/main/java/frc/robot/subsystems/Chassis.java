@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import frc.robot.nerdyfiles.NeoNerdyDrive;
 import frc.robot.nerdyfiles.NeoNerdyDriveBU;
 import frc.robot.nerdyfiles.TalonNerdyDrive;
 import frc.robot.Robot;
@@ -43,6 +44,7 @@ public class Chassis extends Subsystem {
   public double curr_world_linear_accel_x, curr_world_linear_accel_y, currentJerkX, currentJerkY, last_world_linear_accel_x, last_world_linear_accel_y;
 
   public boolean print = false, crossedLine = false;
+  public boolean isQuickTurn = false;
   public int encoderTicks = 0, linesCrossed = 0;
 
   public DigitalInput autoLineSensor;
@@ -77,6 +79,7 @@ public class Chassis extends Subsystem {
   /* --- Drive Declarations --- */
   public static TalonNerdyDrive talonDrive;
   public static NeoNerdyDriveBU neoDrive;
+  // public static NeoNerdyDriveBU neoDrive;
 
   //35, 35 doesn't allow for turn in place
   public int stallLimit = 40; //40 //in amps - Used in shifterLowGear
@@ -250,7 +253,7 @@ public class Chassis extends Subsystem {
   public void initDefaultCommand() {
     // Pass the argument "true" to drive with a Neo drivetrain and no arg (or false)
     // to use Talon drive
-    setDefaultCommand(new driveByJoystick(true));
+    setDefaultCommand(new driveByJoystick(true, true));
   }
 
   public void updateAccelerometerValues() {

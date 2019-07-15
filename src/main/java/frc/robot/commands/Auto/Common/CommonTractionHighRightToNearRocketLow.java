@@ -21,8 +21,8 @@ import frc.robot.commands.HatchLauncher.*;
      * 
      * @author Bryce G.
      */
-    public class CommonHighRightToNearRocketLow extends CommandGroup {
-      public CommonHighRightToNearRocketLow() {
+    public class CommonTractionHighRightToNearRocketLow extends CommandGroup {
+  public CommonTractionHighRightToNearRocketLow() {
         addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
         addSequential(new autoTurnOnLimeLightLED());
         addSequential(new driveAtSpeedToAngle(0, 0.15, 200000, 0.7));
@@ -42,11 +42,11 @@ import frc.robot.commands.HatchLauncher.*;
 
         //Go to load station
         addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 0.5));
-        addSequential(new autoTankDrive(-0.1, -0.6, 0, -23000, "right", IdleMode.kCoast));
+        addSequential(new autoTankDrive(-0.1, -0.65, 0, -23000, "right", IdleMode.kCoast));
         addSequential(new autoTurnOnLimeLightLED());
         addSequential(new autoResetEncoders());
-        addSequential(new autoTankDrive(0.6, 0.2, 16000, 0, "left", IdleMode.kCoast));
-        addSequential(new autoTankDrive(0.6, 0.1, 20000, 0, "leftVision", IdleMode.kCoast));
+        addSequential(new autoTankDrive(0.65, 0.2, 16000, 0, "left", IdleMode.kCoast));
+        addSequential(new autoTankDrive(0.65, 0.1, 20000, 0, "leftVision", IdleMode.kCoast));
         addParallel(new hatchBeakClose());
         addSequential(new hatchLauncherExtend());
         addSequential(new autoPIDVisionDrive(4.5, 0.09, 0.06, 0.7)); //p values after practice matches 0.09, 0.06

@@ -23,7 +23,6 @@ public class CGOmniHatchRightHighNearRocketLowFarRocketLow extends CommandGroup 
   double[][] valuesPID = pathway.valuesPID;
 
   public CGOmniHatchRightHighNearRocketLowFarRocketLow() {
-    
     addSequential(new autoTurnOnLimeLightLED());
     addParallel(new autoLiftToPositionWithWait(Robot.Lift.hatchLowScorePosition, 1.0));
     addSequential(new driveAtSpeedToAngle(0, 0.17, 200000, 1.0));

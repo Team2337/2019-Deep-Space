@@ -9,12 +9,11 @@ import frc.robot.subsystems.Chassis;
 /**
  * Uses controller joysticks to drive the robot using ArcadeDrive
  */
-public class driveByJoystick extends Command {
+public class driveByJoystickCurvQuickTurn extends Command {
 
   // Gets the driver joystick from OI.java
-  private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;
+  private NerdyUltimateXboxDriver driverJoystick;
   private boolean isNeoDrive;
-  private boolean isCurvature;
 
   // How fast the robot moves overall
   double moveSpeed;
@@ -28,10 +27,13 @@ public class driveByJoystick extends Command {
    * @param isNeoDrive A boolean representing whether or not the joystick should
    *                   control Neos to drive
    */
-  public driveByJoystick(boolean isNeoDrive, boolean isCurvature) {
+  public driveByJoystickCurvQuickTurn(boolean isNeoDrive) {
     this.isNeoDrive = isNeoDrive;
-    this.isCurvature = isCurvature;
     requires(Robot.Chassis);
+  }
+  
+  protected void initialize() {
+    driverJoystick = Robot.oi.driverJoystick;
   }
 
   // Supplys the correct values to the arcadeDrive command to drive the robot
@@ -50,12 +52,8 @@ public class driveByJoystick extends Command {
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
     // send the values to talonDrive
     if (this.isNeoDrive) {
+      Chassis.neoDrive.curvatureDrive(moveSpeed, turnSpeed, true);
       // Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
-      if(this.isCurvature) {
-        Chassis.neoDrive.curvatureDrive(moveSpeed, turnSpeed, false);
-      } else {
-        Chassis.neoDrive.arcadeDrive(moveSpeed, turnSpeed, true);
-      }
     } else {
       // Chassis.talonDrive.arcadeDrive(moveSpeed, turnSpeed, true);
     }
@@ -64,5 +62,14 @@ public class driveByJoystick extends Command {
   // This command is not meant to exit
   protected boolean isFinished() {
     return false;
+  }
+
+  protected void end() {
+
+  }
+
+  @Override
+  protected void interrupted() {
+    this.end();
   }
 }

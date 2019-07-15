@@ -100,4 +100,14 @@ public class NerdyUltimateXboxDriver extends Joystick {
         }
         HAL.setJoystickOutputs((byte) getPort(), m_outputs, m_leftRumble, m_rightRumble);
     }
+
+    /**
+     * Checks the rumble timer to decide the rumble intensity
+     * @param timer - input timer variable (int)
+     * @param intensity - intensity of the rumble (0 -> 1.0)
+     * @return
+     */
+    public double setRumbleTimer(int timer, double intensity) {
+        return (timer < 100) ? intensity : 0;
+    }
 }

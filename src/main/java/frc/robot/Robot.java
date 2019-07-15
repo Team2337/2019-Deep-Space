@@ -76,6 +76,9 @@ public class Robot extends TimedRobot {
 
   public double encoderCalculation;
   public double valueCalculation;
+  public double autoRuns = 0;
+
+  public static boolean isWaitingAuton = false; 
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -150,6 +153,7 @@ public class Robot extends TimedRobot {
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
 
     /* --- Omni Autons --- */
+    /*
     autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
@@ -158,16 +162,20 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 2 - Ship 3", "Omni Hatch Left Low Ship 7 Ship 6");
     autonChooser.addOption("Omni Hatch Lvl1 Middle - Front Ship Turn Right", "Omni Hatch Right Low Ship Front Right");
     autonChooser.addOption("Omni Hatch Lvl1 Middle - Front Ship Turn Left", "Omni Hatch Right Low Ship Front Left");
-
+    
     autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 7 - Ship 6", "Omni Hatch Right High Ship 7 Ship 6");
     autonChooser.addOption("Omni Hatch Lvl1 Right - Ship 6 - Ship 7", "Omni Hatch Right Low Ship 6 Ship 7");
     autonChooser.addOption("Omni Hatch Lvl2 Right - Ship 6 - Ship 7", "Omni Hatch Right High Ship 6 Ship 7");
     autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
     autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
+    */
+    
+    autonChooser.addOption("Traction Hatch Lvl2 Left - Near Rocket Low - Far Rocket Low", "Traction Hatch Lvl2 Left Far Rocket Low Near Rocket Low");
+    autonChooser.addOption("Traction Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Traction Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
 
     /* --- Incompatable with Omni wheels --- DO NOT USE --- */
-  /*
+  
     autonChooser.addOption("Hatch Lvl2 Right - Ship 5", "CGHatchRightHighToShip5");
     autonChooser.addOption("Hatch Lvl2 Left - Ship 4", "CGHatchLeftHighToShip4");
 
@@ -188,7 +196,7 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
-   */
+   
 
     // TODO: write new autons for IRI due to the change in traction wheels
     SmartDashboard.putData("Auto mode", autonChooser);
@@ -303,6 +311,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     Robot.Chassis.setAllNeoBrakeMode(IdleMode.kCoast);
     Robot.Vision.setLEDMode(1);
+    Robot.oi.driverJoystick.setRumbleSpeed(0, 0);
     logger = false;
   }
 
@@ -410,6 +419,13 @@ public class Robot extends TimedRobot {
         autonomousCommand = new CGHatchLeftHighToShip4();
       break;
 
+      /* --- Nitrite Tracion Autons --- */
+      case "Traction Hatch Lvl2 Left Far Rocket Low Near Rocket Low":
+        autonomousCommand = new CGTractionHatchLeftHighNearRocketLowFarRocketLow();
+      break;
+      case "Traction Hatch Lvl2 Right Far Rocket Low Near Rocket Low":
+      autonomousCommand = new CGTractionHatchRightHighNearRocketLowFarRocketLow();
+
       default:
         autonomousCommand = new autoDoNothing();
       break;
@@ -418,11 +434,14 @@ public class Robot extends TimedRobot {
 
     //Keep lift from moving out of position when auton is initialized 
     Robot.Lift.setSetpoint(Robot.Lift.getPosition());
+    autoRuns = 0;
 
     // schedule the autonomous command (example)
+    /*
     if (autonomousCommand != null) {
       autonomousCommand.start();
     }
+    */
   }
 
   /**
@@ -430,6 +449,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    if (autonomousCommand != null && !Robot.oi.operatorControls.YellowButton.get() && autoRuns == 0) {
+      autonomousCommand.start();
+      autoRuns++;
+    }
     Scheduler.getInstance().run();
   }
 
