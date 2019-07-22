@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
     autonChooser.setDefaultOption("Auton Do Nothing", "Default");
 
     /* --- Omni Autons --- */
-    /*
+    
     autonChooser.addOption("Omni Hatch Lvl1 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl2 Right Near Rocket Low Far Rocket Low");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Near Rocket Low - Far Rocket Low", "Omni Hatch Lvl1 Left Near Rocket Low Far Rocket Low");
@@ -169,13 +169,13 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 7 - Ship 6", "Omni Hatch Left High Ship 7 Ship 6");
     autonChooser.addOption("Omni Hatch Lvl1 Left - Ship 6 - Ship 7", "Omni Hatch Left Low Ship 6 Ship 7");
     autonChooser.addOption("Omni Hatch Lvl2 Left - Ship 6 - Ship 7", "Omni Hatch Left High Ship 6 Ship 7");
-    */
     
+    /*
     autonChooser.addOption("Traction Hatch Lvl2 Left - Near Rocket Low - Far Rocket Low", "Traction Hatch Lvl2 Left Far Rocket Low Near Rocket Low");
     autonChooser.addOption("Traction Hatch Lvl2 Right - Near Rocket Low - Far Rocket Low", "Traction Hatch Lvl2 Right Far Rocket Low Near Rocket Low");
 
     /* --- Incompatable with Omni wheels --- DO NOT USE --- */
-  
+  /*
     autonChooser.addOption("Hatch Lvl2 Right - Ship 5", "CGHatchRightHighToShip5");
     autonChooser.addOption("Hatch Lvl2 Left - Ship 4", "CGHatchLeftHighToShip4");
 
@@ -196,7 +196,7 @@ public class Robot extends TimedRobot {
     autonChooser.addOption("Hatch Lvl2 Right - Ship 7 - Ship 6", "Hatch Right High Ship 7 Ship 6");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 5 - Near Rocket Low", "Hatch Middle Ship 5 Near Rocket Low");
     autonChooser.addOption("Hatch Lvl1 Mid - Ship 4 - Near Rocket Low", "Hatch Middle Ship 4 Near Rocket Low");
-   
+   */
 
     // TODO: write new autons for IRI due to the change in traction wheels
     SmartDashboard.putData("Auto mode", autonChooser);

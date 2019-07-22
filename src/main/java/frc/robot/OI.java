@@ -62,12 +62,12 @@ public class OI {
 		driverJoystick.triggerRight					.whenReleased(new setYeetSpeed(0.85));
 		driverJoystick.triggerRight					.whenInactive(new setYeetSpeed(0.85)); //TODO: test to make sure this actually works :)
 		
-		driverJoystick.triggerLeft                  .whileHeld(new UltraSonicPIDVisionDriveWithSlow(0.05, 0, 0));//PIDVisionDriveWithSlow(0.05, 0, 0)); //OmniPIDVisionDriveWithSlow(0.1, 0.06)
+		driverJoystick.triggerLeft                  .whileHeld(new OmniPIDVisionDriveWithSlow(0.05, 0));//PIDVisionDriveWithSlow(0.05, 0, 0)); //OmniPIDVisionDriveWithSlow(0.1, 0.06)
 		driverJoystick.leftStickButton				.whenPressed(new limeLightLEDOn());
 		
 		driverJoystick.rightStickButton				.whileHeld(new driveByJoystickCurvQuickTurn(true));
-		driverJoystick.rightStickButton				.whenPressed(new shifterLowGear());
-		driverJoystick.rightStickButton				.whenReleased(new shifterHighGear());
+		// driverJoystick.rightStickButton				.whenPressed(new shifterLowGear());
+		// driverJoystick.rightStickButton				.whenReleased(new shifterHighGear());
 
 		driverJoystick.yellowY						.whenPressed(new removeNeoOpenLoopRampRate());		
 
