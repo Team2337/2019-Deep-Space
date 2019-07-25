@@ -527,6 +527,7 @@ public class Chassis extends Subsystem {
     neoLeftRearMotor.setOpenLoopRampRate(rampRate);
   }
 
+
   /**
    * Determines what the NEO drive motors will do when no signal is given to them
    * 

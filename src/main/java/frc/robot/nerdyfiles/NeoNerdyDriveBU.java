@@ -189,4 +189,8 @@ public class NeoNerdyDriveBU {
 			return 0.0;
 		}
 	}
+
+	/* protected double accelRampRate(double rampRate) {
+		return 
+	} */
 }

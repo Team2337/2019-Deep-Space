@@ -15,6 +15,8 @@ public class driveByJoystick extends Command {
   private NerdyUltimateXboxDriver driverJoystick = Robot.oi.driverJoystick;
   private boolean isNeoDrive;
   private boolean isCurvature;
+  private boolean highVelocity;
+  private double timer;
 
   // How fast the robot moves overall
   double moveSpeed;
@@ -34,6 +36,11 @@ public class driveByJoystick extends Command {
     requires(Robot.Chassis);
   }
 
+  protected void initialize() {
+    timer = 0;
+    highVelocity = false;
+  }
+
   // Supplys the correct values to the arcadeDrive command to drive the robot
   protected void execute() {
 
@@ -45,6 +52,26 @@ public class driveByJoystick extends Command {
 
     if(Robot.Lift.getPosition() > 300 && moveSpeed > 0.65) {
       moveSpeed = 0.65;
+    }
+
+    /* --- Anti-Tip --- */
+    if(Robot.Chassis.getAverageNeoVelocity() > 3500) {
+      highVelocity = true;
+      timer = 0;
+    }
+    if(Robot.Chassis.getAverageNeoVelocity() < 0) {
+      highVelocity = false;
+    }
+    
+    if(highVelocity) {
+      if(moveSpeed <= 0.3) {
+        if(timer < 10) {
+          moveSpeed = 0.5;
+          timer++;
+        } if(timer > 10 && Robot.Pigeon.getRoll() <= 11) {
+          highVelocity = false;
+        }
+      }
     }
 
     // If the robot is driving with Neos, send the values to neoDrive, otherwise,
