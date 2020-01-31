@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc.robot.Robot;
 
 /**
@@ -32,7 +31,6 @@ public class ClimberDeploy extends Subsystem {
         this.climberPhase = 5; // 5
         this.readyToClimb = false;
 
-        LiveWindow.addActuator("servo", 1, climberReleaseServo);
     }
 
     public void servoSet(double pos) {
