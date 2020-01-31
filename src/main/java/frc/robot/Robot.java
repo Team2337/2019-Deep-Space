@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
     Pigeon = new Pigeon();
     Recorder = new Recorder();
     RoboWrangler = new RoboWrangler();
-    // PDP = new PowerDistributionPanel();
+    PDP = new PowerDistributionPanel();
     Pigeon = new Pigeon();
     Shifter = new Shifter();
     TRexArms = new TRexArms();
@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
     CargoBigBrother = new CargoBigBrother();
 
     // Turn off the Limelight LED if it is on.
-    LED.setColor(Robot.LED.off);
+    // LED.setColor(Robot.LED.off);
     
     // Writing a trajectory to a file (keep commented out until needed)
     // Robot.NerdyPath.writeFile("driveForward184", driveForwardT); //187
